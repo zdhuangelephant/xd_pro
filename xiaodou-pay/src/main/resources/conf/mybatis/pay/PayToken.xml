@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="PayToken">
+	<resultMap id="BaseResultMap" type="com.xiaodou.server.pay.model.PayToken">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="business_type" property="businessType"
+			jdbcType="INTEGER" />
+		<result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
+		<result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR" />
+		<result column="business_status" property="businessStatus"
+			jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="dynamic_output" />
+		from xd_payment_token
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_payment_token
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<delete id="delete" parameterType="java.util.Map">
+		delete from
+		xd_payment_token
+		<include refid="dynamic_where" />
+	</delete>
+	<insert id="addEntity" parameterType="com.xiaodou.server.pay.model.PayToken">
+		insert into xd_payment_token
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="businessType != null">business_type,</if>
+			<if test="tradeNo != null">trade_no,</if>
+			<if test="outTradeNo != null">out_trade_no,</if>
+			<if test="businessStatus != null">business_status,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="businessType != null">#{businessType,jdbcType=INTEGER},</if>
+			<if test="tradeNo != null">#{tradeNo,jdbcType=VARCHAR},</if>
+			<if test="outTradeNo != null">#{outTradeNo,jdbcType=VARCHAR},</if>
+			<if test="businessStatus != null">#{businessStatus,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.server.pay.model.PayToken">
+		update xd_payment_token
+		<set>
+			<if test="value != null and value.businessType != null">business_type = #{value.businessType,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.tradeNo != null">trade_no = #{value.tradeNo,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.outTradeNo != null">out_trade_no = #{value.outTradeNo,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.businessStatus != null">business_status =
+				#{value.businessStatus,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.server.pay.model.PayToken">
+		update xd_payment_token
+		<set>
+			<if test="value != null and value.businessType != null">business_type = #{value.businessType,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.tradeNo != null">trade_no = #{value.tradeNo,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.outTradeNo != null">out_trade_no = #{value.outTradeNo,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.businessStatus != null">business_status =
+				#{value.businessStatus,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_payment_token
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.businessType != null">business_type,</if>
+			<if test="output != null and output.tradeNo != null">trade_no,</if>
+			<if test="output != null and output.outTradeNo != null">out_trade_no,</if>
+			<if test="output != null and output.businessStatus != null">business_status,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.businessType != null">and business_type=#{input.businessType}</if>
+			<if test="input != null and input.tradeNo != null">and trade_no=#{input.tradeNo}</if>
+			<if test="input != null and input.outTradeNo != null">and out_trade_no=#{input.outTradeNo}</if>
+			<if test="input != null and input.businessStatus != null">and business_status=#{input.businessStatus}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limitStart != null and limitCount != null">
+			limit ${limitStart}, ${limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

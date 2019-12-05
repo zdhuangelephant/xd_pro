@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AdminPrivilege">
+
+    <resultMap id="BaseResultMap" type="AdminPrivilege">
+        <result column="admin_id" property="adminId"/>
+        <result column="privilege_id" property="privilegeId"/>
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">admin_id,privilege_id</sql>
+    <sql id="all_column">
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="adminId != null">admin_id,</if>
+            <if test="privilegeId != null">privilege_id,</if>
+
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="adminId != null">#{adminId},</if>
+            <if test="privilegeId != null">#{privilegeId},</if>
+
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="AdminPrivilege">
+        insert into admin_admin_privilege
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update admin_admin_privilege
+        <set>
+            <if test="value != null and value.adminId != null">admin_id = #{value.adminId},</if>
+            <if test="value != null and value.privilegeId != null">privilege_id = #{value.privilegeId},</if>
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        admin_id,privilege_id
+        from admin_admin_privilege
+        <include refid="dynamic_where"/>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from admin_admin_privilege
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.adminId != null">and admin_id =#{input.adminId}</if>
+            <if test="input != null and input.privilegeId != null">and privilege_id =#{input.privilegeId}</if>
+            <if test="input != null and input.privilegeIds != null">and privilege_id in
+                <foreach collection="input.privilegeIds" index="index" open="(" close=")" separator="," item="item">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.adminId != null">admin_id,</if>
+            <if test="output != null and output.privilegeId != null">privilege_id,</if>
+        </trim>
+    </sql>
+
+
+</mapper>

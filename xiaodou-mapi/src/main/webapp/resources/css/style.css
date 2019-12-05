@@ -1,0 +1,222 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: arial;
+    text-align: center;
+	overflow-x: hidden}
+* {
+    margin:0;
+    padding: 0;
+}
+ul li {
+    list-style: none;
+}
+
+.item1, .item2, .item3, .item4 {
+    height: 603px;
+    width: 375px;
+}
+.item1 {
+    background: url("../image/f-1-bg.png") center center no-repeat;
+    background-size: 100% 100%;
+}
+.item2 {
+    background: url("../image/s-bg.png") center center no-repeat;
+    background-size: 100% 100%;
+}
+.item3 {
+    position: absolute;
+    top: 0;
+    background: url("../image/t-bg.png") center center no-repeat;
+    background-size: 100% 100%;
+}
+.item4 {
+    background: url("../image/l-bg.png") center center no-repeat;
+    background-size: 100% 100%;
+}
+.f-stu {
+    margin: 59px 0 0 0;
+}
+.f-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fda33e;
+    margin: 6px 0 0 0;
+}
+.f-data {
+    font-size: 16px;
+    color: #fff;
+    margin: 107px 0 0 0;
+}
+.box {
+    margin: 110px auto 0;
+    width: 334px;
+    overflow: hidden;
+}
+
+.wrap li {
+    height: 178px;
+    display: inline-block;
+    white-space: nowrap;
+    float: none;
+}
+
+.wrap {
+    position: relative;
+    height: 230px;
+    margin-bottom: -15px;
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x:scroll;
+    -webkit-overflow-scrolling:touch;
+}
+.wrap li a {
+    margin: 0 auto;
+    display: block;
+    height: 151px;
+    width: 92px;
+    border: 2px solid #fff;
+    border-radius: 7px;
+}
+.cont {
+    width: 100%;
+    height: 100%;
+    padding: 0 5px;
+}
+.main {
+    margin: 0 auto;
+    padding-top: 110px;
+    width: 334px;
+    overflow: hidden;
+}
+.c {
+    float: left;
+    width: 96px;
+    height: 177px;
+}
+.active {
+    border: 2px solid #fdb563;
+    border-radius: 4px;
+}
+.c1,.c2, .c3 {
+    margin: 0 auto;
+    display: block;
+    height: 151px;
+    width: 92px;
+    border: 2px solid #fff;
+}
+
+.c1 {
+    background: url("../image/c1.png") center center no-repeat;
+    background-size: 100% 100%;
+}
+.c2 {
+    background: url("../image/c2.png") center center no-repeat;
+    background-size: 100% 100%;
+}
+.c3 {
+    background: url("../image/c3.png") center center no-repeat;
+    background-size: 100% 100%;
+}
+.c4 {
+    background: url("../image/c4.png") center center no-repeat;
+    background-size: 100% 100%;
+}
+.content {
+    margin: 96px 0 0 0;
+}
+
+.f-li {
+    margin-left: 6px;
+}
+.l-li {
+    margin-right: 6px;
+}
+.c-cont div {
+    display: none;
+}
+.select {
+    margin-top: 8px;
+    display: none;
+    width: 94px;
+    height: 15px;
+    background: url("../image/selected.png") center center no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.f-p, .s-p {
+    overflow: hidden;
+    clear: both;
+}
+.f-p {
+    margin: 83px 0 0 0;
+}
+.f-p span, .s-p span {
+    display: inline-block;
+    font-size: 30px;
+    font-weight: bold;
+    color: #fded56;
+}
+.o-color span {
+    color: #b2aee4;
+}
+.f-p span:first-child, .s-p span:first-child {
+    float: left;
+    margin: 0 0 0 93px;
+}
+.f-p span:last-child{
+    float: right;
+    margin: 0 92px 0 0;
+}
+.s-p span:last-child {
+    float: right;
+    margin: 0 99px 0 0;
+}
+
+.s-p {
+    margin-top: 54px;
+}
+
+/*箭头begin*/
+.u-arrow {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    z-index: 150;
+    width: 50px;
+    height: 30px;
+    margin-left: -25px;
+}
+
+.u-arrow p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -14px 0 0 -25px;
+    width: 50px;
+    height: 28px;
+    background-position: 0 -82px;
+    -webkit-animation: start 1.5s infinite ease-in-out;
+    -moz-animation: start 1.5s infinite ease-in-out;
+    animation: start 1.5s infinite ease-in-out;
+}
+.css_sprite01 {
+    background-image: url(../image/css_sprite01.png)!important;
+    background-repeat: no-repeat!important;
+}
+/*箭头指示引导*/
+@-webkit-keyframes start {
+    0%,30% {opacity: 0;-webkit-transform: translate(0,10px);}
+    60% {opacity: 1;-webkit-transform: translate(0,0);}
+    100% {opacity: 0;-webkit-transform: translate(0,-8px);}
+}
+@-moz-keyframes start {
+    0%,30% {opacity: 0;-moz-transform: translate(0,10px);}
+    60% {opacity: 1;-moz-transform: translate(0,0);}
+    100% {opacity: 0;-moz-transform: translate(0,-8px);}
+}
+@keyframes start {
+    0%,30% {opacity: 0;transform: translate(0,10px);}
+    60% {opacity: 1;transform: translate(0,0);}
+    100% {opacity: 0;transform: translate(0,-8px);}
+}

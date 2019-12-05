@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<!--后台 -->
+		<typeAlias type="com.xiaodou.control.model.admin.Admin" alias="Admin" />
+		<typeAlias type="com.xiaodou.control.model.admin.AdminRole"
+			alias="AdminRole" />
+		<typeAlias type="com.xiaodou.control.model.admin.AdminConfig"
+			alias="AdminConfig" />
+		<typeAlias type="com.xiaodou.control.model.admin.Privilege"
+			alias="Privilege" />
+		<typeAlias type="com.xiaodou.control.model.admin.Role" alias="Role" />
+		<typeAlias type="com.xiaodou.control.model.admin.RolePrivilege"
+			alias="RolePrivilege" />
+		<typeAlias type="com.xiaodou.control.model.admin.AdminPrivilege"
+			alias="AdminPrivilege" />
+   </typeAliases>
+	<mappers>
+		<!--后台 -->
+		<mapper resource="conf/mybatis/admin/admin.xml" />
+	    <mapper resource="conf/mybatis/admin/adminRole.xml" />
+		<mapper resource="conf/mybatis/admin/adminConfig.xml" />
+		<mapper resource="conf/mybatis/admin/privilege.xml" />
+		<mapper resource="conf/mybatis/admin/role.xml" />
+		<mapper resource="conf/mybatis/admin/rolePrivilege.xml" />
+		<mapper resource="conf/mybatis/admin/AdminPrivilege.xml" />
+	</mappers>
+</configuration>

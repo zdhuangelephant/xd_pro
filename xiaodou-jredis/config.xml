@@ -1,0 +1,257 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<maven2-moduleset plugin="maven-plugin@2.0">
+  <actions/>
+  <description>JRedis Project</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>7</daysToKeep>
+    <numToKeep>15</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>project_version</name>
+          <description>一次迭代上传至ftp的三位版本号，开发状态的四位版本号为BuildID</description>
+          <defaultValue>{#version#}</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>package_name</name>
+          <description>工程发布包</description>
+          <defaultValue>JRedis.jar</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>remote_ftp_dir</name>
+          <description>ftp服务器路径</description>
+          <defaultValue>/hotel/JRedis</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>remote_ftp_submodule</name>
+          <description>ftp submodule</description>
+          <defaultValue>JRedis</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.SubversionSCM" plugin="subversion@1.54">
+    <locations>
+      <hudson.scm.SubversionSCM_-ModuleLocation>
+        <remote>http://svn.elong.cn/svn/Code/Pub/JRedis/Trunk/</remote>
+        <local>.</local>
+        <depthOption>infinity</depthOption>
+        <ignoreExternalsOption>false</ignoreExternalsOption>
+      </hudson.scm.SubversionSCM_-ModuleLocation>
+    </locations>
+    <excludedRegions></excludedRegions>
+    <includedRegions></includedRegions>
+    <excludedUsers></excludedUsers>
+    <excludedRevprop></excludedRevprop>
+    <excludedCommitMessages></excludedCommitMessages>
+    <workspaceUpdater class="hudson.scm.subversion.UpdateUpdater"/>
+    <ignoreDirPropChanges>false</ignoreDirPropChanges>
+    <filterChangelog>false</filterChangelog>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec>* * * * *</spec>
+      <ignorePostCommitHooks>true</ignorePostCommitHooks>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <rootModule>
+    <groupId>com.elong.hotel</groupId>
+    <artifactId>JRedis</artifactId>
+  </rootModule>
+  <goals>clean deploy</goals>
+  <aggregatorStyleBuild>true</aggregatorStyleBuild>
+  <incrementalBuild>false</incrementalBuild>
+  <perModuleEmail>true</perModuleEmail>
+  <ignoreUpstremChanges>true</ignoreUpstremChanges>
+  <archivingDisabled>false</archivingDisabled>
+  <resolveDependencies>false</resolveDependencies>
+  <processPlugins>false</processPlugins>
+  <mavenValidationLevel>-1</mavenValidationLevel>
+  <runHeadless>false</runHeadless>
+  <disableTriggerDownstreamProjects>false</disableTriggerDownstreamProjects>
+  <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+  <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+  <reporters/>
+  <publishers>
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.37.2">
+      <recipientList>yi.tian@corp.elong.com,Xin.Li4@corp.elong.com</recipientList>
+      <configuredTriggers>
+        <hudson.plugins.emailext.plugins.trigger.SuccessTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <sendToDevelopers>false</sendToDevelopers>
+            <sendToRequester>true</sendToRequester>
+            <includeCulprits>false</includeCulprits>
+            <sendToRecipientList>true</sendToRecipientList>
+            <attachmentsPattern></attachmentsPattern>
+            <attachBuildLog>false</attachBuildLog>
+            <compressBuildLog>false</compressBuildLog>
+            <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
+            <contentType>project</contentType>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.SuccessTrigger>
+        <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <sendToDevelopers>false</sendToDevelopers>
+            <sendToRequester>true</sendToRequester>
+            <includeCulprits>false</includeCulprits>
+            <sendToRecipientList>true</sendToRecipientList>
+            <attachmentsPattern></attachmentsPattern>
+            <attachBuildLog>false</attachBuildLog>
+            <compressBuildLog>false</compressBuildLog>
+            <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
+            <contentType>project</contentType>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+        <hudson.plugins.emailext.plugins.trigger.UnstableTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <sendToDevelopers>false</sendToDevelopers>
+            <sendToRequester>true</sendToRequester>
+            <includeCulprits>false</includeCulprits>
+            <sendToRecipientList>true</sendToRecipientList>
+            <attachmentsPattern></attachmentsPattern>
+            <attachBuildLog>false</attachBuildLog>
+            <compressBuildLog>false</compressBuildLog>
+            <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
+            <contentType>project</contentType>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.UnstableTrigger>
+      </configuredTriggers>
+      <contentType>text/html</contentType>
+      <defaultSubject>构建通知:${BUILD_STATUS} - ${PROJECT_NAME} - Build # ${BUILD_NUMBER}  - AOS Version : ${project_version}-${BUILD_NUMBER}</defaultSubject>
+      <defaultContent>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;${ENV, var=&quot;JOB_NAME&quot;}-第${BUILD_NUMBER}次构建日志&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body leftmargin=&quot;8&quot; marginwidth=&quot;0&quot; topmargin=&quot;8&quot; marginheight=&quot;4&quot;
+    offset=&quot;0&quot;&gt;
+    &lt;table width=&quot;95%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;
+        style=&quot;font-size: 11pt; font-family: Tahoma, Arial, Helvetica, sans-serif&quot;&gt;
+        &lt;tr&gt;
+            &lt;td&gt;(本邮件是程序自动下发的，请勿回复！)&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;h2&gt;
+                    &lt;font color=&quot;#0000FF&quot;&gt;构建结果 - ${BUILD_STATUS}&lt;/font&gt;
+                &lt;/h2&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;br /&gt;
+            &lt;b&gt;&lt;font color=&quot;#0B610B&quot;&gt;构建信息&lt;/font&gt;&lt;/b&gt;
+            &lt;hr size=&quot;2&quot; width=&quot;100%&quot; align=&quot;center&quot; /&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;项目名称&amp;nbsp;：&amp;nbsp;${PROJECT_NAME}&lt;/li&gt;
+                    &lt;li&gt;构建编号&amp;nbsp;：&amp;nbsp;第${BUILD_NUMBER}次构建&lt;/li&gt;
+                    &lt;li&gt;SVN&amp;nbsp;版本：&amp;nbsp;${SVN_REVISION}&lt;/li&gt;
+                    &lt;li&gt;触发原因：&amp;nbsp;${CAUSE}&lt;/li&gt;
+                    &lt;li&gt;构建日志：&amp;nbsp;&lt;a href=&quot;${BUILD_URL}console&quot;&gt;${BUILD_URL}console&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;构建&amp;nbsp;&amp;nbsp;Url&amp;nbsp;：&amp;nbsp;&lt;a href=&quot;${BUILD_URL}&quot;&gt;${BUILD_URL}&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;工作目录&amp;nbsp;：&amp;nbsp;&lt;a href=&quot;${PROJECT_URL}ws&quot;&gt;${PROJECT_URL}ws&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;项目&amp;nbsp;&amp;nbsp;Url&amp;nbsp;：&amp;nbsp;&lt;a href=&quot;${PROJECT_URL}&quot;&gt;${PROJECT_URL}&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;&lt;font color=&quot;#0B610B&quot;&gt;Changes Since Last
+                        Successful Build:&lt;/font&gt;&lt;/b&gt;
+            &lt;hr size=&quot;2&quot; width=&quot;100%&quot; align=&quot;center&quot; /&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;历史变更记录 : &lt;a href=&quot;${PROJECT_URL}changes&quot;&gt;${PROJECT_URL}changes&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt; ${CHANGES_SINCE_LAST_SUCCESS,reverse=true, format=&quot;Changes for Build #%n:&lt;br /&gt;%c&lt;br /&gt;&quot;,showPaths=true,changesFormat=&quot;&lt;pre&gt;[%a]&lt;br /&gt;%m&lt;/pre&gt;&quot;,pathFormat=&quot;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;%p&quot;}
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;Failed Test Results&lt;/b&gt;
+            &lt;hr size=&quot;2&quot; width=&quot;100%&quot; align=&quot;center&quot; /&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;pre
+                    style=&quot;font-size: 11pt; font-family: Tahoma, Arial, Helvetica, sans-serif&quot;&gt;$FAILED_TESTS&lt;/pre&gt;
+                &lt;br /&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;&lt;font color=&quot;#0B610B&quot;&gt;构建日志 (最后 500行):&lt;/font&gt;&lt;/b&gt;
+            &lt;hr size=&quot;2&quot; width=&quot;100%&quot; align=&quot;center&quot; /&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;!-- &lt;tr&gt;
+            &lt;td&gt;Test Logs (if test has ran): &lt;a
+                href=&quot;${PROJECT_URL}ws/TestResult/archive_logs/Log-Build-${BUILD_NUMBER}.zip&quot;&gt;${PROJECT_URL}/ws/TestResult/archive_logs/Log-Build-${BUILD_NUMBER}.zip&lt;/a&gt;
+                &lt;br /&gt;
+            &lt;br /&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt; --&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;textarea cols=&quot;80&quot; rows=&quot;30&quot; readonly=&quot;readonly&quot;
+                    style=&quot;font-family: Courier New&quot;&gt;${BUILD_LOG, maxLines=500}&lt;/textarea&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</defaultContent>
+      <attachmentsPattern></attachmentsPattern>
+      <presendScript>$DEFAULT_PRESEND_SCRIPT</presendScript>
+      <attachBuildLog>false</attachBuildLog>
+      <compressBuildLog>false</compressBuildLog>
+      <replyTo>$DEFAULT_REPLYTO</replyTo>
+      <saveOutput>false</saveOutput>
+    </hudson.plugins.emailext.ExtendedEmailPublisher>
+  </publishers>
+  <buildWrappers/>
+  <prebuilders/>
+  <postbuilders>
+    <hudson.tasks.Shell>
+      <command>
+#!/bin/bash&#x0D;&#x0A;
+&#x0D;&#x0A;
+basedir=/root/.jenkins/buildhistory&#x0D;&#x0A;
+filepath=${basedir}/${JOB_NAME}&#x0D;&#x0A;
+filesubfix=`date +%Y%m%d%H%M%S`&#x0D;&#x0A;
+filename=${filepath}/result_${filesubfix}.log&#x0D;&#x0A;
+mkdir -p ${filepath}&#x0D;&#x0A;
+echo `curl http://192.168.14.198:8080/jenkins/job/${JOB_NAME}/lastBuild/api/json` > ${filename}&#x0D;&#x0A;
+if grep &apos;\&quot;result\&quot;:\&quot;SUCCESS\&quot;&apos; ${filename}; then&#x0D;&#x0A;
+        echo &apos;Build SUCCESS&apos;&#x0D;&#x0A;
+else&#x0D;&#x0A;
+        echo &apos;Build FAILURE OR UNSTABLE&apos;&#x0D;&#x0A;
+        exit 0&#x0D;&#x0A;
+fi&#x0D;&#x0A;
+&#x0D;&#x0A;
+
+exit 0&#x0D;&#x0A;
+      </command>
+    </hudson.tasks.Shell>
+  </postbuilders>
+  <runPostStepsIfResult>
+    <name>FAILURE</name>
+    <ordinal>2</ordinal>
+    <color>RED</color>
+    <completeBuild>true</completeBuild>
+  </runPostStepsIfResult>
+</maven2-moduleset>

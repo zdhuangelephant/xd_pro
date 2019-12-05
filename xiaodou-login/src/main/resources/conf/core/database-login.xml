@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:oscache="http://www.springmodules.org/schema/oscache"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springmodules.org/schema/oscache http://www.springmodules.org/schema/cache/springmodules-oscache.xsd
+           http://code.alibabatech.com/schema/dubbo
+       	   http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<context:property-placeholder
+		location="classpath:conf/custom/env/login.properties"
+		ignore-unresolvable="true" />
+
+	<!--数据源 -->
+	<bean id="loginSummerDataSource"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerDataSourceManager">
+		<property name="alias" value="login"></property>
+		<property name="user" value="${login.username}" />
+		<property name="password" value="${login.password}" />
+		<property name="driver" value="${login.driverClassName}" />
+        <property name="driverUrl" value="${login.url}" />
+		<property name="maximumConnectionCount" value="${login.maximumConnectionCount}"></property>
+		<property name="maximumActiveTime" value="${login.maximumActiveTime}"></property>
+		<property name="maximumConnectionLifetime" value="${login.maximumConnectionLifetime}"></property>
+		<property name="prototypeCount" value="${login.prototypeCount}"></property>
+		<property name="houseKeepingSleepTime" value="${login.houseKeepingSleepTime}"></property>
+		<property name="simultaneousBuildThrottle" value="${login.simultaneousBuildThrottle}"></property>
+		<property name="houseKeepingTestSql" value="${login.houseKeepingTestSql}"></property>
+		<property name="verbose" value="${login.verbose}"></property>
+		<property name="statistics" value="${login.statistics}"></property>
+		<property name="statisticsLogLevel" value="${login.statisticsLogLevel}"></property>
+	</bean>
+
+	<bean id="loginSummerSqlSessionFactory" name="loginSummerSqlSessionFactory"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerSqlSessionFactory">
+		<property name="configLocation" value="classpath:conf/core/loginSqlMapConfig.xml" />
+		<property name="dataSourceManager" ref="loginSummerDataSource" />
+	</bean>
+
+
+</beans>

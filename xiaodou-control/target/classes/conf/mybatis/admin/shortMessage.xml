@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AdminShortMessage">
+
+	<resultMap id="BaseResultMap" type="AdminShortMessage">
+		<id column="id" property="id" />
+		<result column="message_status" property="messageStatus" />
+		<result column="merchant_id" property="merchantId" />
+		<result column="template_id" property="templateId" />
+		<result column="telephone" property="telephone" />
+		<result column="variables" property="variables" />
+		<result column="create_time" property="createTime" />
+		<result column="create_user" property="createUser" />
+		<result column="update_time" property="updateTime" />
+		<result column="update_user" property="updateUser" />
+	</resultMap>
+
+	<!--字段 -->
+	<sql id="base_column">message_status,merchant_id,template_id,telephone,variables
+	,create_time,create_user,update_time,update_user</sql>
+	<sql id="all_column">
+		id,
+		<include refid="base_column" />
+	</sql>
+
+	<!-- 1.插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="messageStatus != null">message_status,</if>
+			<if test="merchantId != null">merchant_id,</if>
+			<if test="templateId != null">template_id,</if>
+			<if test="telephone != null">telephone,</if>
+			<if test="variables != null">variables,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="createUser != null">create_user,</if>
+			<if test="updateTime != null">update_time,</if>
+			<if test="updateUser != null">update_user,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="messageStatus != null">#{messageStatus},</if>
+			<if test="merchantId != null">#{merchantId},</if>
+			<if test="templateId != null">#{templateId},</if>
+			<if test="telephone != null">#{telephone},</if>
+			<if test="variables != null">#{variables},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="createUser != null">#{createUser},</if>
+			<if test="updateTime != null">#{updateTime},</if>
+			<if test="updateUser != null">#{updateUser},</if>
+
+		</trim>
+	</sql>
+
+	<insert id="addEntity" parameterType="AdminShortMessage">
+		insert into admin_short_message
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- 2.更新 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update admin_short_message
+		<set>
+			<if test="value != null and value.messageStatus != null">message_status = #{value.messageStatus},</if>
+			<if test="value != null and value.merchantId != null">merchant_id = #{value.merchantId},</if>
+			<if test="value != null and value.templateId != null">template_id = #{value.templateId},</if>
+			<if test="value != null and value.telephone != null">telephone = #{value.telephone},</if>
+			<if test="value != null and value.variables != null">variables = #{value.variables},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+			<if test="value != null and value.createUser != null">create_user = #{value.createUser},</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime},</if>
+			<if test="value != null and value.updateUser != null">update_user = #{value.updateUser},</if>
+			
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 3.查询 -->
+	<select id="findEntityListByCond" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="all_column" />
+		from admin_short_message
+		<include refid="dynamic_where" />
+		 order by create_time desc
+	</select>
+
+	<!-- 4.查询单个记录 -->
+	<select id="findEntityById" parameterType="AdminShortMessage" resultMap="BaseResultMap">
+		select * from admin_short_message where id = #{id};
+	</select>
+
+	<!-- 5.根据条件删除 -->
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from admin_short_message
+		<include refid="dynamic_where" />
+	</delete>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id = #{input.id}</if>
+			<if test="input != null and input.messageStatus != null">and message_status = #{input.messageStatus}</if>
+			<if test="input != null and input.merchantId != null">and merchant_id = #{input.merchantId}</if>
+			<if test="input != null and input.templateId != null">and template_id = #{input.templateId}</if>
+			<if test="input != null and input.telephone != null">and telephone = #{input.telephone}</if>
+			<if test="input != null and input.variables != null">and variables = #{input.variables}</if>
+			<if test="input != null and input.createTime != null">and create_time = #{input.createTime}</if>
+			<if test="input != null and input.createUser != null">and create_user = #{input.createUser}</if>
+			<if test="input != null and input.updateTime != null">and update_time = #{input.updateTime}</if>
+			<if test="input != null and input.updateUser != null">and update_user = #{input.updateUser}</if>
+		</where>
+	</sql>
+	<!--动态语句:输出 -->
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.messageStatus != null">message_status,</if>
+			<if test="output != null and output.merchantId != null">merchant_id,</if>
+			<if test="output != null and output.templateId != null">template_id,</if>
+			<if test="output != null and output.telephone != null">telephone,</if>
+			<if test="output != null and output.variables != null">variables ,</if>
+			<if test="output != null and output.createTime != null">create_time ,</if>
+			<if test="output != null and output.createUser != null">create_user,</if>
+			<if test="output != null and output.updateTime != null">update_time,</if>
+			<if test="output != null and output.updateUser != null">update_user,</if>
+		</trim>
+	</sql>
+
+
+</mapper>

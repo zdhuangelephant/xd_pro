@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon Aug 20 17:02:07 
+	CST 2012 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="City">
+
+	<resultMap id="BaseResultMap" type="City">
+		<id column="id" jdbcType="SMALLINT" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="unique_id" jdbcType="VARCHAR" property="uniqueId" />
+		<result column="code" jdbcType="VARCHAR" property="code" />
+		<result column="full_pinyin" jdbcType="VARCHAR" property="fullPinyin" />
+		<result column="short_pinyin" jdbcType="VARCHAR" property="shortPinyin" />
+		<result column="alias_name" jdbcType="VARCHAR" property="aliasName" />
+		<result column="alias_full_pinyin" jdbcType="VARCHAR" property="aliasFullPinyin" />
+		<result column="alias_short_pinyin" jdbcType="VARCHAR"
+			property="aliasShortPinyin" />
+		<result column="parent_id" jdbcType="SMALLINT" property="parentId" />
+		<result column="loc_level" jdbcType="TINYINT" property="locLevel" />
+	</resultMap>
+
+	<select id="findEntityListByCond" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select * from xd_common_city
+		<where>
+			<if test="ids != null">
+				and id in
+				<foreach collection="ids" open="(" close=")" item="item"
+					separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="id != null">
+				and id = #{id,jdbcType=SMALLINT}
+			</if>
+			<if test="uniqueId != null">
+				and unique_id = #{uniqueId,jdbcType=VARCHAR}
+			</if>
+			<if test="code != null">
+				and code = #{code,jdbcType=VARCHAR}
+			</if>
+			<if test="fullPinyin != null">
+				and full_pinyin = #{fullPinyin,jdbcType=VARCHAR}
+			</if>
+			<if test="shortPinyin != null">
+				and short_pinyin = #{shortPinyin,jdbcType=VARCHAR}
+			</if>
+			<if test="aliasName != null">
+				and alias_name = #{aliasName,jdbcType=VARCHAR}
+			</if>
+			<if test="aliasFullPinyin != null">
+				and alias_full_pinyin =
+				#{aliasFullPinyin,jdbcType=VARCHAR}
+			</if>
+			<if test="aliasShortPinyin != null">
+				and alias_short_pinyin =
+				#{aliasShortPinyin,jdbcType=VARCHAR}
+			</if>
+			<if test="parentId != null">
+				and parent_id = #{parentId,jdbcType=SMALLINT}
+			</if>
+			<if test="locLevel != null">
+				and loc_level = #{locLevel,jdbcType=TINYINT}
+			</if>
+		</where>
+	</select>
+
+	<select id="findEntityById" parameterType="City" resultMap="BaseResultMap">
+		select * from xd_common_city where id = #{id,jdbcType=SMALLINT}
+	</select>
+</mapper>

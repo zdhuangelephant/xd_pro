@@ -1,0 +1,196 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.xiaodou</groupId>
+	<artifactId>xiaodou-mapi</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>xd-mapi</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
+	<!-- scm svn trunk -->
+	<scm>
+		<connection>scm:svn:svn://svn.51xiaodou.com/repos/pub/xd-mapi/Trunk</connection>
+		<developerConnection>scm:svn:svn://svn.51xiaodou.com/repos/pub/xd-mapi/Trunk</developerConnection>
+		<url>svn://svn.51xiaodou.com/repos/pub/xd-mapi/Trunk</url>
+	</scm>
+	<!-- maven release plugins -->
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<resources>
+			<resource>
+				<directory>${project.basedir}/src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>${project.basedir}/src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.0</version>
+				<configuration>
+					<tagBase>svn://svn.51xiaodou.com/repos/pub/xd-mapi/Tags</tagBase>
+					<branchBase>
+						svn://svn.51xiaodou.com/repos/pub/xd-mapi/Branches</branchBase>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-war-plugin</artifactId> 
+				<version>2.5</version> </plugin> -->
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>xiaodou-releases</id>
+			<name>Nexus Release Repository</name>
+			<url>http://mvn.51xiaodou.com:8081/nexus/content/repositories/XiaodouRelease</url>
+		</repository>
+		<snapshotRepository>
+			<id>xiaodou-snapshots</id>
+			<name>Nexus Snapshot Repository</name>
+			<url>http://mvn.51xiaodou.com:8081/nexus/content/repositories/xiaodousnapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.xiaodou</groupId>
+			<artifactId>xiaodou-util</artifactId>
+			<version>2.0.10-snapshot</version>
+		</dependency>
+		<dependency>
+			<groupId>com.xiaodou</groupId>
+			<artifactId>xd-jmsg-client</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<!-- 消息队列 -->
+		<dependency>
+			<groupId>com.xiaodou</groupId>
+			<artifactId>xd-queue</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.xiaodou</groupId>
+					<artifactId>xiaodou-summer</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.xiaodou</groupId>
+			<artifactId>xd-share</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.xiaodou</groupId>
+					<artifactId>xiaodou-summer</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.xiaodou</groupId>
+			<artifactId>xd-async-message</artifactId>
+			<version>0.1.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.xiaodou</groupId>
+					<artifactId>xd-ucenter-model2b</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.xiaodou</groupId>
+			<artifactId>xiaodou-summer</artifactId>
+			<version>1.4.4-snapshot</version>
+		</dependency>
+		<dependency>
+			<groupId>com.xiaodou</groupId>
+			<artifactId>xiaodou-autobuild</artifactId>
+			<version>1.0.0-snapshot</version>
+		</dependency>
+		<dependency>
+			<groupId>com.xiaodou</groupId>
+			<artifactId>xd-wallet-agent</artifactId>
+			<version>2.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.xiaodou</groupId>
+			<artifactId>xiaodou-info</artifactId>
+			<version>1.0.4-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.thrift/libthrift -->
+		<dependency>
+			<groupId>org.apache.thrift</groupId>
+			<artifactId>libthrift</artifactId>
+			<version>0.9.3</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.xiaodou</groupId>
+			<artifactId>aop-agent</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+	</dependencies>
+</project>

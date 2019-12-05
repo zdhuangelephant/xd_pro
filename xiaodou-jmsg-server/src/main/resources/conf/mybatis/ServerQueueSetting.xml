@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ServerQueueSetting">
+	<resultMap id="BaseResultMap" type="com.xiaodou.jmsg.server.model.ServerQueueSetting">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+<result column="server_name" property="serverName" jdbcType="VARCHAR" />
+<result column="is_enable" property="isEnable" jdbcType="VARCHAR" />
+<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+<result column="group_id" property="groupId" jdbcType="VARCHAR" />
+
+	</resultMap>
+	<sql id="base_column">id, server_name, is_enable, update_time, group_id</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.jmsg.server.model.ServerQueueSetting">
+		select
+		<include refid="base_column" />
+		from message_server_node
+		where id = #{id,jdbcType=VARCHAR}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from message_server_node
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.jmsg.server.model.ServerQueueSetting"  >
+		insert into message_server_node
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+<if test="serverName != null">server_name,</if>
+<if test="isEnable != null">is_enable,</if>
+<if test="updateTime != null">update_time,</if>
+<if test="groupId != null">group_id,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+<if test="serverName != null">#{serverName,jdbcType=VARCHAR},</if>
+<if test="isEnable != null">#{isEnable,jdbcType=VARCHAR},</if>
+<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+<if test="groupId != null">#{groupId,jdbcType=VARCHAR},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.jmsg.server.model.ServerQueueSetting">
+		update message_server_node
+		<set>
+			<if test="value != null and value.serverName != null">server_name = #{value.serverName,jdbcType=VARCHAR},</if>
+<if test="value != null and value.isEnable != null">is_enable = #{value.isEnable,jdbcType=VARCHAR},</if>
+<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.groupId != null">group_id = #{value.groupId,jdbcType=VARCHAR},</if>
+
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.jmsg.server.model.ServerQueueSetting">
+		update message_server_node
+		<set>
+			<if test="value != null and value.serverName != null">server_name = #{value.serverName,jdbcType=VARCHAR},</if>
+<if test="value != null and value.isEnable != null">is_enable = #{value.isEnable,jdbcType=VARCHAR},</if>
+<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.groupId != null">group_id = #{value.groupId,jdbcType=VARCHAR},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.jmsg.server.model.ServerQueueSetting">
+		delete from message_server_node
+		where id = #{id,jdbcType=VARCHAR}
+
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from message_server_node
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+<if test="output != null and output.serverName != null">server_name,</if>
+<if test="output != null and output.isEnable != null">is_enable,</if>
+<if test="output != null and output.updateTime != null">update_time,</if>
+<if test="output != null and output.groupId != null">group_id,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+<if test="input != null and input.serverName != null">and server_name=#{input.serverName}</if>
+<if test="input != null and input.isEnable != null">and is_enable=#{input.isEnable}</if>
+<if test="input != null and input.updateTime != null">and update_time=#{input.updateTime}</if>
+<if test="input != null and input.groupId != null">and group_id=#{input.groupId}</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+
+		</trim>
+	</sql>
+</mapper>

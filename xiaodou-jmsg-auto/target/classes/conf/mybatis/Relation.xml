@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Relation">
+	<resultMap id="BaseResultMap" type="com.xiaodou.jmsgauto.model.Relation">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="group_id" property="groupId" jdbcType="VARCHAR" />
+		<result column="queue_id" property="queueId" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, group_id, queue_id</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.jmsgauto.model.Relation">
+		select
+		<include refid="base_column" />
+		from message_queue_server_mapper
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from message_queue_server_mapper
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="base_column" />
+		FROM message_queue_server_mapper
+		<include refid="dynamic_where" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.jmsgauto.model.Relation">
+		insert into message_queue_server_mapper
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="groupId != null">group_id,</if>
+			<if test="queueId != null">queue_id,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="groupId != null">#{groupId,jdbcType=VARCHAR},</if>
+			<if test="queueId != null">#{queueId,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.jmsgauto.model.Relation">
+		update message_queue_server_mapper
+		<set>
+			<if test="value != null and value.groupId != null">group_id = #{value.groupId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.queueId != null">queue_id = #{value.queueId,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.jmsgauto.model.Relation">
+		update message_queue_server_mapper
+		<set>
+			<if test="value != null and value.groupId != null">group_id = #{value.groupId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.queueId != null">queue_id = #{value.queueId,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.jmsgauto.model.Relation">
+		delete from
+		message_queue_server_mapper
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from message_queue_server_mapper
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.groupId != null">group_id,</if>
+			<if test="output != null and output.queueId != null">queue_id,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.groupId != null">and group_id=#{input.groupId}</if>
+			<if test="input != null and input.queueId != null">and queue_id=#{input.queueId}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+		</trim>
+	</sql>
+</mapper>

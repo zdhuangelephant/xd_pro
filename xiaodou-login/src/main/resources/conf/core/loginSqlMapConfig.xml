@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+ <typeAliases>
+		<!--用户 -->
+		<typeAlias type="com.xiaodou.login.model.Admin" alias="Admin" />
+   </typeAliases>
+   <mappers>
+		<!--后台 -->
+		<mapper resource="conf/mybatis/login/admin.xml" />
+   </mappers>
+</configuration>

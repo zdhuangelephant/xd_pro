@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Role">
+
+    <resultMap id="BaseResultMap" type="Role">
+        <id column="id" property="id"/>
+        <result column="role_name" property="roleName"/>
+        <result column="role_description" property="roleDescription"/>
+        <result column="disabled" property="disabled"/>
+
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">role_name,role_description,disabled</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="roleName != null">role_name,</if>
+            <if test="roleDescription != null">role_description,</if>
+            <if test="disabled != null">disabled,</if>
+
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="roleName != null">#{roleName},</if>
+            <if test="roleDescription != null">#{roleDescription},</if>
+            <if test="disabled != null">#{disabled},</if>
+
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="Role">
+        insert into admin_role
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update admin_role
+        <set>
+            <if test="value != null and value.roleName != null">role_name = #{value.roleName},</if>
+            <if test="value != null and value.roleDescription != null">role_description = #{value.roleDescription},</if>
+            <if test="value != null and value.disabled != null">disabled = #{value.disabled},</if>
+
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="all_column" />
+        from admin_role
+        <include refid="dynamic_where"/>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="Role" resultMap="BaseResultMap">
+        select * from admin_role where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from admin_role
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and id =#{input.id}</if>
+            <if test="input != null and input.roleName != null">and role_name =#{input.roleName}</if>
+            <if test="input != null and input.roleDescription != null">and role_description =#{input.roleDescription}</if>
+            <if test="input != null and input.disabled != null">and disabled =#{input.disabled}</if>
+
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">id,</if>
+            <if test="output != null and output.roleName != null">role_name,</if>
+            <if test="output != null and output.roleDescription != null">role_description,</if>
+            <if test="output != null and output.disabled != null">disabled,</if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

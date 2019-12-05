@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+   <typeAliases>
+		<typeAlias type="com.xiaodou.jmsg.server.model.ServerQueueSetting"
+			alias="ServerQueueSetting" />		
+		<typeAlias type="com.xiaodou.jmsg.server.model.MessageQueueSetting"
+			alias="MessageQueueSetting" />	
+		 <typeAlias type="com.xiaodou.jmsg.server.model.MessageBody"
+			alias="MessageBody" />	
+	    <typeAlias type="com.xiaodou.jmsg.server.model.MessageLog"
+			alias="MessageLog" />	
+	    <typeAlias type="com.xiaodou.jmsg.server.model.Relation"
+			alias="Relation" />	
+   </typeAliases>
+   <mappers>
+		<mapper resource="conf/mybatis/ServerQueueSetting.xml" />
+		<mapper resource="conf/mybatis/MessageQueueSetting.xml" />
+		<mapper resource="conf/mybatis/MessageBody.xml" />
+		<mapper resource="conf/mybatis/MessageLog.xml" />
+		<mapper resource="conf/mybatis/Relation.xml" />
+   </mappers>
+</configuration>

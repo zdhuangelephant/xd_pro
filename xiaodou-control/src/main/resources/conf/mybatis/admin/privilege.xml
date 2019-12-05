@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Privilege">
+
+    <resultMap id="BaseResultMap" type="Privilege">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="group_type" property="groupType"/>
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">name,group_type</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>  
+            <if test="groupType!= null">group_Type,</if>  
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+             <if test="groupType != null">#{groupType},</if>
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="Privilege">
+        insert into admin_privilege
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update admin_privilege
+        <set>
+            <if test="value != null and value.name != null">name = #{value.name},</if>
+            <if test="value != null and value.groupType!= null">group_type = #{value.groupType},</if>
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="all_column"/>
+        from admin_privilege
+        <include refid="dynamic_where"/>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="Privilege" resultMap="BaseResultMap">
+        select * from admin_privilege where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from admin_privilege
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and id =#{input.id}</if>
+            <if test="input != null and input.ids != null">and id in
+                <foreach collection="input.ids" index="index" item="item" separator="," open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="input != null and input.name != null">and name =#{input.name}</if>
+            <if test="input != null and input.groupType != null">and group_type =#{input.groupType}</if>
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">id,</if>
+            <if test="output != null and output.name != null">name,</if>
+            <if test="output != null and output.groupType!= null">group_type</if>
+        </trim>
+    </sql>
+</mapper>

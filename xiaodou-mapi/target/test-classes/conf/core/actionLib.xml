@@ -1,0 +1,205 @@
+<Actions>
+	<Import location="/conf/custom/env/actionlib.properties" />
+	<Action package="ucenter" name="login" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/login"
+			method="post">
+			<Param name="phoneNum" />
+			<Param name="pwd" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="upToken" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/common/upToken"
+			method="post">
+		</Api>
+	</Action>
+
+	<Action package="ucenter" name="modifyMyInfo" version="1.0">
+		<Api protocol="http"
+			url="${server.ucenter.host}/selftaught/user/modifyMyInfo" method="post">
+		</Api>
+	</Action>
+
+	<Action package="ucenter" name="configVersion" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/config/version"
+			method="post">
+		</Api>
+	</Action>
+
+	<Action package="ucenter" name="config" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/config" method="post">
+		</Api>
+	</Action>
+
+	<Action package="ucenter" name="checkToken" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/checkToken"
+			method="post">
+		</Api>
+	</Action>
+
+	<Action package="ucenter" name="checkCode" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/checkCode"
+			method="post">
+		</Api>
+	</Action>
+
+	<Action package="ucenter" name="validateCode" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/validateCode"
+			method="post">
+		</Api>
+	</Action>
+	<Action package="ucenter" name="registerMember" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/registerMember"
+			method="post">
+		</Api>
+	</Action>
+	<Action package="ucenter" name="findPwd" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/findPwd"
+			method="post">
+		</Api>
+	</Action>
+	<Action package="ucenter" name="message_res" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/selftaught/message_res"
+			method="post">
+		</Api>
+	</Action>
+	<Action package="ucenter" name="modifyPwd" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/modifyPwd"
+			method="post">
+		</Api>
+	</Action>
+	<Action package="ucenter" name="person_info" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/selftaught/person_info"
+			method="post">
+		</Api>
+	</Action>
+	<Action package="ucenter" name="praise" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/selftaught/praise"
+			method="post">
+		</Api>
+	</Action>
+	<Action package="ucenter" name="helpDoc" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/helpDoc"
+			method="post">
+		</Api>
+	</Action>
+	<Action package="ucenter" name="feedback" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/feedback"
+			method="post">
+		</Api>
+	</Action>
+	<Action package="ucenter" name="loginOut" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/loginOut"
+			method="post">
+		</Api>
+	</Action>
+	<Action package="ucenter" name="newLogin" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/newLogin"
+			method="post">
+		</Api>
+	</Action>
+	<Action package="ucenter" name="add_friend" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/friend/add_friend"
+			method="post">
+		</Api>
+	</Action>
+	<Action package="ucenter" name="delFriend" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/friend/del_friend"
+			method="post">
+		</Api>
+	</Action>
+	<Action package="ucenter" name="listFriend" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/friend/list_friend"
+			method="post">
+		</Api>
+	</Action>
+	<Action package="ucenter" name="blank_notice" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/blank_notice"
+			method="post">
+		</Api>
+	</Action>
+	<Action package="ucenter" name="userList" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/user_list"
+			method="post">
+			<Param name="req" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="home" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/home"
+			method="post">
+		</Api>
+	</Action>
+	<Action package="ucenter" name="queryUser" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/query_user"
+			method="post">
+			<Param name="req" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="friendRankList" version="1.0">
+		<Api protocol="http" url="${server.ucenter.host}/friend/friend_rank_list"
+			method="post">
+			<Param name="req" />
+		</Api>
+	</Action>
+
+	<!-- 题库 -->
+	<Action package="quesbk" name="challenge" version="1.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/challenge"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="type" />
+			<Param name="courseId" />
+			<Param name="targetUserId" />
+		</Api>
+	</Action>
+
+	<Action package="quesbk" name="examDetail" version="1.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/exam_detail"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="examType" />
+			<Param name="recordId" />
+			<Param name="chapterId" />
+		</Api>
+	</Action>
+
+	<Action package="quesbk" name="examResult" version="1.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/exam_result"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="examType" />
+			<Param name="paperId" />
+			<Param name="examStatus" />
+			<Param name="examTime" />
+			<Param name="examDetail" />
+			<Param name="recordId" />
+		</Api>
+	</Action>
+
+	<Action package="quesbk" name="pkList" version="1.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/pk_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+		</Api>
+	</Action>
+
+	<Action package="quesbk" name="pkResult" version="1.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/pk_result"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="recordId" />
+		</Api>
+	</Action>
+
+</Actions>

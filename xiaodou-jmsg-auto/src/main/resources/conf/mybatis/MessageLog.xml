@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MessageLog">
+	<resultMap id="BaseResultMap" type="com.xiaodou.jmsgauto.model.MessageLog">
+		<id column="message_id" property="messageId" jdbcType="VARCHAR" />
+<result column="context_id" property="contextId" jdbcType="VARCHAR" />
+<result column="custom_tag" property="customTag" jdbcType="VARCHAR" />
+<result column="message_name" property="messageName" jdbcType="VARCHAR" />
+<result column="message_send_time" property="messageSendTime" jdbcType="TIMESTAMP" />
+<result column="process_result" property="processResult" jdbcType="VARCHAR" />
+<result column="process_server_name" property="processServerName" jdbcType="VARCHAR" />
+<result column="process_type" property="processType" jdbcType="VARCHAR" />
+<result column="process_time_span" property="processTimeSpan" jdbcType="VARCHAR" />
+<result column="process_log" property="processLog" jdbcType="VARCHAR" />
+<result column="begin_process_time" property="beginProcessTime" jdbcType="TIMESTAMP" />
+<result column="end_process_time" property="endProcessTime" jdbcType="TIMESTAMP" />
+
+	</resultMap>
+	<sql id="base_column">message_id, context_id, custom_tag, message_name, message_send_time, process_result, process_server_name, process_type, process_time_span, process_log, begin_process_time, end_process_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.jmsgauto.model.MessageLog">
+		select
+		<include refid="base_column" />
+		from message_log${surfix}
+		where message_id = #{messageId,jdbcType=VARCHAR}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from message_log${input.surfix}
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.jmsgauto.model.MessageLog">
+		insert into message_log${surfix}
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="messageId != null">message_id,</if>
+<if test="contextId != null">context_id,</if>
+<if test="customTag != null">custom_tag,</if>
+<if test="messageName != null">message_name,</if>
+<if test="messageSendTime != null">message_send_time,</if>
+<if test="processResult != null">process_result,</if>
+<if test="processServerName != null">process_server_name,</if>
+<if test="processType != null">process_type,</if>
+<if test="processTimeSpan != null">process_time_span,</if>
+<if test="processLog != null">process_log,</if>
+<if test="beginProcessTime != null">begin_process_time,</if>
+<if test="endProcessTime != null">end_process_time,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="messageId != null">#{messageId,jdbcType=VARCHAR},</if>
+<if test="contextId != null">#{contextId,jdbcType=VARCHAR},</if>
+<if test="customTag != null">#{customTag,jdbcType=VARCHAR},</if>
+<if test="messageName != null">#{messageName,jdbcType=VARCHAR},</if>
+<if test="messageSendTime != null">#{messageSendTime,jdbcType=TIMESTAMP},</if>
+<if test="processResult != null">#{processResult,jdbcType=VARCHAR},</if>
+<if test="processServerName != null">#{processServerName,jdbcType=VARCHAR},</if>
+<if test="processType != null">#{processType,jdbcType=VARCHAR},</if>
+<if test="processTimeSpan != null">#{processTimeSpan,jdbcType=VARCHAR},</if>
+<if test="processLog != null">#{processLog,jdbcType=VARCHAR},</if>
+<if test="beginProcessTime != null">#{beginProcessTime,jdbcType=TIMESTAMP},</if>
+<if test="endProcessTime != null">#{endProcessTime,jdbcType=TIMESTAMP},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.jmsgauto.model.MessageLog">
+		update message_log${input.surfix}
+		<set>
+			<if test="value != null and value.contextId != null">context_id = #{value.contextId,jdbcType=VARCHAR},</if>
+<if test="value != null and value.customTag != null">custom_tag = #{value.customTag,jdbcType=VARCHAR},</if>
+<if test="value != null and value.messageName != null">message_name = #{value.messageName,jdbcType=VARCHAR},</if>
+<if test="value != null and value.messageSendTime != null">message_send_time = #{value.messageSendTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.processResult != null">process_result = #{value.processResult,jdbcType=VARCHAR},</if>
+<if test="value != null and value.processServerName != null">process_server_name = #{value.processServerName,jdbcType=VARCHAR},</if>
+<if test="value != null and value.processType != null">process_type = #{value.processType,jdbcType=VARCHAR},</if>
+<if test="value != null and value.processTimeSpan != null">process_time_span = #{value.processTimeSpan,jdbcType=VARCHAR},</if>
+<if test="value != null and value.processLog != null">process_log = #{value.processLog,jdbcType=VARCHAR},</if>
+<if test="value != null and value.beginProcessTime != null">begin_process_time = #{value.beginProcessTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.endProcessTime != null">end_process_time = #{value.endProcessTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		where message_id = #{messageId,jdbcType=VARCHAR}
+
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.jmsgauto.model.MessageLog">
+		update message_log${input.surfix}
+		<set>
+			<if test="value != null and value.contextId != null">context_id = #{value.contextId,jdbcType=VARCHAR},</if>
+<if test="value != null and value.customTag != null">custom_tag = #{value.customTag,jdbcType=VARCHAR},</if>
+<if test="value != null and value.messageName != null">message_name = #{value.messageName,jdbcType=VARCHAR},</if>
+<if test="value != null and value.messageSendTime != null">message_send_time = #{value.messageSendTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.processResult != null">process_result = #{value.processResult,jdbcType=VARCHAR},</if>
+<if test="value != null and value.processServerName != null">process_server_name = #{value.processServerName,jdbcType=VARCHAR},</if>
+<if test="value != null and value.processType != null">process_type = #{value.processType,jdbcType=VARCHAR},</if>
+<if test="value != null and value.processTimeSpan != null">process_time_span = #{value.processTimeSpan,jdbcType=VARCHAR},</if>
+<if test="value != null and value.processLog != null">process_log = #{value.processLog,jdbcType=VARCHAR},</if>
+<if test="value != null and value.beginProcessTime != null">begin_process_time = #{value.beginProcessTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.endProcessTime != null">end_process_time = #{value.endProcessTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.jmsgauto.model.MessageLog">
+		delete from message_log${surfix}
+		where message_id = #{messageId,jdbcType=VARCHAR}
+
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from message_log${input.surfix}
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.messageId != null">message_id,</if>
+<if test="output != null and output.contextId != null">context_id,</if>
+<if test="output != null and output.customTag != null">custom_tag,</if>
+<if test="output != null and output.messageName != null">message_name,</if>
+<if test="output != null and output.messageSendTime != null">message_send_time,</if>
+<if test="output != null and output.processResult != null">process_result,</if>
+<if test="output != null and output.processServerName != null">process_server_name,</if>
+<if test="output != null and output.processType != null">process_type,</if>
+<if test="output != null and output.processTimeSpan != null">process_time_span,</if>
+<if test="output != null and output.processLog != null">process_log,</if>
+<if test="output != null and output.beginProcessTime != null">begin_process_time,</if>
+<if test="output != null and output.endProcessTime != null">end_process_time,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.messageId != null">and message_id=#{input.messageId}</if>
+<if test="input != null and input.contextId != null">and context_id=#{input.contextId}</if>
+<if test="input != null and input.customTag != null">and custom_tag=#{input.customTag}</if>
+<if test="input != null and input.messageName != null">and message_name=#{input.messageName}</if>
+<if test="input != null and input.messageSendTime != null">and message_send_time=#{input.messageSendTime}</if>
+<if test="input != null and input.processResult != null">and process_result=#{input.processResult}</if>
+<if test="input != null and input.processServerName != null">and process_server_name=#{input.processServerName}</if>
+<if test="input != null and input.processType != null">and process_type=#{input.processType}</if>
+<if test="input != null and input.processTimeSpan != null">and process_time_span=#{input.processTimeSpan}</if>
+<if test="input != null and input.processLog != null">and process_log=#{input.processLog}</if>
+<if test="input != null and input.beginProcessTime != null">and begin_process_time=#{input.beginProcessTime}</if>
+<if test="input != null and input.endProcessTime != null">and end_process_time=#{input.endProcessTime}</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.messageId != null and ( sort.messageId == 'ASC' or sort.messageId == 'DESC' )">message_id ${sort.messageId},</if>
+
+		</trim>
+	</sql>
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:oscache="http://www.springmodules.org/schema/oscache"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springmodules.org/schema/oscache http://www.springmodules.org/schema/cache/springmodules-oscache.xsd
+           http://code.alibabatech.com/schema/dubbo
+       	   http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<context:property-placeholder
+		location="classpath:conf/custom/env/jmsgdb.properties"
+		ignore-unresolvable="true" />
+
+	<context:property-placeholder
+		location="classpath:conf/custom/env/jmsg_client_sqlite_jdbc.properties"
+		ignore-unresolvable="true" />
+
+	<context:property-placeholder
+		location="classpath:conf/custom/env/config.properties"
+		ignore-unresolvable="true" />
+
+
+	<!-- 从properties加载配置 -->
+	<bean id="jmsgSummerDataSourceConfig"
+		class="com.xiaodou.summer.source.jdbc.datasource.DataSourceConfig">
+		<property name="urls" value="${jmsg_jdbc.urls}" />
+		<property name="username" value="${jmsg_jdbc.username}" />
+		<property name="password" value="${jmsg_jdbc.password}" />
+		<property name="useGlobalDataSourceStat" value="${jmsg_jdbc.useGlobalDataSourceStat}" />
+		<property name="removeAbandoned" value="${jmsg_jdbc.removeAbandoned}" /> <!-- 打开removeAbandoned功能 -->
+		<property name="removeAbandonedTimeout" value="1800" /> <!-- 1800秒，也就是30分钟 -->
+		<property name="logAbandoned" value="true" /> <!-- 关闭abanded连接时输出错误日志 -->
+		<property name="initialSize" value="${jmsg_jdbc.initialSize}" />
+		<property name="minIdle" value="${jmsg_jdbc.minIdle}" />
+		<property name="maxActive" value="${jmsg_jdbc.maxActive}" />
+		<property name="maxWait" value="${jmsg_jdbc.maxWait}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${jmsg_jdbc.timeBetweenEvictionRunsMillis}" />
+		<property name="minEvictableIdleTimeMillis" value="${jmsg_jdbc.minEvictableIdleTimeMillis}" />
+		<property name="testWhileIdle" value="${jmsg_jdbc.testWhileIdle}" />
+		<property name="testOnBorrow" value="${jmsg_jdbc.testOnBorrow}" />
+		<property name="testOnReturn" value="${jmsg_jdbc.testOnReturn}" />
+		<property name="poolPreparedStatements" value="${jmsg_jdbc.poolPreparedStatements}" />
+		<property name="validationQuery" value="${jmsg_jdbc.validationQuery}" />
+		<property name="filters" value="${jmsg_jdbc.filters}" />
+		<property name="init" value="true" />
+	</bean>
+	<!--数据源 -->
+	<bean id="jmsgSummerDataSource"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerDataSourceManager">
+		<property name="defaultDataSourceConfig" ref="jmsgSummerDataSourceConfig" />
+	</bean>
+	<bean id="jmsgSummerSqlSessionFactory" name="jmsgSummerSqlSessionFactory"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerSqlSessionFactory">
+		<property name="configLocation" value="classpath:conf/core/jmsgSqlMapConfig.xml" />
+		<property name="dataSourceManager" ref="jmsgSummerDataSource" />
+		<property name="plugins">
+			<array>
+				<ref bean="paginationInterceptor" />
+				<bean
+					class="com.xiaodou.summer.source.jdbc.plugin.DynamicDataSourceInterceptor" />
+				<bean
+					class="com.xiaodou.summer.source.jdbc.plugin.SqlStatementInterceptor" />
+			</array>
+		</property>
+	</bean>
+
+
+	<!-- SqlLit数据库配置 -->
+	<bean id="jmsgClientSqliteDataSourceConfig"
+		class="com.xiaodou.summer.source.jdbc.datasource.DataSourceConfig">
+		<property name="dbType" value="${jmsg_client_sqlite_jdbc.dbType}" />
+		<property name="username" value="${jmsg_client_sqlite_jdbc.username}" />
+		<property name="password" value="${jmsg_client_sqlite_jdbc.password}" />
+		<property name="driverClassName" value="${jmsg_client_sqlite_jdbc.driverClassName}" />
+		<property name="urls"
+			value="${jmsg_client_sqlite_jdbc.url}${config.projectName}${jmsg_client_sqlite_jdbc.dbName}" />
+	</bean>
+	<bean id="jmsgClientSqliteDataSource"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerDataSourceManager">
+		<property name="defaultDataSourceConfig" ref="jmsgClientSqliteDataSourceConfig" />
+	</bean>
+	<bean id="jmsgClientSqliteSqlSessionFactory" name="jmsgClientSqliteSqlSessionFactory"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerSqlSessionFactory">
+		<property name="configLocation"
+			value="classpath:conf/core/jmsgClientSqliteSqlMapConfig.xml" />
+		<property name="dataSourceManager" ref="jmsgClientSqliteDataSource" />
+		<property name="plugins">
+			<array>
+				<ref bean="paginationInterceptor" />
+				<!-- <bean
+					class="com.xiaodou.summer.source.jdbc.plugin.DynamicDataSourceInterceptor" />
+					-->
+				<bean
+					class="com.xiaodou.summer.source.jdbc.plugin.SqlStatementInterceptor" /> 
+			</array>
+		</property>
+	</bean>
+	
+
+	<!--数据库配置 -->
+	<bean id="paginationInterceptor" class="com.xiaodou.summer.dao.pagination.PaginationInterceptor">
+		<property name="dialect">
+			<bean class="com.xiaodou.summer.dao.pagination.dialect.MySQLDialect" />
+		</property>
+		<property name="paginationSqlRegEx" value=".*ByCond"></property>
+	</bean>
+
+</beans>

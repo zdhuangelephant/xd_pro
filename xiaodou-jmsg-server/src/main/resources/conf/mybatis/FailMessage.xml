@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="FailMessage">
+	<resultMap id="BaseResultMap" type="com.xiaodou.jmsg.server.model.sqlite.FailMessage">
+		<id column="custom_tag" property="customTag" jdbcType="VARCHAR" />
+		<result column="message" property="message" jdbcType="VARCHAR" />
+		<result column="unique_url" property="uniqueUrl" jdbcType="VARCHAR" />
+		<result column="message_state" property="messageState"
+			jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">custom_tag, message, unique_url, message_state,
+		create_time, update_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.jmsg.server.model.sqlite.FailMessage">
+		select
+		<include refid="base_column" />
+		from fail_message where custom_tag = #{customTag,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from fail_message
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.jmsg.server.model.sqlite.FailMessage">
+		insert into fail_message
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="customTag != null">custom_tag,</if>
+			<if test="message != null">message,</if>
+			<if test="uniqueUrl != null">unique_url,</if>
+			<if test="messageState != null">message_state,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="updateTime != null">update_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="customTag != null">#{customTag,jdbcType=VARCHAR},</if>
+			<if test="message != null">#{message,jdbcType=VARCHAR},</if>
+			<if test="uniqueUrl != null">#{uniqueUrl,jdbcType=VARCHAR},</if>
+			<if test="messageState != null">#{messageState,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.jmsg.server.model.sqlite.FailMessage">
+		update fail_message
+		<set>
+			<if test="value != null and value.message != null">message = #{value.message,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.uniqueUrl != null">unique_url = #{value.uniqueUrl,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.messageState != null">message_state = #{value.messageState,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where custom_tag = #{customTag,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.jmsg.server.model.sqlite.FailMessage">
+		update fail_message
+		<set>
+			<if test="value != null and value.message != null">message = #{value.message,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.uniqueUrl != null">unique_url = #{value.uniqueUrl,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.messageState != null">message_state = #{value.messageState,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.jmsg.server.model.sqlite.FailMessage"> delete from
+		fail_message where custom_tag = #{customTag,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from fail_message
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.customTag != null">custom_tag,</if>
+			<if test="output != null and output.message != null">message,</if>
+			<if test="output != null and output.uniqueUrl != null">unique_url,</if>
+			<if test="output != null and output.messageState != null">message_state,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.updateTime != null">update_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.customTag != null">and custom_tag=#{input.customTag}</if>
+			<if test="input != null and input.message != null">and message=#{input.message}</if>
+			<if test="input != null and input.uniqueUrl != null">and unique_url=#{input.uniqueUrl}</if>
+			<if test="input != null and input.messageState != null">and message_state=#{input.messageState}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+			<if test="input != null and input.updateTime != null">and update_time=#{input.updateTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">update_time ${sort.updateTime},</if>
+		</trim>
+	</sql>
+</mapper>

@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="PayRecord">
+	<resultMap id="BaseResultMap" type="com.xiaodou.server.pay.model.PayRecord">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
+		<result column="pre_trade_no" property="preTradeNo" jdbcType="VARCHAR" />
+		<result column="pay_type" property="payType" jdbcType="TINYINT" />
+		<result column="merchant_id" property="merchantId" jdbcType="VARCHAR" />
+		<result column="business_type" property="businessType"
+			jdbcType="INTEGER" />
+		<result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR" />
+		<result column="order_from" property="orderFrom" jdbcType="INTEGER" />
+		<result column="pay_from" property="payFrom" jdbcType="INTEGER" />
+		<result column="order_amt" property="orderAmt" jdbcType="DOUBLE" />
+		<result column="original_pay_amt" property="originalPayAmt"
+			jdbcType="DOUBLE" />
+		<result column="real_pay_amt" property="realPayAmt" jdbcType="DOUBLE" />
+		<result column="pay_status" property="payStatus" jdbcType="TINYINT" />
+		<result column="pay_result" property="payResult" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="finish_time" property="finishTime" jdbcType="TIMESTAMP" />
+		<result column="business_callback_url" property="businessCallbackUrl"
+			jdbcType="VARCHAR" />
+		<result column="cc_amt" property="ccAmt" jdbcType="DOUBLE" />
+		<result column="cc_customer_service_amt" property="ccCustomerServiceAmt"
+			jdbcType="DOUBLE" />
+		<result column="cc_no" property="ccNo" jdbcType="VARCHAR" />
+		<result column="cc_expire_date" property="ccExpireDate"
+			jdbcType="VARCHAR" />
+		<result column="cc_verify_code" property="ccVerifyCode"
+			jdbcType="VARCHAR" />
+		<result column="cc_card_holder" property="ccCardHolder"
+			jdbcType="VARCHAR" />
+		<result column="cc_id_type" property="ccIdType" jdbcType="TINYINT" />
+		<result column="cc_id_no" property="ccIdNo" jdbcType="VARCHAR" />
+		<result column="cc_currency" property="ccCurrency" jdbcType="TINYINT" />
+		<result column="ca_amt" property="caAmt" jdbcType="DOUBLE" />
+		<result column="ca_product_line" property="caProductLine"
+			jdbcType="VARCHAR" />
+		<result column="ca_memcard_no" property="caMemcardNo" jdbcType="VARCHAR" />
+		<result column="ca_currency" property="caCurrency" jdbcType="TINYINT" />
+		<result column="dc_payment_provider" property="dcPaymentProvider"
+			jdbcType="TINYINT" />
+		<result column="dc_amt" property="dcAmt" jdbcType="DOUBLE" />
+		<result column="dc_customer_service_amt" property="dcCustomerServiceAmt"
+			jdbcType="DOUBLE" />
+		<result column="dc_currency" property="dcCurrency" jdbcType="TINYINT" />
+		<result column="dc_trade_no" property="dcTradeNo" jdbcType="VARCHAR" />
+		<result column="dc_payment_method" property="dcPaymentMethod"
+			jdbcType="TINYINT" />
+		<result column="dc_externalbank_id" property="dcExternalbankId"
+			jdbcType="INTEGER" />
+		<result column="dc_subject" property="dcSubject" jdbcType="VARCHAR" />
+		<result column="dc_body" property="dcBody" jdbcType="VARCHAR" />
+		<result column="dc_return_url" property="dcReturnUrl" jdbcType="VARCHAR" />
+		<result column="dc_cancel_url" property="dcCancelUrl" jdbcType="VARCHAR" />
+		<result column="dc_pay_url" property="dcPayUrl" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, trade_no, pre_trade_no, pay_type, merchant_id,
+		business_type,
+		out_trade_no, order_from, pay_from, order_amt,
+		original_pay_amt,
+		real_pay_amt, pay_status, pay_result, create_time,
+		update_time,
+		finish_time, business_callback_url, cc_amt,
+		cc_customer_service_amt,
+		cc_no, cc_expire_date, cc_verify_code,
+		cc_card_holder, cc_id_type,
+		cc_id_no, cc_currency, ca_amt,
+		ca_product_line, ca_memcard_no,
+		ca_currency, dc_payment_provider,
+		dc_amt, dc_customer_service_amt,
+		dc_currency, dc_trade_no,
+		dc_payment_method, dc_externalbank_id,
+		dc_subject, dc_body,
+		dc_return_url, dc_cancel_url, dc_pay_url
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.server.pay.model.PayRecord">
+		select
+		<include refid="base_column" />
+		from xd_payment_pay_record
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityByToken4Update" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.server.pay.model.PayRecord">
+		select
+		<include refid="base_column" />
+		from xd_payment_pay_record
+		where trade_no = #{tradeNo,jdbcType=VARCHAR}
+		for update
+	</select>
+	<select id="findEntityByDcOrderNo4Update" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.server.pay.model.PayRecord">
+		select
+		<include refid="base_column" />
+		from xd_payment_pay_record
+		where dc_trade_no =
+		#{dcTradeNo,jdbcType=VARCHAR}
+		for update
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="base_column" />
+		from xd_payment_pay_record
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<delete id="delete" parameterType="java.util.Map">
+		delete from
+		xd_payment_pay_record
+		<include refid="dynamic_where" />
+	</delete>
+	<insert id="addEntity" parameterType="com.xiaodou.server.pay.model.PayRecord">
+		insert into xd_payment_pay_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="tradeNo != null">trade_no,</if>
+			<if test="preTradeNo != null">pre_trade_no,</if>
+			<if test="payType != null">pay_type,</if>
+			<if test="merchantId != null">merchant_id,</if>
+			<if test="businessType != null">business_type,</if>
+			<if test="outTradeNo != null">out_trade_no,</if>
+			<if test="orderFrom != null">order_from,</if>
+			<if test="payFrom != null">pay_from,</if>
+			<if test="orderAmt != null">order_amt,</if>
+			<if test="originalPayAmt != null">original_pay_amt,</if>
+			<if test="realPayAmt != null">real_pay_amt,</if>
+			<if test="payStatus != null">pay_status,</if>
+			<if test="payResult != null">pay_result,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="updateTime != null">update_time,</if>
+			<if test="finishTime != null">finish_time,</if>
+			<if test="businessCallbackUrl != null">business_callback_url,</if>
+			<if test="ccAmt != null">cc_amt,</if>
+			<if test="ccCustomerServiceAmt != null">cc_customer_service_amt,</if>
+			<if test="ccNo != null">cc_no,</if>
+			<if test="ccExpireDate != null">cc_expire_date,</if>
+			<if test="ccVerifyCode != null">cc_verify_code,</if>
+			<if test="ccCardHolder != null">cc_card_holder,</if>
+			<if test="ccIdType != null">cc_id_type,</if>
+			<if test="ccIdNo != null">cc_id_no,</if>
+			<if test="ccCurrency != null">cc_currency,</if>
+			<if test="caAmt != null">ca_amt,</if>
+			<if test="caProductLine != null">ca_product_line,</if>
+			<if test="caMemcardNo != null">ca_memcard_no,</if>
+			<if test="caCurrency != null">ca_currency,</if>
+			<if test="dcPaymentProvider != null">dc_payment_provider,</if>
+			<if test="dcAmt != null">dc_amt,</if>
+			<if test="dcCustomerServiceAmt != null">dc_customer_service_amt,</if>
+			<if test="dcCurrency != null">dc_currency,</if>
+			<if test="dcTradeNo != null">dc_trade_no,</if>
+			<if test="dcPaymentMethod != null">dc_payment_method,</if>
+			<if test="dcExternalbankId != null">dc_externalbank_id,</if>
+			<if test="dcSubject != null">dc_subject,</if>
+			<if test="dcBody != null">dc_body,</if>
+			<if test="dcReturnUrl != null">dc_return_url,</if>
+			<if test="dcCancelUrl != null">dc_cancel_url,</if>
+			<if test="dcPayUrl != null">dc_pay_url,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="tradeNo != null">#{tradeNo,jdbcType=VARCHAR},</if>
+			<if test="preTradeNo != null">#{preTradeNo,jdbcType=VARCHAR},</if>
+			<if test="payType != null">#{payType,jdbcType=TINYINT},</if>
+			<if test="merchantId != null">#{merchantId,jdbcType=INTEGER},</if>
+			<if test="businessType != null">#{businessType,jdbcType=INTEGER},</if>
+			<if test="outTradeNo != null">#{outTradeNo,jdbcType=VARCHAR},</if>
+			<if test="orderFrom != null">#{orderFrom,jdbcType=INTEGER},</if>
+			<if test="payFrom != null">#{payFrom,jdbcType=INTEGER},</if>
+			<if test="orderAmt != null">#{orderAmt,jdbcType=DOUBLE},</if>
+			<if test="originalPayAmt != null">#{originalPayAmt,jdbcType=DOUBLE},</if>
+			<if test="realPayAmt != null">#{realPayAmt,jdbcType=DOUBLE},</if>
+			<if test="payStatus != null">#{payStatus,jdbcType=TINYINT},</if>
+			<if test="payResult != null">#{payResult,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="finishTime != null">#{finishTime,jdbcType=TIMESTAMP},</if>
+			<if test="businessCallbackUrl != null">#{businessCallbackUrl,jdbcType=VARCHAR},</if>
+			<if test="ccAmt != null">#{ccAmt,jdbcType=DOUBLE},</if>
+			<if test="ccCustomerServiceAmt != null">#{ccCustomerServiceAmt,jdbcType=DOUBLE},</if>
+			<if test="ccNo != null">#{ccNo,jdbcType=VARCHAR},</if>
+			<if test="ccExpireDate != null">#{ccExpireDate,jdbcType=VARCHAR},</if>
+			<if test="ccVerifyCode != null">#{ccVerifyCode,jdbcType=VARCHAR},</if>
+			<if test="ccCardHolder != null">#{ccCardHolder,jdbcType=VARCHAR},</if>
+			<if test="ccIdType != null">#{ccIdType,jdbcType=TINYINT},</if>
+			<if test="ccIdNo != null">#{ccIdNo,jdbcType=VARCHAR},</if>
+			<if test="ccCurrency != null">#{ccCurrency,jdbcType=TINYINT},</if>
+			<if test="caAmt != null">#{caAmt,jdbcType=DOUBLE},</if>
+			<if test="caProductLine != null">#{caProductLine,jdbcType=VARCHAR},</if>
+			<if test="caMemcardNo != null">#{caMemcardNo,jdbcType=VARCHAR},</if>
+			<if test="caCurrency != null">#{caCurrency,jdbcType=TINYINT},</if>
+			<if test="dcPaymentProvider != null">#{dcPaymentProvider,jdbcType=TINYINT},</if>
+			<if test="dcAmt != null">#{dcAmt,jdbcType=DOUBLE},</if>
+			<if test="dcCustomerServiceAmt != null">#{dcCustomerServiceAmt,jdbcType=DOUBLE},</if>
+			<if test="dcCurrency != null">#{dcCurrency,jdbcType=TINYINT},</if>
+			<if test="dcTradeNo != null">#{dcTradeNo,jdbcType=VARCHAR},</if>
+			<if test="dcPaymentMethod != null">#{dcPaymentMethod,jdbcType=TINYINT},</if>
+			<if test="dcExternalbankId != null">#{dcExternalbankId,jdbcType=INTEGER},</if>
+			<if test="dcSubject != null">#{dcSubject,jdbcType=VARCHAR},</if>
+			<if test="dcBody != null">#{dcBody,jdbcType=VARCHAR},</if>
+			<if test="dcReturnUrl != null">#{dcReturnUrl,jdbcType=VARCHAR},</if>
+			<if test="dcCancelUrl != null">#{dcCancelUrl,jdbcType=VARCHAR},</if>
+			<if test="dcPayUrl != null">#{dcPayUrl,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.server.pay.model.PayRecord">
+		update xd_payment_pay_record
+		<set>
+			<if test="value != null and value.realPayAmt != null">real_pay_amt = #{value.realPayAmt,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.payStatus != null">pay_status = #{value.payStatus,jdbcType=TINYINT},</if>
+			<if test="value != null and value.payResult != null">pay_result = #{value.payResult,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.finishTime != null">finish_time = #{value.finishTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.ccAmt != null">cc_amt = #{value.ccAmt,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.ccCustomerServiceAmt != null">cc_customer_service_amt =
+				#{value.ccCustomerServiceAmt,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.ccNo != null">cc_no = #{value.ccNo,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.ccExpireDate != null">cc_expire_date = #{value.ccExpireDate,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.ccVerifyCode != null">cc_verify_code = #{value.ccVerifyCode,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.ccCardHolder != null">cc_card_holder = #{value.ccCardHolder,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.ccIdType != null">cc_id_type = #{value.ccIdType,jdbcType=TINYINT},</if>
+			<if test="value != null and value.ccIdNo != null">cc_id_no = #{value.ccIdNo,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.ccCurrency != null">cc_currency = #{value.ccCurrency,jdbcType=TINYINT},</if>
+			<if test="value != null and value.caAmt != null">ca_amt = #{value.caAmt,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.caProductLine != null">ca_product_line =
+				#{value.caProductLine,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.caMemcardNo != null">ca_memcard_no = #{value.caMemcardNo,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.caCurrency != null">ca_currency = #{value.caCurrency,jdbcType=TINYINT},</if>
+			<if test="value != null and value.dcPaymentProvider != null">dc_payment_provider =
+				#{value.dcPaymentProvider,jdbcType=TINYINT},
+			</if>
+			<if test="value != null and value.dcAmt != null">dc_amt = #{value.dcAmt,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.dcCustomerServiceAmt != null">dc_customer_service_amt =
+				#{value.dcCustomerServiceAmt,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.dcCurrency != null">dc_currency = #{value.dcCurrency,jdbcType=TINYINT},</if>
+			<if test="value != null and value.dcTradeNo != null">dc_trade_no = #{value.dcTradeNo,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.dcPaymentMethod != null">dc_payment_method =
+				#{value.dcPaymentMethod,jdbcType=TINYINT},
+			</if>
+			<if test="value != null and value.dcExternalbankId != null">dc_externalbank_id =
+				#{value.dcExternalbankId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.dcSubject != null">dc_subject = #{value.dcSubject,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.dcBody != null">dc_body = #{value.dcBody,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.dcReturnUrl != null">dc_return_url = #{value.dcReturnUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.dcCancelUrl != null">dc_cancel_url = #{value.dcCancelUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.dcPayUrl != null">dc_pay_url = #{value.dcPayUrl,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{value.id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.server.pay.model.PayRecord">
+		update xd_payment_pay_record
+		<set>
+			<if test="value != null and value.realPayAmt != null">real_pay_amt = #{value.realPayAmt,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.payStatus != null">pay_status = #{value.payStatus,jdbcType=TINYINT},</if>
+			<if test="value != null and value.payResult != null">pay_result = #{value.payResult,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.finishTime != null">finish_time = #{value.finishTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.ccAmt != null">cc_amt = #{value.ccAmt,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.ccCustomerServiceAmt != null">cc_customer_service_amt =
+				#{value.ccCustomerServiceAmt,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.ccNo != null">cc_no = #{value.ccNo,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.ccExpireDate != null">cc_expire_date = #{value.ccExpireDate,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.ccVerifyCode != null">cc_verify_code = #{value.ccVerifyCode,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.ccCardHolder != null">cc_card_holder = #{value.ccCardHolder,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.ccIdType != null">cc_id_type = #{value.ccIdType,jdbcType=TINYINT},</if>
+			<if test="value != null and value.ccIdNo != null">cc_id_no = #{value.ccIdNo,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.ccCurrency != null">cc_currency = #{value.ccCurrency,jdbcType=TINYINT},</if>
+			<if test="value != null and value.caAmt != null">ca_amt = #{value.caAmt,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.caProductLine != null">ca_product_line =
+				#{value.caProductLine,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.caMemcardNo != null">ca_memcard_no = #{value.caMemcardNo,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.caCurrency != null">ca_currency = #{value.caCurrency,jdbcType=TINYINT},</if>
+			<if test="value != null and value.dcPaymentProvider != null">dc_payment_provider =
+				#{value.dcPaymentProvider,jdbcType=TINYINT},
+			</if>
+			<if test="value != null and value.dcAmt != null">dc_amt = #{value.dcAmt,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.dcCustomerServiceAmt != null">dc_customer_service_amt =
+				#{value.dcCustomerServiceAmt,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.dcCurrency != null">dc_currency = #{value.dcCurrency,jdbcType=TINYINT},</if>
+			<if test="value != null and value.dcTradeNo != null">dc_trade_no = #{value.dcTradeNo,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.dcPaymentMethod != null">dc_payment_method =
+				#{value.dcPaymentMethod,jdbcType=TINYINT},
+			</if>
+			<if test="value != null and value.dcExternalbankId != null">dc_externalbank_id =
+				#{value.dcExternalbankId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.dcSubject != null">dc_subject = #{value.dcSubject,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.dcBody != null">dc_body = #{value.dcBody,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.dcReturnUrl != null">dc_return_url = #{value.dcReturnUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.dcCancelUrl != null">dc_cancel_url = #{value.dcCancelUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.dcPayUrl != null">dc_pay_url = #{value.dcPayUrl,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_payment_pay_record
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.tradeNo != null">trade_no,</if>
+			<if test="output != null and output.preTradeNo != null">pre_trade_no,</if>
+			<if test="output != null and output.payType != null">pay_type,</if>
+			<if test="output != null and output.merchantId != null">merchant_id,</if>
+			<if test="output != null and output.businessType != null">business_type,</if>
+			<if test="output != null and output.outTradeNo != null">out_trade_no,</if>
+			<if test="output != null and output.orderFrom != null">order_from,</if>
+			<if test="output != null and output.payFrom != null">pay_from,</if>
+			<if test="output != null and output.orderAmt != null">order_amt,</if>
+			<if test="output != null and output.originalPayAmt != null">original_pay_amt,</if>
+			<if test="output != null and output.realPayAmt != null">real_pay_amt,</if>
+			<if test="output != null and output.payStatus != null">pay_status,</if>
+			<if test="output != null and output.payResult != null">pay_result,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.updateTime != null">update_time,</if>
+			<if test="output != null and output.finishTime != null">finish_time,</if>
+			<if test="output != null and output.businessCallbackUrl != null">business_callback_url,</if>
+			<if test="output != null and output.ccAmt != null">cc_amt,</if>
+			<if test="output != null and output.ccCustomerServiceAmt != null">cc_customer_service_amt,</if>
+			<if test="output != null and output.ccNo != null">cc_no,</if>
+			<if test="output != null and output.ccExpireDate != null">cc_expire_date,</if>
+			<if test="output != null and output.ccVerifyCode != null">cc_verify_code,</if>
+			<if test="output != null and output.ccCardHolder != null">cc_card_holder,</if>
+			<if test="output != null and output.ccIdType != null">cc_id_type,</if>
+			<if test="output != null and output.ccIdNo != null">cc_id_no,</if>
+			<if test="output != null and output.ccCurrency != null">cc_currency,</if>
+			<if test="output != null and output.caAmt != null">ca_amt,</if>
+			<if test="output != null and output.caProductLine != null">ca_product_line,</if>
+			<if test="output != null and output.caMemcardNo != null">ca_memcard_no,</if>
+			<if test="output != null and output.caCurrency != null">ca_currency,</if>
+			<if test="output != null and output.dcPaymentProvider != null">dc_payment_provider,</if>
+			<if test="output != null and output.dcAmt != null">dc_amt,</if>
+			<if test="output != null and output.dcCustomerServiceAmt != null">dc_customer_service_amt,</if>
+			<if test="output != null and output.dcCurrency != null">dc_currency,</if>
+			<if test="output != null and output.dcTradeNo != null">dc_trade_no,</if>
+			<if test="output != null and output.dcPaymentMethod != null">dc_payment_method,</if>
+			<if test="output != null and output.dcExternalbankId != null">dc_externalbank_id,</if>
+			<if test="output != null and output.dcSubject != null">dc_subject,</if>
+			<if test="output != null and output.dcBody != null">dc_body,</if>
+			<if test="output != null and output.dcReturnUrl != null">dc_return_url,</if>
+			<if test="output != null and output.dcCancelUrl != null">dc_cancel_url,</if>
+			<if test="output != null and output.dcPayUrl != null">dc_pay_url,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.tradeNo != null">and trade_no=#{input.tradeNo}</if>
+			<if test="input != null and input.preTradeNo != null">and pre_trade_no=#{input.preTradeNo}</if>
+			<if test="input != null and input.payType != null">and pay_type=#{input.payType}</if>
+			<if test="input != null and input.merchantId != null">and merchant_id=#{input.merchantId}</if>
+			<if test="input != null and input.businessType != null">and business_type=#{input.businessType}</if>
+			<if test="input != null and input.outTradeNo != null">and out_trade_no=#{input.outTradeNo}</if>
+			<if test="input != null and input.orderFrom != null">and order_from=#{input.orderFrom}</if>
+			<if test="input != null and input.payFrom != null">and pay_from=#{input.payFrom}</if>
+			<if test="input != null and input.orderAmt != null">and order_amt=#{input.orderAmt}</if>
+			<if test="input != null and input.originalPayAmt != null">and original_pay_amt=#{input.originalPayAmt}</if>
+			<if test="input != null and input.realPayAmt != null">and real_pay_amt=#{input.realPayAmt}</if>
+			<if test="input != null and input.payStatus != null">and pay_status=#{input.payStatus}</if>
+			<if test="input != null and input.payResult != null">and pay_result=#{input.payResult}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+			<if test="input != null and input.updateTime != null">and update_time=#{input.updateTime}</if>
+			<if test="input != null and input.finishTime != null">and finish_time=#{input.finishTime}</if>
+			<if test="input != null and input.businessCallbackUrl != null">and business_callback_url=#{input.businessCallbackUrl}
+			</if>
+			<if test="input != null and input.ccAmt != null">and cc_amt=#{input.ccAmt}</if>
+			<if test="input != null and input.ccCustomerServiceAmt != null">and cc_customer_service_amt=#{input.ccCustomerServiceAmt}
+			</if>
+			<if test="input != null and input.ccNo != null">and cc_no=#{input.ccNo}</if>
+			<if test="input != null and input.ccExpireDate != null">and cc_expire_date=#{input.ccExpireDate}</if>
+			<if test="input != null and input.ccVerifyCode != null">and cc_verify_code=#{input.ccVerifyCode}</if>
+			<if test="input != null and input.ccCardHolder != null">and cc_card_holder=#{input.ccCardHolder}</if>
+			<if test="input != null and input.ccIdType != null">and cc_id_type=#{input.ccIdType}</if>
+			<if test="input != null and input.ccIdNo != null">and cc_id_no=#{input.ccIdNo}</if>
+			<if test="input != null and input.ccCurrency != null">and cc_currency=#{input.ccCurrency}</if>
+			<if test="input != null and input.caAmt != null">and ca_amt=#{input.caAmt}</if>
+			<if test="input != null and input.caProductLine != null">and ca_product_line=#{input.caProductLine}</if>
+			<if test="input != null and input.caMemcardNo != null">and ca_memcard_no=#{input.caMemcardNo}</if>
+			<if test="input != null and input.caCurrency != null">and ca_currency=#{input.caCurrency}</if>
+			<if test="input != null and input.dcPaymentProvider != null">and dc_payment_provider=#{input.dcPaymentProvider}</if>
+			<if test="input != null and input.dcAmt != null">and dc_amt=#{input.dcAmt}</if>
+			<if test="input != null and input.dcCustomerServiceAmt != null">and dc_customer_service_amt=#{input.dcCustomerServiceAmt}
+			</if>
+			<if test="input != null and input.dcCurrency != null">and dc_currency=#{input.dcCurrency}</if>
+			<if test="input != null and input.dcTradeNo != null">and dc_trade_no=#{input.dcTradeNo}</if>
+			<if test="input != null and input.dcPaymentMethod != null">and dc_payment_method=#{input.dcPaymentMethod}</if>
+			<if test="input != null and input.dcExternalbankId != null">and dc_externalbank_id=#{input.dcExternalbankId}</if>
+			<if test="input != null and input.dcSubject != null">and dc_subject=#{input.dcSubject}</if>
+			<if test="input != null and input.dcBody != null">and dc_body=#{input.dcBody}</if>
+			<if test="input != null and input.dcReturnUrl != null">and dc_return_url=#{input.dcReturnUrl}</if>
+			<if test="input != null and input.dcCancelUrl != null">and dc_cancel_url=#{input.dcCancelUrl}</if>
+			<if test="input != null and input.dcPayUrl != null">and dc_pay_url=#{input.dcPayUrl}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limitStart != null and limitCount != null">
+			limit ${limitStart}, ${limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.payType != null and ( sort.payType == 'ASC' or sort.payType == 'DESC' )">pay_type ${sort.payType},</if>
+			<if
+				test="sort != null and sort.merchantId != null and ( sort.merchantId == 'ASC' or sort.merchantId == 'DESC' )">merchant_id ${sort.merchantId},</if>
+			<if
+				test="sort != null and sort.businessType != null and ( sort.businessType == 'ASC' or sort.businessType == 'DESC' )">business_type ${sort.businessType},</if>
+			<if
+				test="sort != null and sort.orderFrom != null and ( sort.orderFrom == 'ASC' or sort.orderFrom == 'DESC' )">order_from ${sort.orderFrom},</if>
+			<if
+				test="sort != null and sort.payFrom != null and ( sort.payFrom == 'ASC' or sort.payFrom == 'DESC' )">pay_from ${sort.payFrom},</if>
+			<if
+				test="sort != null and sort.realPayAmt != null and ( sort.realPayAmt == 'ASC' or sort.realPayAmt == 'DESC' )">real_pay_amt ${sort.realPayAmt},</if>
+			<if
+				test="sort != null and sort.payStatus != null and ( sort.payStatus == 'ASC' or sort.payStatus == 'DESC' )">pay_status ${sort.payStatus},</if>
+			<if
+				test="sort != null and sort.payResult != null and ( sort.payResult == 'ASC' or sort.payResult == 'DESC' )">pay_result ${sort.payResult},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">update_time ${sort.updateTime},</if>
+			<if
+				test="sort != null and sort.finishTime != null and ( sort.finishTime == 'ASC' or sort.finishTime == 'DESC' )">finish_time ${sort.finishTime},</if>
+			<if
+				test="sort != null and sort.ccAmt != null and ( sort.ccAmt == 'ASC' or sort.ccAmt == 'DESC' )">cc_amt ${sort.ccAmt},</if>
+			<if
+				test="sort != null and sort.ccCustomerServiceAmt != null and ( sort.ccCustomerServiceAmt == 'ASC' or sort.ccCustomerServiceAmt == 'DESC' )">cc_customer_service_amt ${sort.ccCustomerServiceAmt},</if>
+			<if
+				test="sort != null and sort.ccNo != null and ( sort.ccNo == 'ASC' or sort.ccNo == 'DESC' )">cc_no ${sort.ccNo},</if>
+			<if
+				test="sort != null and sort.ccExpireDate != null and ( sort.ccExpireDate == 'ASC' or sort.ccExpireDate == 'DESC' )">cc_expire_date ${sort.ccExpireDate},</if>
+			<if
+				test="sort != null and sort.ccVerifyCode != null and ( sort.ccVerifyCode == 'ASC' or sort.ccVerifyCode == 'DESC' )">cc_verify_code ${sort.ccVerifyCode},</if>
+			<if
+				test="sort != null and sort.ccCardHolder != null and ( sort.ccCardHolder == 'ASC' or sort.ccCardHolder == 'DESC' )">cc_card_holder ${sort.ccCardHolder},</if>
+			<if
+				test="sort != null and sort.ccIdType != null and ( sort.ccIdType == 'ASC' or sort.ccIdType == 'DESC' )">cc_id_type ${sort.ccIdType},</if>
+			<if
+				test="sort != null and sort.ccIdNo != null and ( sort.ccIdNo == 'ASC' or sort.ccIdNo == 'DESC' )">cc_id_no ${sort.ccIdNo},</if>
+			<if
+				test="sort != null and sort.ccCurrency != null and ( sort.ccCurrency == 'ASC' or sort.ccCurrency == 'DESC' )">cc_currency ${sort.ccCurrency},</if>
+			<if
+				test="sort != null and sort.caAmt != null and ( sort.caAmt == 'ASC' or sort.caAmt == 'DESC' )">ca_amt ${sort.caAmt},</if>
+			<if
+				test="sort != null and sort.caProductLine != null and ( sort.caProductLine == 'ASC' or sort.caProductLine == 'DESC' )">ca_product_line ${sort.caProductLine},</if>
+			<if
+				test="sort != null and sort.caMemcardNo != null and ( sort.caMemcardNo == 'ASC' or sort.caMemcardNo == 'DESC' )">ca_memcard_no ${sort.caMemcardNo},</if>
+			<if
+				test="sort != null and sort.caCurrency != null and ( sort.caCurrency == 'ASC' or sort.caCurrency == 'DESC' )">ca_currency ${sort.caCurrency},</if>
+			<if
+				test="sort != null and sort.dcPaymentProvider != null and ( sort.dcPaymentProvider == 'ASC' or sort.dcPaymentProvider == 'DESC' )">dc_payment_provider ${sort.dcPaymentProvider},</if>
+			<if
+				test="sort != null and sort.dcAmt != null and ( sort.dcAmt == 'ASC' or sort.dcAmt == 'DESC' )">dc_amt ${sort.dcAmt},</if>
+			<if
+				test="sort != null and sort.dcCustomerServiceAmt != null and ( sort.dcCustomerServiceAmt == 'ASC' or sort.dcCustomerServiceAmt == 'DESC' )">dc_customer_service_amt ${sort.dcCustomerServiceAmt},</if>
+			<if
+				test="sort != null and sort.dcCurrency != null and ( sort.dcCurrency == 'ASC' or sort.dcCurrency == 'DESC' )">dc_currency ${sort.dcCurrency},</if>
+			<if
+				test="sort != null and sort.dcTradeNo != null and ( sort.dcTradeNo == 'ASC' or sort.dcTradeNo == 'DESC' )">dc_trade_no ${sort.dcTradeNo},</if>
+			<if
+				test="sort != null and sort.dcPaymentMethod != null and ( sort.dcPaymentMethod == 'ASC' or sort.dcPaymentMethod == 'DESC' )">dc_payment_method ${sort.dcPaymentMethod},</if>
+			<if
+				test="sort != null and sort.dcExternalbankId != null and ( sort.dcExternalbankId == 'ASC' or sort.dcExternalbankId == 'DESC' )">dc_externalbank_id ${sort.dcExternalbankId},</if>
+			<if
+				test="sort != null and sort.dcSubject != null and ( sort.dcSubject == 'ASC' or sort.dcSubject == 'DESC' )">dc_subject ${sort.dcSubject},</if>
+			<if
+				test="sort != null and sort.dcBody != null and ( sort.dcBody == 'ASC' or sort.dcBody == 'DESC' )">dc_body ${sort.dcBody},</if>
+			<if
+				test="sort != null and sort.dcReturnUrl != null and ( sort.dcReturnUrl == 'ASC' or sort.dcReturnUrl == 'DESC' )">dc_return_url ${sort.dcReturnUrl},</if>
+			<if
+				test="sort != null and sort.dcCancelUrl != null and ( sort.dcCancelUrl == 'ASC' or sort.dcCancelUrl == 'DESC' )">dc_cancel_url ${sort.dcCancelUrl},</if>
+			<if
+				test="sort != null and sort.dcPayUrl != null and ( sort.dcPayUrl == 'ASC' or sort.dcPayUrl == 'DESC' )">dc_pay_url ${sort.dcPayUrl},</if>
+		</trim>
+	</sql>
+</mapper>

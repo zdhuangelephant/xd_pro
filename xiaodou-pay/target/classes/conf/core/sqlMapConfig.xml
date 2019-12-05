@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases>
+		<!-- pay start -->
+		<typeAlias type="com.xiaodou.server.pay.model.PayToken"
+			alias="PayToken" />
+		<typeAlias type="com.xiaodou.server.pay.model.PayRecord"
+			alias="PayRecord" />
+		<!-- pay end -->
+	</typeAliases>
+
+	<mappers>
+		<!-- pay start -->
+		<mapper resource="conf/mybatis/pay/PayToken.xml" />
+		<mapper resource="conf/mybatis/pay/PayRecord.xml" />
+		<!-- pay end -->
+	</mappers>
+
+</configuration>

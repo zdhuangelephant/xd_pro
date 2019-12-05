@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MessageBody">
+	<resultMap id="BaseResultMap" type="com.xiaodou.jmsgauto.model.MessageBody">
+		<id column="message_id" property="messageId" jdbcType="VARCHAR" />
+		<result column="context_id" property="contextId" jdbcType="VARCHAR" />
+		<result column="custom_tag" property="customTag" jdbcType="VARCHAR" />
+		<result column="message_name" property="messageName" jdbcType="VARCHAR" />
+		<result column="from_class" property="fromClass" jdbcType="VARCHAR" />
+		<result column="message_data_type" property="messageDataType"
+			jdbcType="VARCHAR" />
+		<result column="message_data" property="messageData" jdbcType="VARCHAR" />
+		<result column="message_size" property="messageSize" jdbcType="VARCHAR" />
+		<result column="message_send_time" property="messageSendTime"
+			jdbcType="TIMESTAMP" />
+		<result column="message_receive_time" property="messageReceiveTime"
+			jdbcType="TIMESTAMP" />
+		<result column="send_server_name" property="sendServerName"
+			jdbcType="VARCHAR" />
+		<result column="queue_name" property="queueName" jdbcType="VARCHAR" />
+		<result column="route_key" property="routeKey" jdbcType="VARCHAR" />
+		<result column="process_server_name" property="processServerName"
+			jdbcType="VARCHAR" />
+		<result column="process_status" property="processStatus"
+			jdbcType="VARCHAR" />
+		<result column="failed_count" property="failedCount" jdbcType="VARCHAR" />
+		<result column="priority" property="priority" jdbcType="VARCHAR" />
+		<result column="begin_process_time" property="beginProcessTime"
+			jdbcType="TIMESTAMP" />
+		<result column="end_process_time" property="endProcessTime"
+			jdbcType="TIMESTAMP" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="result" property="result"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">message_id, context_id, custom_tag, message_name,
+		from_class, message_data_type, message_data, message_size,
+		message_send_time, message_receive_time, send_server_name, queue_name,
+		route_key, process_server_name, process_status, failed_count,
+		priority, begin_process_time, end_process_time, create_time,result</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.jmsgauto.model.MessageBody">
+		select
+		<include refid="base_column" />
+		from message_body${surfix}
+		where message_id =
+		#{messageId,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from message_body${input.surfix}
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.jmsgauto.model.MessageBody">
+		insert into message_body${surfix}
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="messageId != null">message_id,</if>
+			<if test="contextId != null">context_id,</if>
+			<if test="customTag != null">custom_tag,</if>
+			<if test="messageName != null">message_name,</if>
+			<if test="fromClass != null">from_class,</if>
+			<if test="messageDataType != null">message_data_type,</if>
+			<if test="messageData != null">message_data,</if>
+			<if test="messageSize != null">message_size,</if>
+			<if test="messageSendTime != null">message_send_time,</if>
+			<if test="messageReceiveTime != null">message_receive_time,</if>
+			<if test="sendServerName != null">send_server_name,</if>
+			<if test="queueName != null">queue_name,</if>
+			<if test="routeKey != null">route_key,</if>
+			<if test="processServerName != null">process_server_name,</if>
+			<if test="processStatus != null">process_status,</if>
+			<if test="failedCount != null">failed_count,</if>
+			<if test="priority != null">priority,</if>
+			<if test="beginProcessTime != null">begin_process_time,</if>
+			<if test="endProcessTime != null">end_process_time,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="result != null">result,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="messageId != null">#{messageId,jdbcType=VARCHAR},</if>
+			<if test="contextId != null">#{contextId,jdbcType=VARCHAR},</if>
+			<if test="customTag != null">#{customTag,jdbcType=VARCHAR},</if>
+			<if test="messageName != null">#{messageName,jdbcType=VARCHAR},</if>
+			<if test="fromClass != null">#{fromClass,jdbcType=VARCHAR},</if>
+			<if test="messageDataType != null">#{messageDataType,jdbcType=VARCHAR},</if>
+			<if test="messageData != null">#{messageData,jdbcType=VARCHAR},</if>
+			<if test="messageSize != null">#{messageSize,jdbcType=VARCHAR},</if>
+			<if test="messageSendTime != null">#{messageSendTime,jdbcType=TIMESTAMP},</if>
+			<if test="messageReceiveTime != null">#{messageReceiveTime,jdbcType=TIMESTAMP},</if>
+			<if test="sendServerName != null">#{sendServerName,jdbcType=VARCHAR},</if>
+			<if test="queueName != null">#{queueName,jdbcType=VARCHAR},</if>
+			<if test="routeKey != null">#{routeKey,jdbcType=VARCHAR},</if>
+			<if test="processServerName != null">#{processServerName,jdbcType=VARCHAR},</if>
+			<if test="processStatus != null">#{processStatus,jdbcType=VARCHAR},</if>
+			<if test="failedCount != null">#{failedCount,jdbcType=VARCHAR},</if>
+			<if test="priority != null">#{priority,jdbcType=VARCHAR},</if>
+			<if test="beginProcessTime != null">#{beginProcessTime,jdbcType=TIMESTAMP},</if>
+			<if test="endProcessTime != null">#{endProcessTime,jdbcType=TIMESTAMP},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="result != null">#{result,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntity" parameterType="java.util.Map">
+		update message_body${entity.surfix} 
+		<set>
+		    <if test="entity != null and entity.beginProcessTime != null">begin_process_time = #{entity.beginProcessTime,jdbcType=TIMESTAMP},</if>
+		
+			<if test="entity != null and entity.processStatus != null">process_status = #{entity.processStatus,jdbcType=VARCHAR},</if>
+			
+			<if test="entity != null and entity.endProcessTime != null">end_process_time = #{entity.endProcessTime,jdbcType=TIMESTAMP},</if>
+			
+			<if test="entity != null and entity.result != null">result = #{entity.result,jdbcType=VARCHAR},</if>
+			
+			<if test="entity != null and entity.failedCount != null">failed_count = #{entity.failedCount,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.jmsgauto.model.MessageBody">
+		delete from
+		message_body${surfix}
+		where message_id = #{messageId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from message_body${input.surfix}
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.messageId != null">message_id,</if>
+			<if test="output != null and output.contextId != null">context_id,</if>
+			<if test="output != null and output.customTag != null">custom_tag,</if>
+			<if test="output != null and output.messageName != null">message_name,</if>
+			<if test="output != null and output.fromClass != null">from_class,</if>
+			<if test="output != null and output.messageDataType != null">message_data_type,</if>
+			<if test="output != null and output.messageData != null">message_data,</if>
+			<if test="output != null and output.messageSize != null">message_size,</if>
+			<if test="output != null and output.messageSendTime != null">message_send_time,</if>
+			<if test="output != null and output.messageReceiveTime != null">message_receive_time,</if>
+			<if test="output != null and output.sendServerName != null">send_server_name,</if>
+			<if test="output != null and output.queueName != null">queue_name,</if>
+			<if test="output != null and output.routeKey != null">route_key,</if>
+			<if test="output != null and output.processServerName != null">process_server_name,</if>
+			<if test="output != null and output.processStatus != null">process_status,</if>
+			<if test="output != null and output.failedCount != null">failed_count,</if>
+			<if test="output != null and output.priority != null">priority,</if>
+			<if test="output != null and output.beginProcessTime != null">begin_process_time,</if>
+			<if test="output != null and output.endProcessTime != null">end_process_time,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.result != null">result,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.messageId != null">and message_id=#{input.messageId}</if>
+			<if test="input != null and input.contextId != null">and context_id=#{input.contextId}</if>
+			<if test="input != null and input.customTag != null">and custom_tag=#{input.customTag}</if>
+			<if test="input != null and input.messageName != null">and message_name=#{input.messageName}</if>
+			<if test="input != null and input.fromClass != null">and from_class=#{input.fromClass}</if>
+			<if test="input != null and input.messageDataType != null">and message_data_type=#{input.messageDataType}</if>
+			<if test="input != null and input.messageData != null">and message_data=#{input.messageData}</if>
+			<if test="input != null and input.messageSize != null">and message_size=#{input.messageSize}</if>
+			<if test="input != null and input.messageSendTime != null">and message_send_time=#{input.messageSendTime}</if>
+			<if test="input != null and input.messageReceiveTime != null">and message_receive_time=#{input.messageReceiveTime}</if>
+			<if test="input != null and input.sendServerName != null">and send_server_name=#{input.sendServerName}</if>
+			<if test="input != null and input.queueName != null">and queue_name=#{input.queueName}</if>
+			<if test="input != null and input.routeKey != null">and route_key=#{input.routeKey}</if>
+			<if test="input != null and input.processServerName != null">and process_server_name=#{input.processServerName}</if>
+			<if test="input != null and input.processStatus != null">and process_status=#{input.processStatus}</if>
+			<if test="input != null and input.failedCount != null">and failed_count=#{input.failedCount}</if>
+			<if test="input != null and input.priority != null">and priority=#{input.priority}</if>
+			<if test="input != null and input.beginProcessTime != null">and begin_process_time=#{input.beginProcessTime}</if>
+			<if test="input != null and input.endProcessTime != null">and end_process_time=#{input.endProcessTime}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+			<if test="input != null and input.result != null">and result=#{input.result}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+
+		</trim>
+	</sql>
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ModuleInfo">
+	<resultMap id="BaseResultMap" type="com.xiaodou.common.info.model.ModuleInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="module_name" property="moduleName" jdbcType="VARCHAR" />
+		<result column="list_order" property="listOrder" jdbcType="VARCHAR" />
+		<result column="detail" property="detail" jdbcType="VARCHAR" />
+		<result column="is_first_choice" property="isFirstChoice"
+			jdbcType="TINYINT" />
+	</resultMap>
+	<sql id="base_column">id, module, module_name, list_order, detail,
+		is_first_choice</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.common.info.model.ModuleInfo">
+		select
+		<include refid="base_column" />
+		from xd_module_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_module_info
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.common.info.model.ModuleInfo">
+		insert into xd_module_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="module != null">module,</if>
+			<if test="moduleName != null">module_name,</if>
+			<if test="listOrder != null">list_order,</if>
+			<if test="detail != null">detail,</if>
+			<if test="isFirstChoice != null">is_first_choice,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+			<if test="moduleName != null">#{moduleName,jdbcType=VARCHAR},</if>
+			<if test="listOrder != null">#{listOrder,jdbcType=VARCHAR},</if>
+			<if test="detail != null">#{detail,jdbcType=VARCHAR},</if>
+			<if test="isFirstChoice != null">#{isFirstChoice,jdbcType=TINYINT},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.common.info.model.ModuleInfo">
+		update xd_module_info
+		<set>
+			<if test="value != null and value.module != null">module = #{value.module,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.moduleName != null">module_name = #{value.moduleName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.listOrder != null">list_order = #{value.listOrder,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.detail != null">detail = #{value.detail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.isFirstChoice != null">is_first_choice =
+				#{value.isFirstChoice,jdbcType=TINYINT},</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.common.info.model.ModuleInfo">
+		update xd_module_info
+		<set>
+			<if test="value != null and value.module != null">module = #{value.module,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.moduleName != null">module_name = #{value.moduleName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.listOrder != null">list_order = #{value.listOrder,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.detail != null">detail = #{value.detail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.isFirstChoice != null">is_first_choice =
+				#{value.isFirstChoice,jdbcType=TINYINT},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.common.info.model.ModuleInfo">
+		delete from
+		xd_module_info
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_module_info
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.module != null">module,</if>
+			<if test="output != null and output.moduleName != null">module_name,</if>
+			<if test="output != null and output.listOrder != null">list_order,</if>
+			<if test="output != null and output.detail != null">detail,</if>
+			<if test="output != null and output.isFirstChoice != null">is_first_choice,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.module != null">and module=#{input.module}</if>
+			<if test="input != null and input.moduleName != null">and module_name=#{input.moduleName}</if>
+			<if test="input != null and input.listOrder != null">and list_order=#{input.listOrder}</if>
+			<if test="input != null and input.detail != null">and detail=#{input.detail}</if>
+			<if test="input != null and input.isFirstChoice != null">and is_first_choice=#{input.isFirstChoice}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.module != null and ( sort.module == 'ASC' or sort.module == 'DESC' )">module ${sort.module},</if>
+			<if
+				test="sort != null and sort.moduleName != null and ( sort.moduleName == 'ASC' or sort.moduleName == 'DESC' )">module_name ${sort.moduleName},</if>
+			<if
+				test="sort != null and sort.listOrder != null and ( sort.listOrder == 'ASC' or sort.listOrder == 'DESC' )">list_order ${sort.listOrder},</if>
+			<if
+				test="sort != null and sort.detail != null and ( sort.detail == 'ASC' or sort.detail == 'DESC' )">detail ${sort.detail},</if>
+			<if
+				test="sort != null and sort.isFirstChoice != null and ( sort.isFirstChoice == 'ASC' or sort.isFirstChoice == 'DESC' )">is_first_choice ${sort.isFirstChoice},</if>
+		</trim>
+	</sql>
+</mapper>

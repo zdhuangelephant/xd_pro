@@ -1,0 +1,82 @@
+#set($nameSpace = ${mergeObj.get("nameSpace")})
+#set($baseResultMap = ${mergeObj.get("baseResultMap")})
+#set($tableName = ${mergeObj.get("tableName")})
+#set($majorKeyQuery = ${mergeObj.get("majorKeyQuery")})
+#set($fullPath = ${mergeObj.get("fullPath")})
+#set($insertColumn = ${mergeObj.get("insertColumn")})
+#set($insertValue = ${mergeObj.get("insertValue")})
+#set($updateValue = ${mergeObj.get("updateValue")})
+#set($dynamicOutput = ${mergeObj.get("dynamicOutput")})
+#set($dynamicWhere = ${mergeObj.get("dynamicWhere")})
+#set($dynamicSort = ${mergeObj.get("dynamicSort")})
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="${nameSpace}">
+	<resultMap id="BaseResultMap" type="$!fullPath">
+		$!baseResultMap
+	</resultMap>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="dynamic_output" />
+		from $!tableName
+		where $!majorKeyQuery
+	</select>
+	<select id="findEntityByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from $!tableName
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<delete id="delete" parameterType="java.util.Map">
+		delete from
+		$!tableName
+		<include refid="dynamic_where" />
+	</delete>
+	<insert id="addEntity" parameterType="$!fullPath">
+		insert into xd_quesbk_challenge_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			$!insertColumn
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			$!insertValue
+		</trim>
+	</insert>
+	<update id="updateEntity" parameterType="$!fullPath">
+		update xd_quesbk_challenge_record
+		<set>
+			$!updateValue
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from $!tableName
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			$!dynamicOutput
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			$!dynamicWhere
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limitStart != null and limitCount != null">
+			limit ${limitStart}, ${limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			$!dynamicSort
+		</trim>
+	</sql>
+</mapper>

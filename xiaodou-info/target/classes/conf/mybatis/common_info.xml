@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon Aug 20 17:02:07 
+	CST 2012 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CommonInfo">
+
+	<resultMap id="BaseResultMap" type="CommonInfo">
+		<id column="id" jdbcType="SMALLINT" property="id" />
+		<result column="info_type" jdbcType="VARCHAR" property="infoType" />
+		<result column="info_code" jdbcType="VARCHAR" property="infoCode" />
+		<result column="info_version" jdbcType="VARCHAR" property="infoVersion" />
+	</resultMap>
+
+	<select id="findEntityListByCond" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select * 
+		<!-- <include refid="dynamic_output"/> -->
+		from xd_common_info
+		<where>
+			<if test="input != null and input.ids != null">
+				and id in
+				<foreach collection="input.ids" open="(" close=")" item="item"
+					separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.id != null">
+				and id = #{input.id,jdbcType=SMALLINT}
+			</if>
+			<if test="input != null and input.infoType != null">
+				and info_type = #{input.infoType,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.infoCode != null">
+				and info_code = #{input.infoCode,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.infoVersion != null">
+				and info_version = #{input.infoVersion,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<select id="findEntityByInfoCode" parameterType="CommonInfo"
+		resultMap="BaseResultMap">
+		select * 
+		<!-- <include refid="dynamic_output"/>  -->
+		from xd_common_info 
+		where info_code = #{infoCode,jdbcType=VARCHAR}
+	</select>
+
+
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="CommonInfo">
+		select
+		<include refid="dynamic_output"/>
+		from xd_common_info
+		where id =
+		#{id,jdbcType=INTEGER}
+	</select>
+	
+	<update id="updateEntityByInfoCode" parameterType="CommonInfo">
+		update xd_common_info
+		<set>
+			<if test="infoType != null">
+				info_type = #{infoType,jdbcType=VARCHAR},
+			</if>
+			<if test="infoVersion != null">
+				info_version = #{infoVersion,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where info_code =
+		#{infoCode,jdbcType=VARCHAR}
+	</update>
+
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.infoType != null">info_type,</if>
+			<if test="output != null and output.infoCode != null">info_code,</if>
+			<if test="output != null and output.infoVersion != null">info_version,</if>
+		</trim>
+	</sql>
+</mapper>

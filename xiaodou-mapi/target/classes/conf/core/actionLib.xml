@@ -1,0 +1,1446 @@
+<Actions>
+	<Import location="/conf/custom/env/actionlib.properties" />
+
+	<Action package="product" name="home" version="1.0.0">
+		<Api protocol="http" url="${server.product.host}/product/home"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="baseUserModel" />
+		</Api>
+	</Action>
+	<Action package="product" name="forumList" version="1.0.0">
+		<Api protocol="http" url="${server.product.host}/product/forum_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="forumId" />
+		</Api>
+	</Action>
+	<Action package="product" name="sign" version="1.0.0">
+		<Api protocol="http" url="${server.product.host}/product/sign"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+		</Api>
+	</Action>
+	<Action package="product" name="courseDetail" version="1.0.0">
+		<Api protocol="http" url="${server.product.host}/product/course_detail"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+		</Api>
+	</Action>
+	<Action package="product" name="majorDetail" version="1.0.0">
+		<Api protocol="http" url="${server.product.host}/product/major_detail"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="majorId" />
+		</Api>
+	</Action>
+	<Action package="product" name="majorDetailById" version="1.1.0">
+		<Api protocol="http"
+			url="${server.product.host}/product/major_detail_by_id_v_1_4_9"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="majorId" />
+		</Api>
+	</Action>
+	<Action package="product" name="majorDetailById" version="1.5.0">
+		<Api protocol="http" url="${server.product.host}/product/major_detail_by_id"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="majorId" />
+		</Api>
+	</Action>
+	<Action package="product" name="addCourseList" version="1.0.0">
+		<Api protocol="http" url="${server.product.host}/product/add_course_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+		</Api>
+	</Action>
+	<Action package="product" name="chapterList" version="1.0.0">
+		<Api protocol="http"
+			url="${server.product.host}/product/chapter_list_v_1.4.0" method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+		</Api>
+	</Action>
+	<Action package="product" name="chapterList" version="1.4.1">
+		<Api protocol="http" url="${server.product.host}/product/chapter_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+		</Api>
+	</Action>
+	<Action package="product" name="chapterResource" version="1.0.0">
+		<Api protocol="http" url="${server.product.host}/product/chapter_resource"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="chapterId" />
+			<Param name="itemId" />
+			<Param name="commentIdUpper" />
+			<Param name="size" />
+			<Param name="version" />
+		</Api>
+	</Action>
+	<Action package="product" name="chapterAudio" version="1.0.0">
+		<Api protocol="http" url="${server.product.host}/product/chapter_audio"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="chapterId" />
+			<Param name="itemId" />
+			<Param name="commentIdUpper" />
+			<Param name="size" />
+		</Api>
+	</Action>
+	<Action package="product" name="chapterCardList" version="1.0.0">
+		<Api protocol="http"
+			url="${server.product.host}/product/chapter_card_list_v_1.4.0"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="chapterId" />
+			<Param name="itemId" />
+		</Api>
+	</Action>
+	<Action package="product" name="chapterCardList" version="1.4.1">
+		<Api protocol="http" url="${server.product.host}/product/chapter_card_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="chapterId" />
+			<Param name="itemId" />
+		</Api>
+	</Action>
+
+	<Action package="product" name="modifyExamDate" version="1.0.0">
+		<Api protocol="http" url="${server.product.host}/product/modify_exam_date"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="moveType" />
+		</Api>
+	</Action>
+	<Action package="product" name="openProduct" version="1.0.0">
+		<Api protocol="http" url="${server.product.host}/product/open_product"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseCode" />
+			<Param name="orderStatus" />
+		</Api>
+	</Action>
+	<Action package="product" name="learnRecordTimeList" version="1.0.0">
+		<Api protocol="http"
+			url="${server.product.host}/product/learn_record_time_list" method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+		</Api>
+	</Action>
+	<Action package="product" name="studyRecordTime" version="1.0.0">
+		<Api protocol="http"
+			url="${server.product.host}/product/study_record_time_lt_v1_3_8"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="chapterId" />
+			<Param name="itemId" />
+			<Param name="learnType" />
+			<Param name="learnTime" />
+		</Api>
+	</Action>
+	<Action package="product" name="studyRecordTime" version="1.4.0">
+		<Api protocol="http" url="${server.product.host}/product/study_record_time"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="chapterId" />
+			<Param name="itemId" />
+			<Param name="learnType" />
+			<Param name="learnTime" />
+			<Param name="points" />
+		</Api>
+	</Action>
+	<Action package="product" name="recordDetail" version="1.0.0">
+		<Api protocol="http" url="${server.product.host}/product/record_detail"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+		</Api>
+	</Action>
+	<Action package="product" name="createOrder" version="1.0.0">
+		<Api protocol="http" url="${server.product.host}/product/create_order"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="productId" />
+			<Param name="deviceId" />
+			<Param name="clientType" />
+			<Param name="clientIp" />
+		</Api>
+	</Action>
+	<Action package="product" name="pay" version="1.0.0">
+		<Api protocol="http" url="${server.product.host}/product/pay"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="gorderId" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+	<Action package="product" name="examDetail" version="1.0.0">
+		<Api protocol="http" url="${server.product.host}/product/exam_detail"
+			method="post">
+			<Param name="traceId" />
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="majorId" />
+			<Param name="typeCode" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="scorePointRule" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/score_point_rule"
+			method="post">
+			<Param name="traceId" />
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+		</Api>
+	</Action>
+	<Action package="product" name="learnRecordTimeDetailList"
+		version="1.0.0">
+		<Api protocol="http"
+			url="${server.product.host}/product/learn_record_time_detail_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="page" />
+			<Param name="firstLoginTime" />
+		</Api>
+	</Action>
+	<Action package="product" name="learnRecordTimeStatisticList"
+		version="1.0.0">
+		<Api protocol="http"
+			url="${server.product.host}/product/learn_record_time_statistic_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+		</Api>
+	</Action>
+	<Action package="product" name="notes_list" version="1.0.3">
+		<Api protocol="http" url="${server.product.host}/notes/notes_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="notesId" />
+			<Param name="courseStatus" />
+		</Api>
+	</Action>
+
+	<Action package="product" name="notes_del" version="1.0.3">
+		<Api protocol="http" url="${server.product.host}/notes/notes_del"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="notesId" />
+		</Api>
+	</Action>
+
+	<Action package="product" name="notes_add" version="1.0.3">
+		<Api protocol="http" url="${server.product.host}/notes/notes_add"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="chapterId" />
+			<Param name="itemId" />
+			<Param name="content" />
+			<Param name="source" />
+			<Param name="resourcesName" />
+		</Api>
+	</Action>
+	<Action package="product" name="tradeDetail" version="1.0.3">
+		<Api protocol="http" url="${server.product.host}/trade/trade_detail"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="clientType" />
+			<Param name="pageNo" />
+			<Param name="size" />
+		</Api>
+	</Action>
+	<!-- 题库 -->
+	<Action package="quesbk" name="courseStatistics" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/course_statistics"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+		</Api>
+	</Action>
+
+	<Action package="quesbk" name="challenge" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/challenge"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="type" />
+			<Param name="courseId" />
+			<Param name="targetUserId" />
+		</Api>
+	</Action>
+
+	<Action package="quesbk" name="examDetail" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/exam_detail_v1_3_8"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="examType" />
+			<Param name="recordId" />
+			<Param name="chapterId" />
+			<Param name="itemId" />
+			<Param name="userType" />
+			<Param name="srcFaceId" />
+			<Param name="userCredit" />
+		</Api>
+	</Action>
+
+	<Action package="quesbk" name="examDetail" version="1.4.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/exam_detail"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="examType" />
+			<Param name="recordId" />
+			<Param name="chapterId" />
+			<Param name="itemId" />
+			<Param name="userType" />
+			<Param name="srcFaceId" />
+			<Param name="userCredit" />
+		</Api>
+	</Action>
+
+	<Action package="quesbk" name="examResult" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/exam_result"
+			method="post">
+			<Param name="traceId" />
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="userCredit" />
+			<Param name="courseId" />
+			<Param name="examType" />
+			<Param name="paperId" />
+			<Param name="examStatus" />
+			<Param name="examTime" />
+			<Param name="examDetail" />
+			<Param name="recordId" />
+			<Param name="nextChapterSummery" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="pkList" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/pk_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="pkResult" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/pk_result"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="recordId" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="wrongQuesList" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/wrong_ques_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="wrongQuesDetail" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/wrong_ques_detail"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="chapterId" />
+			<Param name="itemId" />
+			<Param name="type" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="changeWrongQues" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/change_wrong_ques"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="majorId" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="chapterId" />
+			<Param name="quesId" />
+			<Param name="type" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="raiseWrongQues" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/raise_wrong_ques"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="chapterId" />
+			<Param name="quesId" />
+			<Param name="wrongType" />
+			<Param name="wrongMsg" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="storeQues" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/store_ques"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="chapterId" />
+			<Param name="quesId" />
+			<Param name="type" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="storeQuesList" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/store_ques_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="storeQuesDetail" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/store_ques_detail"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="chapterId" />
+			<Param name="itemId" />
+			<Param name="type" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="changeStoreQues" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/change_store_ques"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="chapterId" />
+			<Param name="quesId" />
+			<Param name="type" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="learnRecord" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/learn_record"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="performanceDetail" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/performance_detail"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="bonusId" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="getAward" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/get_award"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="bonusId" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="initAward" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/init_award"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="missionId" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="learnRecordView" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/learn_record_view"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="learnScoreDateList" version="1.0.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/learn_score_date_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="courseId" />
+			<Param name="page" />
+			<Param name="firstLoginTime" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="faceRecognition" version="1.1.0">
+		<Api protocol="http" url="${server.quesbk.host}/recognition/face_recognition"
+			method="post">
+			<Param name="uid" />
+			<Param name="deviceId" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="type" />
+			<Param name="courseId" />
+			<Param name="paperId" />
+			<Param name="srcFaceId" />
+			<Param name="faceUrl" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="quesAudioLogAdd" version="1.1.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/ques_audio_log_insert"
+			method="post">
+			<Param name="uid" />
+			<Param name="deviceId" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="quesId" />
+			<Param name="quesVideoUrl" />
+			<Param name="courseId" />
+			<Param name="traceId" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="getQuesAudioLogList" version="1.1.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/ques_audio_log_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="deviceId" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="quesId" />
+			<Param name="traceId" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="getQuesAudioLogDetail" version="1.1.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/ques_audio_log_detail"
+			method="post">
+			<Param name="uid" />
+			<Param name="deviceId" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="quesId" />
+			<Param name="traceId" />
+		</Api>
+	</Action>
+	<Action package="quesbk" name="getAudioCount" version="1.1.0">
+		<Api protocol="http" url="${server.quesbk.host}/quesbk/get_audio_count"
+			method="post">
+			<Param name="uid" />
+			<Param name="deviceId" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="traceId" />
+		</Api>
+	</Action>
+	<!-- payment server -->
+	<Action package="payment" name="appleCallBack" version="1.0.0">
+		<Api protocol="http" url="${server.payment.host}/payment/apple_call_back"
+			method="post">
+			<Param name="tradeNo" />
+			<Param name="thirdTositenumero" />
+		</Api>
+	</Action>
+	<Action package="payment" name="aliCallBack" version="1.0.0">
+		<Api protocol="http" url="${server.payment.host}/payment/ali_call_back"
+			method="post">
+			<Param name="notify_id" />
+			<Param name="out_trade_no" />
+		</Api>
+	</Action>
+	<!-- mission server -->
+	<Action package="mission" name="medalList" version="1.0.0">
+		<Api protocol="http" url="${server.mission.host}/mission/medal_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+		</Api>
+	</Action>
+	<Action package="mission" name="unReachTask" version="1.0.0">
+		<Api protocol="http" url="${server.mission.host}/mission/un_reach_task"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="majorId" />
+			<Param name="courseMap" />
+		</Api>
+	</Action>
+	<Action package="mission" name="taskList" version="1.0.0">
+		<Api protocol="http" url="${server.mission.host}/mission/task_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="majorId" />
+			<Param name="courseMap" />
+			<Param name="surplusDays" />
+			<Param name="lastDate" />
+		</Api>
+	</Action>
+	<Action package="mission" name="taskStatus" version="1.0.0">
+		<Api protocol="http" url="${server.mission.host}/mission/task_status"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="courseId" />
+			<Param name="chapterId" />
+			<Param name="itemId" />
+			<Param name="taskId" />
+			<Param name="recordId" />
+		</Api>
+	</Action>
+	<Action package="mission" name="taskCompleteList" version="1.0.0">
+		<Api protocol="http" url="${server.mission.host}/mission/task_complete_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="majorId" />
+			<Param name="courseMap" />
+			<Param name="beginTime" />
+			<Param name="endTime" />
+		</Api>
+	</Action>
+	
+
+	<!-- ucenter start -->
+	<Action package="ucenter" name="upToken" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/common/up_token"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="scope" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="checkToken" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/check_token_v_1_4_9"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+	
+	<Action package="ucenter" name="checkToken" version="1.5.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/check_token"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+
+
+	<!-- ucenter start -->
+	<Action package="ucenter" name="login" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/login_v_1_4_9"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="platform" />
+			<Param name="phoneNum" />
+			<Param name="pwd" />
+			<Param name="uniqueId" />
+			<Param name="address" />
+			<Param name="age" />
+			<Param name="gender" />
+			<Param name="nickName" />
+			<Param name="portrait" />
+			<Param name="sign" />
+			<Param name="registrationId" />
+			<Param name="lat" />
+			<Param name="lng" />
+			<Param name="packageTag" />
+		</Api>
+	</Action>
+
+	<Action package="ucenter" name="login" version="1.5.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/login"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="platform" />
+			<Param name="phoneNum" />
+			<Param name="pwd" />
+			<Param name="uniqueId" />
+			<Param name="address" />
+			<Param name="age" />
+			<Param name="gender" />
+			<Param name="nickName" />
+			<Param name="portrait" />
+			<Param name="sign" />
+			<Param name="registrationId" />
+			<Param name="lat" />
+			<Param name="lng" />
+			<Param name="packageTag" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="registerMember" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/register_member"
+			method="post">
+			<Param name="nickName" />
+			<Param name="phoneNum" />
+			<Param name="password" />
+			<Param name="confirmPassword" />
+			<Param name="checkCode" />
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="portrait" />
+			<Param name="sign" />
+			<Param name="gender" />
+			<Param name="packageTag" />
+
+		</Api>
+	</Action>
+	<Action package="ucenter" name="registerIM" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/register_im"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="checkCode" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/check_code"
+			method="post">
+			<Param name="nickName" />
+			<Param name="phoneNum" />
+			<Param name="checkCodeType" />
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="findPwd" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/find_pwd"
+			method="post">
+			<Param name="phoneNum" />
+			<Param name="checkCode" />
+			<Param name="pwd" />
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="modifyDefaultPassword" version="1.0.0">
+		<Api protocol="http"
+			url="${server.ucenter.host}/user/modify_default_password" method="post">
+			<Param name="phoneNum" />
+			<Param name="checkCode" />
+			<Param name="password" />
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="modifyPwd" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/modify_pwd"
+			method="post">
+			<Param name="OldPwd" />
+			<Param name="NewPwd" />
+			<Param name="confirmNewPwd" />
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="userList" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/user_list"
+			method="post">
+			<Param name="userIdList" />
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+	<Action package="friend" name="listFriend" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/friend/list_friend"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+	<Action package="friend" name="addFriend" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/friend/add_friend"
+			method="post">
+			<Param name="targetUserId" />
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+	<Action package="friend" name="delFriend" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/friend/del_friend"
+			method="post">
+			<Param name="targetUserId" />
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="notice" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/notice"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="showNotice" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/show_notice"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="noticeId" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="noticetoReadAll" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/notice_to_read_all"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="loginOut" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/login_out"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="modifyMyInfo" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/modify_my_info_v_1_4_9"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="type" />
+			<Param name="nickName" />
+			<Param name="address" />
+			<Param name="age" />
+			<Param name="gender" />
+			<Param name="portrait" />
+			<Param name="sign" />
+			<Param name="major" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="modifyMyInfo" version="1.5.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/modify_my_info"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="type" />
+			<Param name="nickName" />
+			<Param name="address" />
+			<Param name="age" />
+			<Param name="gender" />
+			<Param name="portrait" />
+			<Param name="sign" />
+			<Param name="major" />
+			<Param name="region" />
+			<Param name="regionName" />
+			<Param name="majorId" />
+			<Param name="majorName" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="creditOperationList" version="1.4.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/credit_operation_list"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="idUpper" />
+			<Param name="size" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="version" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/config/version"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="config" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/config/config_v_1_4_9"
+			method="post">
+			<Param name="majorList" />
+			<Param name="thirdlogin" />
+			<Param name="shareplateform" />
+			<Param name="blankNotice" />
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="traceId" />
+			<Param name="feedbackCategory" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="config" version="1.5.0">
+		<Api protocol="http" url="${server.ucenter.host}/config" method="post">
+			<Param name="majorList" />
+			<Param name="thirdlogin" />
+			<Param name="shareplateform" />
+			<Param name="blankNotice" />
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="traceId" />
+			<Param name="feedbackCategory" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="queryUser" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/query_user"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="userId" />
+			<Param name="userName" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="feedback" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/feedback"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="feedContent" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="saveFeedback" version="1.4.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/save_feedback"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="traceId" />
+			<Param name="feedContent" />
+			<Param name="categoryDescList" />
+			<Param name="number" />
+			<Param name="imageUrlList" />
+			<Param name="userId" />
+			<Param name="deviceType" />
+			<Param name="osVersion" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="report" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/report"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="type" />
+			<Param name="targetId" />
+			<Param name="content" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="rankList" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/rank_list"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="type" />
+		</Api>
+	</Action>
+
+	<Action package="asyncMessage" name="messageRes" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/asyncMessage/message_res"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="messageId" />
+			<Param name="result" />
+		</Api>
+	</Action>
+
+	<Action package="asyncMessage" name="myMessage" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/asyncMessage/my_message"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="size" />
+			<Param name="sysIdUpper" />
+			<Param name="type" />
+			<Param name="userIdUpper" />
+		</Api>
+	</Action>
+
+
+	<Action package="ucenter" name="goodList" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/good_list"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="order" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/order"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="goodId" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="recharge" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/recharge"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="billNo" />
+			<Param name="payMethod" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="unreadMesCount" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/unread_mes_count"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+
+	<Action package="ucenter" name="helpDoc" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/help_doc"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="showHelpDoc" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/show_help_doc"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="helpId" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="validateCode" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/validate_code"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="phoneNum" />
+			<Param name="checkCodeType" />
+			<Param name="checkCode" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="findNotice" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/find_notice"
+			method="post">
+			<Param name="noticeId" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="findUserRelateNotice" version="1.0.0">
+		<Api protocol="http"
+			url="${server.ucenter.host}/user/find_user_relate_notice" method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="noticeId" />
+			<Param name="userId" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="userFirstLoginTime" version="1.0.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/user_first_login_time"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="userId" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="updateUserRelateNotice" version="1.0.0">
+		<Api protocol="http"
+			url="${server.ucenter.host}/user/update_user_relate_notice" method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="noticeId" />
+			<Param name="userId" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="updateBenchmarkFace" version="1.1.0">
+		<Api protocol="http" url="${server.ucenter.host}/user/benchmark_face"
+			method="post">
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="sessionToken" />
+			<Param name="clientIp" />
+			<Param name="version" />
+			<Param name="clientType" />
+			<Param name="benchmarkFaceUrl" />
+		</Api>
+	</Action>
+	<!-- ucenter end -->
+	<Action package="product" name="starRankList" version="1.0.0">
+		<Api protocol="http" url="${server.product.host}/product/star_rank_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+		</Api>
+	</Action>
+	<Action package="product" name="personProductInfo" version="1.0.0">
+		<Api protocol="http"
+			url="${server.product.host}/product/person_product_info" method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="traceId" />
+		</Api>
+	</Action>
+	<Action package="product" name="listNotValidCourse" version="1.4.0">
+		<Api protocol="http"
+			url="${server.product.host}/product/list_not_valid_course" method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="typeCode" />
+			<Param name="traceId" />
+			<Param name="upperId" />
+		</Api>
+	</Action>
+
+
+	<Action package="forum" name="index" version="1.1.0">
+		<Api protocol="http" url="${server.product.host}/forum/index"
+			method="post">
+		    <Param name="forumId" />
+		</Api>
+	</Action>
+	
+	<Action package="forum" name="openCoureseList" version="1.1.0">
+		<Api protocol="http" url="${server.product.host}/forum/open_courese_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="forumType" />
+			<Param name="forumTag" />
+			<Param name="forumId" />
+		</Api>
+	</Action>
+	<Action package="forum" name="share" version="1.1.0">
+		<Api protocol="http" url="${server.product.host}/forum/forum_share_list"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="forumType" />
+			<Param name="forumTag" />
+			<Param name="forumId" />
+			<Param name="forumTime" />
+		</Api>
+	</Action>
+
+	<Action package="forum" name="major" version="1.1.0">
+		<Api protocol="http" url="${server.product.host}/forum/major_v_1_4_9"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="forumType" />
+			<Param name="forumTag" />
+			<Param name="forumId" />
+		</Api>
+	</Action>
+	<Action package="forum" name="major" version="1.5.0">
+		<Api protocol="http" url="${server.product.host}/forum/major"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="forumType" />
+			<Param name="forumTag" />
+			<Param name="forumId" />
+		</Api>
+	</Action>
+	<Action package="forum" name="forumDetail" version="1.1.0">
+		<Api protocol="http" url="${server.product.host}/forum/forum_detail"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="forumId" />
+		</Api>
+	</Action>
+
+	<Action package="forum" name="authorDetail" version="1.1.0">
+		<Api protocol="http" url="${server.product.host}/forum/author_detail"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="forumId" />
+		</Api>
+	</Action>
+
+	<Action package="forum" name="praise" version="1.1.0">
+		<Api protocol="http" url="${server.product.host}/forum/praise"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="clientIp" />
+			<Param name="resourcesId" />
+		</Api>
+	</Action>
+	<Action package="forum" name="cancel" version="1.1.0">
+		<Api protocol="http" url="${server.product.host}/forum/cancel"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="deviceId" />
+			<Param name="clientIp" />
+			<Param name="resourcesId" />
+		</Api>
+	</Action>
+
+	<Action package="resources" name="share" version="1.1.0">
+		<Api protocol="http" url="${server.product.host}/resources/share"
+			method="post">
+			<Param name="uid" />
+			<Param name="module" />
+			<Param name="shareType" />
+			<Param name="resourceId" />
+		</Api>
+	</Action>
+	<Action package="resources" name="sharePage" version="1.1.0">
+		<Api protocol="http" url="${server.product.host}/resources/share_page"
+			method="post">
+			<Param name="resourceId" />
+			<Param name="_timestamp" />
+		</Api>
+	</Action>
+	<Action package="resources" name="getJsApiMap" version="1.1.0">
+		<Api protocol="http" url="${server.product.host}/resources/get_js_api_map"
+			method="post">
+			<Param name="url" />
+		</Api>
+	</Action>
+	<Action package="resources" name="notWeiXin" version="1.1.0">
+		<Api protocol="http" url="${server.product.host}/resources/not_wei_xin"
+			method="post">
+		</Api>
+	</Action>
+</Actions>

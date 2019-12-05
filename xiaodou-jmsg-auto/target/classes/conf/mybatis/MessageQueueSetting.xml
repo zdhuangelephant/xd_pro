@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MessageQueueSetting">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.jmsgauto.model.MessageQueueSetting">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="queue_name" property="queueName" jdbcType="VARCHAR" />
+		<result column="qos" property="qos" jdbcType="VARCHAR" />
+		<result column="parallel_count" property="parallelCount"
+			jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, queue_name, qos, parallel_count, update_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.jmsgauto.model.MessageQueueSetting">
+		select
+		<include refid="base_column" />
+		from message_queue_setting
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from message_queue_setting
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.jmsgauto.model.MessageQueueSetting">
+		insert into message_queue_setting
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="queueName != null">queue_name,</if>
+			<if test="qos != null">qos,</if>
+			<if test="parallelCount != null">parallel_count,</if>
+			<if test="updateTime != null">update_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="queueName != null">#{queueName,jdbcType=VARCHAR},</if>
+			<if test="qos != null">#{qos,jdbcType=VARCHAR},</if>
+			<if test="parallelCount != null">#{parallelCount,jdbcType=VARCHAR},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.jmsgauto.model.MessageQueueSetting">
+		update message_queue_setting
+		<set>
+			<if test="value != null and value.queueName != null">queue_name = #{value.queueName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.qos != null">qos = #{value.qos,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.parallelCount != null">parallel_count = #{value.parallelCount,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.jmsgauto.model.MessageQueueSetting">
+		update message_queue_setting
+		<set>
+			<if test="value != null and value.queueName != null">queue_name = #{value.queueName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.qos != null">qos = #{value.qos,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.parallelCount != null">parallel_count = #{value.parallelCount,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.jmsgauto.model.MessageQueueSetting">
+		delete from
+		message_queue_setting
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from message_queue_setting
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.queueName != null">queue_name,</if>
+			<if test="output != null and output.qos != null">qos,</if>
+			<if test="output != null and output.parallelCount != null">parallel_count,</if>
+			<if test="output != null and output.updateTime != null">update_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.queueName != null">and queue_name=#{input.queueName}</if>
+			<if test="input != null and input.qos != null">and qos=#{input.qos}</if>
+			<if test="input != null and input.parallelCount != null">and parallel_count=#{input.parallelCount}</if>
+			<if test="input != null and input.updateTime != null">and update_time=#{input.updateTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+		</trim>
+	</sql>
+</mapper>
