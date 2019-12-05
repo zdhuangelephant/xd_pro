@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MajorDataModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.course.model.product.MajorDataModel">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="major_info" property="majorInfo" jdbcType="VARCHAR" />
+		<result column="region" property="region" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id,name,major_info,region</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.course.model.product.MajorDataModel">
+		select
+		<include refid="base_column" />
+		from xd_major_data
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_major_data
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<delete id="delete" parameterType="java.util.Map">
+		delete from
+		xd_major_data
+		<include refid="dynamic_where" />
+	</delete>
+	<insert id="addEntity" parameterType="com.xiaodou.course.model.product.MajorDataModel">
+		insert into xd_major_data
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="name != null">name,</if>
+			<if test="majorInfo != null">major_info,</if>
+			<if test="region != null">region,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+			<if test="majorInfo != null">#{majorInfo,jdbcType=VARCHAR},</if>
+			<if test="region != null">#{region,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.course.model.product.MajorDataModel">
+		update xd_major_data
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.majorInfo != null">major_info = #{value.majorInfo,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.region != null">region = #{value.region,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.course.model.product.MajorDataModel">
+		update xd_major_data
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.majorInfo != null">major_info = #{value.majorInfo,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.region != null">region = #{value.region,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_major_data
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.name != null">name,</if>
+			<if test="output != null and output.majorInfo != null">major_info,</if>
+			<if test="output != null and output.region != null">region,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.name != null">and name=#{input.name}</if>
+			<if test="input != null and input.majorInfo != null">and major_info=#{input.majorInfo}</if>
+			<if test="input != null and input.region != null">and region=#{input.region}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limitStart != null and limitCount != null">
+			limit ${limitStart}, ${limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+		</trim>
+	</sql>
+</mapper>

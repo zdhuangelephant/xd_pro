@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MonitorApiLog">
+	<resultMap id="BaseResultMap" type="com.xiaodou.dashboard.model.crontmonitor.MonitorApiLog">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="api_id" property="apiId" jdbcType="VARCHAR" />
+		<result column="result" property="result" jdbcType="VARCHAR" />
+		<result column="message" property="message" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, api_id, result, message, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.dashboard.model.crontmonitor.MonitorApiLog">
+		select
+		<include refid="base_column" />
+		from xd_cront_monitor_api_log where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_cront_monitor_api_log
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.dashboard.model.crontmonitor.MonitorApiLog">
+		insert into xd_cront_monitor_api_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="apiId != null">api_id,</if>
+			<if test="result != null">result,</if>
+			<if test="message != null">message,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="apiId != null">#{apiId,jdbcType=VARCHAR},</if>
+			<if test="result != null">#{result,jdbcType=VARCHAR},</if>
+			<if test="message != null">#{message,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.dashboard.model.crontmonitor.MonitorApiLog">
+		update xd_cront_monitor_api_log
+		<set>
+			<if test="value != null and value.apiId != null">api_id = #{value.apiId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.result != null">result = #{value.result,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.message != null">message = #{value.message,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.dashboard.model.crontmonitor.MonitorApiLog">
+		update xd_cront_monitor_api_log
+		<set>
+			<if test="value != null and value.apiId != null">api_id = #{value.apiId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.result != null">result = #{value.result,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.message != null">message = #{value.message,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.dashboard.model.crontmonitor.MonitorApiLog"> delete from
+		xd_cront_monitor_api_log where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_cront_monitor_api_log
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.apiId != null">api_id,</if>
+			<if test="output != null and output.result != null">result,</if>
+			<if test="output != null and output.message != null">message,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.apiId != null">and api_id=#{input.apiId}</if>
+			<if test="input != null and input.result != null">and result=#{input.result}</if>
+			<if test="input != null and input.message != null">and message=#{input.message}</if>
+			<if test="input != null and input.createTimeLower != null">and create_time &gt; #{input.createTimeLower}</if>
+			<if test="input != null and input.createTimeUpper != null">and create_time &lt; #{input.createTimeUpper}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.apiId != null and ( sort.apiId == 'ASC' or sort.apiId == 'DESC' )">api_id ${sort.apiId},</if>
+			<if
+				test="sort != null and sort.result != null and ( sort.result == 'ASC' or sort.result == 'DESC' )">result ${sort.result},</if>
+			<if
+				test="sort != null and sort.message != null and ( sort.message == 'ASC' or sort.message == 'DESC' )">message ${sort.message},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

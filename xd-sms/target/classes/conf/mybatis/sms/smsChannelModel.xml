@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SmsChannelModel">
+	<!-- ==========================具体业务sql============================ -->
+	<!-- 添加数据 -->
+	<insert id="addEntity" parameterType="SmsChannelModel">
+		insert into xd_sms_channel
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- 删除话题 -->
+	<delete id="deleteList" parameterType="java.util.Map">
+		delete from xd_sms_channel
+		<include refid="dynamic_where" />
+	</delete>
+
+	<!-- 修改话题 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_sms_channel
+		<include refid="dynamic_update" />
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 查询 -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM xd_sms_channel
+		<include refid="dynamic_where" />
+	</select>
+	<!-- ===========================基础属性配置============================= -->
+
+	<!-- 返回结果 -->
+	<resultMap id="BaseResultMap" type="SmsChannelModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="merchant_id" property="merchantId" jdbcType="SMALLINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="priority" property="priority" jdbcType="SMALLINT" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="secret_key" property="secretKey" jdbcType="VARCHAR" />
+		<result column="channel_url" property="channelUrl" jdbcType="VARCHAR" />
+		<result column="port" property="port" jdbcType="INTEGER" />
+		<result column="time_out" property="timeOut" jdbcType="INTEGER" />
+		<result column="control_max_count" property="controlMaxCount"
+			jdbcType="INTEGER" />
+		<result column="balance" property="balance" jdbcType="DOUBLE" />
+		<result column="create_time" property="createTime" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, merchant_id, name, status, priority, user_name, secret_key,
+		channel_url,
+		port, time_out, control_max_count, balance, create_time
+	</sql>
+	<!-- 动态更新 -->
+	<sql id="dynamic_update">
+		<set>
+			<if test="value != null and value.id != null"> id =#{value.id},</if>
+			<if test="value != null and value.merchantId != null"> merchant_id =#{value.merchantId},</if>
+			<if test="value != null and value.name != null"> name =#{value.name},</if>
+			<if test="value != null and value.status != null"> status =#{value.status},</if>
+			<if test="value != null and value.priority != null"> priority =#{value.priority},</if>
+			<if test="value != null and value.userName != null"> user_name =#{value.userName},</if>
+			<if test="value != null and value.secretKey != null"> secret_key =#{value.secretKey},</if>
+			<if test="value != null and value.channelUrl != null"> channel_url =#{value.channelUrl},</if>
+			<if test="value != null and value.port != null"> port =#{value.port},</if>
+			<if test="value != null and value.timeOut != null"> time_out =#{value.timeOut},</if>
+			<if test="value != null and value.controlMaxCount != null"> control_max_count =#{value.controlMaxCount},</if>
+			<if test="value != null and value.balance != null"> balance =#{value.balance},</if>
+			<if test="value != null and value.createTime != null"> create_time =#{value.createTime},</if>
+		</set>
+	</sql>
+	<!-- 动态语句：条件 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id =#{input.id}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")" item="item"
+					separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.merchantId != null">and merchant_id =#{input.merchantId}</if>
+			<if test="input != null and input.name != null">and name =#{input.name}</if>
+			<if test="input != null and input.status != null">and status =#{input.status}</if>
+			<if test="input != null and input.priority != null">and priority =#{input.priority}</if>
+			<if test="input != null and input.userName != null">and user_name =#{input.userName}</if>
+			<if test="input != null and input.secretKey != null">and secret_key =#{input.secretKey}</if>
+			<if test="input != null and input.channelUrl != null">and channel_url =#{input.channelUrl}</if>
+			<if test="input != null and input.port != null">and port =#{input.port}</if>
+			<if test="input != null and input.timeOut != null">and time_out =#{input.timeOut}</if>
+			<if test="input != null and input.controlMaxMount != null">and control_max_count =#{input.controlMaxCount}</if>
+			<if test="input != null and input.balance != null">and balance =#{input.balance}</if>
+			<if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+		</where>
+	</sql>
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="merchantId != null">merchant_id,</if>
+			<if test="name != null">name,</if>
+			<if test="status != null">status,</if>
+			<if test="priority != null">priority,</if>
+			<if test="userName != null">user_name,</if>
+			<if test="secretKey != null">secret_key,</if>
+			<if test="channelUrl != null">channel_url,</if>
+			<if test="port != null">port,</if>
+			<if test="timeOut != null">time_out,</if>
+			<if test="controlMaxCount != null">control_max_count,</if>
+			<if test="balance != null">balance,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="merchantId != null">#{merchantId,jdbcType=SMALLINT},</if>
+			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+			<if test="status != null">#{status,jdbcType=TINYINT},</if>
+			<if test="priority != null">#{priority,jdbcType=SMALLINT},</if>
+			<if test="userName != null">#{userName,jdbcType=VARCHAR},</if>
+			<if test="secretKey != null">#{secretKey,jdbcType=VARCHAR},</if>
+			<if test="channelUrl != null">#{channelUrl,jdbcType=VARCHAR},</if>
+			<if test="port != null">#{port,jdbcType=INTEGER},</if>
+			<if test="timeOut != null">#{timeOut,jdbcType=INTEGER},</if>
+			<if test="controlMaxCount != null">#{controlMaxCount,jdbcType=INTEGER},</if>
+			<if test="balance != null">#{balance,jdbcType=DOUBLE},</if>
+			<if test="createTime != null">#{createTime},</if>
+		</trim>
+	</sql>
+</mapper>

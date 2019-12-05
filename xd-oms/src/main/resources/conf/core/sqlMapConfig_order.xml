@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<typeAliases>
+		<typeAlias alias="Gorder" type="com.xiaodou.oms.entity.order.Gorder" />
+		<typeAlias alias="Order" type="com.xiaodou.oms.entity.order.Order" />
+		<typeAlias alias="OrderId" type="java.lang.String" />
+		<typeAlias alias="seqObject" type="com.xiaodou.oms.entity.Sequence" />
+		<typeAlias alias="OrderItem" type="com.xiaodou.oms.entity.order.OrderItem" />
+		<typeAlias alias="PayRecord" type="com.xiaodou.oms.entity.order.PayRecord" />
+		<typeAlias alias="PayRequest" type="com.xiaodou.oms.entity.order.PayRequest" />
+		<typeAlias alias="WayBill" type="com.xiaodou.oms.entity.order.WayBill" />
+		<typeAlias type="com.xiaodou.oms.util.model.MessageRecord" alias="MessageRecord" />
+		<typeAlias alias="Tag" type="java.lang.String" />
+		<typeAlias alias="queryPaymentModel"  type="com.xiaodou.oms.util.model.QueryPaymentModel"/>
+		<typeAlias alias="ShopTag"  type="com.xiaodou.oms.entity.order.ShopTag"/>
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="conf/mybatis/order.xml" />
+		<mapper resource="conf/mybatis/orderItem.xml" />
+		<mapper resource="conf/mybatis/gorder.xml" />
+		<mapper resource="conf/mybatis/cascadeQuery.xml" />
+		<mapper resource="conf/mybatis/PayRecord.xml" />
+		<mapper resource="conf/mybatis/PayRequest.xml" />
+		<mapper resource="conf/mybatis/WayBill.xml" />
+		<mapper resource="conf/mybatis/mqrecord.xml" />
+		<mapper resource="conf/mybatis/shoptag.xml" />
+	</mappers>
+</configuration>

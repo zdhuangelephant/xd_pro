@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LoginInfoDO">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dashboard.domain.alarm.LoginInfoDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="student_id" property="studentId" />
+		<result column="system_type" property="systemType" jdbcType="VARCHAR" />
+		<result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+		<result column="login_time" property="loginTime" jdbcType="TIMESTAMP" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="area" property="area"/>
+		<result column="student_name" property="studentName" />
+		<result column="admission_card_code" property="admissionCardCode" />
+		<result column="business_id" property="businessId"/>
+	</resultMap>
+	<sql id="base_column">id, student_id, system_type, device_id, login_time,business_id,
+		create_time
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.alarm.LoginInfoDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_login_info
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_login_info
+		left join xd_dashboard_student
+		on xd_dashboard_student.id=xd_dashboard_login_info.student_id
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.st.dashboard.domain.alarm.LoginInfoDO">
+		insert into xd_dashboard_login_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="studentId != null">student_id,</if>
+			<if test="systemType != null">system_type,</if>
+			<if test="deviceId != null">device_id,</if>
+			<if test="loginTime != null">login_time,</if>
+			<if test="area != null">area,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="businessId != null">business_id,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="studentId != null">#{studentId},</if>
+			<if test="systemType != null">#{systemType,jdbcType=VARCHAR},</if>
+			<if test="deviceId != null">#{deviceId,jdbcType=VARCHAR},</if>
+			<if test="loginTime != null">#{loginTime,jdbcType=TIMESTAMP},</if>
+			<if test="area != null">#{area,jdbcType=TIMESTAMP},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="businessId != null">#{businessId},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.st.dashboard.domain.alarm.LoginInfoDO">
+		update xd_dashboard_login_info
+		<set>
+
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.st.dashboard.domain.alarm.LoginInfoDO">
+		update xd_dashboard_login_info
+		<set>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.st.dashboard.domain.alarm.LoginInfoDO">
+		delete from
+		xd_dashboard_login_info
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_login_info
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_dashboard_login_info.id,</if>
+			<if test="output != null and output.studentId != null">xd_dashboard_login_info.student_id,</if>
+			<if test="output != null and output.systemType != null">xd_dashboard_login_info.system_type,</if>
+			<if test="output != null and output.deviceId != null">xd_dashboard_login_info.device_id,</if>
+			<if test="output != null and output.loginTime != null">xd_dashboard_login_info.login_time,</if>
+			<if test="output != null and output.createTime != null">xd_dashboard_login_info.create_time,</if>
+			<if test="output != null and output.studentName != null">xd_dashboard_student.real_name student_name,</if>
+			<if test="output != null and output.admissionCardCode != null">xd_dashboard_student.admission_card_code,</if>
+			<if test="output != null and output.area != null">xd_dashboard_login_info.area,</if>
+			<if test="output != null and output.businessId != null">xd_dashboard_login_info.business_id,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.idLower != null">and xd_dashboard_login_info.id &gt;= #{input.idLower}</if>
+			<if test="input != null and input.idUpper != null">and xd_dashboard_login_info.id &lt;= #{input.idUpper}</if>
+			
+			<if test="input != null and input.deviceIdList != null">
+				and xd_dashboard_login_info.device_id in
+				<foreach collection="input.deviceIdList" open="(" close=")" separator="," item="item">
+				#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.studentIdList != null">
+				and xd_dashboard_login_info.student_id in
+				<foreach collection="input.studentIdList" open="(" close=")" separator="," item="item">
+				#{item}
+				</foreach>
+			</if>
+			
+			<if test="input != null and input.businessIdLower != null">and xd_dashboard_login_info.business_id &gt;= #{input.businessIdLower}</if>
+			<if test="input != null and input.businessIdUpper != null">and xd_dashboard_login_info.business_id &lt;= #{input.businessIdUpper}</if>
+		
+			<if test="input != null and input.systemType != null">and xd_dashboard_login_info.system_type=#{input.systemType}</if>
+			<if test="input != null and input.studentAndDevice == null">
+				<if test="input != null and input.studentId != null">and xd_dashboard_login_info.student_id=#{input.studentId}</if>
+				<if test="input != null and input.deviceId != null">and xd_dashboard_login_info.device_id=#{input.deviceId}</if>
+			</if>
+			<if test="input != null and input.studentAndDevice != null">
+				and (xd_dashboard_login_info.student_id=#{input.studentId}
+				or xd_dashboard_login_info.device_id=#{input.deviceId})
+			</if>
+			<if test="input != null and input.loginTime != null">and xd_dashboard_login_info.login_time=#{input.loginTime}</if>
+			<if test="input != null and input.createTime != null">and xd_dashboard_login_info.create_time=#{input.createTime}</if>
+			<if test="input != null and input.businessId != null">and xd_dashboard_login_info.business_id=#{input.businessId}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.studentId != null and ( sort.studentId == 'ASC' or sort.studentId == 'DESC' )">xd_dashboard_login_info.student_id ${sort.studentId},</if>
+			<if
+				test="sort != null and sort.systemType != null and ( sort.systemType == 'ASC' or sort.systemType == 'DESC' )">xd_dashboard_login_info.system_type ${sort.systemType},</if>
+			<if
+				test="sort != null and sort.deviceId != null and ( sort.deviceId == 'ASC' or sort.deviceId == 'DESC' )">xd_dashboard_login_info.device_id ${sort.deviceId},</if>
+			<if
+				test="sort != null and sort.loginTime != null and ( sort.loginTime == 'ASC' or sort.loginTime == 'DESC' )">xd_dashboard_login_info.login_time ${sort.loginTime},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">xd_dashboard_login_info.create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

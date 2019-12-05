@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaodou.resources.dao.quesbk.UserWrongRecordCollectMapper">
+	<resultMap id="BaseResultMap" type="com.xiaodou.resources.model.quesbk.UserWrongRecordCollect">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="course_id" property="courseId" jdbcType="BIGINT" />
+		<result column="chapter_id" property="chapterId" jdbcType="BIGINT" />
+		<result column="question_number" property="questionNumber" jdbcType="BIGINT" />
+		<result column="uncatch_ques_count" property="uncatchQuesCount" jdbcType="BIGINT" />
+		<result column="catching_ques_count" property="catchingQuesCount" jdbcType="BIGINT" />
+		<result column="catched_ques_count" property="catchedQuesCount" jdbcType="BIGINT" />
+		<result column="name" property="chapterName" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentChapter" jdbcType="BIGINT" />
+		<result column="parent_name" property="parentChapterName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		w.id, w.user_id, w.course_id, w.chapter_id,
+		w.question_number,w.uncatch_ques_count,w.catching_ques_count,w.catched_ques_count
+		c.parent_id,c.name,pc.name parent_name
+	</sql>
+	<sql id="from">
+		from
+		xd_user_wrong_record_collect w
+		left join xd_course_product_item c on
+		w.chapter_id = c.id and c.resource_type = 1 
+		left join xd_course_product_item pc 
+		on c.parent_id = pc.id 
+	</sql>
+	<select id="selectByUserIdAndCourseId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select w.id, w.user_id, w.course_id, w.chapter_id, w.question_number,w.uncatch_ques_count,w.catching_ques_count,w.catched_ques_count,
+		c.parent_id,c.name,pc.name parent_name
+		<include refid="from" />
+		where
+		w.user_id=#{0} 
+		and w.course_id=#{1} 
+		and w.course_id = c.product_id <!-- 保证记录的数据课程id和章节id是一致的 -->
+	</select>
+	<select id="selectByUserIdAndCourseIdItemId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select w.id, w.user_id, w.course_id, w.chapter_id, w.question_number,w.uncatch_ques_count,w.catching_ques_count,w.catched_ques_count,
+		c.parent_id,c.name,pc.name parent_name
+		<include refid="from" />
+		where
+		w.user_id=#{0}
+		and w.course_id=#{1}
+		and
+		w.chapter_id=#{2} 
+		and w.course_id = c.product_id 
+	</select>
+	<insert id="insertEntity" parameterType="com.xiaodou.resources.model.quesbk.UserWrongRecordCollect">
+		insert into xd_user_wrong_record_collect
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="courseId != null">
+				course_id,
+			</if>
+			<if test="chapterId != null">
+				chapter_id,
+			</if>
+			<if test="questionNumber != null">
+				question_number,
+			</if>
+			<if test="uncatchQuesCount != null">
+				uncatch_ques_count,
+			</if>
+			<if test="catchingQuesCount != null">
+				catching_ques_count,
+			</if>
+			<if test="catchedQuesCount != null">
+				catched_ques_count,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="courseId != null">
+				#{courseId,jdbcType=BIGINT},
+			</if>
+			<if test="chapterId != null">
+				#{chapterId,jdbcType=BIGINT},
+			</if>
+			<if test="questionNumber != null">
+				#{questionNumber,jdbcType=BIGINT},
+			</if>
+			<if test="uncatchQuesCount != null">
+				#{uncatchQuesCount,jdbcType=BIGINT},
+			</if>
+			<if test="catchingQuesCount != null">
+				#{catchingQuesCount,jdbcType=BIGINT},
+			</if>
+			<if test="catchedQuesCount != null">
+				#{catchedQuesCount,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByUSISelective" parameterType="com.xiaodou.resources.model.quesbk.UserWrongRecordCollect">
+		update xd_user_wrong_record_collect
+		<set>
+			<if test="questionNumber != null">
+				question_number = #{questionNumber,jdbcType=BIGINT},
+			</if>
+			<if test="uncatchQuesCount != null">
+				uncatch_ques_count = #{uncatchQuesCount,jdbcType=BIGINT},
+			</if>
+			<if test="catchingQuesCount != null">
+				catching_ques_count = #{catchingQuesCount,jdbcType=BIGINT},
+			</if>
+			<if test="catchedQuesCount != null">
+				catched_ques_count = #{catchedQuesCount,jdbcType=BIGINT},
+			</if>
+		</set>
+		where user_id = #{userId,jdbcType=BIGINT}
+		and course_id = #{courseId,jdbcType=BIGINT}
+		and chapter_id = #{chapterId,jdbcType=BIGINT}
+	</update>
+</mapper>

@@ -1,0 +1,28 @@
+[31m[2017-07-17 17:36:11.492] [ERROR] console - [39m[34mdebug: [39m-------------------------------------------------------
+[31m[2017-07-17 17:36:11.495] [ERROR] console - [39m[34mdebug: [39m:: Mon Jul 17 2017 17:36:11 GMT+0800 (CST)
+[31m[2017-07-17 17:36:11.496] [ERROR] console - [39m[34mdebug: [39mEnvironment : development
+[31m[2017-07-17 17:36:11.496] [ERROR] console - [39m[34mdebug: [39mPort        : 1337
+[31m[2017-07-17 17:36:11.496] [ERROR] console - [39m[34mdebug: [39m-------------------------------------------------------
+[32m[2017-07-17 17:36:11.516] [INFO] outIn - [39mRequested -  GET /TimingSchedule/getAll
+[32m[2017-07-17 17:36:11.556] [INFO] console - [39mfind ScheduleTask records success!
+[32m[2017-07-17 17:36:19.422] [INFO] outIn - [39mRequested -  GET /
+[32m[2017-07-17 17:36:19.527] [INFO] outIn - [39mRequested -  GET /xd-autotest-framework/css/bootstrap.min.css
+[32m[2017-07-17 17:36:19.533] [INFO] outIn - [39mRequested -  GET /xd-autotest-framework/css/frame-main.css
+[32m[2017-07-17 17:36:19.545] [INFO] outIn - [39mRequested -  GET /xd-autotest-framework/css/plugins/morris.css
+[32m[2017-07-17 17:36:19.547] [INFO] outIn - [39mRequested -  GET /xd-autotest-framework/font-awesome/css/font-awesome.min.css
+[32m[2017-07-17 17:36:19.549] [INFO] outIn - [39mRequested -  GET /xd-autotest-framework/css/login.css
+[32m[2017-07-17 17:36:21.577] [INFO] outIn - [39mRequested -  POST /doLogin
+[31m[2017-07-17 17:36:21.703] [ERROR] console - [39m[34mdebug: [39mfind User records success!
+[32m[2017-07-17 17:36:21.712] [INFO] outIn - [39mRequested -  GET /
+[32m[2017-07-17 17:36:21.761] [INFO] outIn - [39mRequested -  GET /xd-autotest-framework/css/bootstrap.min.css
+[32m[2017-07-17 17:36:21.764] [INFO] outIn - [39mRequested -  GET /xd-autotest-framework/css/frame-main.css
+[32m[2017-07-17 17:36:21.773] [INFO] outIn - [39mRequested -  GET /xd-autotest-framework/css/plugins/morris.css
+[32m[2017-07-17 17:36:21.780] [INFO] outIn - [39mRequested -  GET /xd-autotest-framework/font-awesome/css/font-awesome.min.css
+[32m[2017-07-17 17:36:21.783] [INFO] outIn - [39mRequested -  GET /xd-autotest-framework/js/jquery.js
+[32m[2017-07-17 17:36:21.796] [INFO] outIn - [39mRequested -  GET /xd-autotest-framework/js/bootstrap.min.js
+[32m[2017-07-17 17:36:21.802] [INFO] outIn - [39mRequested -  GET /xd-autotest-framework/js/jquery.form.js
+[32m[2017-07-17 17:36:21.811] [INFO] outIn - [39mRequested -  GET /xd-autotest-framework/js/plugins/morris/raphael.min.js
+[32m[2017-07-17 17:36:21.814] [INFO] outIn - [39mRequested -  GET /xd-autotest-framework/js/plugins/morris/morris.min.js
+[32m[2017-07-17 17:36:21.818] [INFO] outIn - [39mRequested -  GET /xd-autotest-framework/js/index/morris-data.js
+[32m[2017-07-17 17:36:21.829] [INFO] outIn - [39mRequested -  GET /xd-autotest-framework/js/index/frame-main.js
+[32m[2017-07-17 17:36:21.895] [INFO] outIn - [39mRequested -  GET /xd-autotest-framework/font-awesome/fonts/fontawesome-webfont.woff?v=4.2.0

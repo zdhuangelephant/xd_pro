@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ProductModel">
+
+	<resultMap id="BaseResultMap" type="ProductModel">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="brief_info" property="briefInfo" />
+		<result column="detail" property="detail" />
+		<result column="image_url" property="imageUrl" />
+		<result column="curr_apply_count" property="currApplyCount" />
+		<result column="total_apply_count" property="totalApplyCount" />
+		<result column="begin_apply_time" property="beginApplyTime" />
+		<result column="end_apply_time" property="endApplyTime" />
+		<result column="original_amount" property="originalAmount" />
+		<result column="pay_amount" property="payAmount" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="misc" property="misc" />
+		<result column="show_status" property="showStatus" />
+		<result column="praise_count" property="praiseCount" />
+		<result column="type" property="type" />
+		<result column="category_name" property="categoryName" />
+		<result column="question_bank_setting" property="questionBankSetting" />
+		<result column="resource_subject" property="resourceSubject" />
+		<result column="share_url" property="shareUrl" />
+		<result column="course_code" property="courseCode" />
+		<result column="course_name" property="courseName" />
+		<result column="course_quality" property="courseQuality" />
+		<result column="course_credit" property="courseCredit" />
+		<result column="course_check_type" property="courseCheckType" />
+		<result column="exam_date_type" property="examDateType" />
+		<result column="exam_detail" property="examDetail" />
+
+		<result column="major" property="major" />
+		<result column="type_code" property="majorCode" />
+		<result column="score" property="score" />
+
+		<result column="module_course" property="moduleCourse" />
+
+		<result column="exam_date" property="examDate" />
+	</resultMap>
+
+	<!--字段 -->
+	<sql id="base_column">
+		brief_info,detail,image_url,curr_apply_count,
+		total_apply_count,begin_apply_time,end_apply_time,original_amount,
+		pay_amount,create_time,update_time,misc,show_status,praise_count,type,
+		question_bank_setting,resource_subject,share_url,course_code,course_quality,
+		course_credit,course_check_type,exam_date_type,exam_detail,module_course,exam_date
+	</sql>
+	<sql id="all_column">
+		xd_course_product.id,xd_course_product.name name,
+		<include refid="base_column" />
+	</sql>
+
+	<!-- 1.插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="name != null">name,</if>
+			<if test="briefInfo != null">brief_info,</if>
+			<if test="detail != null">detail,</if>
+			<if test="imageUrl != null">image_url,</if>
+			<if test="currApplyCount != null">curr_apply_count,</if>
+			<if test="totalApplyCount != null">total_apply_count,</if>
+			<if test="beginApplyTime != null">begin_apply_time,</if>
+			<if test="endApplyTime != null">end_apply_time,</if>
+			<if test="originalAmount != null">original_amount,</if>
+			<if test="payAmount != null">pay_amount,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="updateTime != null">update_time,</if>
+			<if test="misc != null">misc,</if>
+			<if test="showStatus != null">show_status,</if>
+			<if test="praiseCount != null">praise_count,</if>
+			<if test="type != null">type,</if>
+			<if test="questionBankSetting != null">question_bank_setting,</if>
+			<if test="resourceSubject != null">resource_subject,</if>
+			<if test="shareUrl !=null">share_url,</if>
+			<if test="courseCode != null">course_code,</if>
+			<if test="courseQuality != null">course_quality,</if>
+			<if test="courseCredit != null">course_credit,</if>
+			<if test="courseCheckType">course_check_type,</if>
+			<if test="examDateType != null">exam_date_type,</if>
+			<if test="examDetail != null">exam_detail,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="name != null">#{name},</if>
+			<if test="briefInfo != null">#{briefInfo},</if>
+			<if test="detail != null">#{detail},</if>
+			<if test="imageUrl != null">#{imageUrl},</if>
+			<if test="currApplyCount != null">#{currApplyCount},</if>
+			<if test="totalApplyCount != null">#{totalApplyCount},</if>
+			<if test="beginApplyTime != null">#{beginApplyTime},</if>
+			<if test="endApplyTime != null">#{endApplyTime},</if>
+			<if test="originalAmount != null">#{originalAmount},</if>
+			<if test="payAmount != null">#{payAmount},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="updateTime != null">#{updateTime},</if>
+			<if test="misc != null">#{misc},</if>
+			<if test="showStatus != null">#{showStatus},</if>
+			<if test="praiseCount != null">#{praiseCount},</if>
+			<if test="type != null">#{type},</if>
+			<if test="questionBankSetting != null">#{questionBankSetting},</if>
+			<if test="resourceSubject != null">#{resourceSubject},</if>
+			<if test="shareUrl != null">#{shareUrl},</if>
+			<if test="courseCode != null">#{courseCode},</if>
+			<if test="courseQuality != null">#{courseQuality},</if>
+			<if test="courseCredit != null">#{courseCredit},</if>
+			<if test="courseCheckType != null">#{courseCheckType},</if>
+			<if test="examDateType != null">#{examDateType},</if>
+			<if test="examDetail != null">#{examDetail},</if>
+		</trim>
+	</sql>
+
+	<insert id="addEntity" parameterType="ProductModel">
+		insert into xd_course_product
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- 2.更新 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_course_product
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name},</if>
+			<if test="value != null and value.briefInfo != null">brief_info = #{value.briefInfo},</if>
+			<if test="value != null and value.detail != null">detail = #{value.detail},</if>
+			<if test="value != null and value.imageUrl != null">image_url = #{value.imageUrl},</if>
+			<if test="value != null and value.currApplyCount != null">curr_apply_count = #{value.currApplyCount},</if>
+			<if test="value != null and value.totalApplyCount != null">total_apply_count = #{value.totalApplyCount},</if>
+			<if test="value != null and value.beginApplyTime != null">begin_apply_time = #{value.beginApplyTime},</if>
+			<if test="value != null and value.endApplyTime != null">end_apply_time = #{value.endApplyTime},</if>
+			<if test="value != null and value.originalAmount != null">original_amount = #{value.originalAmount},</if>
+			<if test="value != null and value.payAmount != null">pay_amount = #{value.payAmount},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime},</if>
+			<if test="value != null and value.misc != null">misc = #{value.misc},</if>
+			<if test="value != null and value.showStatus != null">show_status = #{value.showStatus},</if>
+			<if test="value != null and value.praiseCount != null">praise_count = #{value.praiseCount},</if>
+			<if test="value != null and value.type != null">type = #{value.type},</if>
+			<if test="value != null and value.questionBankSetting != null">question_bank_setting = #{value.questionBankSetting},
+			</if>
+			<if test="value != null and value.resourceSubject != null">resource_subject = #{value.resourceSubject},</if>
+			<if test="value != null and value.shareUrl != null">share_url = #{value.shareUrl},</if>
+			<if test="value != null and value.courseCode !=null">course_code = #{value.courseCode},</if>
+			<if test="value != null and value.courseQuality !=null">course_quality = #{value.courseQuality},</if>
+			<if test="value != null and value.courseCredit !=null">course_credit = #{value.courseCredit},</if>
+			<if test="value != null and value.courseCheckType !=null">course_check_type = #{value.courseCheckType},</if>
+			<if test="value != null and value.examDateType !=null">exam_date_type = #{value.examDateType},</if>
+			<if test="value != null and value.examDetail != null">exam_detail = #{value.examDetail},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 3.查询 -->
+	<select id="findEntityListByCond" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_product
+		<include refid="dynamic_where" />
+	</select>
+
+	<!-- 查询专业课程列表 -->
+	<select id="cascadeQueryProduct" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_product
+		left join xd_course_product_relation on
+		xd_course_product.id = xd_course_product_relation.product_id
+		left join
+		xd_course_product_category on
+		xd_course_product_relation.product_category_id =
+		xd_course_product_category.id
+		<include refid="dynamic_where" />
+	</select>
+
+	<!-- 查询我的专业课程列表 -->
+	<select id="cascadeQueryMyProduct" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">distinct xd_course_product.id,</if>
+			<if test="output != null and output.productCategoryId != null">xd_course_product_relation.product_category_id,</if>
+			<if test="output != null and output.name != null">xd_course_product.name,</if>
+			<if test="output != null and output.briefInfo != null">xd_course_product.brief_info,</if>
+			<if test="output != null and output.detail != null">xd_course_product.detail,</if>
+			<if test="output != null and output.imageUrl != null">xd_course_product.image_url,</if>
+			<if test="output != null and output.currApplyCount != null">xd_course_product.curr_apply_count,</if>
+			<if test="output != null and output.totalApplyCount != null">xd_course_product.total_apply_count,</if>
+			<if test="output != null and output.beginApplyTime != null">xd_course_product.begin_apply_time,</if>
+			<if test="output != null and output.endApplyTime != null">xd_course_product.end_apply_time,</if>
+			<if test="output != null and output.originalAmount != null">xd_course_product.original_amount,</if>
+			<if test="output != null and output.payAmount != null">xd_course_product.pay_amount,</if>
+			<if test="output != null and output.createTime != null">xd_course_product.create_time,</if>
+			<if test="output != null and output.updateTime != null">xd_course_product.update_time,</if>
+			<if test="output != null and output.misc != null">xd_course_product.misc,</if>
+			<if test="output != null and output.showStatus != null">xd_course_product.show_status,</if>
+			<if test="output != null and output.praiseCount != null">xd_course_product.praise_count,</if>
+			<if test="output != null and output.type != null">xd_course_product.type,</if>
+			<if test="output != null and output.categoryName != null">xd_course_product_category.name as category_name,</if>
+			<if test="output != null and output.questionBankSetting != null">xd_course_product.question_bank_setting, </if>
+			<if test="output != null and output.resourceSubject != null">xd_course_product.resource_subject, </if>
+			<if test="output != null and output.shareUrl != null">xd_course_product.share_url, </if>
+			<if test="output != null and output.courseCode != null">xd_course_product.course_code, </if>
+			<if test="output != null and output.courseQuality != null">xd_course_product.course_quality, </if>
+			<if test="output != null and output.courseCredit != null">xd_course_product.course_credit, </if>
+			<if test="output != null and output.courseCheckType != null">xd_course_product.course_check_type, </if>
+			<if test="output != null and output.examDateType != null">xd_course_product.exam_date_type, </if>
+			<if test="output != null and output.examDetail != null">xd_course_product.exam_detail, </if>
+
+			<if test="output != null and output.major != null">xd_course_product_category.name as major, </if>
+			<if test="output != null and output.majorCode != null">xd_course_product_category.type_code, </if>
+
+			<if test="output != null and output.moduleCourse !=null">xd_course_product.module_course,</if>
+
+			<if test="output != null and output.examDate != null">xd_course_product.exam_date,</if>
+			<if test="output != null and output.score != null">IFNULL(xd_user_exam_total.score,0) score, </if>
+		</trim>
+		from xd_course_product
+		left join xd_course_product_relation on
+		xd_course_product.id = xd_course_product_relation.product_id
+		left join
+		xd_course_product_category on
+		xd_course_product_relation.product_category_id =
+		xd_course_product_category.id
+		LEFT JOIN xd_course_product_order_record
+		ON
+		xd_course_product.id =
+		xd_course_product_order_record.product_id
+		and
+		xd_course_product_order_record.status = 2
+		LEFT
+		JOIN
+		xd_user_exam_total ON
+		xd_course_product.id =
+		xd_user_exam_total.course_id and
+		xd_user_exam_total.user_id =
+		xd_course_product_order_record.uid
+		<include refid="dynamic_where" />
+		order by xd_course_product.update_time desc,xd_course_product.id DESC
+	</select>
+
+
+	<!-- 查询我的专业课程列表 -->
+	<select id="cascadeQueryMyProduct0" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">distinct xd_course_product.id,</if>
+			<if test="output != null and output.name != null">xd_course_product.name,</if>
+			<if test="output != null and output.briefInfo != null">xd_course_product.brief_info,</if>
+			<if test="output != null and output.detail != null">xd_course_product.detail,</if>
+			<if test="output != null and output.imageUrl != null">xd_course_product.image_url,</if>
+			<if test="output != null and output.currApplyCount != null">xd_course_product.curr_apply_count,</if>
+			<if test="output != null and output.totalApplyCount != null">xd_course_product.total_apply_count,</if>
+			<if test="output != null and output.beginApplyTime != null">xd_course_product.begin_apply_time,</if>
+			<if test="output != null and output.endApplyTime != null">xd_course_product.end_apply_time,</if>
+			<if test="output != null and output.originalAmount != null">xd_course_product.original_amount,</if>
+			<if test="output != null and output.payAmount != null">xd_course_product.pay_amount,</if>
+			<if test="output != null and output.createTime != null">xd_course_product.create_time,</if>
+			<if test="output != null and output.updateTime != null">xd_course_product.update_time,</if>
+			<if test="output != null and output.misc != null">xd_course_product.misc,</if>
+			<if test="output != null and output.showStatus != null">xd_course_product.show_status,</if>
+			<if test="output != null and output.praiseCount != null">xd_course_product.praise_count,</if>
+			<if test="output != null and output.type != null">xd_course_product.type,</if>
+			<if test="output != null and output.questionBankSetting != null">xd_course_product.question_bank_setting, </if>
+			<if test="output != null and output.resourceSubject != null">xd_course_product.resource_subject, </if>
+			<if test="output != null and output.shareUrl != null">xd_course_product.share_url, </if>
+			<if test="output != null and output.courseCode != null">xd_course_product.course_code, </if>
+			<if test="output != null and output.courseQuality != null">xd_course_product.course_quality, </if>
+			<if test="output != null and output.courseCredit != null">xd_course_product.course_credit, </if>
+			<if test="output != null and output.courseCheckType != null">xd_course_product.course_check_type, </if>
+			<if test="output != null and output.examDateType != null">xd_course_product.exam_date_type, </if>
+			<if test="output != null and output.examDetail != null">xd_course_product.exam_detail, </if>
+			<if test="output != null and output.moduleCourse !=null">xd_course_product.module_course,</if>
+			<if test="output != null and output.examDate != null">xd_course_product.exam_date,</if>
+			<if test="output != null and output.score != null">IFNULL(xd_user_exam_total.score,0) score, </if>
+		</trim>
+		from xd_course_product
+		left join xd_course_product_relation on
+		xd_course_product.id = xd_course_product_relation.product_id
+		LEFT JOIN
+		xd_course_product_order_record ON
+		xd_course_product.id =
+		xd_course_product_order_record.product_id
+		LEFT JOIN xd_user_exam_total ON 
+		xd_course_product.id = xd_user_exam_total.course_id and
+		xd_user_exam_total.user_id = xd_course_product_order_record.uid
+		<where>
+			<if test="input != null and input.upperId != null">and xd_course_product.id &lt; #{input.upperId}</if>
+			<if test="input != null and input.showStatus != null">and xd_course_product.show_status =#{input.showStatus}
+			</if>
+			and (
+			(
+			xd_course_product_order_record.status =#{input.status}
+			and
+			xd_course_product_order_record.uid =#{input.userId}
+			and
+			xd_course_product.module_course = #{input.moduleCourse} 
+			)
+			OR xd_course_product.module_course = #{input.module}
+			)
+			<if test="input != null and input.notValid != null">
+				and 
+				(
+				xd_course_product.begin_apply_time &gt; NOW()
+				or xd_course_product.end_apply_time &lt; NOW()
+				)
+			</if>
+			<if test="input != null and input.valid != null">
+				and 
+				(
+				xd_course_product.begin_apply_time &lt;= NOW()
+				or xd_course_product.end_apply_time &gt;= NOW()
+				)
+			</if>
+		</where>
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+
+	<!-- 查询我的新手课程 -->
+	<select id="cascadeQueryMyNewbieProduct" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<if test="output != null and output.score != null">IFNULL(xd_user_exam_total.score,0) score ,</if>
+		<include refid="dynamic_output" />
+		from xd_course_product
+		LEFT JOIN xd_user_exam_total ON 
+		xd_course_product.id = xd_user_exam_total.course_id
+		<if test="input != null and input.uid != null">
+			and xd_user_exam_total.user_id =#{input.uid}
+			<include refid="dynamic_where" />
+		</if>
+	</select>
+
+	<!-- 4.查询单个记录 -->
+	<select id="findEntityById" parameterType="ProductModel"
+		resultMap="BaseResultMap">
+		select
+		<include refid="all_column" />
+		from xd_course_product
+		where
+		xd_course_product.id = #{id};
+	</select>
+	<!-- 查询单个记录 -->
+	<select id="queryEntityById" parameterType="ProductModel"
+		resultMap="BaseResultMap">
+		select
+		<include refid="all_column" />
+		from xd_course_product
+		where
+		xd_course_product.id = #{id};
+	</select>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_course_product.id =#{input.id}</if>
+			<if test="input != null and input.upperId != null">and xd_course_product.id &lt; #{input.upperId}</if>
+			<if test="input != null and input.productCategoryId != null">and xd_course_product_category.id
+				=#{input.productCategoryId}
+			</if>
+			<if test="input != null and input.productCategoryIds != null">
+				and xd_course_product_relation.product_category_id in
+				<foreach open="(" close=")" item="idItem" separator=","
+					collection="input.productCategoryIds">#{idItem}</foreach>
+			</if>
+			<if test="input != null and input.name != null">and xd_course_product.name =#{input.name}</if>
+			<if test="input != null and input.briefInfo != null">and xd_course_product.brief_info =#{input.briefInfo}</if>
+			<if test="input != null and input.detail != null">and xd_course_product.detail =#{input.detail}</if>
+			<if test="input != null and input.imageUrl != null">and xd_course_product.image_url =#{input.imageUrl}</if>
+			<if test="input != null and input.currApplyCount != null">and xd_course_product.curr_apply_count
+				=#{input.currApplyCount}
+			</if>
+			<if test="input != null and input.totalApplyCount != null">and xd_course_product.total_apply_count
+				=#{input.totalApplyCount}
+			</if>
+			<if test="input != null and input.beginApplyTime != null">and xd_course_product.begin_apply_time
+				=#{input.beginApplyTime}
+			</if>
+			<if test="input != null and input.endApplyTime != null">and xd_course_product.end_apply_time
+				=#{input.endApplyTime}
+			</if>
+			<if test="input != null and input.applyTime != null"> and xd_course_product.begin_apply_time &lt;
+				#{input.applyTime}
+				and xd_course_product.end_apply_time &gt;
+				#{input.applyTime}
+			</if>
+			<if test="input != null and input.originalAmount != null">and xd_course_product.original_amount
+				=#{input.originalAmount}
+			</if>
+			<if test="input != null and input.payAmount != null">and xd_course_product.pay_amount =#{input.payAmount}</if>
+			<if test="input != null and input.createTime != null">and xd_course_product.create_time =#{input.createTime}
+			</if>
+			<if test="input != null and input.updateTime != null">and xd_course_product.update_time =#{input.updateTime}
+			</if>
+			<if test="input != null and input.misc != null">and xd_course_product.misc =#{input.misc}</if>
+			<if test="input != null and input.showStatus != null">and xd_course_product.show_status =#{input.showStatus}
+			</if>
+			<if test="input != null and input.praiseCount != null">and xd_course_product.praise_count =#{input.praiseCount}
+			</if>
+			<if test="input != null and input.type != null">and xd_course_product.type =#{input.type}</if>
+			<if test="input != null and input.questionBankSetting != null">and xd_course_product.question_bank_setting
+				=#{input.questionBankSetting}
+			</if>
+			<if test="input != null and input.resourceSubject != null">and xd_course_product.resource_subject
+				=#{input.resourceSubject}
+			</if>
+			<if test="input != null and input.shareUrl != null">and xd_course_product.share_url =#{input.shareUrl}</if>
+			<if test="input != null and input.courseCode != null">and xd_course_product.course_code =#{input.courseCode}
+			</if>
+			<if test="input != null and input.courseQuality != null">and xd_course_product.course_quality
+				=#{input.courseQuality}
+			</if>
+			<if test="input != null and input.courseCredit != null">and xd_course_product.course_credit
+				=#{input.courseCredit}
+			</if>
+			<if test="input != null and input.courseCheckType != null">and xd_course_product.course_check_type
+				=#{input.courseCheckType}
+			</if>
+			<if test="input != null and input.examDateType != null">and xd_course_product.exam_date_type
+				=#{input.examDateType}
+			</if>
+			<if test="input != null and input.examDetail != null">and xd_course_product.exam_detail =#{input.examDetail}
+			</if>
+			<!-- 购买记录入参 start -->
+			<if test="input != null and input.status != null">and xd_course_product_order_record.status
+				=#{input.status}
+			</if>
+			<if test="input != null and input.userId != null">and xd_course_product_order_record.uid =#{input.userId}
+			</if>
+			<!-- 购买记录入参 end -->
+			<!-- 根据module获取不同模块的课程 start -->
+			<if test="input != null and input.module != null">and xd_course_product_category.module =#{input.module}
+			</if>
+			<if test="input != null and input.typeCode != null">and xd_course_product_category.type_code
+				=#{input.typeCode}
+			</if>
+			<if test="input != null and input.moduleCourse != null">and xd_course_product.module_course
+				=#{input.moduleCourse}
+			</if>
+			<if test="input != null and input.addModuleCourse != null">or xd_course_product.module_course
+				=#{input.addModuleCourse}
+			</if>
+			<!-- 根据module获取不同模块的课程 end -->
+			<if test="input != null and input.examDate != null">and xd_course_product.exam_date=#{input.examDate}</if>
+		</where>
+	</sql>
+	<!--动态语句:输出 -->
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_course_product.id,</if>
+			<if test="output != null and output.productCategoryId != null">xd_course_product_relation.product_category_id,</if>
+			<if test="output != null and output.name != null">xd_course_product.name,</if>
+			<if test="output != null and output.briefInfo != null">xd_course_product.brief_info,</if>
+			<if test="output != null and output.detail != null">xd_course_product.detail,</if>
+			<if test="output != null and output.imageUrl != null">xd_course_product.image_url,</if>
+			<if test="output != null and output.currApplyCount != null">xd_course_product.curr_apply_count,</if>
+			<if test="output != null and output.totalApplyCount != null">xd_course_product.total_apply_count,</if>
+			<if test="output != null and output.beginApplyTime != null">xd_course_product.begin_apply_time,</if>
+			<if test="output != null and output.endApplyTime != null">xd_course_product.end_apply_time,</if>
+			<if test="output != null and output.originalAmount != null">xd_course_product.original_amount,</if>
+			<if test="output != null and output.payAmount != null">xd_course_product.pay_amount,</if>
+			<if test="output != null and output.createTime != null">xd_course_product.create_time,</if>
+			<if test="output != null and output.updateTime != null">xd_course_product.update_time,</if>
+			<if test="output != null and output.misc != null">xd_course_product.misc,</if>
+			<if test="output != null and output.showStatus != null">xd_course_product.show_status,</if>
+			<if test="output != null and output.praiseCount != null">xd_course_product.praise_count,</if>
+			<if test="output != null and output.type != null">xd_course_product.type,</if>
+			<if test="output != null and output.categoryName != null">xd_course_product_category.name as category_name,</if>
+			<if test="output != null and output.questionBankSetting != null">xd_course_product.question_bank_setting, </if>
+			<if test="output != null and output.resourceSubject != null">xd_course_product.resource_subject, </if>
+			<if test="output != null and output.shareUrl != null">xd_course_product.share_url, </if>
+			<if test="output != null and output.courseCode != null">xd_course_product.course_code, </if>
+			<if test="output != null and output.courseQuality != null">xd_course_product.course_quality, </if>
+			<if test="output != null and output.courseCredit != null">xd_course_product.course_credit, </if>
+			<if test="output != null and output.courseCheckType != null">xd_course_product.course_check_type, </if>
+			<if test="output != null and output.examDateType != null">xd_course_product.exam_date_type, </if>
+			<if test="output != null and output.examDetail != null">xd_course_product.exam_detail, </if>
+			<if test="output != null and output.major != null">xd_course_product_category.name as major, </if>
+			<if test="output != null and output.majorCode != null">xd_course_product_category.type_code, </if>
+			<if test="output != null and output.moduleCourse !=null">xd_course_product.module_course,</if>
+			<if test="output != null and output.examDate != null">xd_course_product.exam_date,</if>
+		</trim>
+	</sql>
+
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitCount != null">
+			limit ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">xd_course_product.id ${sort.id},</if>
+		</trim>
+	</sql>
+</mapper>

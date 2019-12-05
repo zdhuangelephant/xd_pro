@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ForumCommentModel">
+
+	<!-- ===========================具体业务sql====================================== -->
+	<!-- 添加数据 -->
+	<insert id="addEntity" parameterType="ForumCommentModel">
+		insert into xd_forum_comment
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- 根据条件删除数据 -->
+	<delete id="deleteList" parameterType="java.util.Map">
+		delete from xd_forum_comment
+		<include refid="dynamic_where" />
+	</delete>
+
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_forum_comment
+		<include refid="dynamic_update" />
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 查询 -->
+	<select id="findEntityById" parameterType="com.xiaodou.resources.model.forum.ForumRelateInfoModel"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM xd_forum_comment
+		where id =#{id}
+	</select>
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM xd_forum_comment
+		<include refid="dynamic_where" />
+	</select>
+	<select id="queryCommentNumber" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(id)
+		FROM xd_forum_comment
+		<include refid="dynamic_where" />
+	</select>
+	<!-- <select id="queryCommentListByCondNoPage" parameterType="java.util.Map" 
+		resultMap="ForumCommentModel"> select <include refid="all_columns"></include> 
+		from <include refid="table_name" /> <include refid="dynamic_where"/> order 
+		by id desc <include refid="dynamic_limit_forum"></include> </select> -->
+	<!-- ==========================基础属性配置=========================================== -->
+
+	<sql id="table_name">`xd_forum_comment`</sql>
+	<sql id="id_column">`id`</sql>
+	<sql id="base_columns">
+		forum_id, reply_id, targe_id, targe_comment_id,
+		praise_number, tag, create_time,
+		operator, operatorip,content, images,
+		targe_content,item_id,product_id
+	</sql>
+	<sql id="all_columns">
+		<include refid="id_column" />
+		,
+		<include refid="base_columns" />
+	</sql>
+	<sql id="base_count">
+		count(1)
+	</sql>
+
+	<!-- 动态排序 -->
+	<sql id="dynamic_limit_forum">
+		<if test="limitCount != null">
+			limit ${limitCount}
+		</if>
+	</sql>
+
+	<!-- 动态语句：修改 -->
+	<sql id="dynamic_update">
+		<set>
+			<if test="value != null and value.id != null"> id =#{value.id},</if>
+			<if test="value != null and value.resourcesId != null"> forum_id =#{value.resourcesId},</if>
+			<if test="value != null and value.content != null"> content =#{value.content},</if>
+			<if test="value != null and value.images != null"> images =#{value.images},</if>
+			<if test="value != null and value.replyId != null"> reply_id =#{value.replyId},</if>
+			<if test="value != null and value.targeId != null"> targe_id =#{value.targeId},</if>
+			<if test="value != null and value.targeContent != null"> targe_content =#{value.targeContent},</if>
+			<if test="value != null and value.targeCommentId != null"> targe_comment_id =#{value.targeCommentId},</if>
+			<if test="value != null and value.praiseNumber != null"> praise_number =#{value.praiseNumber},</if>
+			<if test="value != null and value.tag != null"> tag =#{value.tag},</if>
+			<if test="value != null and value.createTime != null"> create_time =#{value.createTime},</if>
+			<if test="value != null and value.operator != null"> operator =#{value.operator},</if>
+			<if test="value != null and value.operatorip != null"> operatorip =#{value.operatorip},</if>
+		</set>
+	</sql>
+	<!-- 动态语句：返回结果 -->
+	<resultMap id="BaseResultMap" type="ForumCommentModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="forum_id" property="resourcesId" jdbcType="BIGINT" />
+		<result column="reply_id" property="replyId" jdbcType="BIGINT" />
+		<result column="targe_id" property="targeId" jdbcType="BIGINT" />
+		<result column="targe_comment_id" property="targeCommentId"
+			jdbcType="BIGINT" />
+		<result column="praise_number" property="praiseNumber"
+			jdbcType="INTEGER" />
+		<result column="tag" property="tag" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="operator" property="operator" jdbcType="VARCHAR" />
+		<result column="operatorip" property="operatorip" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="LONGVARCHAR" />
+		<result column="images" property="images" jdbcType="LONGVARCHAR" />
+		<result column="targe_content" property="targeContent"
+			jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<!-- 动态语句：条件 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.commentId != null"> id &lt; #{input.commentId}</if>
+			<if test="input != null and input.id != null"> id =#{input.id}</if>
+			<if test="input != null and input.resourcesId != null">and forum_id =#{input.resourcesId}</if>
+			<if test="input != null and input.content != null">and content =#{input.content}</if>
+			<if test="input != null and input.images != null">and images =#{input.images}</if>
+			<if test="input != null and input.replyId != null">and reply_id =#{input.replyId}</if>
+			<if test="input != null and input.targeId != null">and targe_id =#{input.targeId}</if>
+			<if test="input != null and input.targeContent != null">and targe_content =#{input.targeContent}</if>
+			<if test="input != null and input.targeCommentId != null">and targe_comment_id =#{input.targeCommentId}</if>
+			<if test="input != null and input.praiseNumber != null">and praise_number =#{input.praiseNumber}</if>
+			<if test="input != null and input.tag != null">and tag =#{input.tag}</if>
+			<if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+			<if test="input != null and input.timestamp != null">and _timestamp =#{input.timestamp}</if>
+			<if test="input != null and input.operator != null">and operator =#{input.operator}</if>
+			<if test="input != null and input.operatorip != null">and operatorip =#{input.operatorip}</if>
+						<if test="input != null and input.itemId != null">and item_id =#{input.itemId}</if>
+			<if test="input != null and input.productId != null">and product_id =#{input.productId}</if>
+
+		</where>
+	</sql>
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="resourcesId != null">forum_id,</if>
+			<if test="content != null">content,</if>
+			<if test="images != null">images,</if>
+			<if test="replyId != null">reply_id,</if>
+			<if test="targeId != null">targe_id,</if>
+			<if test="targeContent != null">targe_content,</if>
+			<if test="targeCommentId != null">targe_comment_id,</if>
+			<if test="praiseNumber != null">praise_number,</if>
+			<if test="tag != null">tag,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="operator != null">operator,</if>
+			<if test="operatorip != null">operatorip,</if>
+			<if test="itemId != null">item_id,</if>
+			<if test="productId != null">product_id,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="resourcesId != null">#{resourcesId},</if>
+			<if test="content != null">#{content},</if>
+			<if test="images != null">#{images},</if>
+			<if test="replyId != null">#{replyId},</if>
+			<if test="targeId != null">#{targeId},</if>
+			<if test="targeContent != null">#{targeContent},</if>
+			<if test="targeCommentId != null">#{targeCommentId},</if>
+			<if test="praiseNumber != null">#{praiseNumber},</if>
+			<if test="tag != null">#{tag},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="operator != null">#{operator},</if>
+			<if test="operatorip != null">#{operatorip},</if>
+			<if test="itemId != null">#{itemId},</if>
+			<if test="productId != null">#{productId},</if>
+		</trim>
+	</sql>
+
+	<sql id="Base_Column_List">
+		id, forum_id, reply_id, targe_id, targe_comment_id,
+		praise_number, tag,
+		create_time,
+		operator, operatorip,content, images,
+		targe_content,item_id,product_id
+	</sql>
+
+</mapper>

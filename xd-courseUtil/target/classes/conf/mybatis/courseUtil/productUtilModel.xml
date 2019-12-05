@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ProductUtilModel">
+
+	<resultMap id="BaseResultMap" type="com.xiaodou.courseUtil.model.ProductUtilModel">
+		<id column="id" property="id" />
+		<result column="product_category_id" property="productCategoryId" />
+		<result column="name" property="name" />
+		<result column="brief_info" property="briefInfo" />
+		<result column="detail" property="detail" />
+		<result column="image_url" property="imageUrl" />
+		<result column="curr_apply_count" property="currApplyCount" />
+		<result column="total_apply_count" property="totalApplyCount" />
+		<result column="begin_apply_time" property="beginApplyTime" />
+		<result column="end_apply_time" property="endApplyTime" />
+		<result column="original_amount" property="originalAmount" />
+		<result column="pay_amount" property="payAmount" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="misc" property="misc" />
+		<result column="show_status" property="showStatus" />
+		<result column="praise_count" property="praiseCount" />
+		<result column="type" property="type" />
+		<result column="category_name" property="categoryName" />
+		<result column="question_bank_setting" property="questionBankSetting" />
+		<result column="resource_subject" property="resourceSubject" />
+		<result column="share_url" property="shareUrl" />
+
+		<result column="exam_date" property="examDate" />
+		<result column="is_latest" property="isLatest" />
+		<result column="amount" property="amount" />
+		<result column="back_ground_image" property="backGroundImage" />
+		<result column="back_ground_text" property="backGroundText" />
+		<result column="major" property="major" />
+
+		<result column="score" property="score" />
+
+	</resultMap>
+
+	<!--字段 -->
+	<sql id="base_column">product_category_id,name,brief_info,detail,image_url,curr_apply_count,total_apply_count,begin_apply_time,end_apply_time,original_amount,
+		pay_amount,create_time,update_time,misc,show_status,praise_count,type,question_bank_setting,resource_subject,share_url
+	</sql>
+	<sql id="all_column">
+		id,
+		<include refid="base_column" />
+	</sql>
+
+	<!-- 查询 -->
+	<select id="findEntityListByCond" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_product
+		<include refid="dynamic_where" />
+	</select>
+
+	<!-- 查询专业课程列表 -->
+	<select id="cascadeQueryProduct" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_product
+		left join xd_course_product_category on
+		xd_course_product.product_category_id = xd_course_product_category.id
+		<include refid="dynamic_where" />
+	</select>
+
+
+	<!-- 查询我的专业课程列表 -->
+	<select id="cascadeQueryMyProduct" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<if test="output != null and output.score != null">IFNULL(xd_user_exam_total.score,0) score, </if>
+		<include refid="dynamic_output" />
+		FROM xd_course_product
+		LEFT JOIN xd_course_product_category on
+		xd_course_product.product_category_id = xd_course_product_category.id
+		LEFT JOIN xd_user_product_order ON xd_course_product.id =
+		xd_user_product_order.course_id
+		LEFT JOIN xd_user_exam_total ON
+		xd_course_product.id =
+		xd_user_exam_total.course_id and
+		xd_user_exam_total.user_id = xd_user_product_order.user_id
+		<include refid="dynamic_where" />
+	</select>
+
+
+	<!-- 查询单个记录 -->
+	<select id="findEntityById" parameterType="com.xiaodou.courseUtil.model.ProductUtilModel"
+		resultMap="BaseResultMap">
+		select * from xd_course_product where id = #{id};
+	</select>
+	<!-- 查询单个记录 -->
+	<select id="queryEntityById" parameterType="com.xiaodou.courseUtil.model.ProductUtilModel"
+		resultMap="BaseResultMap">
+		select xd_course_product.*
+		from xd_course_product
+		left join
+		xd_course_product_category on
+		xd_course_product.product_category_id =
+		xd_course_product_category.id
+		where xd_course_product.id = #{id};
+	</select>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_course_product.id =#{input.id}</if>
+			<if test="input != null and input.productCategoryId != null">and xd_course_product.product_category_id
+				=#{input.productCategoryId}
+			</if>
+			<if test="input != null and input.productCategoryIds != null">
+				and xd_course_product.product_category_id in
+				<foreach open="(" close=")" item="idItem" separator=","
+					collection="input.productCategoryIds">#{idItem}</foreach>
+			</if>
+			<if test="input != null and input.name != null">and xd_course_product.name =#{input.name}</if>
+			<if test="input != null and input.briefInfo != null">and xd_course_product.brief_info =#{input.briefInfo}</if>
+			<if test="input != null and input.detail != null">and xd_course_product.detail =#{input.detail}</if>
+			<if test="input != null and input.imageUrl != null">and xd_course_product.image_url =#{input.imageUrl}</if>
+			<if test="input != null and input.currApplyCount != null">and xd_course_product.curr_apply_count
+				=#{input.currApplyCount}
+			</if>
+			<if test="input != null and input.totalApplyCount != null">and xd_course_product.total_apply_count
+				=#{input.totalApplyCount}
+			</if>
+			<if test="input != null and input.beginApplyTime != null">and xd_course_product.begin_apply_time
+				=#{input.beginApplyTime}
+			</if>
+			<if test="input != null and input.endApplyTime != null">and xd_course_product.end_apply_time
+				=#{input.endApplyTime}
+			</if>
+			<if test="input != null and input.originalAmount != null">and xd_course_product.original_amount
+				=#{input.originalAmount}
+			</if>
+			<if test="input != null and input.payAmount != null">and xd_course_product.pay_amount =#{input.payAmount}</if>
+			<if test="input != null and input.createTime != null">and xd_course_product.create_time =#{input.createTime}
+			</if>
+			<if test="input != null and input.updateTime != null">and xd_course_product.update_time =#{input.updateTime}
+			</if>
+			<if test="input != null and input.misc != null">and xd_course_product.misc =#{input.misc}</if>
+			<if test="input != null and input.showStatus != null">and xd_course_product.show_status =#{input.showStatus}
+			</if>
+			<if test="input != null and input.praiseCount != null">and xd_course_product.praise_count =#{input.praiseCount}
+			</if>
+			<if test="input != null and input.type != null">and xd_course_product.type =#{input.type}</if>
+			<if test="input != null and input.questionBankSetting != null">and xd_course_product.question_bank_setting
+				=#{input.questionBankSetting}
+			</if>
+			<if test="input != null and input.resourceSubject != null">and xd_course_product.resource_subject
+				=#{input.resourceSubject}
+			</if>
+			<if test="input != null and input.shareUrl != null">and xd_course_product.share_url =#{input.shareUrl}</if>
+			<if test="input != null and input.examDate != null">and xd_course_product.exam_date =#{input.examDate}</if>
+			<if test="input != null and input.isLatest != null">and xd_course_product.is_latest =#{input.isLatest}</if>
+			<if test="input != null and input.amount != null">and xd_course_product.amount =#{input.amount}</if>
+			<if test="input != null and input.backGroundImage != null">and xd_course_product.back_ground_image
+				=#{input.backGroundImage}
+			</if>
+			<if test="input != null and input.backGroundText != null">and xd_course_product.back_ground_text
+				=#{input.backGroundText}
+			</if>
+			<!-- 购买记录入参 start -->
+			<if test="input != null and input.isExp != null">and xd_user_product_order.is_exp =#{input.isExp}</if>
+			<if test="input != null and input.orderStatus != null">and xd_user_product_order.order_status
+				=#{input.orderStatus}
+			</if>
+			<if test="input != null and input.userId != null">and xd_user_product_order.user_id =#{input.userId}</if>
+			<!-- 购买记录入参 end -->
+		</where>
+	</sql>
+	<!--动态语句:输出 -->
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_course_product.id,</if>
+			<if test="output != null and output.productCategoryId != null">xd_course_product.product_category_id,</if>
+			<if test="output != null and output.name != null">xd_course_product.name,</if>
+			<if test="output != null and output.briefInfo != null">xd_course_product.brief_info,</if>
+			<if test="output != null and output.detail != null">xd_course_product.detail,</if>
+			<if test="output != null and output.imageUrl != null">xd_course_product.image_url,</if>
+			<if test="output != null and output.currApplyCount != null">xd_course_product.curr_apply_count,</if>
+			<if test="output != null and output.totalApplyCount != null">xd_course_product.total_apply_count,</if>
+			<if test="output != null and output.beginApplyTime != null">xd_course_product.begin_apply_time,</if>
+			<if test="output != null and output.endApplyTime != null">xd_course_product.end_apply_time,</if>
+			<if test="output != null and output.originalAmount != null">xd_course_product.original_amount,</if>
+			<if test="output != null and output.payAmount != null">xd_course_product.pay_amount,</if>
+			<if test="output != null and output.createTime != null">xd_course_product.create_time,</if>
+			<if test="output != null and output.updateTime != null">xd_course_product.update_time,</if>
+			<if test="output != null and output.misc != null">xd_course_product.misc,</if>
+			<if test="output != null and output.showStatus != null">xd_course_product.show_status,</if>
+			<if test="output != null and output.praiseCount != null">xd_course_product.praise_count,</if>
+			<if test="output != null and output.type != null">xd_course_product.type,</if>
+			<if test="output != null and output.categoryName != null">xd_course_product_category.name as category_name,</if>
+			<if test="output != null and output.questionBankSetting != null">xd_course_product.question_bank_setting, </if>
+			<if test="output != null and output.resourceSubject != null">xd_course_product.resource_subject, </if>
+			<if test="output != null and output.shareUrl != null">xd_course_product.share_url, </if>
+
+			<if test="output != null and output.examDate != null">xd_course_product.exam_date, </if>
+			<if test="output != null and output.isLatest != null">xd_course_product.is_latest, </if>
+			<if test="output != null and output.amount != null">xd_course_product.amount, </if>
+			<if test="output != null and output.backGroundImage != null">xd_course_product.back_ground_image, </if>
+			<if test="output != null and output.backGroundText != null">xd_course_product.back_ground_text, </if>
+
+			<if test="output != null and output.major != null">xd_course_product_category.name as major, </if>
+
+		</trim>
+	</sql>
+
+
+</mapper>

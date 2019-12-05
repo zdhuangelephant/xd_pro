@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CrontabConfig">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.dashboard.model.crontab.CrontabConfig">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="business_code" property="businessCode"
+			jdbcType="VARCHAR" />
+		<result column="cront_expression" property="crontExpression"
+			jdbcType="VARCHAR" />
+		<result column="cront_protocol" property="crontProtocol"
+			jdbcType="VARCHAR" />
+		<result column="cront_target" property="crontTarget" jdbcType="VARCHAR" />
+		<result column="cront_time_out" property="crontTimeOut"
+			jdbcType="INTEGER" />
+		<result column="cront_retry_time" property="crontRetryTime"
+			jdbcType="TINYINT" />
+		<result column="protocol_retry_times" property="protocolRetryTimes"
+			jdbcType="INTEGER" />
+		<result column="protocol_time_out" property="protocolTimeOut"
+			jdbcType="INTEGER" />
+		<result column="protocol_struct_check" property="protocolStructCheck"
+			jdbcType="INTEGER" />
+		<result column="protocol_config" property="protocolConfig"
+			jdbcType="VARCHAR" />
+		<result column="version" property="version" jdbcType="VARCHAR" />
+		<result column="in_use" property="inUse" jdbcType="TINYINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="user_group" property="userGroup" jdbcType="INTEGER" />
+		<result column="owner" property="owner" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="base_column">id, business_code, cront_expression, cront_protocol,
+		cront_target, cront_time_out, cront_retry_time, protocol_retry_times,
+		protocol_time_out, protocol_struct_check, protocol_config, version,
+		in_use, create_time, update_time, user_group, owner</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.dashboard.model.crontab.CrontabConfig">
+		select
+		<include refid="base_column" />
+		from xd_crontab_config
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_crontab_config
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.dashboard.model.crontab.CrontabConfig"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_crontab_config
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="businessCode != null">business_code,</if>
+			<if test="crontExpression != null">cront_expression,</if>
+			<if test="crontProtocol != null">cront_protocol,</if>
+			<if test="crontTarget != null">cront_target,</if>
+			<if test="crontTimeOut != null">cront_time_out,</if>
+			<if test="crontRetryTime != null">cront_retry_time,</if>
+			<if test="protocolRetryTimes != null">protocol_retry_times,</if>
+			<if test="protocolTimeOut != null">protocol_time_out,</if>
+			<if test="protocolStructCheck != null">protocol_struct_check,</if>
+			<if test="protocolConfig != null">protocol_config,</if>
+			<if test="version != null">version,</if>
+			<if test="inUse != null">in_use,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="updateTime != null">update_time,</if>
+			<if test="userGroup != null">user_group,</if>
+			<if test="owner != null">owner,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="businessCode != null">#{businessCode,jdbcType=VARCHAR},</if>
+			<if test="crontExpression != null">#{crontExpression,jdbcType=VARCHAR},</if>
+			<if test="crontProtocol != null">#{crontProtocol,jdbcType=VARCHAR},</if>
+			<if test="crontTarget != null">#{crontTarget,jdbcType=VARCHAR},</if>
+			<if test="crontTimeOut != null">#{crontTimeOut,jdbcType=INTEGER},</if>
+			<if test="crontRetryTime != null">#{crontRetryTime,jdbcType=TINYINT},</if>
+			<if test="protocolRetryTimes != null">#{protocolRetryTimes,jdbcType=INTEGER},</if>
+			<if test="protocolTimeOut != null">#{protocolTimeOut,jdbcType=INTEGER},</if>
+			<if test="protocolStructCheck != null">#{protocolStructCheck,jdbcType=INTEGER},</if>
+			<if test="protocolConfig != null">#{protocolConfig,jdbcType=VARCHAR},</if>
+			<if test="version != null">#{version,jdbcType=VARCHAR},</if>
+			<if test="inUse != null">#{inUse,jdbcType=TINYINT},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="userGroup != null">#{userGroup,jdbcType=INTEGER},</if>
+			<if test="owner != null">#{owner,jdbcType=INTEGER},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.dashboard.model.crontab.CrontabConfig">
+		update xd_crontab_config
+		<set>
+			<if test="value != null and value.crontExpression != null">cront_expression =
+				#{value.crontExpression,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.crontProtocol != null">cront_protocol = #{value.crontProtocol,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.crontTarget != null">cront_target = #{value.crontTarget,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.crontTimeOut != null">cront_time_out = #{value.crontTimeOut,jdbcType=INTEGER},</if>
+			<if test="value != null and value.crontRetryTime != null">cront_retry_time =
+				#{value.crontRetryTime,jdbcType=TINYINT},</if>
+			<if test="value != null and value.protocolRetryTimes != null">protocol_retry_times =
+				#{value.protocolRetryTimes,jdbcType=INTEGER},</if>
+			<if test="value != null and value.protocolTimeOut != null">protocol_time_out =
+				#{value.protocolTimeOut,jdbcType=INTEGER},</if>
+			<if test="value != null and value.protocolStructCheck != null">protocol_struct_check =
+				#{value.protocolStructCheck,jdbcType=INTEGER},</if>
+			<if test="value != null and value.protocolConfig != null">protocol_config =
+				#{value.protocolConfig,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.version != null">version = #{value.version,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.inUse != null">in_use = #{value.inUse,jdbcType=TINYINT},</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.userGroup != null">user_group = #{value.userGroup,jdbcType=INTEGER},</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.dashboard.model.crontab.CrontabConfig">
+		update xd_crontab_config
+		<set>
+			<if test="value != null and value.crontExpression != null">cront_expression =
+				#{value.crontExpression,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.crontProtocol != null">cront_protocol = #{value.crontProtocol,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.crontTarget != null">cront_target = #{value.crontTarget,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.crontTimeOut != null">cront_time_out = #{value.crontTimeOut,jdbcType=INTEGER},</if>
+			<if test="value != null and value.crontRetryTime != null">cront_retry_time =
+				#{value.crontRetryTime,jdbcType=TINYINT},</if>
+			<if test="value != null and value.protocolRetryTimes != null">protocol_retry_times =
+				#{value.protocolRetryTimes,jdbcType=INTEGER},</if>
+			<if test="value != null and value.protocolTimeOut != null">protocol_time_out =
+				#{value.protocolTimeOut,jdbcType=INTEGER},</if>
+			<if test="value != null and value.protocolStructCheck != null">protocol_struct_check =
+				#{value.protocolStructCheck,jdbcType=INTEGER},</if>
+			<if test="value != null and value.protocolConfig != null">protocol_config =
+				#{value.protocolConfig,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.version != null">version = #{value.version,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.inUse != null">in_use = #{value.inUse,jdbcType=TINYINT},</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.userGroup != null">user_group = #{value.userGroup,jdbcType=INTEGER},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.dashboard.model.crontab.CrontabConfig">
+		delete from
+		xd_crontab_config
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_crontab_config
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.businessCode != null">business_code,</if>
+			<if test="output != null and output.crontExpression != null">cront_expression,</if>
+			<if test="output != null and output.crontProtocol != null">cront_protocol,</if>
+			<if test="output != null and output.crontTarget != null">cront_target,</if>
+			<if test="output != null and output.crontTimeOut != null">cront_time_out,</if>
+			<if test="output != null and output.crontRetryTime != null">cront_retry_time,</if>
+			<if test="output != null and output.protocolRetryTimes != null">protocol_retry_times,</if>
+			<if test="output != null and output.protocolTimeOut != null">protocol_time_out,</if>
+			<if test="output != null and output.protocolStructCheck != null">protocol_struct_check,</if>
+			<if test="output != null and output.protocolConfig != null">protocol_config,</if>
+			<if test="output != null and output.version != null">version,</if>
+			<if test="output != null and output.inUse != null">in_use,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.updateTime != null">update_time,</if>
+			<if test="output != null and output.userGroup != null">user_group,</if>
+			<if test="output != null and output.owner != null">owner,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.businessCode != null">and business_code=#{input.businessCode}</if>
+			<if test="input != null and input.businessCodeList != null">
+				and business_code in
+				<foreach collection="input.businessCodeList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.crontExpression != null">and cront_expression=#{input.crontExpression}</if>
+			<if test="input != null and input.crontProtocol != null">and cront_protocol=#{input.crontProtocol}</if>
+			<if test="input != null and input.crontTarget != null">and cront_target=#{input.crontTarget}</if>
+			<if test="input != null and input.crontTimeOut != null">and cront_time_out=#{input.crontTimeOut}</if>
+			<if test="input != null and input.crontRetryTime != null">and cront_retry_time=#{input.crontRetryTime}</if>
+			<if test="input != null and input.protocolRetryTimes != null">and protocol_retry_times=#{input.protocolRetryTimes}</if>
+			<if test="input != null and input.protocolTimeOut != null">and protocol_time_out=#{input.protocolTimeOut}</if>
+			<if test="input != null and input.protocolStructCheck != null">and protocol_struct_check=#{input.protocolStructCheck}</if>
+			<if test="input != null and input.protocolConfig != null">and protocol_config=#{input.protocolConfig}</if>
+			<if test="input != null and input.version != null">and version=#{input.version}</if>
+			<if test="input != null and input.inUse != null">and in_use=#{input.inUse}</if>
+			<if test="input != null and input.createTimeLower != null">and create_time &gt; #{input.createTimeLower}</if>
+			<if test="input != null and input.createTimeUpper != null">and create_time &lt; #{input.createTimeUpper}</if>
+			<if test="input != null and input.updateTimeLower != null">and update_time &gt; #{input.updateTimeLower}</if>
+			<if test="input != null and input.updateTimeUpper != null">and update_time &lt; #{input.updateTimeUpper}</if>
+			<if test="input != null and input.userGroup != null">and user_group=#{input.userGroup}</if>
+			<if test="input != null and input.owner != null">and owner=#{input.owner}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.businessCode != null and ( sort.businessCode == 'ASC' or sort.businessCode == 'DESC' )">business_code ${sort.businessCode},</if>
+			<if
+				test="sort != null and sort.crontExpression != null and ( sort.crontExpression == 'ASC' or sort.crontExpression == 'DESC' )">cront_expression ${sort.crontExpression},</if>
+			<if
+				test="sort != null and sort.crontProtocol != null and ( sort.crontProtocol == 'ASC' or sort.crontProtocol == 'DESC' )">cront_protocol ${sort.crontProtocol},</if>
+			<if
+				test="sort != null and sort.crontTarget != null and ( sort.crontTarget == 'ASC' or sort.crontTarget == 'DESC' )">cront_target ${sort.crontTarget},</if>
+			<if
+				test="sort != null and sort.crontTimeOut != null and ( sort.crontTimeOut == 'ASC' or sort.crontTimeOut == 'DESC' )">cront_time_out ${sort.crontTimeOut},</if>
+			<if
+				test="sort != null and sort.crontRetryTime != null and ( sort.crontRetryTime == 'ASC' or sort.crontRetryTime == 'DESC' )">cront_retry_time ${sort.crontRetryTime},</if>
+			<if
+				test="sort != null and sort.protocolRetryTimes != null and ( sort.protocolRetryTimes == 'ASC' or sort.protocolRetryTimes == 'DESC' )">protocol_retry_times ${sort.protocolRetryTimes},</if>
+			<if
+				test="sort != null and sort.protocolTimeOut != null and ( sort.protocolTimeOut == 'ASC' or sort.protocolTimeOut == 'DESC' )">protocol_time_out ${sort.protocolTimeOut},</if>
+			<if
+				test="sort != null and sort.protocolStructCheck != null and ( sort.protocolStructCheck == 'ASC' or sort.protocolStructCheck == 'DESC' )">protocol_struct_check ${sort.protocolStructCheck},</if>
+			<if
+				test="sort != null and sort.protocolConfig != null and ( sort.protocolConfig == 'ASC' or sort.protocolConfig == 'DESC' )">protocol_config ${sort.protocolConfig},</if>
+			<if
+				test="sort != null and sort.version != null and ( sort.version == 'ASC' or sort.version == 'DESC' )">version ${sort.version},</if>
+			<if
+				test="sort != null and sort.inUse != null and ( sort.inUse == 'ASC' or sort.inUse == 'DESC' )">in_use ${sort.inUse},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">update_time ${sort.updateTime},</if>
+			<if
+				test="sort != null and sort.userGroup != null and ( sort.userGroup == 'ASC' or sort.userGroup == 'DESC' )">user_group ${sort.userGroup},</if>
+			<if
+				test="sort != null and sort.owner != null and ( sort.owner == 'ASC' or sort.owner == 'DESC' )">owner ${sort.owner},</if>
+		</trim>
+	</sql>
+</mapper>

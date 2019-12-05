@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MajorCategoryModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.rdonline.domain.majorCategory.MajorCategoryModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="major_category" property="majorCategory"
+			jdbcType="VARCHAR" />
+		<result column="image" property="image" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, major_category, image, remark, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.rdonline.domain.majorCategory.MajorCategoryModel">
+		select
+		<include refid="base_column" />
+		from xd_rd_major_category
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_rd_major_category
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.rdonline.domain.majorCategory.MajorCategoryModel">
+		insert into xd_rd_major_category
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="majorCategory != null">major_category,</if>
+			<if test="image != null">image,</if>
+			<if test="remark != null">remark,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="majorCategory != null">#{majorCategory,jdbcType=VARCHAR},</if>
+			<if test="image != null">#{image,jdbcType=VARCHAR},</if>
+			<if test="remark != null">#{remark,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="java.util.Map">
+		update xd_rd_major_category
+		<set>
+			<if test="value != null and value.majorCategory != null">major_category = #{value.majorCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.image != null">image = #{value.image,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.remark != null">remark = #{value.remark,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_rd_major_category
+		<set>
+			<if test="value != null and value.majorCategory != null">major_category = #{value.majorCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.image != null">image = #{value.image,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.remark != null">remark = #{value.remark,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById"
+		parameterType="com.xiaodou.rdonline.domain.majorCategory.MajorCategoryModel">
+		delete from xd_rd_major_category
+		where id =
+		#{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_rd_major_category
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.majorCategory != null">major_category,</if>
+			<if test="output != null and output.image != null">image,</if>
+			<if test="output != null and output.remark != null">remark,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.majorCategory != null">and major_category=#{input.majorCategory}</if>
+			<if test="input != null and input.image != null">and image=#{input.image}</if>
+			<if test="input != null and input.remark != null">and remark=#{input.remark}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.majorCategory != null and ( sort.majorCategory == 'ASC' or sort.majorCategory == 'DESC' )">major_category ${sort.majorCategory},</if>
+			<if
+				test="sort != null and sort.image != null and ( sort.image == 'ASC' or sort.image == 'DESC' )">image ${sort.image},</if>
+			<if
+				test="sort != null and sort.remark != null and ( sort.remark == 'ASC' or sort.remark == 'DESC' )">remark ${sort.remark},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

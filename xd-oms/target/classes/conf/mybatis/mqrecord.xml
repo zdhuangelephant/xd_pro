@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Converted at: Mon Aug 20 17:02:07 CST 2012 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MessageRecord">
+
+	<resultMap id="BaseResultMap" type="MessageRecord">
+		<id property="tag" column="mq_tag" jdbcType="VARCHAR" />
+		<result property="productLine" column="product_line" jdbcType="VARCHAR" />
+		<result property="gorderId" column="gorder_id" jdbcType="VARCHAR" />
+		<result property="orderId" column="order_id" jdbcType="VARCHAR" />
+		<result property="insertTime" column="insert_time" jdbcType="TIMESTAMP" />
+		<result property="content" column="content" />
+		<result property="messageName" column="message_name" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap type="java.lang.String" id="Tag" />
+
+	<insert id="insertMessageRecord" parameterType="MessageRecord">
+		insert into xd_order_mq_record
+		(
+		<include refid="mqrecordInsertColumns" />
+		)
+		values
+		(
+		<include refid="mqrecordInsertValues" />
+		)
+	</insert>
+
+	<sql id="mqrecordInsertColumns">
+		<trim suffixOverrides=",">
+			<if test="tag != null">mq_tag,</if>
+			<if test="productLine != null">product_line,</if>
+			<if test="gorderId != null">gorder_id,</if>
+			<if test="orderId != null">order_id,</if>
+			<if test="insertTime != null">insert_time,</if>
+			<if test="content != null">content,</if>
+			<if test="messageName != null">message_name,</if>
+		</trim>
+	</sql>
+
+	<sql id="mqrecordInsertValues">
+		<trim suffixOverrides=",">
+			<if test="tag != null">#{tag,jdbcType=VARCHAR},</if>
+			<if test="productLine != null">#{productLine,jdbcType=VARCHAR},</if>
+			<if test="gorderId != null">#{gorderId,jdbcType=VARCHAR},</if>
+			<if test="orderId != null">#{orderId,jdbcType=VARCHAR},</if>
+			<if test="insertTime != null">#{insertTime,jdbcType=TIMESTAMP},</if>
+			<if test="content != null">#{content},</if>
+			<if test="messageName != null">#{messageName,jdbcType=VARCHAR},</if>
+		</trim>
+	</sql>
+	<sql id="Dynamic_Select">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">
+				id id,
+			</if>
+			<if test="output != null and output.tag != null">
+				mq_tag,
+			</if>
+			<if test="output != null and output.productLine != null">
+				product_line,
+			</if>
+			<if test="output != null and output.gorderId != null">
+				gorder_id,
+			</if>
+			<if test="output != null and output.orderId != null">
+				order_id,
+			</if>
+			<if test="output != null and output.insertTime != null">
+				insert_time,
+			</if>
+			<if test="output != null and output.content != null">
+				content,
+			</if>
+			<if test="output != null and output.messageName != null">
+				message_name,
+			</if>
+		</trim>
+	</sql>
+	<sql id="Dynamic_Where">
+		<where>
+			<if test="input != null and input.tag != null">and
+				mq_tag=#{input.tag}
+			</if>
+			<if test="input != null and input.listTag != null">
+				and
+				mq_tag in
+				<foreach collection="#{input.listTag}" item="tag" separator=","
+					open="(" close=")">#{tag}
+				</foreach>
+			</if>
+			<if test="input != null and input.productLine != null">and
+				product_line=#{input.productLine}
+			</if>
+			<if test="input != null and input.unProductLine != null">and
+				product_line!=#{input.productLine}
+			</if>
+			<if test="input != null and input.listProductLine != null">
+				and
+				product_line in
+				<foreach collection="#{input.listProductLine}" item="productLine"
+					separator="," open="(" close=")">#{productLine}
+				</foreach>
+			</if>
+			<if test="input != null and input.gorderId != null">and
+				gorder_id=#{input.gorderId}
+			</if>
+			<if test="input != null and input.listGorderId != null">
+				and
+				gorder_id in
+				<foreach collection="#{input.listGorderId}" item="gorderId"
+					separator="," open="(" close=")">#{gorderId}
+				</foreach>
+			</if>
+			<if test="input != null and input.orderId != null">and
+				order_id=#{input.orderId}
+			</if>
+			<if test="input != null and input.listOrderId != null">
+				and
+				order_id in
+				<foreach collection="#{input.listOrderId}" item="orderId"
+					separator="," open="(" close=")">#{orderId}
+				</foreach>
+			</if>
+			<if test="input != null and input.insertTimeLower != null ">and
+				insert_time &gt;= #{input.insertTimeLower}
+			</if>
+			<if test="input != null and input.insertTimeUpper != null ">and
+				insert_time &lt;= #{input.insertTimeUpper}
+			</if>
+
+		</where>
+	</sql>
+
+	<select id="queryMessageRecord" parameterType="java.util.Map"
+		resultType="MessageRecord">
+		select
+		<include refid="Dynamic_Select" />
+		from xd_order_mq_record
+		<include refid="Dynamic_Where" />
+		<if test="input != null and input.tagDescend != null">
+			order by tag desc
+		</if>
+		<if test="input != null and input.tagAscend != null">
+			order by tag asc
+		</if>
+		<if
+			test="input !=null and input.limitLower !=null and input.limitUpper != null">
+			limit #{input.limitLower},#{input.limitUpper}
+		</if>
+		<if test="input != null and input.forUpdate != null">
+			for update
+		</if>
+	</select>
+
+	<select id="queryMessageTag" parameterType="java.util.Map"
+		resultType="java.util.List">
+		select mq_tag Tag
+		from xd_order_mq_record
+		<include refid="Dynamic_Where" />
+		<if test="input != null and input.tagDescend != null">
+			order by tag desc
+		</if>
+		<if test="input != null and input.tagAscend != null">
+			order by tag asc
+		</if>
+		<if
+			test="input !=null and input.limitLower !=null and input.limitUpper != null">
+			limit #{input.limitLower},#{input.limitUpper}
+		</if>
+		<if test="input != null and input.forUpdate != null">
+			for update
+		</if>
+	</select>
+
+	<delete id="truncateMessage">
+		truncate xd_order_mq_record
+	</delete>
+
+	<delete id="deleteMessage" parameterType="java.util.Map">
+		delete from xd_order_mq_record
+		<include refid="Dynamic_Where" />
+		<if test="input != null and input.limit != null">
+			limit #{input.limit}
+		</if>
+	</delete>
+</mapper>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AppBindingModel">
+	<!-- 1. 根据条件 查询 列表(不分页) -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.module != null">module,</if>
+			<if test="output != null and output.deviceId != null">device_id,</if>
+			<if test="output != null and output.pushId != null">push_id,</if>
+			<if test="output != null and output.systemType != null">system_type,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.status != null">status,</if>
+		</trim>
+		FROM
+		xd_app_binding_info
+		<include refid="dynamic_where" />
+		order by create_time ASC 
+	</select>
+
+	<!-- 2. 根据条件 修改 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_app_binding_info
+		<set>
+			<if test="value != null and value.module != null">module = #{value.module},</if>
+			<if test="value != null and value.deviceId != null">device_id = #{value.deviceId},</if>
+			<if test="value != null and value.pushId != null">push_id = #{value.pushId},</if>
+			<if test="value != null and value.systemType != null">system_type = #{value.systemType},</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+			<if test="value != null and value.status != null">status = #{value.status},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 3.插入 方法 -->
+	<insert id="addEntity" parameterType="AppBindingModel">
+		insert into xd_app_binding_info
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- 4.删除 方法 -->
+	<!-- 删除话题 -->
+	<delete id="deleteList" parameterType="java.util.Map">
+		delete from xd_app_binding_info
+		<include refid="dynamic_where" />
+	</delete>
+
+	<!-- ******************************** 上面是DAO层方法实现, 下面是各个动态语句的拼写 ******************************************* -->
+
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseResultMap" type="AppBindingModel">
+		<id column="id" property="id" />
+		<result column="module" property="module" />
+		<result column="device_id" property="deviceId" />
+		<result column="push_id" property="pushId" />
+		<result column="system_type" property="systemType" />
+		<result column="user_id" property="userId" />
+		<result column="create_time" property="createTime" />
+		<result column="status" property="status" />
+	</resultMap>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id =#{input.id}</if>
+			<if test="input != null and input.module != null">and module =#{input.module}</if>
+			<if test="input != null and input.deviceId != null">and device_id =#{input.deviceId}</if>
+			<if test="input != null and input.pushId != null">and push_id =#{input.pushId}</if>
+			<if test="input != null and input.systemType != null">and system_type =#{input.systemType}</if>
+			<if test="input != null and input.userId != null">and user_id =#{input.userId}</if>
+			<if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+			<if test="input != null and input.status != null">and status =#{input.status}</if>
+		</where>
+	</sql>
+
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="module != null">module,</if>
+			<if test="deviceId != null">device_id,</if>
+			<if test="pushId != null">push_id,</if>
+			<if test="systemType != null">system_type,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="status != null">status,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="module != null">#{module},</if>
+			<if test="deviceId != null">#{deviceId},</if>
+			<if test="pushId != null">#{pushId},</if>
+			<if test="systemType != null">#{systemType},</if>
+			<if test="userId != null">#{userId},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="status != null">#{status},</if>
+		</trim>
+	</sql>
+</mapper>

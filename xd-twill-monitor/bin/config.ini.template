@@ -1,0 +1,17 @@
+[server]
+name=MrZhao-mac
+interval=600
+[mail]
+sender=monitor@51xiaodou.com
+receiver=xd-server@corp.51xiaodou.com
+smtp_server=smtp.ym.163.com
+ssl_port=994
+username=monitor@51xiaodou.com
+password=monitor@xiaodou
+[alarm]
+sendurl=http://service.dev.51xiaodou.com:8092/dashboard/alarm
+eventmodule=xd-twill-monitor
+eventname=monitor-fail
+[monitor]
+hosts=172.17.1.121,119.61.66.56,119.61.66.57,172.26.118.133,172.26.118.130,172.26.118.132,172.26.118.131,172.26.118.114,172.26.118.111,172.26.118.115,172.26.118.109,172.26.118.108
+urls=https://www.moycp.com,https://jw.moycp.com,http://www.51xiaodou.com,http://mapi.zkj.51xiaodou.com,http://mapi.zkj.51xiaodou.com/forum/share_page?resourceId=602135851&_timestamp=841c676beb63014db9b9788a8d161a51,http://ms.51xiaodou.com/,http://demo.ms.51xiaodou.com/,http://demo.mapi.zkj.51xiaodou.com/,http://demo.mapi.zkj.51xiaodou.com/forum/share_page?resourceId=602135851&_timestamp=841c676beb63014db9b9788a8d161a51

@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RawDataExamTotalModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dataclean.model.domain.raw.RawDataExamTotalModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="module_id" property="moduleId" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="type_code" property="typeCode" jdbcType="VARCHAR" />
+		<result column="product_category_id" property="productCategoryId"
+			jdbcType="VARCHAR" />
+		<result column="product_id" property="productId" jdbcType="VARCHAR" />
+		<result column="student_id" property="studentId" jdbcType="INTEGER" />
+		<result column="taught_unit_id" property="taughtUnitId"
+			jdbcType="INTEGER" />
+		<result column="chief_unit_id" property="chiefUnitId" jdbcType="INTEGER" />
+		<result column="pilot_unit_id" property="pilotUnitId" jdbcType="INTEGER" />
+		<result column="total_ques" property="totalQues" jdbcType="INTEGER" />
+		<result column="total_rank" property="totalRank" jdbcType="INTEGER" />
+		<result column="right_ques" property="rightQues" jdbcType="INTEGER" />
+		<result column="right_rank" property="rightRank" jdbcType="INTEGER" />
+		<result column="right_percent" property="rightPercent"
+			jdbcType="VARCHAR" />
+		<result column="score" property="score" jdbcType="DOUBLE" />
+		
+		<result column="chapter_node_list" property="chapterNodeList"/>
+		<result column="final_exam_node_list" property="finalExamNodeList"/>
+		<result column="avg_chapter_score" property="avgChapterScore"/>
+		<result column="final_exam_score" property="finalExamScore"/>
+		<result column="stage_evaluation_score" property="stageEvaluationScore"/>
+		<result column="mission_finish_score" property="missionFinishScore"/>
+		<result column="supplement_score" property="supplementScore"/>
+		
+	</resultMap>
+	<sql id="base_column">id, module_id, user_id, type_code, product_category_id,
+		product_id, student_id, taught_unit_id, chief_unit_id, pilot_unit_id,
+		total_ques, total_rank, right_ques, right_rank,
+		right_percent, score,chapter_node_list,final_exam_node_list,avg_chapter_score
+		final_exam_score,stage_evaluation_score,mission_finish_score,supplement_score
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataExamTotalModel">
+		select
+		<include refid="base_column" />
+		from xd_raw_data_exam_total
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="queryTotalStatistic" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataExamTotalModel">
+		select module_id, user_id,
+		student_id,
+		taught_unit_id,
+		pilot_unit_id,
+		sum(total_ques) as total_ques,
+		avg(right_percent) as
+		right_percent
+		from
+		xd_raw_data_exam_total
+		<include refid="dynamic_where" />
+		group by module_id, user_id,
+		student_id,
+		taught_unit_id,
+		pilot_unit_id
+	</select>
+
+	<select id="queryAvgRightPercent" parameterType="java.util.Map"
+		resultType="java.lang.Double">
+		select Avg(right_percent)
+		FROM xd_raw_data_exam_total inner join
+		xd_raw_data_product on
+		xd_raw_data_product.id=xd_raw_data_exam_total.product_id
+		<include refid="dynamic_where" />
+		and now()&gt; xd_raw_data_product.begin_apply_time
+		and now()
+		&lt;xd_raw_data_product.end_apply_time
+	</select>
+	<select id="queryAvgScore" parameterType="java.util.Map"
+		resultType="java.lang.Double">
+		select Avg(score)
+		FROM xd_raw_data_exam_total inner join
+		xd_raw_data_product on
+		xd_raw_data_product.id=xd_raw_data_exam_total.product_id
+		<include refid="dynamic_where" />
+		and now()&gt;xd_raw_data_product.begin_apply_time
+		and now()
+		&lt;xd_raw_data_product.end_apply_time
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_raw_data_exam_total
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataExamTotalModel">
+		insert into xd_raw_data_exam_total
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="moduleId != null">module_id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="typeCode != null">type_code,</if>
+			<if test="productCategoryId != null">product_category_id,</if>
+			<if test="productId != null">product_id,</if>
+			<if test="studentId != null">student_id,</if>
+			<if test="taughtUnitId != null">taught_unit_id,</if>
+			<if test="chiefUnitId != null">chief_unit_id,</if>
+			<if test="pilotUnitId != null">pilot_unit_id,</if>
+			<if test="totalQues != null">total_ques,</if>
+			<if test="totalRank != null">total_rank,</if>
+			<if test="rightQues != null">right_ques,</if>
+			<if test="rightRank != null">right_rank,</if>
+			<if test="rightPercent != null">right_percent,</if>
+			<if test="score != null">score,</if>
+			<if test="chapterNodeList != null">chapter_node_list,</if>
+			<if test="finalExamNodeList != null">final_exam_node_list,</if>
+			<if test="avgChapterScore != null">avg_chapter_score,</if>
+			<if test="finalExamScore != null">final_exam_score,</if>
+			<if test="stageEvaluationScore != null">stage_evaluation_score,</if>
+			<if test="missionFinishScore != null">mission_finish_score,</if>
+			<if test="supplementScore != null">supplement_score,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="moduleId != null">#{moduleId,jdbcType=VARCHAR},</if>
+			<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+			<if test="typeCode != null">#{typeCode,jdbcType=VARCHAR},</if>
+			<if test="productCategoryId != null">#{productCategoryId,jdbcType=VARCHAR},</if>
+			<if test="productId != null">#{productId,jdbcType=VARCHAR},</if>
+			<if test="studentId != null">#{studentId,jdbcType=INTEGER},</if>
+			<if test="taughtUnitId != null">#{taughtUnitId,jdbcType=INTEGER},</if>
+			<if test="chiefUnitId != null">#{chiefUnitId,jdbcType=INTEGER},</if>
+			<if test="pilotUnitId != null">#{pilotUnitId,jdbcType=INTEGER},</if>
+			<if test="totalQues != null">#{totalQues,jdbcType=INTEGER},</if>
+			<if test="totalRank != null">#{totalRank,jdbcType=INTEGER},</if>
+			<if test="rightQues != null">#{rightQues,jdbcType=INTEGER},</if>
+			<if test="rightRank != null">#{rightRank,jdbcType=INTEGER},</if>
+			<if test="rightPercent != null">#{rightPercent,jdbcType=VARCHAR},</if>
+			<if test="score != null">#{score,jdbcType=DOUBLE},</if>
+			<if test="chapterNodeList != null">#{chapterNodeList},</if>
+			<if test="finalExamNodeList != null">#{finalExamNodeList},</if>
+			<if test="avgChapterScore != null">#{avgChapterScore},</if>
+			<if test="finalExamScore != null">#{finalExamScore},</if>
+			<if test="stageEvaluationScore != null">#{stageEvaluationScore},</if>
+			<if test="missionFinishScore != null">#{missionFinishScore},</if>
+			<if test="supplementScore != null">#{supplementScore},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataExamTotalModel">
+		update xd_raw_data_exam_total
+		<set>
+			<if test="value != null and value.moduleId != null">module_id = #{value.moduleId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.typeCode != null">type_code = #{value.typeCode,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.productCategoryId != null">product_category_id =
+				#{value.productCategoryId,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentId != null">student_id = #{value.studentId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.taughtUnitId != null">taught_unit_id = #{value.taughtUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.chiefUnitId != null">chief_unit_id = #{value.chiefUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.totalQues != null">total_ques = #{value.totalQues,jdbcType=INTEGER},</if>
+			<if test="value != null and value.totalRank != null">total_rank = #{value.totalRank,jdbcType=INTEGER},</if>
+			<if test="value != null and value.rightQues != null">right_ques = #{value.rightQues,jdbcType=INTEGER},</if>
+			<if test="value != null and value.rightRank != null">right_rank = #{value.rightRank,jdbcType=INTEGER},</if>
+			<if test="value != null and value.rightPercent != null">right_percent = #{value.rightPercent,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.score != null">score = #{value.score,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.chapterNodeList != null">chapter_node_list = #{value.chapterNodeList},
+			</if>
+			<if test="value != null and value.finalExamNodeList != null">final_exam_node_list = #{value.finalExamNodeList},
+			</if>
+			<if test="value != null and value.avgChapterScore != null">avg_chapter_score = #{value.avgChapterScore},
+			</if>
+			<if test="value != null and value.finalExamScore != null">final_exam_score = #{value.finalExamScore},
+			</if>
+			<if test="value != null and value.stageEvaluationScore != null">stage_evaluation_score = #{value.stageEvaluationScore},
+			</if>
+			<if test="value != null and value.missionFinishScore != null">mission_finish_score = #{value.missionFinishScore},
+			</if>
+			<if test="value != null and value.supplementScore != null">supplement_score = #{value.supplementScore},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataExamTotalModel">
+		update xd_raw_data_exam_total
+		<set>
+			<if test="value != null and value.moduleId != null">module_id = #{value.moduleId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.typeCode != null">type_code = #{value.typeCode,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.productCategoryId != null">product_category_id =
+				#{value.productCategoryId,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentId != null">student_id = #{value.studentId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.taughtUnitId != null">taught_unit_id = #{value.taughtUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.chiefUnitId != null">chief_unit_id = #{value.chiefUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.totalQues != null">total_ques = #{value.totalQues,jdbcType=INTEGER},</if>
+			<if test="value != null and value.totalRank != null">total_rank = #{value.totalRank,jdbcType=INTEGER},</if>
+			<if test="value != null and value.rightQues != null">right_ques = #{value.rightQues,jdbcType=INTEGER},</if>
+			<if test="value != null and value.rightRank != null">right_rank = #{value.rightRank,jdbcType=INTEGER},</if>
+			<if test="value != null and value.rightPercent != null">right_percent = #{value.rightPercent,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.score != null">score = #{value.score,jdbcType=DOUBLE},</if>
+			
+			<if test="value != null and value.chapterNodeList != null">chapter_node_list = #{value.chapterNodeList},
+			</if>
+			<if test="value != null and value.finalExamNodeList != null">final_exam_node_list = #{value.finalExamNodeList},
+			</if>
+			<if test="value != null and value.avgChapterScore != null">avg_chapter_score = #{value.avgChapterScore},
+			</if>
+			<if test="value != null and value.finalExamScore != null">final_exam_score = #{value.finalExamScore},
+			</if>
+			<if test="value != null and value.stageEvaluationScore != null">stage_evaluation_score = #{value.stageEvaluationScore},
+			</if>
+			<if test="value != null and value.missionFinishScore != null">mission_finish_score = #{value.missionFinishScore},
+			</if>
+			<if test="value != null and value.supplementScore != null">supplement_score = #{value.supplementScore},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataExamTotalModel">
+		delete from xd_raw_data_exam_total
+		where id =
+		#{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_raw_data_exam_total
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.moduleId != null">module_id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.typeCode != null">type_code,</if>
+			<if test="output != null and output.productCategoryId != null">product_category_id,</if>
+			<if test="output != null and output.productId != null">product_id,</if>
+			<if test="output != null and output.studentId != null">student_id,</if>
+			<if test="output != null and output.taughtUnitId != null">taught_unit_id,</if>
+			<if test="output != null and output.chiefUnitId != null">chief_unit_id,</if>
+			<if test="output != null and output.pilotUnitId != null">pilot_unit_id,</if>
+			<if test="output != null and output.totalQues != null">total_ques,</if>
+			<if test="output != null and output.totalRank != null">total_rank,</if>
+			<if test="output != null and output.rightQues != null">right_ques,</if>
+			<if test="output != null and output.rightRank != null">right_rank,</if>
+			<if test="output != null and output.rightPercent != null">right_percent,</if>
+			<if test="output != null and output.score != null">score,</if>
+			<if test="output != null and output.chapterNodeList != null">chapter_node_list,</if>
+			<if test="output != null and output.finalExamNodeList != null">final_exam_node_list,</if>
+			<if test="output != null and output.avgChapterScore != null">avg_chapter_score,</if>
+			<if test="output != null and output.finalExamScore != null">final_exam_score,</if>
+			<if test="output != null and output.stageEvaluationScore != null">stage_evaluation_score,</if>
+			<if test="output != null and output.missionFinishScore != null">mission_finish_score,</if>
+			<if test="output != null and output.supplementScore != null">supplement_score,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_raw_data_exam_total.id=#{input.id}</if>
+			<if test="input != null and input.moduleId != null">and xd_raw_data_exam_total.module_id=#{input.moduleId}
+			</if>
+			<if test="input != null and input.userId != null">and xd_raw_data_exam_total.user_id=#{input.userId}</if>
+			<if test="input != null and input.userIdList != null">
+				and xd_raw_data_exam_total.user_id in
+				<foreach collection="input.userIdList" open="(" close=")"
+					item="item" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.typeCode != null">and xd_raw_data_exam_total.type_code=#{input.typeCode}
+			</if>
+			<if test="input != null and input.productCategoryId != null">and
+				xd_raw_data_exam_total.product_category_id=#{input.productCategoryId}
+			</if>
+			<if test="input != null and input.productId != null">and xd_raw_data_exam_total.product_id=#{input.productId}
+			</if>
+			<if test="input != null and input.studentId != null">and xd_raw_data_exam_total.student_id=#{input.studentId}
+			</if>
+			<if test="input != null and input.taughtUnitId != null">and
+				xd_raw_data_exam_total.taught_unit_id=#{input.taughtUnitId}
+			</if>
+			<if test="input != null and input.chiefUnitId != null">and
+				xd_raw_data_exam_total.chief_unit_id=#{input.chiefUnitId}
+			</if>
+			<if test="input != null and input.pilotUnitId != null">and
+				xd_raw_data_exam_total.pilot_unit_id=#{input.pilotUnitId}
+			</if>
+			<if test="input != null and input.totalQues != null">and xd_raw_data_exam_total.total_ques=#{input.totalQues}
+			</if>
+			<if test="input != null and input.totalRank != null">and xd_raw_data_exam_total.total_rank=#{input.totalRank}
+			</if>
+			<if test="input != null and input.rightQues != null">and xd_raw_data_exam_total.right_ques=#{input.rightQues}
+			</if>
+			<if test="input != null and input.rightRank != null">and xd_raw_data_exam_total.right_rank=#{input.rightRank}
+			</if>
+			<if test="input != null and input.rightPercent != null">and
+				xd_raw_data_exam_total.right_percent=#{input.rightPercent}
+			</if>
+			<if test="input != null and input.score != null">and xd_raw_data_exam_total.score=#{input.score}</if>
+			<if test="input != null and input.supplementScore != null">and xd_raw_data_exam_total.supplement_score=#{input.supplementScore}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+		</trim>
+	</sql>
+</mapper>

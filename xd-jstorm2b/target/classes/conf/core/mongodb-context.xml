@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context-3.0.xsd
+          http://www.springframework.org/schema/data/mongo
+          http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	 <context:property-placeholder location="classpath:conf/custom/env/mongoprop.properties" />
+    
+	
+	<!-- 定义mongo对象，对应的是mongodb官方jar包中的Mongo，replica-set设置集群副本的ip地址和端口 -->
+	<mongo:mongo id="mongo" host="${mongo.host}" port="${mongo.port}">
+		<!-- 一些连接属性的设置 -->	
+		<mongo:options
+		     connections-per-host="${mongo.connectionsPerHost}"
+		     threads-allowed-to-block-for-connection-multiplier="${mongo.threadsAllowedToBlockForConnectionMultiplier}"
+		     connect-timeout="${mongo.connectTimeout}"
+		     max-wait-time="${mongo.maxWaitTime}"
+		     auto-connect-retry="${mongo.autoConnectRetry}"
+		     socket-keep-alive="${mongo.socketKeepAlive}"
+		     socket-timeout="${mongo.socketTimeout}"
+		     slave-ok="${mongo.slaveOk}"
+		     write-number="${mongo.writeNumber}"
+		     write-timeout="${mongo.writeTimeout}"
+		     write-fsync="${mongo.writeFsync}"/>		
+	</mongo:mongo>
+
+
+	<!-- mongodb的主要操作对象，所有对mongodb的增删改查的操作都是通过它完成 -->
+	 <bean id="summerMongoDbFactory"
+        class="org.springframework.data.mongodb.core.SimpleMongoDbFactory">
+        <constructor-arg ref="mongo" />
+        <constructor-arg value="${mongo.database}" />
+        <!-- <constructor-arg ref="userCredentials" /> -->
+    </bean>
+	
+
+	 <!-- 默认Mongodb类型映射 -->
+    <bean id="defaultMongoTypeMapper"
+        class="org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper">
+        <constructor-arg name="typeKey">
+            <null /><!-- 这里设置为空,可以把 spring data mongodb 多余保存的_class字段去掉 -->
+        </constructor-arg>
+    </bean>
+
+    <bean id="mappingContext"
+        class="org.springframework.data.mongodb.core.mapping.MongoMappingContext" />
+
+    <bean id="mappingMongoConverter"
+        class="org.springframework.data.mongodb.core.convert.MappingMongoConverter">
+        <constructor-arg name="mongoDbFactory" ref="summerMongoDbFactory" />
+        <constructor-arg name="mappingContext" ref="mappingContext" />
+        <property name="typeMapper" ref="defaultMongoTypeMapper" />
+        <property name="mapKeyDotReplacement" value="_" />
+    </bean>
+
+	 <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="summerMongoDbFactory" />
+        <constructor-arg ref="mappingMongoConverter" />
+    </bean>
+
+	
+	<!-- To translate any MongoExceptions thrown in @Repository annotated classes -->
+	<context:annotation-config />
+    
+</beans>

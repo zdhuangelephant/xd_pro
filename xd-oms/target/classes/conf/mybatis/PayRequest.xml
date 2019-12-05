@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon Aug 20 17:02:08 
+	CST 2012 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PayRequest">
+	<resultMap id="PayRequestMap" type="PayRequest">
+		<result property="id" column="id" />
+		<result property="gorderId" column="gorder_id" />
+		<result property="orderId" column="order_id" />
+		<result property="buyAccountId" column="buy_account_id" />
+		<result property="operType" column="oper_type" />
+		<result property="payType" column="pay_type" />
+		<result property="amount" column="amount" />
+		<result property="payNo" column="pay_no" />
+		<result property="prePayNo" column="pre_pay_no" />
+		<result property="payStatus" column="pay_status" />
+		<result property="createTime" column="create_time" />
+		<result property="sentTime" column="sent_time" />
+		<result property="paymentTime" column="payment_time" />
+		<result property="productType" column="product_type" />
+		<result property="note" column="note" />
+		<result property="failureReason" column="failure_reason" />
+		<result property="processDays" column="process_days" />
+		<result property="clientType" column="client_type" />
+		<result property="outerOrigin" column="outer_origin" />
+		<result property="callbackUrl" column="callback_url" />
+		<result property="uuid" column="uuid" />
+		<result property="remark" column="remark" />
+	</resultMap>
+
+	<sql id="dynamic_select">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">
+				id,
+			</if>
+			<if test="output != null and output.gorderId != null">
+				gorder_id,
+			</if>
+			<if test="output != null and output.orderId != null">
+				order_id,
+			</if>
+			<if test="output != null and output.buyAccountId != null">
+				buy_account_id,
+			</if>
+			<if test="output != null and output.operType != null">
+				oper_type,
+			</if>
+			<if test="output != null and output.payType != null">
+				pay_type,
+			</if>
+			<if test="output != null and output.amount != null">
+				amount,
+			</if>
+			<if test="output != null and output.payNo != null">
+				pay_no,
+			</if>
+			<if test="output != null and output.prePayNo != null">
+				pre_pay_no,
+			</if>
+			<if test="output != null and output.payStatus != null">
+				pay_status,
+			</if>
+			<if test="output != null and output.createTime != null">
+				create_time,
+			</if>
+			<if test="output != null and output.sentTime != null">
+				sent_time,
+			</if>
+			<if test="output != null and output.paymentTime != null">
+				payment_time,
+			</if>
+			<if test="output != null and output.productType != null">
+				product_type,
+			</if>
+			<if test="output != null and output.note != null">
+				note,
+			</if>
+			<if test="output != null and output.failureReason != null">
+				failure_reason,
+			</if>
+			<if test="output != null and output.processDays != null">
+				process_days,
+			</if>
+			<if test="output != null and output.clientType != null">
+				client_type,
+			</if>
+			<if test="output != null and output.outerOrigin != null">
+				outer_origin,
+			</if>
+			<if test="output != null and output.callbackUrl != null">
+				callback_url,
+			</if>
+			<if test="output != null and output.uuid != null">
+				uuid,
+			</if>
+			<if test="output != null and output.remark != null">
+				remark,
+			</if>
+		</trim>
+	</sql>
+
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and
+				id=#{input.id}
+			</if>
+			<if test="input != null and input.gorderId != null">and
+				gorder_id=#{input.gorderId}
+			</if>
+			<if test="input != null and input.orderId != null">and
+				order_id=#{input.orderId}
+			</if>
+			<if test="input != null and input.buyAccountId != null">and
+				buy_account_id=#{input.buyAccountId}
+			</if>
+			<if test="input != null and input.outerOrigin != null">and
+				outer_origin=#{input.outerOrigin}
+			</if>
+			<if test="input != null and input.operType != null">and
+				oper_type=#{input.operType}
+			</if>
+			<if test="input != null and input.payType != null">and
+				pay_type=#{input.payType}
+			</if>
+			<if test="input != null and input.payNo != null">and
+				pay_no=#{input.payNo}
+			</if>
+			<if test="input != null and input.prePayNo != null">and
+				pre_pay_no=#{input.prePayNo}
+			</if>
+
+			<if test="input != null and input.payStatus != null">and
+				pay_status=#{input.payStatus}
+			</if>
+			<if test="input != null and input.productType != null">and
+				product_type=#{input.productType}
+			</if>
+
+			<if test="input != null and input.createTimeLower != null">and
+				create_time &gt;= #{input.createTimeLower}
+			</if>
+			<if test="input != null and input.createTimeUpper != null">and
+				create_time &lt;= #{input.createTimeUpper}
+			</if>
+
+			<if test="input != null and input.sentTimeLower != null">and
+				sent_time &gt;= #{input.sentTimeLower}
+			</if>
+			<if test="input != null and input.sentTimeUpper != null">and
+				sent_time &lt;= #{input.sentTimeUpper}
+			</if>
+			<if test="input != null and input.paymentTimeLower != null">and
+				payment_time &gt;= #{input.paymentTimeLower}
+			</if>
+			<if test="input != null and input.paymentTimeUpper != null">and
+				payment_time &lt;= #{input.paymentTimeUpper}
+			</if>
+			<if test="input != null and input.productTypeList != null">
+				and
+				product_type in
+				<foreach collection="input.productTypeList" item="item"
+					separator="," open="(" close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</sql>
+
+	<insert id="addEntity" parameterType="PayRequest">
+		insert into
+		xd_order_pay_request (id,gorder_id,
+		order_id,buy_account_id,oper_type,pay_type,amount,pay_no,pre_pay_no,pay_status,product_type,note,failure_reason,process_days,create_time,sent_time,client_type,outer_origin,callback_url,uuid,remark)
+		values
+		(#{id,jdbcType=VARCHAR},
+		#{gorderId,jdbcType=VARCHAR},
+		#{orderId,jdbcType=VARCHAR},
+		#{buyAccountId,jdbcType=VARCHAR},
+		#{operType,jdbcType=NUMERIC},
+		#{payType,jdbcType=NUMERIC},
+		#{amount,jdbcType=NUMERIC},
+		#{payNo,jdbcType=VARCHAR},
+		#{prePayNo,jdbcType=VARCHAR},
+		#{payStatus,jdbcType=NUMERIC},
+		#{productType,jdbcType=VARCHAR},
+		#{note,jdbcType=VARCHAR},
+		#{failureReason,jdbcType=VARCHAR},
+		#{processDays,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{sentTime,jdbcType=TIMESTAMP},
+		#{clientType,jdbcType=VARCHAR},
+		#{outerOrigin,jdbcType=VARCHAR},
+		#{callbackUrl,jdbcType=VARCHAR},
+		#{uuid,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<select id="findEntityListByCond" parameterType="java.util.Map"
+		resultMap="PayRequestMap">
+		select
+		<include refid="dynamic_select" />
+		from xd_order_pay_request
+		<include refid="dynamic_where" />
+	</select>
+
+	<delete id="deleteEntity" parameterType="PayRequest">
+		delete from xd_order_pay_request
+		where ID = #{id,jdbcType=NUMERIC}
+	</delete>
+
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_order_pay_request
+		<set>
+			<if test="entity.payNo != null">
+				pay_no = #{entity.payNo,jdbcType=VARCHAR},
+			</if>
+			<if test="entity.prePayNo != null">
+				pre_pay_no = #{entity.prePayNo,jdbcType=VARCHAR},
+			</if>
+			<if test="entity.payStatus != null">
+				pay_status = #{entity.payStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="entity.sentTime != null">
+				sent_time = #{entity.sentTime,jdbcType=VARCHAR},
+			</if>
+			<if test="entity.paymentTime != null">
+				payment_time = #{entity.paymentTime,jdbcType=VARCHAR},
+			</if>
+			<if test="entity.note != null">
+				note = concat_ws('||',entity.note,#{entity.note,jdbcType=VARCHAR})
+			</if>
+			<if test="entity.failureReason != null">
+				failure_reason = #{entity.failureReason,jdbcType=VARCHAR},
+			</if>
+			<if test="entity.processDays != null">
+				process_days = #{entity.processDays,jdbcType=VARCHAR},
+			</if>
+			<if test="entity.remark != null">
+				remark = #{entity.remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+
+</mapper>

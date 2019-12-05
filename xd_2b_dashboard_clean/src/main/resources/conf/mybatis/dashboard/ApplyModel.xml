@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ApplyModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dataclean.model.domain.dashboard.ApplyModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="pilot_unit_id" property="pilotUnitId" jdbcType="INTEGER" />
+		<result column="pilot_unit_name" property="pilotUnitName"
+			jdbcType="VARCHAR" />
+		<result column="admin_id" property="adminId" jdbcType="INTEGER" />
+		<result column="admin_name" property="adminName" jdbcType="VARCHAR" />
+		<result column="class_id" property="classId" jdbcType="INTEGER" />
+		<result column="class_name" property="className" jdbcType="VARCHAR" />
+		<result column="student_id" property="studentId" jdbcType="INTEGER" />
+		<result column="student_name" property="studentName" jdbcType="VARCHAR" />
+		<result column="telephone" property="telephone" jdbcType="BIGINT" />
+		<result column="admission_card_code" property="admissionCardCode"
+			jdbcType="VARCHAR" />
+		<result column="exam_date" property="examDate" jdbcType="VARCHAR" />
+		<result column="cat_id" property="catId" jdbcType="INTEGER" />
+		<result column="cat_name" property="catName" jdbcType="VARCHAR" />
+		<result column="product_id" property="productId" jdbcType="INTEGER" />
+		<result column="product_name" property="productName" jdbcType="VARCHAR" />
+		<result column="order_status" property="orderStatus"/>
+		<result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, pilot_unit_id, pilot_unit_name, admin_id, admin_name,
+		class_id, class_name, student_id, student_name, telephone,
+		admission_card_code, exam_date, cat_id, cat_name, product_id,
+		product_name, order_status, order_number, create_time
+	</sql>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_apply
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<select id="queryStudentCountByCat" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(DISTINCT(xd_dashboard_apply.student_id))
+		FROM
+		xd_dashboard_apply inner join xd_raw_data_product on
+		xd_raw_data_product.id=xd_dashboard_apply.product_id
+		<include refid="dynamic_where" />
+		and now() &gt; xd_raw_data_product.begin_apply_time
+		and now()
+		&lt; xd_raw_data_product.end_apply_time
+	</select>
+	<select id="queryPilotUnitIdByCatId" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select distinct pilot_unit_id
+		FROM xd_dashboard_apply inner join
+		xd_raw_data_product on
+		xd_raw_data_product.id=xd_dashboard_apply.product_id
+		<include refid="dynamic_where" />
+		and now() &gt; xd_raw_data_product.begin_apply_time
+		and now()
+		&lt;xd_raw_data_product.end_apply_time
+		group by
+		xd_dashboard_apply.student_id
+	</select>
+	<select id="queryCatIdByPilotUnitId" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select distinct cat_id
+		FROM xd_dashboard_apply inner join
+		xd_raw_data_product on
+		xd_raw_data_product.id=xd_dashboard_apply.product_id
+		<include refid="dynamic_where" />
+		and now() &gt; xd_raw_data_product.begin_apply_time
+		and now()
+		&lt; xd_raw_data_product.end_apply_time
+		group by
+		xd_dashboard_apply.student_id
+	</select>
+	<select id="querySubjectsByCat" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select COUNT(xd_dashboard_apply.id)
+		FROM
+		xd_dashboard_apply inner join xd_raw_data_product on
+		xd_raw_data_product.id=xd_dashboard_apply.product_id
+		<include refid="dynamic_where" />
+		and now() &gt; xd_raw_data_product.begin_apply_time
+		and now()
+		&lt; xd_raw_data_product.end_apply_time
+		GROUP BY xd_dashboard_apply.student_id,xd_dashboard_apply.product_id
+	</select>
+	<!-- 获取apply中的(studId + productId)为一组 -->
+	<select id="querySubjectsByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+			<include refid="dynamic_output" />
+		FROM
+		xd_dashboard_apply inner join xd_raw_data_product on
+		xd_raw_data_product.id=xd_dashboard_apply.product_id
+		<include refid="dynamic_where" />
+		and now() &gt; xd_raw_data_product.begin_apply_time
+		and now()
+		&lt; xd_raw_data_product.end_apply_time 
+		GROUP BY xd_dashboard_apply.student_id,xd_dashboard_apply.product_id
+	</select>
+	
+	<select id="queryStudentForNeverLearnCourse" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT
+			apply_stu.apply_sid student_id
+		FROM
+			(
+				SELECT DISTINCT
+					(student_id) apply_sid
+				FROM
+					xd_dashboard_apply
+				WHERE
+					order_status = 1 AND apply_status = 1
+			) apply_stu
+		LEFT JOIN (
+			SELECT DISTINCT
+				(student_id) learn_sid
+			FROM
+				xd_dashboard_learn_record
+		) learn_stu ON apply_stu.apply_sid = learn_stu.learn_sid
+		where learn_sid is null
+	</select>
+	
+	
+	
+	<insert id="addEntity"
+		parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.ApplyModel">
+		insert into xd_dashboard_apply
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="pilotUnitId != null">pilot_unit_id,</if>
+			<if test="pilotUnitName != null">pilot_unit_name,</if>
+			<if test="adminId != null">admin_id,</if>
+			<if test="adminName != null">admin_name,</if>
+			<if test="classId != null">class_id,</if>
+			<if test="className != null">class_name,</if>
+			<if test="studentId != null">student_id,</if>
+			<if test="studentName != null">student_name,</if>
+			<if test="telephone != null">telephone,</if>
+			<if test="admissionCardCode != null">admission_card_code,</if>
+			<if test="examDate != null">exam_date,</if>
+			<if test="catId != null">cat_id,</if>
+			<if test="catName != null">cat_name,</if>
+			<if test="productId != null">product_id,</if>
+			<if test="productName != null">product_name,</if>
+			<if test="orderStatus != null">order_status,</if>
+			<if test="orderNumber != null">order_number,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="pilotUnitId != null">#{pilotUnitId,jdbcType=INTEGER},</if>
+			<if test="pilotUnitName != null">#{pilotUnitName,jdbcType=VARCHAR},</if>
+			<if test="adminId != null">#{adminId,jdbcType=INTEGER},</if>
+			<if test="adminName != null">#{adminName,jdbcType=VARCHAR},</if>
+			<if test="classId != null">#{classId,jdbcType=INTEGER},</if>
+			<if test="className != null">#{className,jdbcType=VARCHAR},</if>
+			<if test="studentId != null">#{studentId,jdbcType=INTEGER},</if>
+			<if test="studentName != null">#{studentName,jdbcType=VARCHAR},</if>
+			<if test="telephone != null">#{telephone,jdbcType=BIGINT},</if>
+			<if test="admissionCardCode != null">#{admissionCardCode,jdbcType=VARCHAR},</if>
+			<if test="examDate != null">#{examDate,jdbcType=VARCHAR},</if>
+			<if test="catId != null">#{catId,jdbcType=INTEGER},</if>
+			<if test="catName != null">#{catName,jdbcType=VARCHAR},</if>
+			<if test="productId != null">#{productId,jdbcType=INTEGER},</if>
+			<if test="productName != null">#{productName,jdbcType=VARCHAR},</if>
+			<if test="orderStatus != null">#{orderStatus},</if>
+			<if test="orderNumber != null">#{orderNumber,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.ApplyModel">
+		update xd_dashboard_apply
+		<set>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.pilotUnitName != null">pilot_unit_name =
+				#{value.pilotUnitName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.adminId != null">admin_id = #{value.adminId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.adminName != null">admin_name = #{value.adminName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.classId != null">class_id = #{value.classId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.className != null">class_name = #{value.className,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentId != null">student_id = #{value.studentId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.studentName != null">student_name = #{value.studentName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.telephone != null">telephone = #{value.telephone,jdbcType=BIGINT},</if>
+			<if test="value != null and value.admissionCardCode != null">admission_card_code =
+				#{value.admissionCardCode,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.examDate != null">exam_date = #{value.examDate,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.catId != null">cat_id = #{value.catId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.catName != null">cat_name = #{value.catName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.productName != null">product_name = #{value.productName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.orderStatus != null">order_status = #{value.orderStatus,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.orderNumber != null">order_number = #{value.orderNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.ApplyModel">
+		update xd_dashboard_apply
+		<set>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.pilotUnitName != null">pilot_unit_name =
+				#{value.pilotUnitName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.adminId != null">admin_id = #{value.adminId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.adminName != null">admin_name = #{value.adminName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.classId != null">class_id = #{value.classId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.className != null">class_name = #{value.className,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentId != null">student_id = #{value.studentId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.studentName != null">student_name = #{value.studentName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.telephone != null">telephone = #{value.telephone,jdbcType=BIGINT},</if>
+			<if test="value != null and value.admissionCardCode != null">admission_card_code =
+				#{value.admissionCardCode,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.examDate != null">exam_date = #{value.examDate,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.catId != null">cat_id = #{value.catId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.catName != null">cat_name = #{value.catName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.productName != null">product_name = #{value.productName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.orderStatus != null">order_status = #{value.orderStatus,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.orderNumber != null">order_number = #{value.orderNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById"
+		parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.ApplyModel">
+		delete from
+		xd_dashboard_apply
+		where id =
+		#{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_apply
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_dashboard_apply.id,</if>
+			<if test="output != null and output.pilotUnitId != null">pilot_unit_id,</if>
+			<if test="output != null and output.pilotUnitName != null">pilot_unit_name,</if>
+			<if test="output != null and output.adminId != null">admin_id,</if>
+			<if test="output != null and output.adminName != null">admin_name,</if>
+			<if test="output != null and output.classId != null">class_id,</if>
+			<if test="output != null and output.className != null">class_name,</if>
+			<if test="output != null and output.studentId != null">student_id,</if>
+			<if test="output != null and output.studentName != null">student_name,</if>
+			<if test="output != null and output.telephone != null">telephone,</if>
+			<if test="output != null and output.admissionCardCode != null">admission_card_code,</if>
+			<if test="output != null and output.examDate != null">xd_dashboard_apply.exam_date,</if>
+			<if test="output != null and output.catId != null">cat_id,</if>
+			<if test="output != null and output.catName != null">cat_name,</if>
+			<if test="output != null and output.productId != null">product_id,</if>
+			<if test="output != null and output.productName != null">product_name,</if>
+			<if test="output != null and output.orderStatus != null">order_status,</if>
+			<if test="output != null and output.orderNumber != null">order_number,</if>
+			<if test="output != null and output.createTime != null">xd_dashboard_apply.create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_dashboard_apply.id=#{input.id}</if>
+			<if test="input != null and input.pilotUnitId != null">and xd_dashboard_apply.pilot_unit_id=#{input.pilotUnitId}
+			</if>
+			<if test="input != null and input.pilotUnitIdList != null">
+				and xd_dashboard_apply.pilot_unit_id in
+				<foreach collection="input.pilotUnitIdList" open="(" close=")"
+					separator="," item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.pilotUnitName != null">and
+				xd_dashboard_apply.pilot_unit_name=#{input.pilotUnitName}
+			</if>
+			<if test="input != null and input.adminId != null">and xd_dashboard_apply.admin_id=#{input.adminId}</if>
+			<if test="input != null and input.adminName != null">and xd_dashboard_apply.admin_name=#{input.adminName}</if>
+			<if test="input != null and input.classId != null">and xd_dashboard_apply.class_id=#{input.classId}</if>
+			<if test="input != null and input.className != null">and xd_dashboard_apply.class_name=#{input.className}</if>
+			<if test="input != null and input.studentId != null">and xd_dashboard_apply.student_id=#{input.studentId}</if>
+			<if test="input != null and input.studentName != null">and xd_dashboard_apply.student_name=#{input.studentName}
+			</if>
+			<if test="input != null and input.telephone != null">and xd_dashboard_apply.telephone=#{input.telephone}</if>
+			<if test="input != null and input.admissionCardCode != null">and
+				xd_dashboard_apply.admission_card_code=#{input.admissionCardCode}
+			</if>
+			<if test="input != null and input.examDate != null">and xd_dashboard_apply.exam_date=#{input.examDate}</if>
+			<if test="input != null and input.catId != null">and xd_dashboard_apply.cat_id=#{input.catId}</if>
+			<if test="input != null and input.catIds != null ">
+				and xd_dashboard_apply.cat_id in
+				<foreach collection="input.catIds" item="item" separator=","
+					open="(" close=")">
+					#{item}
+				</foreach>
+
+			</if>
+			<if test="input != null and input.catName != null">and xd_dashboard_apply.cat_name=#{input.catName}</if>
+			<if test="input != null and input.productId != null">and xd_dashboard_apply.product_id=#{input.productId}</if>
+			<if test="input != null and input.productName != null">and xd_dashboard_apply.product_name=#{input.productName}
+			</if>
+			<if test="input != null and input.orderNumber != null">and xd_dashboard_apply.order_number=#{input.orderNumber}
+			</if>
+			<if test="input != null and input.createTime != null">and xd_dashboard_apply.create_time=#{input.createTime}
+			</if>
+			<if test="input != null and input.boundSymbol != null">and 1=1 </if>
+			<!-- 洗数据都是报名成功的数据 -->
+			and xd_dashboard_apply.order_status = 1
+			and xd_dashboard_apply.apply_status = 1
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.classId != null and ( sort.classId == 'ASC' or sort.classId == 'DESC' )">class_id ${sort.classId},</if>
+		</trim>
+	</sql>
+</mapper>

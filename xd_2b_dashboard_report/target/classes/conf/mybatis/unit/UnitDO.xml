@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UnitDO">
+	<resultMap id="BaseResultMap" type="com.xiaodou.st.dashboard.domain.unit.UnitDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="unit_name" property="unitName" jdbcType="VARCHAR" />
+		<result column="unit_portrait" property="unitPortrait"
+			jdbcType="VARCHAR" />
+		<result column="role" property="role" jdbcType="TINYINT" />
+		<result column="create_time" property="createTime" jdbcType="VARCHAR" />
+		<result column="price_rate" property="priceRate" jdbcType="DOUBLE" />
+		<result column="role_name" property="roleName"/>
+	</resultMap>
+	<sql id="base_column">id, unit_name, unit_portrait, role, create_time, price_rate
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.unit.UnitDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_unit
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_unit 
+		left join xd_dashboard_role 
+		on xd_dashboard_unit.role = xd_dashboard_role.id
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.st.dashboard.domain.unit.UnitDO">
+		insert into xd_dashboard_unit
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="unitName != null">unit_name,</if>
+			<if test="unitPortrait != null">unit_portrait,</if>
+			<if test="role != null">role,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="priceRate != null">price_rate,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="unitName != null">#{unitName,jdbcType=VARCHAR},</if>
+			<if test="unitPortrait != null">#{unitPortrait,jdbcType=VARCHAR},</if>
+			<if test="role != null">#{role,jdbcType=TINYINT},</if>
+			<if test="createTime != null">#{createTime,jdbcType=VARCHAR},</if>
+			<if test="priceRate != null">#{priceRate,jdbcType=DOUBLE},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.st.dashboard.domain.unit.UnitDO">
+		update xd_dashboard_unit
+		<set>
+			<if test="value != null and value.unitName != null">unit_name = #{value.unitName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.unitPortrait != null">unit_portrait = #{value.unitPortrait,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.role != null">role = #{value.role,jdbcType=TINYINT},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.priceRate != null">price_rate = #{value.priceRate,jdbcType=DOUBLE},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.st.dashboard.domain.unit.UnitDO">
+		update xd_dashboard_unit
+		<set>
+			<if test="value != null and value.unitName != null">unit_name = #{value.unitName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.unitPortrait != null">unit_portrait = #{value.unitPortrait,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.role != null">role = #{value.role,jdbcType=TINYINT},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.priceRate != null">price_rate = #{value.priceRate,jdbcType=DOUBLE},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.st.dashboard.domain.unit.UnitDO">
+		delete from
+		xd_dashboard_unit
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_unit
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_dashboard_unit.id,</if>
+			<if test="output != null and output.unitName != null">xd_dashboard_unit.unit_name,</if>
+			<if test="output != null and output.unitPortrait != null">xd_dashboard_unit.unit_portrait,</if>
+			<if test="output != null and output.role != null">xd_dashboard_unit.role,</if>
+			<if test="output != null and output.createTime != null">xd_dashboard_unit.create_time,</if>
+			<if test="output != null and output.priceRate != null">xd_dashboard_unit.price_rate,</if>
+			<if test="output != null and output.roleName != null">xd_dashboard_role.role_name,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_dashboard_unit.id=#{input.id}</if>
+			
+			<if test="input != null and input.ids != null">
+				and xd_dashboard_unit.id in
+				<foreach collection="input.ids" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			
+			<if test="input != null and input.unitName != null">and xd_dashboard_unit.unit_name=#{input.unitName}</if>
+			<if test="input != null and input.unitNameLike != null">and xd_dashboard_unit.unit_name like concat('%',#{input.unitNameLike},'%')</if>
+			<if test="input != null and input.unitPortrait != null">and xd_dashboard_unit.unit_portrait=#{input.unitPortrait}</if>
+			<if test="input != null and input.role != null">and xd_dashboard_unit.role=#{input.role}</if>
+			<if test="input != null and input.priceRate != null">and xd_dashboard_unit.price_rate=#{input.priceRate}</if>
+			
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">xd_dashboard_unit.id ${sort.id},</if>
+			<if
+				test="sort != null and sort.unitName != null and ( sort.unitName == 'ASC' or sort.unitName == 'DESC' )">unit_name ${sort.unitName},</if>
+			<if
+				test="sort != null and sort.unitPortrait != null and ( sort.unitPortrait == 'ASC' or sort.unitPortrait == 'DESC' )">unit_portrait ${sort.unitPortrait},</if>
+			<if
+				test="sort != null and sort.role != null and ( sort.role == 'ASC' or sort.role == 'DESC' )">role ${sort.role},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">xd_dashboard_unit.create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.priceRate != null and ( sort.priceRate == 'ASC' or sort.priceRate == 'DESC' )">price_rate ${sort.priceRate},</if>
+		</trim>
+	</sql>
+</mapper>

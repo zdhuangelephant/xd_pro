@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AlarmRecordDO">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dashboard.domain.alarm.AlarmRecordDO">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="student_id" property="studentId" jdbcType="INTEGER" />
+		<result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+		<result column="trigger_id" property="triggerId" jdbcType="VARCHAR" />
+		<result column="trigger_type" property="triggerType" jdbcType="VARCHAR" />
+		<result column="alarm_level" property="alarmLevel" jdbcType="VARCHAR" />
+		<result column="alarm_type" property="alarmType" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="pretreatment" property="pretreatment" jdbcType="VARCHAR" />
+		<result column="alarm_time" property="alarmTime" jdbcType="TIMESTAMP" />
+		<result column="role_type" property="roleType" jdbcType="VARCHAR" />
+		<result column="unit_id" property="unitId" jdbcType="BIGINT" />
+		<result column="read_status" property="readStatus" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="VARCHAR" />
+
+		<result column="pilot_unit_id" property="pilotUnitId" jdbcType="BIGINT" />
+		<result column="pilot_unit_name" property="pilotUnitName"
+			jdbcType="VARCHAR" />
+		<result column="class_id" property="classId" jdbcType="BIGINT" />
+		<result column="class_name" property="className" jdbcType="VARCHAR" />
+		<result column="admission_card_code" property="admissionCardCode"/>
+		<result column="student_name" property="studentName" />
+	</resultMap>
+	<sql id="base_column">id, student_id, device_id, trigger_id, trigger_type,
+		alarm_level, alarm_type, status, pretreatment, alarm_time, role_type,
+		unit_id, read_status, create_time
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.alarm.AlarmRecordDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_alarm_record
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_alarm_record
+		left join xd_dashboard_student
+		on
+		xd_dashboard_alarm_record.student_id =
+		xd_dashboard_student.id 
+		left join xd_dashboard_unit
+		on 
+		xd_dashboard_student.pilot_unit_id = xd_dashboard_unit.id
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+
+	<select id="findCountByCond" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		select count(xd_dashboard_alarm_record.id)
+		FROM
+		xd_dashboard_alarm_record
+		<include refid="dynamic_where" />
+	</select>
+	
+
+	<insert id="addEntity" parameterType="com.xiaodou.st.dashboard.domain.alarm.AlarmRecordDO">
+		insert into xd_dashboard_alarm_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="studentId != null">student_id,</if>
+			<if test="deviceId != null">device_id,</if>
+			<if test="triggerId != null">trigger_id,</if>
+			<if test="triggerType != null">trigger_type,</if>
+			<if test="alarmLevel != null">alarm_level,</if>
+			<if test="alarmType != null">alarm_type,</if>
+			<if test="status != null">status,</if>
+			<if test="pretreatment != null">pretreatment,</if>
+			<if test="alarmTime != null">alarm_time,</if>
+			<if test="roleType != null">role_type,</if>
+			<if test="unitId != null">unit_id,</if>
+			<if test="readStatus != null">read_status,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="studentId != null">#{studentId,jdbcType=INTEGER},</if>
+			<if test="deviceId != null">#{deviceId,jdbcType=VARCHAR},</if>
+			<if test="triggerId != null">#{triggerId,jdbcType=VARCHAR},</if>
+			<if test="triggerType != null">#{triggerType,jdbcType=VARCHAR},</if>
+			<if test="alarmLevel != null">#{alarmLevel,jdbcType=VARCHAR},</if>
+			<if test="alarmType != null">#{alarmType,jdbcType=VARCHAR},</if>
+			<if test="status != null">#{status,jdbcType=VARCHAR},</if>
+			<if test="pretreatment != null">#{pretreatment,jdbcType=VARCHAR},</if>
+			<if test="alarmTime != null">#{alarmTime,jdbcType=TIMESTAMP},</if>
+			<if test="roleType != null">#{roleType,jdbcType=VARCHAR},</if>
+			<if test="unitId != null">#{unitId,jdbcType=BIGINT},</if>
+			<if test="readStatus != null">#{readStatus,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.st.dashboard.domain.alarm.AlarmRecordDO">
+		update xd_dashboard_alarm_record
+		<set>
+			<if test="value != null and value.triggerId != null">trigger_id = #{value.triggerId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.triggerType != null">trigger_type = #{value.triggerType,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.roleType != null">role_type = #{value.roleType,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.unitId != null">unit_id = #{value.unitId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.readStatus != null">read_status = #{value.readStatus,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.st.dashboard.domain.alarm.AlarmRecordDO">
+		update xd_dashboard_alarm_record
+		<set>
+			<if test="value != null and value.triggerId != null">trigger_id = #{value.triggerId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.triggerType != null">trigger_type = #{value.triggerType,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.roleType != null">role_type = #{value.roleType,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.unitId != null">unit_id = #{value.unitId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.readStatus != null">read_status = #{value.readStatus,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.st.dashboard.domain.alarm.AlarmRecordDO">
+		delete from
+		xd_dashboard_alarm_record
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_alarm_record
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_dashboard_alarm_record.id,</if>
+			<if test="output != null and output.studentId != null">student_id,</if>
+			<if test="output != null and output.deviceId != null">device_id,</if>
+			<if test="output != null and output.triggerId != null">trigger_id,</if>
+			<if test="output != null and output.triggerType != null">trigger_type,</if>
+			<if test="output != null and output.alarmLevel != null">alarm_level,</if>
+			<if test="output != null and output.alarmType != null">alarm_type,</if>
+			<if test="output != null and output.status != null">status,</if>
+			<if test="output != null and output.pretreatment != null">pretreatment,</if>
+			<if test="output != null and output.alarmTime != null">alarm_time,</if>
+			<if test="output != null and output.roleType != null">role_type,</if>
+			<if test="output != null and output.unitId != null">unit_id,</if>
+			<if test="output != null and output.readStatus != null">read_status,</if>
+			<if test="output != null and output.createTime != null">xd_dashboard_alarm_record.create_time,</if>
+			<if test="output != null and output.pilotUnitId != null">xd_dashboard_unit.id pilot_unit_id,</if>
+			<if test="output != null and output.pilotUnitName != null">xd_dashboard_unit.unit_name pilot_unit_name,</if>
+			<if test="output != null and output.classId != null">xd_dashboard_student.class_id,</if>
+			<if test="output != null and output.className != null">xd_dashboard_student.class_name,</if>
+			<if test="output != null and output.admissionCardCode != null">xd_dashboard_student.admission_card_code,</if>
+			<if test="output != null and output.studentName != null">xd_dashboard_student.real_name student_name,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_dashboard_alarm_record.id=#{input.id}</if>
+			<if test="input != null and input.studentId != null">and student_id=#{input.studentId}</if>
+			<if test="input != null and input.studentList != null">
+				and xd_dashboard_alarm_record.student_id in
+				<foreach collection="input.studentList" open="(" close=")" separator="," item="item">
+				#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.deviceId != null">and device_id=#{input.deviceId}</if>
+			<if test="input != null and input.triggerId != null">and trigger_id=#{input.triggerId}</if>
+			<if test="input != null and input.triggerType != null">and trigger_type=#{input.triggerType}</if>
+			<if test="input != null and input.alarmLevel != null">and alarm_level=#{input.alarmLevel}</if>
+			<if test="input != null and input.alarmType != null">and alarm_type=#{input.alarmType}</if>
+			<if test="input != null and input.status != null">and status=#{input.status}</if>
+			<if test="input != null and input.pretreatment != null">and pretreatment=#{input.pretreatment}</if>
+			<if test="input != null and input.alarmTime != null">and TO_DAYS(alarm_time)=TO_DAYS(#{input.alarmTime})</if>
+			<if test="input != null and input.roleType != null">and role_type=#{input.roleType}</if>
+			<if test="input != null and input.unitId != null">and unit_id=#{input.unitId}</if>
+			<if test="input != null and input.readStatus != null">and read_status=#{input.readStatus}</if>
+			<if test="input != null and input.createTime != null">and
+				xd_dashboard_alarm_record.create_time=#{input.createTime}
+			</if>
+
+			<if test="input != null and input.pilotUnitId != null">and
+				xd_dashboard_unit.id=#{input.pilotUnitId}
+			</if>
+			<if test="input != null and input.classId != null">and xd_dashboard_student.class_id=#{input.classId}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">xd_dashboard_alarm_record.id ${sort.id},</if>
+			<if
+				test="sort != null and sort.studentId != null and ( sort.studentId == 'ASC' or sort.studentId == 'DESC' )">student_id ${sort.studentId},</if>
+			<if
+				test="sort != null and sort.deviceId != null and ( sort.deviceId == 'ASC' or sort.deviceId == 'DESC' )">device_id ${sort.deviceId},</if>
+			<if
+				test="sort != null and sort.triggerId != null and ( sort.triggerId == 'ASC' or sort.triggerId == 'DESC' )">trigger_id ${sort.triggerId},</if>
+			<if
+				test="sort != null and sort.triggerType != null and ( sort.triggerType == 'ASC' or sort.triggerType == 'DESC' )">trigger_type ${sort.triggerType},</if>
+			<if
+				test="sort != null and sort.alarmLevel != null and ( sort.alarmLevel == 'ASC' or sort.alarmLevel == 'DESC' )">alarm_level ${sort.alarmLevel},</if>
+			<if
+				test="sort != null and sort.alarmType != null and ( sort.alarmType == 'ASC' or sort.alarmType == 'DESC' )">alarm_type ${sort.alarmType},</if>
+			<if
+				test="sort != null and sort.status != null and ( sort.status == 'ASC' or sort.status == 'DESC' )">status ${sort.status},</if>
+			<if
+				test="sort != null and sort.pretreatment != null and ( sort.pretreatment == 'ASC' or sort.pretreatment == 'DESC' )">pretreatment ${sort.pretreatment},</if>
+			<if
+				test="sort != null and sort.alarmTime != null and ( sort.alarmTime == 'ASC' or sort.alarmTime == 'DESC' )">alarm_time ${sort.alarmTime},</if>
+			<if
+				test="sort != null and sort.roleType != null and ( sort.roleType == 'ASC' or sort.roleType == 'DESC' )">role_type ${sort.roleType},</if>
+			<if
+				test="sort != null and sort.unitId != null and ( sort.unitId == 'ASC' or sort.unitId == 'DESC' )">unit_id ${sort.unitId},</if>
+			<if
+				test="sort != null and sort.readStatus != null and ( sort.readStatus == 'ASC' or sort.readStatus == 'DESC' )">read_status ${sort.readStatus},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">xd_dashboard_alarm_record.create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

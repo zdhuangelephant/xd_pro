@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ParamDetail">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.autotest.web.model.template.ParamDetail">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="group_id" property="groupId" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="data_type" property="dataType" jdbcType="VARCHAR" />
+		<result column="desc" property="desc" jdbcType="VARCHAR" />
+		<result column="param_value" property="paramValue" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, group_id, name, data_type, `desc`, param_value,
+		create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.autotest.web.model.template.ParamDetail">
+		select
+		<include refid="base_column" />
+		from xd_autotest_template_param where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_autotest_template_param
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.autotest.web.model.template.ParamDetail">
+		insert into xd_autotest_template_param
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="groupId != null">group_id,</if>
+			<if test="name != null">name,</if>
+			<if test="dataType != null">data_type,</if>
+			<if test="desc != null">`desc`,</if>
+			<if test="paramValue != null">param_value,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="groupId != null">#{groupId,jdbcType=BIGINT},</if>
+			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+			<if test="dataType != null">#{dataType,jdbcType=VARCHAR},</if>
+			<if test="desc != null">#{desc,jdbcType=VARCHAR},</if>
+			<if test="paramValue != null">#{paramValue,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.autotest.web.model.template.ParamDetail">
+		update xd_autotest_template_param
+		<set>
+			<if test="value != null and value.groupId != null">group_id = #{value.groupId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.dataType != null">data_type = #{value.dataType,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.desc != null">`desc` = #{value.desc,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.paramValue != null">param_value = #{value.paramValue,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.autotest.web.model.template.ParamDetail">
+		update xd_autotest_template_param
+		<set>
+			<if test="value != null and value.groupId != null">group_id = #{value.groupId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.dataType != null">data_type = #{value.dataType,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.desc != null">`desc` = #{value.desc,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.paramValue != null">param_value = #{value.paramValue,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.autotest.web.model.template.ParamDetail"> delete from
+		xd_autotest_template_param where id = #{id,jdbcType=BIGINT}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_autotest_template_param
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.groupId != null">group_id,</if>
+			<if test="output != null and output.name != null">name,</if>
+			<if test="output != null and output.dataType != null">data_type,</if>
+			<if test="output != null and output.desc != null">`desc`,</if>
+			<if test="output != null and output.paramValue != null">param_value,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+		<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.idLower != null">and id &gt; #{input.idLower}</if>
+			<if test="input != null and input.idUpper != null">and id &lt; #{input.idUpper}</if>
+			<if test="input != null and input.groupId != null">and group_id=#{input.groupId}</if>
+			<if test="input != null and input.groupIdList != null">
+				and group_id in
+				<foreach collection="input.groupIdList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.name != null">and name=#{input.name}</if>
+			<if test="input != null and input.dataType != null">and data_type=#{input.dataType}</if>
+			<if test="input != null and input.desc != null">and `desc`=#{input.desc}</if>
+			<if test="input != null and input.paramValue != null">and param_value=#{input.paramValue}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.groupId != null and ( sort.groupId == 'ASC' or sort.groupId == 'DESC' )">group_id ${sort.groupId},</if>
+			<if
+				test="sort != null and sort.name != null and ( sort.name == 'ASC' or sort.name == 'DESC' )">name ${sort.name},</if>
+			<if
+				test="sort != null and sort.dataType != null and ( sort.dataType == 'ASC' or sort.dataType == 'DESC' )">data_type ${sort.dataType},</if>
+			<if
+				test="sort != null and sort.desc != null and ( sort.desc == 'ASC' or sort.desc == 'DESC' )">`desc` ${sort.desc},</if>
+			<if
+				test="sort != null and sort.paramValue != null and ( sort.paramValue == 'ASC' or sort.paramValue == 'DESC' )">param_value ${sort.paramValue},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

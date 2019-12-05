@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html{
+    width: 100%;
+    min-height: 100%;
+    font-size: 14px;
+    position: relative;
+    overflow-x: hidden;
+}
+body {
+    font-family: "微软雅黑";
+    width: 100%;
+    min-height: 100%;
+    margin: 0 auto;
+    overflow-x: hidden;
+    position: relative;
+    /*background: #f0f0f0;*/
+}
+.main{
+    width: 100%;
+    min-height: 100%;
+    position: relative;
+    /*background: #f0f0f0;*/
+}
+.back{
+    position: absolute;
+    clear: both;
+    width: 100%;
+    z-index: 10;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    top:0;
+}
+.main .top{
+    height:50px;
+    line-height: 50px;
+    color:#ffffff;
+    font-size: 18px;
+    background:#5f9efd;
+    margin-bottom: 8px;
+    border-bottom:1px solid #cdcdcd;
+    text-align: center;
+    position: relative;
+}
+.main .top .return{
+    float:left;
+    width: 12px;
+    height: 21px;
+    margin-top: 5px;
+    margin-left:15px;
+}
+.main .top .return img{
+    width: 100%;
+}
+.main .top .order{
+    float:right;
+    letter-spacing: 2px;
+    margin-right: 10px;
+}
+.main .top .title{
+    position: absolute;
+    left:0;
+    right:0;
+    margin:0 auto;
+}
+.main .examination{
+   width: 90%;
+   margin:0 auto;
+   color:#434343;
+    background: #ffffff;
+    padding-left:5%;
+    padding-right: 5%;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-top:1px solid #cdcdcd;
+}
+.main .examination .title{
+    margin-top: 10px;
+
+}
+.main .examination .title .count{
+    width: 20px;
+    height:20px;
+    text-align: center;
+    line-height: 20px;
+    color:#ffffff;
+    display: inline-block;
+    background: #2ab3f0;
+    border-radius: 50%;
+}
+.main .examination .title .type{
+    color:#4abff1;
+}
+.main .examination .question{
+    margin-top: 5px;
+    line-height: 21px;
+}
+.main .examination .question img{
+    width:82%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block;
+}
+.main .examination .chooseResult{
+    border-top:1px solid #e7e7e7;
+    margin-top: 10px;
+}
+.main .examination .chooseResult li{
+    list-style: none;
+    margin-top: 10px;
+}
+.main .examination .chooseResult li .order{
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    border:1px solid #cccccc;
+    color:#cccccc;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+.main .examination .chooseResult li .choose{
+    border:1px solid #1acf88;
+    background: #1acf88;
+    color:#ffffff;
+}

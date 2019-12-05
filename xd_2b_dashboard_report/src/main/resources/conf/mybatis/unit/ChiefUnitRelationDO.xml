@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ChiefUnitRelationDO">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dashboard.domain.unit.ChiefUnitRelationDO">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="unit_id" property="unitId" jdbcType="INTEGER" />
+		<result column="cat_id" property="catId" jdbcType="BIGINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, unit_id, cat_id, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.unit.ChiefUnitRelationDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_chief_unit_cat_relation
+		where id =
+		#{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityByCatId" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.unit.ChiefUnitRelationDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_chief_unit_cat_relation
+		where cat_id =
+		#{catId,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityByUnitId" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.unit.ChiefUnitRelationDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_chief_unit_cat_relation
+		where unit_id =
+		#{unitId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_chief_unit_cat_relation
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.st.dashboard.domain.unit.ChiefUnitRelationDO">
+		insert into xd_dashboard_chief_unit_cat_relation
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="unitId != null">unit_id,</if>
+			<if test="catId != null">cat_id,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="unitId != null">#{unitId,jdbcType=INTEGER},</if>
+			<if test="catId != null">#{catId,jdbcType=BIGINT},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.st.dashboard.domain.unit.ChiefUnitRelationDO">
+		update xd_dashboard_chief_unit_cat_relation
+		<set>
+			<if test="value != null and value.unitId != null">unit_id = #{value.unitId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.catId != null">cat_id = #{value.catId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.st.dashboard.domain.unit.ChiefUnitRelationDO">
+		update xd_dashboard_chief_unit_cat_relation
+		<set>
+			<if test="value != null and value.unitId != null">unit_id = #{value.unitId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.catId != null">cat_id = #{value.catId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById"
+		parameterType="com.xiaodou.st.dashboard.domain.unit.ChiefUnitRelationDO">
+		delete from xd_dashboard_chief_unit_cat_relation
+		where id
+		= #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_chief_unit_cat_relation
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.unitId != null">unit_id,</if>
+			<if test="output != null and output.catId != null">cat_id,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.unitId != null">and unit_id=#{input.unitId}</if>
+			<if test="input != null and input.catId != null">and cat_id=#{input.catId}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

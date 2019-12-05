@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserModel">
+
+	<!-- 1. 根据条件 查询 文档列表(不分页) -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.age != null">age,</if>
+			<if test="output != null and output.address != null">address,</if>
+			<if test="output != null and output.latestDeviceIp != null">latest_device_ip,</if>
+			<if test="output != null and output.userName != null">user_name,</if>
+			<if test="output != null and output.nickName != null">nick_name,</if>
+			<if test="output != null and output.salt != null">salt,</if>
+			<if test="output != null and output.password != null">password,</if>
+			<if test="output != null and output.portrait != null">portrait,</if>
+			<if test="output != null and output.tokenTime != null">token_time,</if>
+			<if test="output != null and output.token != null">token,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.usedDeviceId != null">used_device_id,</if>
+			<if test="output != null and output.gender != null">gender,</if>
+			<if test="output != null and output.platform != null">platform,</if>
+			<if test="output != null and output.uniqueId != null">unique_id,</if>
+		</trim>
+		FROM
+		xd_user 
+		<include refid="dynamic_where" />  
+		 ORDER BY token_time DESC 
+	</select>
+
+	<!-- 2. 根据条件 修改 文档 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_user
+		<set>
+			<if test="value != null and value.age != null">age = #{value.age},</if>
+			<if test="value != null and value.address != null">address = #{value.address},</if>
+			<if test="value != null and value.userName != null">user_name = #{value.userName},</if>
+			<if test="value != null and value.nickName != null">nick_name = #{value.nickName},</if>
+			<if test="value != null and value.salt != null">salt = #{value.salt},</if>
+			<if test="value != null and value.password != null">password = #{value.password},</if>
+			<if test="value != null and value.portrait != null">portrait = #{value.portrait},</if>
+			<if test="value != null and value.tokenTime != null">token_time = #{value.tokenTime},</if>
+			<if test="value != null and value.token != null">token = #{value.token},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+			<if test="value != null and value.usedDeviceId != null">used_device_id = #{value.usedDeviceId},</if>
+			<if test="value != null and value.latestDeviceIp != null">latest_device_ip = #{value.latestDeviceIp},</if>
+			<if test="value != null and value.gender != null">gender = #{value.gender},</if>
+			<if test="value != null and value.platform != null">platform = #{value.platform},</if>
+			<if test="value != null and value.uniqueId != null">unique_id = #{value.uniqueId},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 3.文档 插入 方法 -->
+	<insert id="addEntity" parameterType="com.xiaodou.userCenter.model.UserModel">
+		insert into xd_user
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- ******************************** 上面是DAO层方法实现, 下面是各个动态语句的拼写 ******************************************* -->
+
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseResultMap" type="com.xiaodou.userCenter.model.UserModel">
+		<id column="id" property="id" />
+		<result column="user_name" property="userName" />
+		<result column="salt" property="salt" />
+		<result column="password" property="password" />
+		<result column="nick_name" property="nickName" />
+		<result column="gender" property="gender" />
+		<result column="age" property="age" />
+		<result column="address" property="address" />
+		<result column="portrait" property="portrait" />
+		<result column="token_time" property="tokenTime" />
+		<result column="token" property="token" />
+		<result column="create_time" property="createTime" />
+		<result column="_timestamp" property="timestamp" />
+		<result column="used_device_id" property="usedDeviceId" />
+		<result column="latest_device_ip" property="latestDeviceIp" />
+		<result column="platform" property="platform" />
+		<result column="unique_id" property="uniqueId" />
+	</resultMap>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id =#{input.id}</if>
+			<if test="input != null and input.age != null">and age = #{input.age}</if>
+			<if test="input != null and input.address != null">and address = #{input.address}</if>
+			<if test="input != null and input.userName != null">and user_name =#{input.userName}</if>
+			<if test="input != null and input.nickName != null">and nick_name =#{input.nickName}</if>
+			<if test="input != null and input.salt != null">and salt =#{input.salt}</if>
+			<if test="input != null and input.password != null">and password =#{input.password}</if>
+			<if test="input != null and input.portrait != null">and portrait =#{input.portrait}</if>
+			<if test="input != null and input.tokenTime != null">and token_time =#{input.tokenTime}</if>
+			<if test="input != null and input.token != null">and token =#{input.token}</if>
+			<if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+			<if test="input != null and input.usedDeviceId != null">and used_device_id =#{input.usedDeviceId}</if>
+			<if test="input != null and input.latestDeviceIp != null">and latest_device_ip =#{input.latestDeviceIp}</if>
+			<if test="input != null and input.gender != null">and gender =#{input.gender}</if>
+			<if test="input != null and input.platform != null">and platform =#{input.platform}</if>
+			<if test="input != null and input.uniqueId != null">and unique_id =#{input.uniqueId}</if>
+		</where>
+	</sql>
+
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="age != null">age,</if>
+			<if test="address != null">address,</if>
+			<if test="userName != null">user_name,</if>
+			<if test="nickName != null">nick_name,</if>
+			<if test="salt != null">salt,</if>
+			<if test="password != null">password,</if>
+			<if test="portrait != null">portrait,</if>
+			<if test="tokenTime != null">token_time,</if>
+			<if test="token != null">token,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="usedDeviceId != null">used_device_id,</if>
+			<if test="latestDeviceIp != null">latest_device_ip,</if>
+			<if test="gender != null">gender,</if>
+			<if test="platform != null">platform,</if>
+			<if test="uniqueId != null">unique_id,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="age != null">#{age},</if>
+			<if test="address != null">#{address},</if>
+			<if test="userName != null">#{userName},</if>
+			<if test="nickName != null">#{nickName},</if>
+			<if test="salt != null">#{salt},</if>
+			<if test="password != null">#{password},</if>
+			<if test="portrait != null">#{portrait},</if>
+			<if test="tokenTime != null">#{tokenTime},</if>
+			<if test="token != null">#{token},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="usedDeviceId != null">#{usedDeviceId},</if>
+			<if test="latestDeviceIp != null">#{latestDeviceIp},</if>
+			<if test="gender != null">#{gender},</if>
+			<if test="platform != null">#{platform},</if>
+			<if test="uniqueId != null">#{uniqueId},</if>
+			<!-- <if test="module != null">#{module},</if>
+			<if test="moduleInfo != null">#{moduleInfo},</if> -->
+		</trim>
+	</sql>
+
+</mapper>

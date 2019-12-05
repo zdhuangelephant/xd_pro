@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SmsMerchantModel">
+
+	<!-- ==========================具体业务sql============================ -->
+	<!-- 添加数据 -->
+	<insert id="addEntity" parameterType="SmsMerchantModel">
+		insert into xd_sms_merchant
+		(
+		<include refid="insertColumns"/>
+		)
+		values
+		(
+		<include refid="insertValues"/>
+		)
+	</insert>
+	
+	<!-- 删除数据 -->
+	<delete id="deleteList" parameterType="java.util.Map">
+		delete from xd_sms_merchant
+		<include refid="dynamic_where"/>
+	</delete>
+	
+	<!-- 修改数据 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_sms_merchant
+		<include refid="dynamic_update"/>
+		<include refid="dynamic_where"/>
+	</update>
+	
+	<!-- 查询 -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		FROM xd_sms_merchant
+		<include refid="dynamic_where"/>
+	</select>
+	
+	<!-- ===========================基础属性配置============================= -->
+	
+	<!-- 返回结果 -->
+	<resultMap id="BaseResultMap" type="SmsChannelModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" />
+		<result column="short_name" property="shortName" />
+		<result column="address" property="address" />
+		<result column="telephone" property="telephone" />
+		<result column="contact_person" property="contactPerson" />
+	</resultMap>
+	
+	<sql id="Base_Column_List" >
+	    id, name, short_name, address, telephone, contact_person
+	</sql>
+	
+	<!-- 动态更新 -->
+	<sql id="dynamic_update">
+		<set>
+			<if test="value != null and value.id != null"> id =#{value.id},</if>
+			<if test="value != null and value.name != null"> name =#{value.name},</if>
+			<if test="value != null and value.shortName != null"> short_name =#{value.shortName},</if>
+			<if test="value != null and value.address != null"> address =#{value.address},</if>
+			<if test="value != null and value.telephone != null"> telephone =#{value.telephone},</if>
+			<if test="value != null and value.contactPerson != null"> contact_person =#{value.contactPerson},</if>
+		</set>
+	</sql>
+	
+	<!-- 动态语句：条件 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id =#{input.id}</if>
+			<if test="input != null and input.name != null">and name =#{input.name}</if>
+			<if test="input != null and input.shortName != null">and short_name =#{input.shortName}</if>
+			<if test="input != null and input.address != null">and address =#{input.address}</if>
+			<if test="input != null and input.telephone != null">and telephone =#{input.telephone}</if>
+			<if test="input != null and input.contactPerson != null">and contact_person =#{input.contactPerson}</if>
+		</where>
+	</sql>
+	
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="name != null">name,</if>
+			<if test="shortName != null">short_name,</if>
+			<if test="address != null">address,</if>
+			<if test="telephone != null">telephone,</if>
+			<if test="contactPerson != null">contact_person,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="name != null">#{name},</if>
+			<if test="shortName != null">#{shortName},</if>
+			<if test="address != null">#{address},</if>
+			<if test="telephone != null">#{telephone},</if>
+			<if test="contactPerson != null">#{contactPerson},</if>
+		</trim>
+	</sql>
+	
+</mapper>

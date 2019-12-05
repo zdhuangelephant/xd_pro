@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AuthorModel">
+	<resultMap id="BaseResultMap" type="com.xiaodou.course.model.forum.AuthorModel">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="portrait" property="portrait" jdbcType="VARCHAR" />
+		<result column="cover" property="cover" jdbcType="VARCHAR" />
+		<result column="gender" property="gender" jdbcType="VARCHAR" />
+		<result column="info" property="info" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, name, portrait, cover, gender, info, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.course.model.forum.AuthorModel">
+		select
+		<include refid="base_column" />
+		from xd_resource_author
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_resource_author
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.course.model.forum.AuthorModel">
+		insert into xd_resource_author
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="name != null">name,</if>
+			<if test="portrait != null">portrait,</if>
+			<if test="cover != null">cover,</if>
+			<if test="gender != null">gender,</if>
+			<if test="info != null">info,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+			<if test="portrait != null">#{portrait,jdbcType=VARCHAR},</if>
+			<if test="cover != null">#{cover,jdbcType=VARCHAR},</if>
+			<if test="gender != null">#{gender,jdbcType=VARCHAR},</if>
+			<if test="info != null">#{info,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.course.model.forum.AuthorModel">
+		update xd_resource_author
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.portrait != null">portrait = #{value.portrait,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.cover != null">cover = #{value.cover,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.gender != null">gender = #{value.gender,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.info != null">info = #{value.info,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.course.model.forum.AuthorModel">
+		update xd_resource_author
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.portrait != null">portrait = #{value.portrait,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.cover != null">cover = #{value.cover,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.gender != null">gender = #{value.gender,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.info != null">info = #{value.info,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.course.model.forum.AuthorModel">
+		delete from
+		xd_resource_author
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_resource_author
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.name != null">name,</if>
+			<if test="output != null and output.portrait != null">portrait,</if>
+			<if test="output != null and output.cover != null">cover,</if>
+			<if test="output != null and output.gender != null">gender,</if>
+			<if test="output != null and output.info != null">info,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.name != null">and name=#{input.name}</if>
+			<if test="input != null and input.portrait != null">and portrait=#{input.portrait}</if>
+			<if test="input != null and input.cover != null">and cover=#{input.cover}</if>
+			<if test="input != null and input.gender != null">and gender=#{input.gender}</if>
+			<if test="input != null and input.info != null">and info=#{input.info}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.name != null and ( sort.name == 'ASC' or sort.name == 'DESC' )">name ${sort.name},</if>
+			<if
+				test="sort != null and sort.portrait != null and ( sort.portrait == 'ASC' or sort.portrait == 'DESC' )">portrait ${sort.portrait},</if>
+			<if
+				test="sort != null and sort.cover != null and ( sort.cover == 'ASC' or sort.cover == 'DESC' )">cover ${sort.cover},</if>
+			<if
+				test="sort != null and sort.gender != null and ( sort.gender == 'ASC' or sort.gender == 'DESC' )">gender ${sort.gender},</if>
+			<if
+				test="sort != null and sort.info != null and ( sort.info == 'ASC' or sort.info == 'DESC' )">info ${sort.info},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

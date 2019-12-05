@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserPraiseModel">
+
+	<!-- 1. 根据条件 查询 文档列表(不分页) -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.targetUserId != null">target_user_id,</if>
+		</trim>
+		FROM
+		xd_user_praise 
+		<include refid="dynamic_where" />
+		ORDER BY _timestamp DESC
+	</select>
+
+	<!-- 2. 根据条件 修改 文档 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_user_praise
+		<set>
+			<if test="value != null and value.id != null">id = #{value.id},</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId},</if>
+			<if test="value != null and value.targetUserId != null">target_user_id = #{value.targetUserId},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 3.文档 插入 方法 -->
+	<insert id="addEntity" parameterType="com.xiaodou.userCenter.model.UserPraiseModel">
+		insert into xd_user_praise
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- 4. 根据条件 查询单条数据  -->
+	<select id="findEntityById" parameterType="com.xiaodou.userCenter.model.UserPraiseModel" resultMap="BaseResultMap">
+		SELECT * FROM xd_user_praise WHERE user_id= #{userId} AND target_user_id = #{targetUserId} 
+	</select>
+	<!-- ******************************** 上面是DAO层方法实现, 下面是各个动态语句的拼写 ******************************************* -->
+
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseResultMap" type="com.xiaodou.userCenter.model.UserPraiseModel">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="target_user_id" property="targetUserId" />
+	</resultMap>
+	
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id =#{input.id}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.userId != null">and user_id =#{input.userId}</if>
+			<if test="input != null and input.targetUserId != null">and target_user_id =#{input.targetUserId}</if>
+		</where>
+	</sql>
+
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="targetUserId != null">target_user_id,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="userId != null">#{userId},</if>
+			<if test="targetUserId != null">#{targetUserId},</if>
+		</trim>
+	</sql>
+
+</mapper>

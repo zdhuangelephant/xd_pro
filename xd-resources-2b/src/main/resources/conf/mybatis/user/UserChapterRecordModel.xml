@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserChapterRecordModel" >
+	
+	
+	<resultMap id="BaseResultMap" type="com.xiaodou.course.model.user.UserChapterRecordModel">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="course_id" property="courseId" />
+		<result column="chapter_id" property="chapterId" />
+		<result column="item_id" property="itemId" />
+		<result column="star_level" property="starLevel" />
+		<result column="score" property="score" />
+		<result column="status" property="status" />
+	</resultMap>
+	
+	<!--字段 -->
+	<sql id="base_column">user_id,course_id,chapter_id,star_level,status</sql>
+	<sql id="all_column">
+		id,
+		<include refid="base_column" />
+	</sql>
+
+	<!-- 1.插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="userId != null">user_id,</if>
+			<if test="courseId != null">course_id,</if>
+			<if test="chapterId != null">chapter_id,</if>
+			<if test="itemId != null">item_id,</if>
+			<if test="starLevel != null">star_level,</if>
+			<if test="score != null">score,</if>
+			<if test="status != null">status,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="userId != null">#{userId},</if>
+			<if test="courseId != null">#{courseId},</if>
+			<if test="chapterId != null">#{chapterId},</if>
+			<if test="itemId != null">#{itemId},</if>
+			<if test="starLevel != null">#{starLevel},</if>
+			<if test="score != null">#{score},</if>
+			<if test="status != null">#{status},</if>
+		</trim>
+	</sql>
+
+	<insert id="addEntity" parameterType="com.xiaodou.course.model.user.UserChapterRecordModel">
+		insert into xd_user_course_chapter_record
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+	
+	<!-- 查询 -->
+	<select id="findEntityListByCond" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="dynamic_output" />
+		from xd_user_course_chapter_record
+		<include refid="dynamic_where" />
+	</select>
+
+	<!-- 4.查询单个记录 -->
+	<select id="findEntityById" parameterType="com.xiaodou.course.model.user.UserChapterRecordModel"
+		resultMap="BaseResultMap">
+		select * from xd_user_course_chapter_record where id = #{id};
+	</select>
+
+	<!-- 5.根据条件删除 -->
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_user_course_chapter_record
+		<include refid="dynamic_where" />
+	</delete>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id =#{input.id}</if>
+			<if test="input != null and input.ids != null">
+				and id in
+				<foreach collection="input.ids" open="(" close=")"
+					separator="," item="item" index="index">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.userId != null">and user_id =#{input.userId}</if>
+			<if test="input != null and input.courseId != null">and course_id =#{input.courseId}</if>
+			<if test="input != null and input.chapterId != null">and chapter_id =#{input.chapterId}</if>
+			<if test="input != null and input.itemId != null">and item_id =#{input.itemId}</if>
+			<if test="input != null and input.starLevel != null">and star_level =#{input.starLevel}</if>
+			<if test="input != null and input.starLevelUpper != null">and star_level &lt; #{input.starLevelUpper}</if>
+			<if test="input != null and input.starLevelLower != null">and star_level &gt; #{input.starLevelLower}</if>
+			<if test="input != null and input.score != null">and score =#{input.score}</if>
+			<if test="input != null and input.status != null">and status =#{input.status}</if>
+		</where>
+	</sql>
+	<!--动态语句:输出 -->
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.courseId != null">course_id,</if>
+			<if test="output != null and output.chapterId != null">chapter_id,</if>
+			<if test="output != null and output.itemId != null">item_id,</if>
+			<if test="output != null and output.star_level != null">star_level,</if>
+			<if test="output != null and output.score != null">score,</if>
+			<if test="output != null and output.status != null">status,</if>
+		</trim>
+	</sql>
+</mapper>

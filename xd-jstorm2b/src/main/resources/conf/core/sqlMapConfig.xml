@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="CommonModel" type="com.xiaodou.jstorm2b.model.CommonModel" />
+		<typeAlias alias="OutInModel" type="com.xiaodou.out_in.model.OutInModel" />
+		<typeAlias alias="ProjectModel" type="com.xiaodou.jstorm2b.model.ProjectModel" />
+		<typeAlias alias="ServerModel" type="com.xiaodou.jstorm2b.model.ServerModel" />
+
+	</typeAliases>
+	<mappers>
+		<mapper resource="conf/mybatis/log/OutInModel.xml" />
+		<mapper resource="conf/mybatis/Common.xml" />
+	</mappers>
+</configuration>

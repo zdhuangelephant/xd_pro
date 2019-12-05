@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+   <typeAliases>
+		<typeAlias type="com.xiaodou.dashboard.model.jsmg.ServerQueueSetting"
+			alias="ServerQueueSetting" />	
+		<typeAlias type="com.xiaodou.dashboard.model.jsmg.JmsgMessageConfig"
+			alias="JmsgMessageConfig" />	
+		<typeAlias type="com.xiaodou.dashboard.model.jsmg.JmsgMessageConsumersConfig"
+			alias="JmsgMessageConsumersConfig" />	
+		<typeAlias type="com.xiaodou.dashboard.model.jsmg.MessageQueueSetting"
+			alias="MessageQueueSetting" />	
+	    <typeAlias type="com.xiaodou.dashboard.model.jsmg.Relation"
+			alias="Relation" />			
+	    <typeAlias type="com.xiaodou.dashboard.model.jsmg.JmsgMessageBody"
+			alias="JmsgMessageBody" />	
+	    <typeAlias type="com.xiaodou.dashboard.model.jsmg.MessageLog"
+			alias="MessageLog" />	
+   </typeAliases>
+   <mappers>
+		<mapper resource="conf/mybatis/jmsg/ServerQueueSetting.xml" />
+		<mapper resource="conf/mybatis/jmsg/JmsgMessageConfig.xml" />
+		<mapper resource="conf/mybatis/jmsg/JmsgMessageConsumersConfig.xml" />
+		<mapper resource="conf/mybatis/jmsg/MessageQueueSetting.xml" />
+		<mapper resource="conf/mybatis/jmsg/Relation.xml" />
+		<mapper resource="conf/mybatis/jmsg/JmsgMessageBody.xml" />
+		<mapper resource="conf/mybatis/jmsg/MessageLog.xml" />
+   </mappers>
+</configuration>

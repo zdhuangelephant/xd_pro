@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AccountWalletGood">
+	<resultMap id="BaseResultMap" type="com.xiaodou.userCenter.model.AccountWalletGood">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="product_line" property="productLine" jdbcType="VARCHAR" />
+		<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+		<result column="goods_price" property="goodsPrice" jdbcType="DOUBLE" />
+		<result column="goods_count" property="goodsCount" jdbcType="DOUBLE" />
+		<result column="discount_rule" property="discountRule"
+			jdbcType="VARCHAR" />
+		<result column="promotion_rule" property="promotionRule"
+			jdbcType="VARCHAR" />
+		<result column="goods_stock" property="goodsStock" jdbcType="INTEGER" />
+		<result column="goods_status" property="goodsStatus" jdbcType="TINYINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="up_time" property="upTime" jdbcType="TIMESTAMP" />
+		<result column="down_time" property="downTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, product_line, goods_name, goods_price, goods_count, discount_rule, promotion_rule, goods_stock, goods_status, create_time, up_time, down_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.userCenter.model.AccountWalletGood">
+		select
+		<include refid="base_column" />
+		from xd_account_wallet_goods
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_account_wallet_goods
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<delete id="delete" parameterType="java.util.Map">
+		delete from
+		xd_account_wallet_goods
+		<include refid="dynamic_where" />
+	</delete>
+	<insert id="addEntity" parameterType="com.xiaodou.userCenter.model.AccountWalletGood"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_account_wallet_goods
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="productLine != null">product_line,</if>
+			<if test="goodsName != null">goods_name,</if>
+			<if test="goodsPrice != null">goods_price,</if>
+			<if test="goodsCount != null">goods_count,</if>
+			<if test="discountRule != null">discount_rule,</if>
+			<if test="promotionRule != null">promotion_rule,</if>
+			<if test="goodsStock != null">goods_stock,</if>
+			<if test="goodsStatus != null">goods_status,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="upTime != null">up_time,</if>
+			<if test="downTime != null">down_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="productLine != null">#{productLine,jdbcType=VARCHAR},</if>
+			<if test="goodsName != null">#{goodsName,jdbcType=VARCHAR},</if>
+			<if test="goodsPrice != null">#{goodsPrice,jdbcType=DOUBLE},</if>
+			<if test="goodsCount != null">#{goodsCount,jdbcType=DOUBLE},</if>
+			<if test="discountRule != null">#{discountRule,jdbcType=VARCHAR},</if>
+			<if test="promotionRule != null">#{promotionRule,jdbcType=VARCHAR},</if>
+			<if test="goodsStock != null">#{goodsStock,jdbcType=INTEGER},</if>
+			<if test="goodsStatus != null">#{goodsStatus,jdbcType=TINYINT},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="upTime != null">#{upTime,jdbcType=TIMESTAMP},</if>
+			<if test="downTime != null">#{downTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntity" parameterType="com.xiaodou.userCenter.model.AccountWalletGood">
+		update xd_account_wallet_goods
+		<set>
+			<if test="value != null and value.goodsName != null">goods_name = #{value.goodsName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.goodsPrice != null">goods_price = #{value.goodsPrice,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.goodsCount != null">goods_price = #{value.goodsCount,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.discountRule != null">discount_rule = #{value.discountRule,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.promotionRule != null">promotion_rule = #{value.promotionRule,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.goodsStock != null">goods_stock = #{value.goodsStock,jdbcType=INTEGER},</if>
+			<if test="value != null and value.goodsStatus != null">goods_status = #{value.goodsStatus,jdbcType=TINYINT},
+			</if>
+			<if test="value != null and value.upTime != null">up_time = #{value.upTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.downTime != null">down_time = #{value.downTime,jdbcType=TIMESTAMP},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_account_wallet_goods
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.productLine != null">product_line,</if>
+			<if test="output != null and output.goodsName != null">goods_name,</if>
+			<if test="output != null and output.goodsPrice != null">goods_price,</if>
+			<if test="output != null and output.goodsCount != null">goods_count,</if>
+			<if test="output != null and output.discountRule != null">discount_rule,</if>
+			<if test="output != null and output.promotionRule != null">promotion_rule,</if>
+			<if test="output != null and output.goodsStock != null">goods_stock,</if>
+			<if test="output != null and output.goodsStatus != null">goods_status,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.upTime != null">up_time,</if>
+			<if test="output != null and output.downTime != null">down_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.productLine != null">and product_line=#{input.productLine}</if>
+			<if test="input != null and input.goodsName != null">and goods_name=#{input.goodsName}</if>
+			<if test="input != null and input.goodsPrice != null">and goods_price=#{input.goodsPrice}</if>
+			<if test="input != null and input.goodsCount != null">and goods_count=#{input.goodsCount}</if>
+			<if test="input != null and input.discountRule != null">and discount_rule=#{input.discountRule}</if>
+			<if test="input != null and input.promotionRule != null">and promotion_rule=#{input.promotionRule}</if>
+			<if test="input != null and input.goodsStock != null">and goods_stock=#{input.goodsStock}</if>
+			<if test="input != null and input.goodsStatus != null">and goods_status=#{input.goodsStatus}</if>
+			<if test="input != null and input.createTimeLower != null">and create_time &gt; #{input.createTimeLower}</if>
+			<if test="input != null and input.createTimeUpper != null">and create_time &lt; #{input.createTimeLower}</if>
+			<if test="input != null and input.upTimeLower != null">and up_time &gt; #{input.upTimeLower}</if>
+			<if test="input != null and input.upTimeUpper != null">and up_time &lt; #{input.upTimeLower}</if>
+			<if test="input != null and input.downTimeLower != null">and down_time &gt; #{input.downTimeLower}</if>
+			<if test="input != null and input.downTimeUpper != null">and down_time &lt; #{input.downTimeLower}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limitStart != null and limitCount != null">
+			limit ${limitStart}, ${limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.productLine != null and ( sort.productLine == 'ASC' or sort.productLine == 'DESC' )">product_line ${sort.productLine},</if>
+			<if
+				test="sort != null and sort.goodsName != null and ( sort.goodsName == 'ASC' or sort.goodsName == 'DESC' )">goods_name ${sort.goodsName},</if>
+			<if
+				test="sort != null and sort.goodsPrice != null and ( sort.goodsPrice == 'ASC' or sort.goodsPrice == 'DESC' )">goods_price ${sort.goodsPrice},</if>
+			<if
+				test="sort != null and sort.discountRule != null and ( sort.discountRule == 'ASC' or sort.discountRule == 'DESC' )">discount_rule ${sort.discountRule},</if>
+			<if
+				test="sort != null and sort.promotionRule != null and ( sort.promotionRule == 'ASC' or sort.promotionRule == 'DESC' )">promotion_rule ${sort.promotionRule},</if>
+			<if
+				test="sort != null and sort.goodsStock != null and ( sort.goodsStock == 'ASC' or sort.goodsStock == 'DESC' )">goods_stock ${sort.goodsStock},</if>
+			<if
+				test="sort != null and sort.goodsStatus != null and ( sort.goodsStatus == 'ASC' or sort.goodsStatus == 'DESC' )">goods_status ${sort.goodsStatus},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.upTime != null and ( sort.upTime == 'ASC' or sort.upTime == 'DESC' )">up_time ${sort.upTime},</if>
+			<if
+				test="sort != null and sort.downTime != null and ( sort.downTime == 'ASC' or sort.downTime == 'DESC' )">down_time ${sort.downTime},</if>
+		</trim>
+	</sql>
+</mapper>

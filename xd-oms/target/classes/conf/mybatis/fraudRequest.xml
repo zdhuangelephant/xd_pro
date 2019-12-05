@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon Aug 20 17:02:08 CST 2012-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FraudRequest">
+    <resultMap id="FraudRequestMap" type="FraudRequest">
+        <result property="id" column="id"/>
+        <result property="gorderId" column="gorder_id"/>
+        <result property="fraudId" column="fraud_id"/>
+        <result property="productType" column="product_type"/>
+        <result property="paymentType" column="payment_type"/>
+        <result property="fraudStatus" column="fraud_status"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="preCloseTime" column="pre_close_time"/>
+        <result property="actionTime" column="action_time"/>
+        <result property="scheduledTime" column="scheduled_time"/>
+        <result property="haveRetryNum" column="have_retry_num"/>
+        <result property="payNo" column="pay_no"/>
+        <result property="continuePay" column="continue_pay"/>
+        <result property="needRetry" column="need_retry"/>
+        <result property="checkInfo" column="check_info"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="_timestamp"/>
+    </resultMap>
+
+    <sql id="dynamic_select">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">
+                id,
+            </if>
+            <if test="output != null and output.gorderId != null">
+                gorder_id,
+            </if>
+            <if test="output != null and output.fraudId != null">
+                fraud_id,
+            </if>
+            <if test="output != null and output.productType != null">
+                product_type,
+            </if>
+            <if test="output != null and output.fraudStatus != null">
+                fraud_status,
+            </if>
+            <if test="output != null and output.orderStatus != null">
+                order_status,
+            </if>
+            <if test="output != null and output.preCloseTime != null">
+                pre_close_time,
+            </if>
+            <if test="output != null and output.actionTime != null">
+                action_time,
+            </if>
+            <if test="output != null and output.scheduledTime != null">
+                scheduled_time,
+            </if>
+            <if test="output != null and output.haveRetryNum != null">
+                have_retry_num,
+            </if>
+            <if test="output != null and output.payNo != null">
+                pay_no,
+            </if>
+            <if test="output != null and output.createTime != null">
+                create_time,
+            </if>
+            <if test="output != null and output.continuePay != null">
+                continue_pay,
+            </if>
+            <if test="output != null and output.needRetry != null">
+                need_retry,
+            </if>
+            <if test="output != null and output.checkInfo != null">
+                check_info,
+            </if>
+            <if test="output != null and output.paymentType != null">
+                payment_type,
+            </if>
+        </trim>
+    </sql>
+
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and
+                id=#{input.id}
+            </if>
+            <if test="input != null and input.gorderId != null">and
+                gorder_id=#{input.gorderId}
+            </if>
+            <if test="input != null and input.fraudId != null">and
+                fraud_id=#{input.fraudId}
+            </if>
+            <if test="input != null and input.productType != null">and
+                product_type=#{input.productType}
+            </if>
+            <if test="input != null and input.fraudStatus != null">and
+                fraud_status in
+                <foreach collection="input.fraudStatus" item="item" separator="," close=")" open="(">#{item}</foreach>
+            </if>
+            <if test="input != null and input.orderStatus != null">AND
+                order_status IN
+                <foreach collection="input.orderStatus" item="item" separator="," close=")" open="(">#{item}</foreach>
+            </if>
+            <if test="input != null and input.preCloseTime != null">and
+                pre_close_time &gt;= #{input.preCloseTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="input != null and input.payNo != null">and
+                pay_no=#{input.payNo}
+            </if>
+            <if test="input!=null and input.paymentType!=null">and
+                payment_type is null or payment_type = #{input.paymentType}
+            </if>
+            <!-- <if test="input != null and input.actionTime != null">and
+                action_time &gt;= #{input.actionTime}
+            </if> -->
+
+            <!-- <if test="input != null and input.scheduledTime != null">and
+                scheduled_time &gt;= #{input.scheduledTime}
+            </if> -->
+            <if test="input != null and input.productType != null">and
+                product_type=#{input.productType}
+            </if>
+
+            <if test="input != null and input.haveRetryNum != null">and
+                have_retry_num &gt;= #{input.haveRetryNum}
+            </if>
+            <if test="input != null and input.continuePay != null">and
+                continue_pay = #{input.continuePay}
+            </if>
+
+            <if test="input != null and input.needRetry != null">and
+                need_retry = #{input.needRetry}
+            </if>
+            <!--<if test="input != null and input.checkInfo != null">and-->
+                <!--check_info &lt;= #{input.checkInfo}-->
+            <!--</if>-->
+            <if test="input != null and input.paymentType != null">
+                payment_type,
+            </if>
+        </where>
+    </sql>
+    
+    <sql id="insertColumns">  
+      <trim suffixOverrides=",">  
+        <if test="gorderId != null">gorder_id,</if> 
+        <if test="fraudId != null">fraud_id,</if> 
+        <if test="productType != null">product_type,</if> 
+        <if test="fraudStatus != null">fraud_status,</if>
+        <if test="orderStatus != null">order_status,</if>  
+        <if test="preCloseTime != null">pre_close_time,</if> 
+        <if test="actionTime != null">action_time,</if> 
+        <if test="scheduledTime != null">scheduled_time,</if> 
+        <if test="haveRetryNum != null">have_retry_num,</if> 
+        <if test="payNo != null">pay_no,</if>
+        <if test="continuePay != null">continue_pay,</if>
+        <if test="needRetry != null">need_retry,</if>
+        <if test="checkInfo != null">check_info,</if> 
+        <if test="paymentType != null">payment_type,</if> 
+        create_time,
+      </trim>  
+    </sql>  
+    
+    <sql id="insertValues">  
+      <trim suffixOverrides=",">  
+        <if test="gorderId != null">#{gorderId,jdbcType=VARCHAR},</if>  
+        <if test="fraudId != null">#{fraudId,jdbcType=VARCHAR},</if>  
+        <if test="productType != null">#{productType,jdbcType=NUMERIC},</if>  
+        <if test="fraudStatus != null">#{fraudStatus,jdbcType=NUMERIC},</if>  
+        <if test="orderStatus != null">#{orderStatus,jdbcType=NUMERIC}, </if> 
+        <if test="preCloseTime != null">#{preCloseTime,jdbcType=TIMESTAMP},</if> 
+        <if test="actionTime != null">#{actionTime,jdbcType=TIMESTAMP},</if> 
+        <if test="scheduledTime != null">#{scheduledTime,jdbcType=TIMESTAMP},</if> 
+        <if test="haveRetryNum != null">#{haveRetryNum,jdbcType=NUMERIC},</if> 
+        <if test="payNo != null">#{payNo,jdbcType=NUMERIC},</if> 
+        <if test="continuePay != null">#{continuePay,jdbcType=NUMERIC},</if>
+        <if test="needRetry != null">#{needRetry,jdbcType=NUMERIC},</if> 
+        <if test="checkInfo != null">#{checkInfo,jdbcType=VARCHAR},</if>
+        <if test="paymentType != null">#{paymentType,jdbcType=VARCHAR},</if>
+        now(),
+      </trim>  
+    </sql>  
+    
+<insert id="addEntity" parameterType="FraudRequest">
+ insert into tb_shop_fraud_request
+ (<include refid="insertColumns"/>)
+ values
+ (<include refid="insertValues"/>)
+</insert>
+    
+
+    <!-- <insert id="addEntity" parameterType="FraudRequest">
+        insert into
+        tb_shop_fraud_request (gorder_id, fraud_id,product_type,fraud_status,order_status,pre_close_time,action_time,scheduled_time,have_retry_num,pay_no,check_info,continue_pay,need_retry,create_time)
+        values
+        (#{gorderId,jdbcType=VARCHAR},
+        #{fraudId,jdbcType=VARCHAR},
+        #{productType,jdbcType=VARCHAR},
+        #{fraudStatus,jdbcType=NUMERIC},
+        #{orderStatus,jdbcType=NUMERIC},
+        #{preCloseTime,jdbcType=TIMESTAMP},
+        #{actionTime,jdbcType=TIMESTAMP},
+        #{scheduledTime,jdbcType=TIMESTAMP},
+        #{haveRetryNum,jdbcType=NUMERIC},
+        #{payNo,jdbcType=VARCHAR},
+        #{checkInfo,jdbcType=VARCHAR},
+        #{continuePay,jdbcType=NUMERIC},
+        #{needRetry,jdbcType=NUMERIC},
+        #{createTime,jdbcType=TIMESTAMP}
+        )
+    </insert> -->
+
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="FraudRequestMap">
+        select
+        <include refid="dynamic_select"/>
+        from tb_shop_fraud_request
+        <include refid="dynamic_where"/>
+        order by id
+        <if test="input.limit != null">
+            limit 0, #{input.limit}
+        </if>
+    </select>
+    
+    <select id="findEntityById" parameterType="FraudRequest" resultMap="FraudRequestMap">
+        select * from tb_shop_fraud_request
+        <where>
+            <if test="id != null">and
+                id=#{id}
+            </if>
+            <if test="gorderId != null">and
+                gorder_id=#{gorderId}
+            </if>
+            <if test="fraudId != null">and
+                fraud_id=#{fraudId}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateEntity" parameterType="java.util.Map">
+        update tb_shop_fraud_request
+        <set>
+            <if test="entity.fraudStatus != null">
+                fraud_status = #{entity.fraudStatus,jdbcType=NUMERIC},
+            </if>
+            <if test="entity.orderStatus != null">
+                order_status = #{entity.orderStatus,jdbcType=NUMERIC},
+            </if>
+            <if test="entity.preCloseTime != null">
+                pre_close_time = #{entity.preCloseTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="entity.actionTime != null">
+                action_time = #{entity.actionTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="entity.scheduledTime != null">
+                scheduled_time = #{entity.scheduledTime,jdbcType=TIMESTAMP},
+            </if>
+            <!-- <if test="entity.note != null">
+                note = concat_ws('||',entity.note,#{entity.note,jdbcType=VARCHAR})
+            </if> -->
+            <if test="entity.haveRetryNum != null">
+                have_retry_num = #{entity.haveRetryNum,jdbcType=VARCHAR},
+            </if>
+            <if test="entity.payNo != null">
+                pay_no = #{entity.payNo,jdbcType=VARCHAR},
+            </if>
+            <if test="entity.checkInfo != null">
+                check_info = #{entity.checkInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="entity.continuePay != null">
+                continue_pay = #{entity.continuePay,jdbcType=VARCHAR},
+            </if>
+            <if test="entity.needRetry != null">
+                need_retry = #{entity.needRetry,jdbcType=VARCHAR},
+            </if>
+            <if test="entity.paymentType != null">
+                payment_type = #{entity.paymentType,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <delete id="deleteEntity" parameterType="FraudRequest">
+        delete from tb_shop_fraud_request
+        where id = #{id,jdbcType=NUMERIC}
+    </delete>
+    
+    <delete id="deleteEntityList" parameterType="java.util.Map">
+        delete from tb_shop_fraud_request
+        where pre_close_time &lt;= #{preCloseTime}
+        limit #{limit}
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,215 @@
+<ProductLine code="09" name="train12306">
+
+  <StateMachineInstance>com.elong.oms.statemachine.instance.train12306.Train12306StateMachine</StateMachineInstance>
+  <StateInstance>com.elong.oms.statemachine.instance.train12306.Train12306State</StateInstance>
+  <EventInstance>com.elong.oms.statemachine.instance.train12306.Train12306Event</EventInstance>
+  <TransitionList>
+
+    <!--进入队列成功-->
+    <Transition name="fromInitToInQueueOnEnterQueueSuccess" id="1">
+      <Do>
+        <!--修改订单状态-->
+        <Api type="local" name="updateOrderStatus">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="shares.toState" type="java.lang.Integer"/>
+        </Api>
+        <!--记录占座失败原因-->
+        <Api type="local" name="updateOrderMisc">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--进入队列失败-->
+    <Transition name="fromInitToClosedOnEnterQueueFailure" id="2">
+      <Do>
+        <!--关单-->
+        <Api type="local" name="closeGorderWithOutRefund">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.closedReason" type="java.lang.String" value="36#占座失败"/>
+          <InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean"/>
+          <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <!--记录占座失败原因-->
+        <Api type="local" name="updateOrderMisc">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--占座失败-->
+    <Transition name="fromInQueueToClosedOnHoldingSeatFailure" id="3">
+      <Do>
+        <!--关单-->
+        <Api type="local" name="closeGorderWithOutRefund">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.closedReason" type="java.lang.String" value="36#占座失败"/>
+          <InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean"/>
+          <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <!--记录占座失败原因-->
+        <Api type="local" name="updateOrderMisc">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--占座成功-->
+    <Transition name="fromInQueueToHoldingSeatOnHoldingSeatSuccess" id="4">
+      <Do>
+        <!--更改订单状态与12306订单号-->
+        <Api type="local" name="updateOrderStatusAndMerchantOrderId">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.merchantOrderId" type="java.lang.String"/>
+          <InputParam name="shares.toState" type="java.lang.Integer"/>
+        </Api>
+        <!--跟新gorder价格信息-->
+        <Api type="local" name="updateGorderPrice">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.gorderUpdateInfo" type="com.elong.oms.entity.order.Gorder"/>
+        </Api>
+        <!--更新订单成功时间-->
+        <Api type="local" name="updateOrderSuccessTime">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <!--更新order价格信息-->
+        <Api type="local" name="updateOrderPrice">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <!--更新票状态以及票信息-->
+        <Api type="local" name="updateOrderItemMisc">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderItemUpdateInfo" type="java.util.List"/>
+        </Api>
+        <!--更新merchantPrId-->
+        <Api type="local" name="updateOrderItemMerchantPrctId">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderItemUpdateInfo" type="java.util.List"/>
+        </Api>
+        <!--更新item票价信息-->
+        <Api type="local" name="updateOrderItemUnitPrice">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderItemUpdateInfo" type="java.util.List"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--状态同步-->
+    <Transition name="fromHoldingSeatToClosedOnSynWithPayTimeout" id="5">
+      <Do>
+        <!--关单-->
+        <Api type="local" name="closeGorderWithOutRefund">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.closedReason" type="java.lang.String" value="5#状态同步(订单取消)"/>
+          <InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean"/>
+          <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--支付完成状态同步-->
+    <Transition name="fromHoldingSeatToCompleteOnSynWithComplete" id="6">
+      <Do>
+        <!--更新订单状态-->
+        <Api type="local" name="updateOrderStatus">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="shares.toState" type="java.lang.Integer"/>
+        </Api>
+        <!--更新票状态-->
+        <Api type="local" name="updateOrderItemStatus">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderItemUpdateInfo" type="java.util.List"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--用户取消-->
+    <Transition name="fromHoldingSeatToClosedOnCancelByUser" id="7">
+      <Do>
+        <!--关单-->
+        <Api type="local" name="closeGorderWithOutRefund">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.closedReason" type="java.lang.String" value="4#用户取消"/>
+          <InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean"/>
+          <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--退票操作-->
+    <Transition name="fromCompleteToCompleteOnRefundTicket" id="8">
+      <Do>
+        <!--更新票状态和misc-->
+        <Api type="local" name="updateOrderItemStatus">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderItemUpdateInfo" type="java.util.List"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--占座成功-->
+    <Transition name="fromInitToHoldingSeatOnHoldingSeatSuccessFromInit" id="9">
+      <Do>
+        <!--更改订单状态与12306订单号-->
+        <Api type="local" name="updateOrderStatusAndMerchantOrderId">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.merchantOrderId" type="java.lang.String"/>
+          <InputParam name="shares.toState" type="java.lang.Integer"/>
+        </Api>
+        <!--跟新gorder价格信息-->
+        <Api type="local" name="updateGorderPrice">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.gorderUpdateInfo" type="com.elong.oms.entity.order.Gorder"/>
+        </Api>
+        <!--更新订单成功时间-->
+        <Api type="local" name="updateOrderSuccessTime">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <!--更新order价格信息-->
+        <Api type="local" name="updateOrderPrice">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <!--更新票状态以及票信息-->
+        <Api type="local" name="updateOrderItemMisc">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderItemUpdateInfo" type="java.util.List"/>
+        </Api>
+        <!--更新merchantPrId-->
+        <Api type="local" name="updateOrderItemMerchantPrctId">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderItemUpdateInfo" type="java.util.List"/>
+        </Api>
+        <!--更新item票价信息-->
+        <Api type="local" name="updateOrderItemUnitPrice">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderItemUpdateInfo" type="java.util.List"/>
+        </Api>
+      </Do>
+    </Transition>
+
+  </TransitionList>
+</ProductLine>

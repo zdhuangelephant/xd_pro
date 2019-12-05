@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AlarmRecordCheckDO">
+	<resultMap id="BaseResultMap" type="com.xiaodou.st.dashboard.domain.alarm.AlarmRecordCheckDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+<result column="alarm_id" property="alarmId" jdbcType="VARCHAR" />
+<result column="admin_id" property="adminId" jdbcType="VARCHAR" />
+<result column="check_status" property="checkStatus" jdbcType="VARCHAR" />
+<result column="content" property="content" jdbcType="VARCHAR" />
+<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+	</resultMap>
+	<sql id="base_column">id, alarm_id, admin_id, check_status, content, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.alarm.AlarmRecordCheckDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_alarm_record_check
+		where id = #{id,jdbcType=BIGINT}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_alarm_record_check
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.st.dashboard.domain.alarm.AlarmRecordCheckDO"  >
+		insert into xd_dashboard_alarm_record_check
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+<if test="alarmId != null">alarm_id,</if>
+<if test="adminId != null">admin_id,</if>
+<if test="checkStatus != null">check_status,</if>
+<if test="content != null">content,</if>
+<if test="createTime != null">create_time,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+<if test="alarmId != null">#{alarmId,jdbcType=VARCHAR},</if>
+<if test="adminId != null">#{adminId,jdbcType=VARCHAR},</if>
+<if test="checkStatus != null">#{checkStatus,jdbcType=VARCHAR},</if>
+<if test="content != null">#{content,jdbcType=VARCHAR},</if>
+<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.st.dashboard.domain.alarm.AlarmRecordCheckDO">
+		update xd_dashboard_alarm_record_check
+		<set>
+			<if test="value != null and value.checkStatus != null">check_status = #{value.checkStatus,jdbcType=VARCHAR},</if>
+
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.st.dashboard.domain.alarm.AlarmRecordCheckDO">
+		update xd_dashboard_alarm_record_check
+		<set>
+			<if test="value != null and value.checkStatus != null">check_status = #{value.checkStatus,jdbcType=VARCHAR},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.st.dashboard.domain.alarm.AlarmRecordCheckDO">
+		delete from xd_dashboard_alarm_record_check
+		where id = #{id,jdbcType=BIGINT}
+
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_alarm_record_check
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+<if test="output != null and output.alarmId != null">alarm_id,</if>
+<if test="output != null and output.adminId != null">admin_id,</if>
+<if test="output != null and output.checkStatus != null">check_status,</if>
+<if test="output != null and output.content != null">content,</if>
+<if test="output != null and output.createTime != null">create_time,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+<if test="input != null and input.alarmId != null">and alarm_id=#{input.alarmId}</if>
+<if test="input != null and input.adminId != null">and admin_id=#{input.adminId}</if>
+<if test="input != null and input.checkStatus != null">and check_status=#{input.checkStatus}</if>
+<if test="input != null and input.content != null">and content=#{input.content}</if>
+<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+<if test="sort != null and sort.alarmId != null and ( sort.alarmId == 'ASC' or sort.alarmId == 'DESC' )">alarm_id ${sort.alarmId},</if>
+<if test="sort != null and sort.adminId != null and ( sort.adminId == 'ASC' or sort.adminId == 'DESC' )">admin_id ${sort.adminId},</if>
+<if test="sort != null and sort.checkStatus != null and ( sort.checkStatus == 'ASC' or sort.checkStatus == 'DESC' )">check_status ${sort.checkStatus},</if>
+<if test="sort != null and sort.content != null and ( sort.content == 'ASC' or sort.content == 'DESC' )">content ${sort.content},</if>
+<if test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+
+		</trim>
+	</sql>
+</mapper>

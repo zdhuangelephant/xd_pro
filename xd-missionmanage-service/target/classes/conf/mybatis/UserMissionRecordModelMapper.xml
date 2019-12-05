@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserMissionRecordModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.mission.domain.UserMissionRecordModel">
+		<id column="id" property="id" />
+		<result column="module" property="module" />
+		<result column="user_id" property="userId" />
+		<result column="mission_id" property="missionId" />
+		<result column="course_id" property="courseId" />
+		<result column="chapter_id" property="chapterId" />
+		<result column="mission_name" property="missionName" />
+		<result column="mission_desc" property="missionDesc" />
+		<result column="threshold_num" property="thresholdNum" />
+		<result column="current_num" property="currentNum" />
+		<result column="is_reached" property="isReached" />
+		<result column="record_status" property="recordStatus" />
+		<result column="create_time" property="createTime" />
+		<result column="finish_time" property="finishTime" />
+		<result column="dead_line" property="deadLine" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, module, user_id, mission_id, course_id,
+		chapter_id,
+		mission_name,
+		mission_desc, threshold_num,
+		current_num,
+		is_reached,
+		record_status,
+		create_time,
+		finish_time,
+		dead_line
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.mission.domain.UserMissionRecordModel">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_mission_record
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_mission_record
+		<include refid="dynamic_where" />
+	</select>
+	<delete id="deleteEntity" parameterType="com.xiaodou.mission.domain.UserMissionRecordModel">
+		delete from
+		xd_user_mission_record
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="addEntity" parameterType="com.xiaodou.mission.domain.UserMissionRecordModel"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_user_mission_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="module != null">
+				module,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="missionId != null">
+				mission_id,
+			</if>
+			<if test="courseId != null">
+				course_id,
+			</if>
+			<if test="chapterId != null">
+				chapter_id,
+			</if>
+			<if test="missionName != null">
+				mission_name,
+			</if>
+			<if test="missionDesc != null">
+				mission_desc,
+			</if>
+			<if test="thresholdNum != null">
+				threshold_num,
+			</if>
+			<if test="currentNum != null">
+				current_num,
+			</if>
+			<if test="isReached != null">
+				is_reached,
+			</if>
+			<if test="recordStatus != null">
+				record_status,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="finishTime != null">
+				finish_time,
+			</if>
+			<if test="deadLine != null">
+				dead_line,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="module != null">
+				#{module,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="missionId != null">
+				#{missionId,jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null">
+				#{courseId,jdbcType=VARCHAR},
+			</if>
+			<if test="chapterId != null">
+				#{chapterId,jdbcType=VARCHAR},
+			</if>
+			<if test="missionName != null">
+				#{missionName,jdbcType=VARCHAR},
+			</if>
+			<if test="missionDesc != null">
+				#{missionDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="thresholdNum != null">
+				#{thresholdNum,jdbcType=VARCHAR},
+			</if>
+			<if test="currentNum != null">
+				#{currentNum,jdbcType=VARCHAR},
+			</if>
+			<if test="isReached != null">
+				#{isReached,jdbcType=INTEGER},
+			</if>
+			<if test="recordStatus != null">
+				#{recordStatus,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="finishTime != null">
+				#{finishTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deadLine != null">
+				#{deadLine,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.mission.domain.UserMissionRecordModel">
+		update xd_user_mission_record
+		<set>
+			<if test="currentNum != null">
+				current_num = #{currentNum,jdbcType=VARCHAR},
+			</if>
+			<if test="isReached != null">
+				is_reached = #{isReached,jdbcType=INTEGER},
+			</if>
+			<if test="finishTime != null">
+				finish_time = #{finishTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="recordStatus != null">
+				record_status = #{recordStatus,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.module != null">
+				and module = #{input.module,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.moduleList != null">
+				and module in
+				<foreach collection="input.moduleList" item="item" open="("
+					close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.userId != null">
+				and user_id = #{input.userId,jdbcType=BIGINT}
+			</if>
+			<if test="input != null and input.missionId != null">
+				and mission_id = #{input.missionId,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.courseId != null">
+				and course_id = #{input.courseId,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.courseIdList != null">
+				and course_id in
+				<foreach collection="input.courseIdList" item="item" open="("
+					close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.chapterId != null">
+				and chapter_id = #{input.chapterId,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.recordStatus != null">
+				and record_status =
+				#{input.recordStatus,jdbcType=INTEGER}
+			</if>
+			<if test="input != null and input.recordStatusList != null">
+				and record_status in
+				<foreach collection="input.recordStatusList" open="(" close=")"
+					separator="," item="recordStatus">
+					#{recordStatus}
+				</foreach>
+			</if>
+			<if test="input != null and input.createTimeLower != null">and
+				create_time &gt; #{input.createTimeLower}
+			</if>
+			<if test="input != null and input.createTimeUpper != null">and
+				create_time &lt; #{input.createTimeUpper}
+			</if>
+			<if test="input != null and input.finishTimeLower != null">and
+				finish_time &gt; #{input.finishTimeLower}
+			</if>
+			<if test="input != null and input.finishTimeUpper != null">and
+				finish_time &lt; #{input.finishTimeUpper}
+			</if>
+			<if test="input != null and input.deadLineLower != null">and
+				dead_line &gt; #{input.deadLineLower}
+			</if>
+			<if test="input != null and input.deadLineUpper != null">and
+				dead_line &lt; #{input.deadLineUpper}
+			</if>
+		</where>
+	</sql>
+</mapper>

@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cascadeQueryForum">
+
+	<resultMap type="com.xiaodou.forum.model.forum.ForumUserModel"
+		id="ForumUserMap">
+		<id column="id" property="id" />
+		<result column="digest" property="digest" />
+		<result column="top" property="top" />
+		<result column="recommend" property="recommend" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="outline" property="outline" />
+		<result column="images" property="images" />
+		<result column="category_id" property="categoryId" />
+		<result column="category_name" property="categoryName" />
+		<result column="category_short_name" property="categoryShortName" />
+		<result column="publisher_id" property="publisherId" />
+		<result column="replies_number" property="repliesNumber" />
+		<result column="is_praise" property="isPraise" />
+		<result column="praise_number" property="praiseNumber" />
+		<result column="spraise_number" property="sPraiseNumber" />
+		<result column="assign" property="assign" />
+		<result column="tag" property="tag" />
+		<result column="operator" property="operator" />
+		<result column="operatorip" property="operatorip" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+
+		<result column="user_id" property="user.id" />
+		<result column="user_user_name" property="user.userName" />
+		<result column="user_nick_name" property="user.nickName" />
+		<result column="user_portrait" property="user.portrait" />
+		<result column="user_address" property="user.address" />
+		<result column="user_age" property="user.age" />
+
+	</resultMap>
+
+	<resultMap type="com.xiaodou.forum.model.forum.CommentUserModel"
+		id="CommentUserMap">
+		<id column="id" property="id" />
+		<result column="forum_id" property="forumId" />
+		<result column="nick_name" property="nickName" />
+		<result column="content" property="content" />
+		<result column="reply_id" property="replyId" />
+		<result column="targe_id" property="targeId" />
+		<result column="targe_comment_id" property="targeCommentId" />
+		<result column="targe_content" property="targeContent" />
+		<result column="praise_number" property="praiseNumber" />
+		<result column="tag" property="tag" />
+		<result column="create_time" property="createTime" />
+
+		<result property="user.id" column="user_id" />
+		<result property="user.userName" column="user_user_name" />
+		<result property="user.nickName" column="user_nick_name" />
+		<result property="user.portrait" column="user_portrait" />
+		<result property="user.address" column="user_address" />
+		<result property="user.age" column="user_age" />
+	</resultMap>
+
+	<resultMap type="com.xiaodou.forum.model.forum.CommentForumModel"
+		id="CommentForumModel">
+		<id column="id" property="id" />
+		<result column="forum_id" property="forumId" />
+		<result column="nick_name" property="nickName" />
+		<result column="content" property="content" />
+		<result column="reply_id" property="replyId" />
+		<result column="targe_id" property="targeId" />
+		<result column="targe_content" property="targeContent" />
+		<result column="praise_number" property="praiseNumber" />
+		<result column="tag" property="tag" />
+		<result column="create_time" property="createTime" />
+
+		<result property="forum.title" column="forum_title" />
+	</resultMap>
+
+	<resultMap type="com.xiaodou.forum.model.forum.RelateInfoUserModel"
+		id="RelateInfoUserModel">
+		<id column="id" property="id" />
+		<result column="type" property="type" />
+		<result column="status" property="status" />
+		<result column="forum_id" property="forumId" />
+		<result column="comment_id" property="commentId" />
+		<result column="forum_title" property="forumTitle" />
+		<result column="content" property="content" />
+		<result column="reply_id" property="replyId" />
+		<result column="targe_id" property="targeId" />
+		<result column="targe_comment_id" property="targeCommentId" />
+		<result column="targe_content" property="targeContent" />
+		<result column="create_time" property="createTime" />
+
+		<result property="user.id" column="user_id" />
+		<result property="user.userName" column="user_user_name" />
+		<result property="user.nickName" column="user_nick_name" />
+		<result property="user.portrait" column="user_portrait" />
+		<result property="user.address" column="user_address" />
+		<result property="user.age" column="user_age" />
+	</resultMap>
+
+	<sql id="from_sql_forum_user_output">
+		<include refid="from_sql_forum_user_model" />
+		<if test="input != null and input.userId != null">
+			left join
+			xd_forum_praise p ON f.id = p.forum_id and
+			p.comment_id = 0
+			and p.reply_id = #{input.userId}
+		</if>
+	</sql>
+	<sql id="from_sql_forum_user_model">
+		from xd_forum_list f left join xd_user u on f.publisher_id
+		= u.id left join xd_forum_category c on f.category_id = c.id
+	</sql>
+	<sql id="from_sql_comment_user">
+		from xd_forum_comment c left join xd_user u on c.reply_id
+		=
+		u.id
+		<if test="input != null and input.userId != null">
+			left join
+			xd_forum_praise p ON f.id = p.forum_id and
+			p.comment_id = c.id
+			and p.reply_id = #{input.userId}
+		</if>
+	</sql>
+	<sql id="from_sql_comment_forum">
+		from xd_forum_comment c left join xd_forum_list f on
+		c.forum_id
+		= f.id
+		<if test="input != null and input.userId != null">
+			left join
+			xd_forum_praise p ON f.id = p.forum_id and
+			p.comment_id = c.id
+			and p.reply_id = #{input.userId}
+		</if>
+	</sql>
+	<sql id="from_sql_relate_info_user">
+		from xd_forum_relate_comments_info r left join xd_user u on
+		r.reply_id = u.id
+	</sql>
+
+	<sql id="dynamic_where_forum">
+		<trim prefixOverrides="and">
+			<if test="input != null and input.forumId != null ">and
+				f.ID &lt; #{input.forumId}
+			</if>
+			<if test="input != null and input.id != null ">and
+				f.ID = #{input.id}
+			</if>
+			<if test="input != null and input.ids != null ">
+				and f.ID in
+				<foreach collection="input.ids" item="item" separator=","
+					open="(" close=")">
+					#{item}
+				</foreach>
+
+			</if>
+			<if test="input != null and input.createTimeLower != null">and
+				f.create_time &gt;= #{input.createTimeLower}
+			</if>
+			<if test="input != null and input.createTimeUpper != null">and
+				f.create_time &lt; #{input.createTimeUpper}
+			</if>
+			<if test="input != null and input.updateTimeLower != null">and
+				f.update_time &gt;= #{input.updateTimeLower}
+			</if>
+			<if test="input != null and input.updateTimeUpper != null">and
+				f.update_time &lt; #{input.updateTimeUpper}
+			</if>
+			<if test="input != null and input.digest != null">and f.digest =#{input.digest}</if>
+			<if test="input != null and input.top != null">and f.top =#{input.top}</if>
+			<if test="input != null and input.categoryId != null">and f.category_id =#{input.categoryId}</if>
+			<if test="input != null and input.publisherId != null">and f.publisher_id =#{input.publisherId}</if>
+			<if test="input != null and input.assign != null">and f.assign =#{input.assign}</if>
+			<if test="input != null and input.repliesNumber != null">and f.replies_number =#{input.repliesNumber}</if>
+			<if test="input != null and input.praiseNumber != null">and f.praise_number =#{input.praiseNumber}</if>
+			<if test="input != null and input.repliesNumberMax != null">and f.replies_number &lt;= #{input.repliesNumberMax}
+			</if>
+			<if test="input != null and input.repliesNumberMin != null">and f.replies_number &gt;= #{input.repliesNumberMin}
+			</if>
+			<if test="input != null and input.praiseNumberMax != null">and f.praise_number &lt;= #{input.praiseNumberMax}
+			</if>
+			<if test="input != null and input.praiseNumberMin != null">and f.praise_number &lt;= #{input.praiseNumberMin}
+			</if>
+			<if test="input != null and input.recommend != null">and f.recommend = #{input.recommend}
+			</if>
+		</trim>
+
+	</sql>
+
+	<sql id="dynamic_where_comment">
+		<trim prefixOverrides="and">
+
+			<!-- <if test="input != null and input.commentId != null ">and c.ID &lt; 
+				#{input.commentId} </if> -->
+			<if test="input != null and input.id != null ">and
+				c.ID = #{input.id}
+			</if>
+			<if test="input != null and input.ids != null ">
+				and
+				c.ID in (#{input.ids})
+			</if>
+			<if test="input != null and input.idUpper != null ">
+				and
+				c.ID &lt; #{input.idUpper}
+			</if>
+			<if test="input != null and input.createTimeLower != null">and
+				c.create_time &gt;= #{input.createTimeLower}
+			</if>
+			<if test="input != null and input.createTimeUpper != null">and
+				c.create_time &lt; #{input.createTimeUpper}
+			</if>
+			<if test="input != null and input.type != null">and
+				c.type = #{input.type}
+			</if>
+			<!-- <if test="input != null and input.updateTimeLower != null">and c.update_time 
+				&gt;= #{input.updateTimeLower} </if> <if test="input != null and input.updateTimeUpper 
+				!= null">and c.update_time &lt; #{input.updateTimeUpper} </if> -->
+			<if test="input != null and input.forumId != null">and c.forum_id =#{input.forumId}</if>
+			<if test="input != null and input.replyId != null">and c.reply_id =#{input.replyId}</if>
+			<if test="input != null and input.targeId != null">and c.targe_id =#{input.targeId}</if>
+			<if test="input != null and input.praiseNumber != null">and c.praise_number =#{input.praiseNumber}</if>
+			<if test="input != null and input.praiseNumberMax != null">and c.praise_number &lt;= #{input.praiseNumberMax}
+			</if>
+			<if test="input != null and input.praiseNumberMin != null">and c.praise_number &gt;= #{input.praiseNumberMin}
+			</if>
+		</trim>
+
+	</sql>
+
+	<sql id="dynamic_where_relate_info">
+		<trim prefixOverrides="and">
+
+			<!-- <if test="input != null and input.commentId != null ">and c.ID &lt; 
+				#{input.commentId} </if> -->
+			<if test="input != null and input.id != null ">and
+				r.ID = #{input.id}
+			</if>
+			<if test="input != null and input.ids != null ">
+				and
+				r.ID in (#{input.ids})
+			</if>
+			<if test="input != null and input.idUpper != null ">
+				and
+				r.ID &lt; #{input.idUpper}
+			</if>
+			<if test="input != null and input.createTimeLower != null">and
+				r.create_time &gt;= #{input.createTimeLower}
+			</if>
+			<if test="input != null and input.createTimeUpper != null">and
+				r.create_time &lt; #{input.createTimeUpper}
+			</if>
+			<if test="input != null and input.type != null">and
+				r.type = #{input.type}
+			</if>
+			<!-- <if test="input != null and input.updateTimeLower != null">and c.update_time 
+				&gt;= #{input.updateTimeLower} </if> <if test="input != null and input.updateTimeUpper 
+				!= null">and c.update_time &lt; #{input.updateTimeUpper} </if> -->
+			<if test="input != null and input.forumId != null">and r.forum_id =#{input.forumId}</if>
+			<if test="input != null and input.replyId != null">and r.reply_id =#{input.replyId}</if>
+			<if test="input != null and input.targeId != null">and r.targe_id =#{input.targeId}</if>
+		</trim>
+
+	</sql>
+
+	<sql id="dynamic_result_forum">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.forumId != null">f.id as id,</if>
+			<if test="output != null and output.digest != null">f.digest as digest,</if>
+			<if test="output != null and output.top != null">f.top as top,</if>
+			<if test="output != null and output.recommend != null">f.recommend as recommend,</if>
+			<if test="output != null and output.categoryId != null">f.category_id as category_id,</if>
+			<if test="output != null and output.categoryName != null">c.title as category_name,</if>
+			<if test="output != null and output.categoryShortName != null">c.short_name as category_short_name,</if>
+			<if test="output != null and output.publisherId != null">f.publisher_id as publisher_id,</if>
+			<if test="output != null and output.assign != null">f.assign as assign,</if>
+			<if test="output != null and output.repliesNumber != null">f.replies_number as replies_number,</if>
+			<if test="output != null and output.praiseNumber != null">f.praise_number as praise_number,</if>
+			<if test="output != null and output.createTime != null">f.create_time as create_time,</if>
+			<if test="output != null and output.updateTime != null">f.update_time as update_time,</if>
+			<if test="output != null and output.images != null">f.images as images,</if>
+			<if test="output != null and output.content != null">f.content as content,</if>
+			<if test="output != null and output.outline != null">f.outline as outline,</if>
+			<if test="output != null and output.title != null">f.title as title,</if>
+			<if test="output != null and output.userId != null">u.id as user_id,</if>
+			<if test="output != null and output.userName != null">u.user_name as user_user_name,</if>
+			<if test="output != null and output.userNickname != null">u.nick_name as user_nick_name,</if>
+			<if test="output != null and output.userPortrait != null">u.portrait as user_portrait,</if>
+			<if test="output != null and output.userAddress != null">u.address as user_address,</if>
+			<if test="output != null and output.userAge != null">u.age as user_age,</if>
+			<if test="output != null and output.isPraise != null">
+				<choose>
+					<when test="input != null and input.userId != null">
+						p.id
+					</when>
+					<otherwise>
+						0
+					</otherwise>
+				</choose>
+				AS is_praise,
+			</if>
+			<if test="output != null and output.praiseNumber != null">f.praise_number AS spraise_number,
+			</if>
+		</trim>
+	</sql>
+
+	<sql id="dynamic_result_comment">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.commentId != null">c.id as id,</if>
+			<if test="output != null and output.forumId != null">c.forum_id as forum_id,</if>
+			<if test="output != null and output.replyId != null">c.reply_id as reply_id,</if>
+			<if test="output != null and output.targeId != null">c.targe_id as targe_id,</if>
+			<if test="output != null and output.praiseNumber != null">c.praise_number as praise_number,</if>
+			<if test="output != null and output.tag != null">c.tag as tag,</if>
+			<if test="output != null and output.createTime != null">c.create_time as create_time,</if>
+			<if test="output != null and output.nickName != null">c.nick_name as nickName,</if>
+			<if test="output != null and output.content != null">c.content as content,</if>
+			<if test="output != null and output.targeContent != null">c.targe_content as targe_content,</if>
+			<if test="output != null and output.userId != null">u.id as user_id,</if>
+			<if test="output != null and output.userName != null">u.user_name as user_user_name,</if>
+			<if test="output != null and output.userNickname != null">u.nick_name as user_nick_name,</if>
+			<if test="output != null and output.userPortrait != null">u.portrait as user_portrait,</if>
+			<if test="output != null and output.userAddress != null">u.address as user_address,</if>
+			<if test="output != null and output.userAge != null">u.age as user_age,</if>
+		</trim>
+	</sql>
+
+	<sql id="dynamic_result_relate_info">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">r.id as id,</if>
+			<if test="output != null and output.type != null">r.type as type,</if>
+			<if test="output != null and output.status != null">r.status as status,</if>
+			<if test="output != null and output.forumId != null">r.forum_id as forum_id,</if>
+			<if test="output != null and output.commentId != null">r.comment_id as comment_id,</if>
+			<if test="output != null and output.forumTitle != null">r.forum_title as forum_title,</if>
+			<if test="output != null and output.replyId != null">r.reply_id as reply_id,</if>
+			<if test="output != null and output.targeId != null">r.targe_id as targe_id,</if>
+			<if test="output != null and output.createTime != null">r.create_time as create_time,</if>
+			<if test="output != null and output.content != null">r.content as content,</if>
+			<if test="output != null and output.targeContent != null">r.targe_content as targe_content,</if>
+			<if test="output != null and output.targeCommentId != null">r.targe_comment_id as targe_comment_id,</if>
+			<if test="output != null and output.userId != null">u.id as user_id,</if>
+			<if test="output != null and output.userName != null">u.user_name as user_user_name,</if>
+			<if test="output != null and output.userNickname != null">u.nick_name as user_nick_name,</if>
+			<if test="output != null and output.userPortrait != null">u.portrait as user_portrait,</if>
+			<if test="output != null and output.userAddress != null">u.address as user_address,</if>
+			<if test="output != null and output.userAge != null">u.age as user_age,</if>
+		</trim>
+	</sql>
+
+	<sql id="dynamic_result_comment_forum">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.commentId != null">c.id as id,</if>
+			<if test="output != null and output.forumId != null">c.forum_id as forum_id,</if>
+			<if test="output != null and output.replyId != null">c.reply_id as reply_id,</if>
+			<if test="output != null and output.targeId != null">c.targe_id as targe_id,</if>
+			<if test="output != null and output.praiseNumber != null">c.praise_number as praise_number,</if>
+			<if test="output != null and output.tag != null">c.tag as tag,</if>
+			<if test="output != null and output.createTime != null">c.create_time as create_time,</if>
+			<if test="output != null and output.nickName != null">c.nick_name as nick_name,</if>
+			<if test="output != null and output.content != null">c.content as content,</if>
+			<if test="output != null and output.targeContent != null">c.targe_content as targe_content,</if>
+			<if test="output != null and output.title != null">f.title as forum_title,</if>
+		</trim>
+	</sql>
+
+	<!-- 动态排序 -->
+	<sql id="dynamic_sort_forum">
+		<trim suffixOverrides=",">
+			<if test="sort != null">
+				order by
+			</if>
+
+			<if
+				test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">
+				update_time ${sort.updateTime},
+			</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">
+				create_time ${sort.createTime},
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">
+				id ${sort.id},
+			</if>
+			<if
+				test="sort != null and sort.assign != null and ( sort.passign == 'ASC' or sort.assign == 'DESC' )">
+				assign ${sort.assign},
+			</if>
+			<if
+				test="sort != null and sort.repliesNumber != null and ( sort.repliesNumber == 'ASC' or sort.repliesNumber == 'DESC' )">
+				replies_number ${sort.repliesNumber},
+			</if>
+			<if
+				test="sort != null and sort.praiseNumber != null and ( sort.praiseNumber == 'ASC' or sort.praiseNumber == 'DESC' )">
+				praise_number ${sort.praiseNumber},
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 动态排序 -->
+	<sql id="dynamic_sort_comment">
+		<trim suffixOverrides=",">
+			<if test="sort != null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">
+				update_time ${sort.updateTime},
+			</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">
+				create_time ${sort.createTime},
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">
+				id ${sort.id},
+			</if>
+			<if
+				test="sort != null and sort.praiseNumber != null and ( sort.praiseNumber == 'ASC' or sort.praiseNumber == 'DESC' )">
+				praise_number ${sort.praiseNumber},
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 动态排序 -->
+	<sql id="dynamic_sort_relate_info">
+		<trim suffixOverrides=",">
+			<if test="sort != null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">
+				create_time ${sort.createTime},
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">
+				id ${sort.id},
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 动态排序 -->
+	<sql id="dynamic_limit_forum">
+		<if test="limitCount != null">
+			limit ${limitCount}
+		</if>
+	</sql>
+
+	<sql id="dynamic_limit_comment">
+		<if test="limitCount != null">
+			limit ${limitCount}
+		</if>
+	</sql>
+
+	<sql id="dynamic_limit_relate_info">
+		<if test="limitCount != null">
+			limit ${limitCount}
+		</if>
+	</sql>
+
+	<select id="queryForumUserListByCond" parameterType="java.util.Map"
+		resultMap="ForumUserMap">
+		select
+		<include refid="dynamic_result_forum"></include>
+		<include refid="from_sql_forum_user_output" />
+		<where>
+			<include refid="dynamic_where_forum" />
+		</where>
+		<if test="output != null">
+			<if test="output.praiseNumber != null or output.isPraise != null">
+				GROUP BY f.id
+			</if>
+		</if>
+		<include refid="dynamic_sort_forum" />
+		<include refid="dynamic_limit_forum"></include>
+	</select>
+
+	<select id="queryForumUserListByCondNoPage" parameterType="java.util.Map"
+		resultMap="ForumUserMap">
+		select
+		<include refid="dynamic_result_forum"></include>
+		<include refid="from_sql_forum_user_output" />
+		<where>
+			<include refid="dynamic_where_forum" />
+		</where>
+		<if test="output != null and output.praiseNumber != null">
+			GROUP BY f.id
+		</if>
+		<include refid="dynamic_sort_forum" />
+		<include refid="dynamic_limit_forum"></include>
+	</select>
+
+	<select id="queryCommentUserListByCondNoPage" parameterType="java.util.Map"
+		resultMap="CommentUserMap">
+		select
+		<include refid="dynamic_result_comment"></include>
+		<include refid="from_sql_comment_user" />
+		<where>
+			<include refid="dynamic_where_comment" />
+		</where>
+		<include refid="dynamic_sort_comment" />
+		<include refid="dynamic_limit_comment"></include>
+	</select>
+
+	<select id="queryCommentInForumListByCondNoPage" parameterType="java.util.Map"
+		resultMap="CommentForumModel">
+		select
+		<include refid="dynamic_result_comment_forum"></include>
+		<include refid="from_sql_comment_forum"></include>
+		<where>
+			<include refid="dynamic_where_comment" />
+		</where>
+		<include refid="dynamic_sort_comment" />
+		<include refid="dynamic_limit_comment"></include>
+	</select>
+
+	<select id="queryRelationInfoListByCondNoPage" parameterType="java.util.Map"
+		resultMap="RelateInfoUserModel">
+		select
+		<include refid="dynamic_result_relate_info"></include>
+		<include refid="from_sql_relate_info_user"></include>
+		<where>
+			<include refid="dynamic_where_relate_info" />
+		</where>
+		<include refid="dynamic_sort_relate_info" />
+		<include refid="dynamic_limit_relate_info"></include>
+	</select>
+
+	<select id="queryForumUserById" parameterType="com.xiaodou.forum.model.forum.ForumUserModel"
+		resultMap="ForumUserMap">
+		select
+		f.id,f.digest,f.top,f.recommend,f.outline,f.category_id,c.title
+		as
+		category_name,f.title,f.content,f.images,f.publisher_id,f.assign,f.replies_number,f.praise_number,f.create_time,f.update_time,u.id
+		as user_id,u.user_name as user_user_name,u.nick_name as
+		user_nick_name,u.portrait as user_portrait,u.address as
+		user_address,u.age as user_age
+		<include refid="from_sql_forum_user_model" />
+		where f.id=#{id}
+	</select>
+	<select id="queryForumUserByIdAndCategoryId" parameterType="com.xiaodou.forum.model.forum.ForumUserModel"
+		resultMap="ForumUserMap">
+		select
+		f.id,f.digest,f.top,f.recommend,f.outline,f.category_id,c.title
+		as
+		category_name,f.title,f.content,f.images,f.publisher_id,f.assign,f.replies_number,f.praise_number,f.create_time,f.update_time,u.id
+		as user_id,u.user_name as user_user_name,u.nick_name as
+		user_nick_name,u.portrait as user_portrait,u.address as
+		user_address,u.age as user_age
+		<include refid="from_sql_forum_user_model" />
+		where f.id=#{id}
+		and f.category_id=#{categoryId}
+	</select>
+	<select id="queryCategoryPeopleNumber" parameterType="java.lang.Integer"
+		resultType="java.lang.String">
+		select
+		publisher_id user_id from xd_forum_list
+		where
+		category_id =
+		#{0}
+		union ALL
+		select c.reply_id user_id
+		from
+		xd_forum_comment
+		c, xd_forum_list l
+		where l.category_id = #{0} and
+		c.forum_id = l.id
+	</select>
+</mapper>

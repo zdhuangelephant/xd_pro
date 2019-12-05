@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.xiaodou.st.dashboard.domain.admin.AdminDO"
+			alias="AdminDO" />
+		<!-- alarm -->
+		<typeAlias type="com.xiaodou.st.dashboard.domain.alarm.AlarmRecordCheckDO"
+			alias="AlarmRecordCheckDO" />
+		<typeAlias type="com.xiaodou.st.dashboard.domain.alarm.AlarmRecordDO"
+			alias="AlarmRecordDO" />
+		<typeAlias type="com.xiaodou.st.dashboard.domain.alarm.LoginInfoDO"
+			alias="LoginInfoDO" />
+		<typeAlias
+			type="com.xiaodou.st.dashboard.domain.alarm.RawDataFaceRecognitionDO"
+			alias="RawDataFaceRecognitionDO" />
+		<!-- apply -->
+		<typeAlias type="com.xiaodou.st.dashboard.domain.apply.ApplyDO"
+			alias="ApplyDO" />
+		<typeAlias type="com.xiaodou.st.dashboard.domain.apply.ApplyCountDO"
+			alias="ApplyCountDO" />
+		<!-- dashboard -->
+		<typeAlias
+			type="com.xiaodou.st.dashboard.domain.dashboard.LastWeekLearnTimeDO"
+			alias="LastWeekLearnTimeDO" />
+		<typeAlias
+			type="com.xiaodou.st.dashboard.domain.dashboard.LastWeekMissionPercentDO"
+			alias="LastWeekMissionPercentDO" />
+		<typeAlias
+			type="com.xiaodou.st.dashboard.domain.dashboard.SessionLearnPercentDO"
+			alias="SessionLearnPercentDO" />
+		<!-- class -->
+		<typeAlias type="com.xiaodou.st.dashboard.domain.grade.ClassDO"
+			alias="ClassDO" />
+		<!-- order -->
+		<typeAlias type="com.xiaodou.st.dashboard.domain.order.OrderDO"
+			alias="OrderDO" />
+		<!-- product -->
+		<typeAlias
+			type="com.xiaodou.st.dashboard.domain.product.RawDataProductCategoryDO"
+			alias="RawDataProductCategoryDO" />
+		<typeAlias type="com.xiaodou.st.dashboard.domain.product.RawDataProductDO"
+			alias="RawDataProductDO" />
+		<!-- score -->
+		<typeAlias type="com.xiaodou.st.dashboard.domain.score.LearnRecordDO"
+			alias="LearnRecordDO" />
+		<typeAlias type="com.xiaodou.st.dashboard.domain.score.ScoreDO"
+			alias="ScoreDO" />
+		<!-- session -->
+		<typeAlias
+			type="com.xiaodou.st.dashboard.domain.session.CategorySessionPercentDO"
+			alias="CategorySessionPercentDO" />
+		<typeAlias
+			type="com.xiaodou.st.dashboard.domain.session.CategoryUnitSessionLearnPercentDO"
+			alias="CategoryUnitSessionLearnPercentDO" />
+		<typeAlias
+			type="com.xiaodou.st.dashboard.domain.session.CategoryUnitSessionPercentDO"
+			alias="CategoryUnitSessionPercentDO" />
+		<typeAlias
+			type="com.xiaodou.st.dashboard.domain.session.CategoryUnitSessionProductAvgScoreDO"
+			alias="CategoryUnitSessionProductAvgScoreDO" />
+		<!-- student -->
+		<typeAlias type="com.xiaodou.st.dashboard.domain.student.StudentDO"
+			alias="StudentDO" />
+		<!-- unit -->
+		<typeAlias type="com.xiaodou.st.dashboard.domain.unit.ChiefUnitRelationDO"
+			alias="ChiefUnitRelationDO" />
+		<typeAlias type="com.xiaodou.st.dashboard.domain.unit.UnitDO"
+			alias="UnitDO" />
+
+		<!-- role -->
+		<typeAlias type="com.xiaodou.st.dashboard.domain.admin.RoleDO"
+			alias="RoleDO" />
+		<!-- Privilege -->
+		<typeAlias type="com.xiaodou.st.dashboard.domain.admin.PrivilegeDO"
+			alias="PrivilegeDO" />
+		<typeAlias type="com.xiaodou.st.dashboard.domain.admin.RolePrivilegeDO"
+			alias="RolePrivilegeDO" />
+		<!-- staticInfo -->
+		<typeAlias type="com.xiaodou.st.dashboard.domain.staticinfo.StaticInfoDO"
+			alias="StaticInfoDO" />
+		<typeAlias type="com.xiaodou.st.dashboard.domain.staticinfo.SyncLogDO"
+			alias="SyncLogDO"/>
+		<typeAlias type="com.xiaodou.st.dashboard.domain.staticinfo.SyncStudentDO"
+			alias="SyncStudentDO"/>
+		<typeAlias type="com.xiaodou.st.dashboard.domain.staticinfo.SyncApplyDO"
+			alias="SyncApplyDO"/>
+		<typeAlias type="com.xiaodou.st.dashboard.domain.staticinfo.SyncAdmissionCardCodeDO"
+			alias="SyncAdmissionCardCodeDO"/>
+		<typeAlias type="com.xiaodou.st.dashboard.domain.dashboard.EverydaySummaryDetailVO"
+			alias="EverydaySummaryDetailVO" />
+		<typeAlias type="com.xiaodou.st.dashboard.domain.dashboard.EverydaySummaryVO"
+			alias="EverydaySummaryVO" />
+			
+		<!-- rule -->
+		<typeAlias type="com.xiaodou.st.dashboard.domain.rule.RawDataProductScorePointRule"
+			alias="RawDataProductScorePointRule" />
+		<typeAlias type="com.xiaodou.st.dashboard.domain.rule.RawDataUserScorePointRecord"
+			alias="RawDataUserScorePointRecord" />
+			
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="conf/mybatis/admin/AdminDO.xml" />
+		<!-- alarm -->
+		<mapper resource="conf/mybatis/alarm/AlarmRecordCheckDO.xml" />
+		<mapper resource="conf/mybatis/alarm/AlarmRecordDO.xml" />
+		<mapper resource="conf/mybatis/alarm/LoginInfoDO.xml" />
+		<mapper resource="conf/mybatis/alarm/RawDataFaceRecognitionDO.xml" />
+		<!-- apply -->
+		<mapper resource="conf/mybatis/apply/ApplyDO.xml" />
+		<mapper resource="conf/mybatis/apply/ApplyCountDO.xml" />
+		<!-- dashboard -->
+		<mapper resource="conf/mybatis/dashboard/LastWeekLearnTimeDO.xml" />
+		<mapper resource="conf/mybatis/dashboard/LastWeekMissionPercentDO.xml" />
+		<mapper resource="conf/mybatis/dashboard/SessionLearnPercentDO.xml" />
+		<!-- class -->
+		<mapper resource="conf/mybatis/grade/ClassDO.xml" />
+		<!-- order -->
+		<mapper resource="conf/mybatis/order/OrderDO.xml" />
+		<!-- product -->
+		<mapper resource="conf/mybatis/product/RawDataProductCategoryDO.xml" />
+		<mapper resource="conf/mybatis/product/RawDataProductDO.xml" />
+		<!-- score -->
+		<mapper resource="conf/mybatis/score/LearnRecordDO.xml" />
+		<mapper resource="conf/mybatis/score/ScoreDO.xml" />
+		<!-- session -->
+		<mapper resource="conf/mybatis/session/CategorySessionPercentDO.xml" />
+		<mapper resource="conf/mybatis/session/CategoryUnitSessionLearnPercentDO.xml" />
+		<mapper resource="conf/mybatis/session/CategoryUnitSessionPercentDO.xml" />
+		<mapper
+			resource="conf/mybatis/session/CategoryUnitSessionProductAvgScoreDO.xml" />
+		<!-- student -->
+		<mapper resource="conf/mybatis/student/StudentDO.xml" />
+		<!-- unit -->
+		<mapper resource="conf/mybatis/unit/ChiefUnitRelationDO.xml" />
+		<mapper resource="conf/mybatis/unit/UnitDO.xml" />
+		<!-- role -->
+		<mapper resource="conf/mybatis/admin/RoleDO.xml" />
+		<!-- PrivilegeDO -->
+		<mapper resource="conf/mybatis/admin/PrivilegeDO.xml" />
+		<mapper resource="conf/mybatis/admin/RolePrivilegeDO.xml" />
+		<!-- staticInfo -->
+		<mapper resource="conf/mybatis/staticinfo/StaticInfoDO.xml" />
+		<mapper resource="conf/mybatis/staticinfo/SyncLogDO.xml"/>
+		<mapper resource="conf/mybatis/staticinfo/SyncStudentDO.xml"/>
+		<mapper resource="conf/mybatis/staticinfo/SyncApplyDO.xml"/>
+		<mapper resource="conf/mybatis/staticinfo/SyncAdmissionCardCodeDO.xml"/>
+		<mapper resource="conf/mybatis/dashboard/EverydaySummaryDetailVO.xml"/>
+		<mapper resource="conf/mybatis/dashboard/EverydaySummaryVO.xml"/>
+		
+		
+		<!-- rule -->
+		<mapper resource="conf/mybatis/rule/RawDataProductScorePointRule.xml"/>
+		<mapper resource="conf/mybatis/rule/RawDataUserScorePointRecord.xml"/>
+		
+	</mappers>
+</configuration>

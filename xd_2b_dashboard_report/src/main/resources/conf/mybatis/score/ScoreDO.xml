@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ScoreDO">
+	<resultMap id="BaseResultMap" type="com.xiaodou.st.dashboard.domain.score.ScoreDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="pilot_unit_id" property="pilotUnitId" jdbcType="BIGINT" />
+		<result column="pilot_unit_name" property="pilotUnitName"
+			jdbcType="VARCHAR" />
+		<result column="cat_id" property="catId" jdbcType="INTEGER" />
+		<result column="cat_code" property="catCode" jdbcType="VARCHAR" />
+		<result column="cat_name" property="catName" jdbcType="VARCHAR" />
+		<result column="class_id" property="classId" jdbcType="BIGINT" />
+		<result column="class_name" property="className" jdbcType="VARCHAR" />
+		<result column="product_id" property="productId" jdbcType="INTEGER" />
+		<result column="product_code" property="productCode" jdbcType="VARCHAR" />
+		<result column="product_name" property="productName" jdbcType="VARCHAR" />
+		<result column="begin_time" property="beginTime" jdbcType="VARCHAR" />
+		<result column="end_time" property="endTime" jdbcType="VARCHAR" />
+		<result column="student_id" property="studentId" jdbcType="BIGINT" />
+		<result column="student_name" property="studentName" jdbcType="VARCHAR" />
+		<result column="admission_card_code" property="admissionCardCode"
+			jdbcType="VARCHAR" />
+		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
+		<result column="student_portrait" property="studentPortrait"
+			jdbcType="VARCHAR" />
+		<result column="score" property="score" jdbcType="DOUBLE" />
+		<result column="exam_date" property="examDate" jdbcType="VARCHAR" />
+		<result column="role_type" property="roleType" jdbcType="TINYINT" />
+		<result column="unit_id" property="unitId" jdbcType="BIGINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="chapter_node_list" property="chapterNodeList"
+			jdbcType="VARCHAR" />
+		<result column="final_exam_node_list" property="finalExamNodeList"
+			jdbcType="VARCHAR" />
+		<result column="avg_chapter_score" property="avgChapterScore"
+			jdbcType="DOUBLE" />
+		<result column="final_exam_score" property="finalExamScore"
+			jdbcType="DOUBLE" />
+		<result column="stage_evaluation_score" property="stageEvaluationScore"
+			jdbcType="DOUBLE" />
+		<result column="mission_finish_score" property="missionFinishScore"
+			jdbcType="DOUBLE" />
+		<result column="supplement_score" property="supplementScore"
+			jdbcType="DOUBLE"/>
+			
+		<result column="daily_score" property="dailyScore"
+			jdbcType="DOUBLE"/>
+		<result column="daily_score_operator" property="dailyScoreOperator"
+			jdbcType="INTEGER"/>
+		<result column="daily_score_operate_time" property="dailyScoreOperateTime"
+			jdbcType="TIMESTAMP"/>
+			
+		<result column="coefficient" property="coefficient" jdbcType="DOUBLE" />
+	</resultMap>
+	<sql id="base_column">id, pilot_unit_id, pilot_unit_name, cat_id, cat_code,
+		cat_name, class_id, class_name, product_id, product_code,
+		product_name, begin_time, end_time, student_id, student_name,
+		admission_card_code, telephone, student_portrait, score, exam_date,
+		role_type, unit_id, create_time, chapter_node_list,
+		final_exam_node_list, avg_chapter_score, final_exam_score,
+		stage_evaluation_score, mission_finish_score,supplement_score,daily_score,daily_score_operator,daily_score_operate_time
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.score.ScoreDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_score
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_score
+		JOIN xd_dashboard_apply ON 
+		xd_dashboard_score.product_id = xd_dashboard_apply.product_id 
+		AND xd_dashboard_score.student_id = xd_dashboard_apply.student_id
+		<include refid="dynamic_where" />
+		AND order_status =1 AND apply_status=1
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<select id="findPureScoreListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_score
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<!-- <select id="findScoreListJoinProduct" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+			xd_dashboard_score.id,
+			xd_dashboard_score.pilot_unit_name,
+			xd_dashboard_score.student_id,
+			xd_dashboard_score.student_name,
+			xd_dashboard_score.admission_card_code,
+			xd_dashboard_score.cat_name,
+			xd_dashboard_score.product_id,
+			xd_dashboard_score.product_name,
+			xd_dashboard_score.end_time,
+			xd_dashboard_score.score,
+			xd_dashboard_score.daily_score,
+			
+			xd_raw_data_product.coefficient 
+			
+		<include refid="dynamic_output" />
+		from xd_dashboard_score xds 
+			JOIN xd_raw_data_product xrdp
+				ON xds.product_id = xrdp.id 
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select> -->
+	<select id="findScoreListJoinProductByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_score
+		JOIN xd_dashboard_apply ON 
+		xd_dashboard_score.product_id = xd_dashboard_apply.product_id 
+		JOIN xd_raw_data_product 
+		ON xd_dashboard_score.product_id = xd_raw_data_product.id
+		AND xd_dashboard_score.student_id = xd_dashboard_apply.student_id
+		<include refid="dynamic_where" />
+		AND order_status =1 AND apply_status=1
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	
+	<insert id="addEntity" parameterType="com.xiaodou.st.dashboard.domain.score.ScoreDO">
+		insert into xd_dashboard_score
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="pilotUnitId != null">pilot_unit_id,</if>
+			<if test="pilotUnitName != null">pilot_unit_name,</if>
+			<if test="catId != null">cat_id,</if>
+			<if test="catCode != null">cat_code,</if>
+			<if test="catName != null">cat_name,</if>
+			<if test="classId != null">class_id,</if>
+			<if test="className != null">class_name,</if>
+			<if test="productId != null">product_id,</if>
+			<if test="productCode != null">product_code,</if>
+			<if test="productName != null">product_name,</if>
+			<if test="beginTime != null">begin_time,</if>
+			<if test="endTime != null">end_time,</if>
+			<if test="studentId != null">student_id,</if>
+			<if test="studentName != null">student_name,</if>
+			<if test="admissionCardCode != null">admission_card_code,</if>
+			<if test="telephone != null">telephone,</if>
+			<if test="studentPortrait != null">student_portrait,</if>
+			<if test="score != null">score,</if>
+			<if test="examDate != null">exam_date,</if>
+			<if test="roleType != null">role_type,</if>
+			<if test="unitId != null">unit_id,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="chapterNodeList != null">chapter_node_list,</if>
+			<if test="finalExamNodeList != null">final_exam_node_list,</if>
+			<if test="avgChapterScore != null">avg_chapter_score,</if>
+			<if test="finalExamScore != null">final_exam_score,</if>
+			<if test="stageEvaluationScore != null">stage_evaluation_score,</if>
+			<if test="missionFinishScore != null">mission_finish_score,</if>
+			<if test="supplementScore != null">supplement_score,</if>
+			
+			<if test="dailyScore != null">daily_score,</if>
+			<if test="dailyScoreOperator != null">daily_score_operator,</if>
+			<if test="dailyScoreOperateTime != null">daily_score_operate_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="pilotUnitId != null">#{pilotUnitId,jdbcType=BIGINT},</if>
+			<if test="pilotUnitName != null">#{pilotUnitName,jdbcType=VARCHAR},</if>
+			<if test="catId != null">#{catId,jdbcType=INTEGER},</if>
+			<if test="catCode != null">#{catCode,jdbcType=VARCHAR},</if>
+			<if test="catName != null">#{catName,jdbcType=VARCHAR},</if>
+			<if test="classId != null">#{classId,jdbcType=BIGINT},</if>
+			<if test="className != null">#{className,jdbcType=VARCHAR},</if>
+			<if test="productId != null">#{productId,jdbcType=INTEGER},</if>
+			<if test="productCode != null">#{productCode,jdbcType=VARCHAR},</if>
+			<if test="productName != null">#{productName,jdbcType=VARCHAR},</if>
+			<if test="beginTime != null">#{beginTime,jdbcType=VARCHAR},</if>
+			<if test="endTime != null">#{endTime,jdbcType=VARCHAR},</if>
+			<if test="studentId != null">#{studentId,jdbcType=BIGINT},</if>
+			<if test="studentName != null">#{studentName,jdbcType=VARCHAR},</if>
+			<if test="admissionCardCode != null">#{admissionCardCode,jdbcType=VARCHAR},</if>
+			<if test="telephone != null">#{telephone,jdbcType=VARCHAR},</if>
+			<if test="studentPortrait != null">#{studentPortrait,jdbcType=VARCHAR},</if>
+			<if test="score != null">#{score,jdbcType=DOUBLE},</if>
+			<if test="examDate != null">#{examDate,jdbcType=VARCHAR},</if>
+			<if test="roleType != null">#{roleType,jdbcType=TINYINT},</if>
+			<if test="unitId != null">#{unitId,jdbcType=BIGINT},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="chapterNodeList != null">#{chapterNodeList,jdbcType=VARCHAR},</if>
+			<if test="finalExamNodeList != null">#{finalExamNodeList,jdbcType=VARCHAR},</if>
+			<if test="avgChapterScore != null">#{avgChapterScore,jdbcType=DOUBLE},</if>
+			<if test="finalExamScore != null">#{finalExamScore,jdbcType=DOUBLE},</if>
+			<if test="stageEvaluationScore != null">#{stageEvaluationScore,jdbcType=DOUBLE},</if>
+			<if test="missionFinishScore != null">#{missionFinishScore,jdbcType=DOUBLE},</if>
+			<if test="supplementScore != null">${supplementScore,jdbcType=DOUBLE},</if>
+			
+			<if test="dailyScore != null">#{dailyScore,jdbcType=DOUBLE},</if>
+			<if test="dailyScoreOperator != null">#{dailyScoreOperator,jdbcType=INTEGER},</if>
+			<if test="dailyScoreOperateTime != null">#{dailyScoreOperateTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.st.dashboard.domain.score.ScoreDO">
+		update xd_dashboard_score
+		<set>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=BIGINT},
+			</if>
+			<if test="value != null and value.pilotUnitName != null">pilot_unit_name =
+				#{value.pilotUnitName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.catId != null">cat_id = #{value.catId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.catCode != null">cat_code = #{value.catCode,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.catName != null">cat_name = #{value.catName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.classId != null">class_id = #{value.classId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.className != null">class_name = #{value.className,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.productCode != null">product_code = #{value.productCode,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.productName != null">product_name = #{value.productName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.beginTime != null">begin_time = #{value.beginTime,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.endTime != null">end_time = #{value.endTime,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentId != null">student_id = #{value.studentId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.studentName != null">student_name = #{value.studentName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.admissionCardCode != null">admission_card_code =
+				#{value.admissionCardCode,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.telephone != null">telephone = #{value.telephone,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentPortrait != null">student_portrait =
+				#{value.studentPortrait,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.score != null">score = #{value.score,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.examDate != null">exam_date = #{value.examDate,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.roleType != null">role_type = #{value.roleType,jdbcType=TINYINT},</if>
+			<if test="value != null and value.unitId != null">unit_id = #{value.unitId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.chapterNodeList != null">chapter_node_list =
+				#{value.chapterNodeList,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.finalExamNodeList != null">final_exam_node_list =
+				#{value.finalExamNodeList,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.avgChapterScore != null">avg_chapter_score =
+				#{value.avgChapterScore,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.finalExamScore != null">final_exam_score =
+				#{value.finalExamScore,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.stageEvaluationScore != null">stage_evaluation_score =
+				#{value.stageEvaluationScore,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.missionFinishScore != null">mission_finish_score =
+				#{value.missionFinishScore,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.supplementScore != null">supplement_score =
+				#{value.supplementScore,jdbcType=DOUBLE},
+			</if>
+			
+			
+			<if test="value != null and value.dailyScore != null">daily_score =
+				#{value.dailyScore,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.dailyScoreOperator != null">daily_score_operator =
+				#{value.dailyScoreOperator,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.dailyScoreOperateTime != null">daily_score_operate_time =
+				#{value.dailyScoreOperateTime,jdbcType=TIMESTAMP},
+			</if>
+			
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.st.dashboard.domain.score.ScoreDO">
+		update xd_dashboard_score
+		<set>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=BIGINT},
+			</if>
+			<if test="value != null and value.pilotUnitName != null">pilot_unit_name =
+				#{value.pilotUnitName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.catId != null">cat_id = #{value.catId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.catCode != null">cat_code = #{value.catCode,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.catName != null">cat_name = #{value.catName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.classId != null">class_id = #{value.classId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.className != null">class_name = #{value.className,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.productCode != null">product_code = #{value.productCode,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.productName != null">product_name = #{value.productName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.beginTime != null">begin_time = #{value.beginTime,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.endTime != null">end_time = #{value.endTime,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentId != null">student_id = #{value.studentId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.studentName != null">student_name = #{value.studentName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.admissionCardCode != null">admission_card_code =
+				#{value.admissionCardCode,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.telephone != null">telephone = #{value.telephone,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentPortrait != null">student_portrait =
+				#{value.studentPortrait,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.score != null">score = #{value.score,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.examDate != null">exam_date = #{value.examDate,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.roleType != null">role_type = #{value.roleType,jdbcType=TINYINT},</if>
+			<if test="value != null and value.unitId != null">unit_id = #{value.unitId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.chapterNodeList != null">chapter_node_list =
+				#{value.chapterNodeList,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.finalExamNodeList != null">final_exam_node_list =
+				#{value.finalExamNodeList,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.avgChapterScore != null">avg_chapter_score =
+				#{value.avgChapterScore,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.finalExamScore != null">final_exam_score =
+				#{value.finalExamScore,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.stageEvaluationScore != null">stage_evaluation_score =
+				#{value.stageEvaluationScore,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.missionFinishScore != null">mission_finish_score =
+				#{value.missionFinishScore,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and dailyScore != null">daily_score =
+				#{value.dailyScore,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and dailyScoreOperator != null">daily_score_operator =
+				#{value.dailyScoreOperator,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and dailyScoreOperateTime != null">daily_score_operate_time =
+				#{value.dailyScoreOperateTime,jdbcType=TIMESTAMP},
+			</if>
+			
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.st.dashboard.domain.score.ScoreDO">
+		delete from
+		xd_dashboard_score
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_score
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_dashboard_score.id,</if>
+			<if test="output != null and output.pilotUnitId != null">xd_dashboard_score.pilot_unit_id,</if>
+			<if test="output != null and output.pilotUnitName != null">xd_dashboard_score.pilot_unit_name,</if>
+			<if test="output != null and output.catId != null">xd_dashboard_score.cat_id,</if>
+			<if test="output != null and output.catCode != null">xd_dashboard_score.cat_code,</if>
+			<if test="output != null and output.catName != null">xd_dashboard_score.cat_name,</if>
+			<if test="output != null and output.classId != null">xd_dashboard_score.class_id,</if>
+			<if test="output != null and output.className != null">xd_dashboard_score.class_name,</if>
+			<if test="output != null and output.productId != null">xd_dashboard_score.product_id,</if>
+			<if test="output != null and output.productCode != null">xd_dashboard_score.product_code,</if>
+			<if test="output != null and output.productName != null">xd_dashboard_score.product_name,</if>
+			<if test="output != null and output.beginTime != null">xd_dashboard_score.begin_time,</if>
+			<if test="output != null and output.endTime != null">xd_dashboard_score.end_time,</if>
+			<if test="output != null and output.studentId != null">xd_dashboard_score.student_id,</if>
+			<if test="output != null and output.studentName != null">xd_dashboard_score.student_name,</if>
+			<if test="output != null and output.admissionCardCode != null">xd_dashboard_score.admission_card_code,</if>
+			<if test="output != null and output.telephone != null">xd_dashboard_score.telephone,</if>
+			<if test="output != null and output.studentPortrait != null">xd_dashboard_score.student_portrait,</if>
+			<if test="output != null and output.score != null">xd_dashboard_score.score,</if>
+			<if test="output != null and output.examDate != null">xd_dashboard_score.exam_date,</if>
+			<if test="output != null and output.roleType != null">xd_dashboard_score.role_type,</if>
+			<if test="output != null and output.unitId != null">xd_dashboard_score.unit_id,</if>
+			<if test="output != null and output.createTime != null">xd_dashboard_score.create_time,</if>
+			<if test="output != null and output.chapterNodeList != null">xd_dashboard_score.chapter_node_list,</if>
+			<if test="output != null and output.finalExamNodeList != null">xd_dashboard_score.final_exam_node_list,</if>
+			<if test="output != null and output.avgChapterScore != null">xd_dashboard_score.avg_chapter_score,</if>
+			<if test="output != null and output.finalExamScore != null">xd_dashboard_score.final_exam_score,</if>
+			<if test="output != null and output.stageEvaluationScore != null">xd_dashboard_score.stage_evaluation_score,</if>
+			<if test="output != null and output.missionFinishScore != null">xd_dashboard_score.mission_finish_score,</if>
+			<if test="output != null and output.supplementScore != null">xd_dashboard_score.supplement_score,</if>
+			
+			<if test="output != null and output.dailyScore != null">xd_dashboard_score.daily_score,</if>
+			<if test="output != null and output.dailyScoreOperator != null">xd_dashboard_score.daily_score_operator,</if>
+			<if test="output != null and output.dailyScoreOperateTime != null">xd_dashboard_score.daily_score_operate_time,</if>
+			<if test="output != null and output.coefficient != null">xd_raw_data_product.coefficient,</if>
+			
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_dashboard_score.id=#{input.id}</if>
+			<if test="input != null and input.pilotUnitId != null">and xd_dashboard_score.pilot_unit_id=#{input.pilotUnitId}</if>
+			<if test="input != null and input.pilotUnitName != null">and xd_dashboard_score.pilot_unit_name=#{input.pilotUnitName}</if>
+			<if test="input != null and input.catId != null">and xd_dashboard_score.cat_id=#{input.catId}</if>
+			<if test="input != null and input.catCode != null">and xd_dashboard_score.cat_code=#{input.catCode}</if>
+			<if test="input != null and input.catName != null">and xd_dashboard_score.cat_name=#{input.catName}</if>
+			<if test="input != null and input.classId != null">and xd_dashboard_score.class_id=#{input.classId}</if>
+			<if test="input != null and input.className != null">and xd_dashboard_score.class_name=#{input.className}</if>
+			<if test="input != null and input.productId != null">and xd_dashboard_score.product_id=#{input.productId}</if>
+			<if test="input != null and input.productCode != null">and xd_dashboard_score.product_code=#{input.productCode}</if>
+			<if test="input != null and input.productName != null">and xd_dashboard_score.product_name=#{input.productName}</if>
+			<if test="input != null and input.beginTime != null">and xd_dashboard_score.begin_time=#{input.beginTime}</if>
+			<if test="input != null and input.endTime != null">and xd_dashboard_score.end_time=#{input.endTime}</if>
+			<if test="input != null and input.studentId != null">and xd_dashboard_score.student_id=#{input.studentId}</if>
+			
+			<if test="input != null and input.studentName != null">and xd_dashboard_score.student_name=#{input.studentName}</if>
+			<if test="input != null and input.studentNameLike != null">and xd_dashboard_score.student_name like concat('%',#{input.studentNameLike},'%')</if>
+			
+			<if test="input != null and input.admissionCardCode != null">and xd_dashboard_score.admission_card_code=#{input.admissionCardCode}</if>
+			<if test="input != null and input.admissionCardCodeLike != null">and xd_dashboard_score.admission_card_code like concat('%',#{input.admissionCardCodeLike},'%')</if>
+			
+			<if test="input != null and input.telephone != null">and xd_dashboard_score.telephone=#{input.telephone}</if>
+			<if test="input != null and input.telephoneLike != null">and xd_dashboard_score.telephone like concat('%',#{input.telephoneLike},'%')</if>
+			
+			<if test="input != null and input.studentPortrait != null">and xd_dashboard_score.student_portrait=#{input.studentPortrait}</if>
+			<if test="input != null and input.score != null">and xd_dashboard_score.score=#{input.score}</if>
+			<if test="input != null and input.examDate != null">and xd_dashboard_score.exam_date=#{input.examDate}</if>
+			<if test="input != null and input.roleType != null">and xd_dashboard_score.role_type=#{input.roleType}</if>
+			<if test="input != null and input.unitId != null">and unit_id=#{input.unitId}</if>
+			<if test="input != null and input.createTime != null">and xd_dashboard_score.create_time=#{input.createTime}</if>
+			<if test="input != null and input.chapterNodeList != null">and chapter_node_list=#{input.chapterNodeList}</if>
+			<if test="input != null and input.finalExamNodeList != null">and xd_dashboard_score.final_exam_node_list=#{input.finalExamNodeList}</if>
+			<if test="input != null and input.avgChapterScore != null">and xd_dashboard_score.avg_chapter_score=#{input.avgChapterScore}</if>
+			<if test="input != null and input.finalExamScore != null">and xd_dashboard_score.final_exam_score=#{input.finalExamScore}</if>
+			<if test="input != null and input.stageEvaluationScore != null">and xd_dashboard_score.stage_evaluation_score=#{input.stageEvaluationScore}
+			</if>
+			<if test="input != null and input.missionFinishScore != null">and xd_dashboard_score.mission_finish_score=#{input.missionFinishScore}</if>
+			<if test="input != null and input.dailyScore != null">and xd_dashboard_score.daily_score=#{input.dailyScore}</if>
+			<if test="input != null and input.dailyScoreOperator != null">and xd_dashboard_score.daily_score_operator=#{input.dailyScoreOperator}</if>
+			<if test="input != null and input.dailyScoreOperateTime != null">and xd_dashboard_score.daily_score_operate_time=#{input.dailyScoreOperateTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">xd_dashboard_score.create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.admissionCardCode != null and ( sort.admissionCardCode == 'ASC' or sort.admissionCardCode == 'DESC' )">xd_dashboard_score.admission_card_code ${sort.admissionCardCode},</if>
+			<if
+				test="sort != null and sort.productCode != null and ( sort.productCode == 'ASC' or sort.productCode == 'DESC' )">xd_dashboard_score.product_code ${sort.productCode},</if>
+			
+		</trim>
+	</sql>
+</mapper>

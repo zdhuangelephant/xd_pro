@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RawDataProductModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dataclean.model.domain.raw.RawDataProductModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="brief_info" property="briefInfo" jdbcType="VARCHAR" />
+		<result column="detail" property="detail" jdbcType="VARCHAR" />
+		<result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+		<result column="curr_apply_count" property="currApplyCount"
+			jdbcType="INTEGER" />
+		<result column="total_apply_count" property="totalApplyCount"
+			jdbcType="INTEGER" />
+		<result column="begin_apply_time" property="beginApplyTime"
+			jdbcType="TIMESTAMP" />
+		<result column="end_apply_time" property="endApplyTime"
+			jdbcType="TIMESTAMP" />
+		<result column="original_amount" property="originalAmount"
+			jdbcType="INTEGER" />
+		<result column="pay_amount" property="payAmount" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="misc" property="misc" jdbcType="VARCHAR" />
+		<result column="show_status" property="showStatus" jdbcType="INTEGER" />
+		<result column="praise_count" property="praiseCount" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="question_bank_setting" property="questionBankSetting"
+			jdbcType="VARCHAR" />
+		<result column="resource_subject" property="resourceSubject"
+			jdbcType="INTEGER" />
+		<result column="share_url" property="shareUrl" jdbcType="VARCHAR" />
+		<result column="course_code" property="courseCode" jdbcType="VARCHAR" />
+		<result column="course_quality" property="courseQuality"
+			jdbcType="VARCHAR" />
+		<result column="course_credit" property="courseCredit"
+			jdbcType="VARCHAR" />
+		<result column="course_check_type" property="courseCheckType"
+			jdbcType="VARCHAR" />
+		<result column="module_course" property="moduleCourse"
+			jdbcType="VARCHAR" />
+		<result column="exam_date" property="examDate" jdbcType="VARCHAR" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="rule_id" property="ruleId" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, name, brief_info, detail,
+		image_url, curr_apply_count,
+		total_apply_count, begin_apply_time,
+		end_apply_time, original_amount,
+		pay_amount, create_time, update_time,
+		misc, show_status, praise_count,
+		type, question_bank_setting,
+		resource_subject, share_url, course_code,
+		course_quality,
+		course_credit, course_check_type, module_course,
+		exam_date, module, rule_id
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataProductModel">
+		select
+		<include refid="base_column" />
+		from xd_raw_data_product
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_raw_data_product
+		left join xd_raw_data_product_relation
+		on
+		xd_raw_data_product.id =
+		xd_raw_data_product_relation.product_id
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+
+	<select id="findExamDate" resultMap="BaseResultMap">
+		select
+		exam_date
+		from
+		xd_raw_data_product
+		GROUP BY exam_date
+		ORDER BY exam_date DESC
+	</select>
+
+	<insert id="addEntity"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataProductModel"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_raw_data_product
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="name != null">name,</if>
+			<if test="briefInfo != null">brief_info,</if>
+			<if test="detail != null">detail,</if>
+			<if test="imageUrl != null">image_url,</if>
+			<if test="currApplyCount != null">curr_apply_count,</if>
+			<if test="totalApplyCount != null">total_apply_count,</if>
+			<if test="beginApplyTime != null">begin_apply_time,</if>
+			<if test="endApplyTime != null">end_apply_time,</if>
+			<if test="originalAmount != null">original_amount,</if>
+			<if test="payAmount != null">pay_amount,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="updateTime != null">update_time,</if>
+			<if test="misc != null">misc,</if>
+			<if test="showStatus != null">show_status,</if>
+			<if test="praiseCount != null">praise_count,</if>
+			<if test="type != null">type,</if>
+			<if test="questionBankSetting != null">question_bank_setting,</if>
+			<if test="resourceSubject != null">resource_subject,</if>
+			<if test="shareUrl != null">share_url,</if>
+			<if test="courseCode != null">course_code,</if>
+			<if test="courseQuality != null">course_quality,</if>
+			<if test="courseCredit != null">course_credit,</if>
+			<if test="courseCheckType != null">course_check_type,</if>
+			<if test="moduleCourse != null">module_course,</if>
+			<if test="examDate != null">exam_date,</if>
+			<if test="ruleId != null">rule_id,</if>
+			<if test="module != null">module,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+			<if test="briefInfo != null">#{briefInfo,jdbcType=VARCHAR},</if>
+			<if test="detail != null">#{detail,jdbcType=VARCHAR},</if>
+			<if test="imageUrl != null">#{imageUrl,jdbcType=VARCHAR},</if>
+			<if test="currApplyCount != null">#{currApplyCount,jdbcType=INTEGER},</if>
+			<if test="totalApplyCount != null">#{totalApplyCount,jdbcType=INTEGER},</if>
+			<if test="beginApplyTime != null">#{beginApplyTime,jdbcType=TIMESTAMP},</if>
+			<if test="endApplyTime != null">#{endApplyTime,jdbcType=TIMESTAMP},</if>
+			<if test="originalAmount != null">#{originalAmount,jdbcType=INTEGER},</if>
+			<if test="payAmount != null">#{payAmount,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="misc != null">#{misc,jdbcType=VARCHAR},</if>
+			<if test="showStatus != null">#{showStatus,jdbcType=INTEGER},</if>
+			<if test="praiseCount != null">#{praiseCount,jdbcType=INTEGER},</if>
+			<if test="type != null">#{type,jdbcType=INTEGER},</if>
+			<if test="questionBankSetting != null">#{questionBankSetting,jdbcType=VARCHAR},</if>
+			<if test="resourceSubject != null">#{resourceSubject,jdbcType=INTEGER},</if>
+			<if test="shareUrl != null">#{shareUrl,jdbcType=VARCHAR},</if>
+			<if test="courseCode != null">#{courseCode,jdbcType=VARCHAR},</if>
+			<if test="courseQuality != null">#{courseQuality,jdbcType=VARCHAR},</if>
+			<if test="courseCredit != null">#{courseCredit,jdbcType=VARCHAR},</if>
+			<if test="courseCheckType != null">#{courseCheckType,jdbcType=VARCHAR},</if>
+			<if test="moduleCourse != null">#{moduleCourse,jdbcType=VARCHAR},</if>
+			<if test="examDate != null">#{examDate,jdbcType=VARCHAR},</if>
+			<if test="ruleId != null">#{ruleId,jdbcType=VARCHAR},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="java.util.Map">
+		update xd_raw_data_product
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.briefInfo != null">brief_info = #{value.briefInfo,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.detail != null">detail = #{value.detail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.imageUrl != null">image_url = #{value.imageUrl,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.currApplyCount != null">curr_apply_count =
+				#{value.currApplyCount,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.totalApplyCount != null">total_apply_count =
+				#{value.totalApplyCount,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.beginApplyTime != null">begin_apply_time =
+				#{value.beginApplyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.endApplyTime != null">end_apply_time =
+				#{value.endApplyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.originalAmount != null">original_amount =
+				#{value.originalAmount,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.payAmount != null">pay_amount = #{value.payAmount,jdbcType=INTEGER},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.misc != null">misc = #{value.misc,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.showStatus != null">show_status = #{value.showStatus,jdbcType=INTEGER},</if>
+			<if test="value != null and value.praiseCount != null">praise_count = #{value.praiseCount,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.type != null">type = #{value.type,jdbcType=INTEGER},</if>
+			<if test="value != null and value.questionBankSetting != null">question_bank_setting =
+				#{value.questionBankSetting,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.resourceSubject != null">resource_subject =
+				#{value.resourceSubject,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.shareUrl != null">share_url = #{value.shareUrl,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.courseCode != null">course_code = #{value.courseCode,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.courseQuality != null">course_quality = #{value.courseQuality,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.courseCredit != null">course_credit = #{value.courseCredit,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.courseCheckType != null">course_check_type =
+				#{value.courseCheckType,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.moduleCourse != null">module_course = #{value.moduleCourse,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.examDate != null">exam_date = #{value.examDate,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.module != null">module = #{value.module,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.ruleId != null">rule_id = #{value.ruleId,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_raw_data_product
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.briefInfo != null">brief_info = #{value.briefInfo,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.detail != null">detail = #{value.detail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.imageUrl != null">image_url = #{value.imageUrl,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.currApplyCount != null">curr_apply_count =
+				#{value.currApplyCount,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.totalApplyCount != null">total_apply_count =
+				#{value.totalApplyCount,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.beginApplyTime != null">begin_apply_time =
+				#{value.beginApplyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.endApplyTime != null">end_apply_time =
+				#{value.endApplyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.originalAmount != null">original_amount =
+				#{value.originalAmount,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.payAmount != null">pay_amount = #{value.payAmount,jdbcType=INTEGER},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.misc != null">misc = #{value.misc,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.showStatus != null">show_status = #{value.showStatus,jdbcType=INTEGER},</if>
+			<if test="value != null and value.praiseCount != null">praise_count = #{value.praiseCount,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.type != null">type = #{value.type,jdbcType=INTEGER},</if>
+			<if test="value != null and value.questionBankSetting != null">question_bank_setting =
+				#{value.questionBankSetting,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.resourceSubject != null">resource_subject =
+				#{value.resourceSubject,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.shareUrl != null">share_url = #{value.shareUrl,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.courseCode != null">course_code = #{value.courseCode,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.courseQuality != null">course_quality = #{value.courseQuality,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.courseCredit != null">course_credit = #{value.courseCredit,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.courseCheckType != null">course_check_type =
+				#{value.courseCheckType,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.moduleCourse != null">module_course = #{value.moduleCourse,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.examDate != null">exam_date = #{value.examDate,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.module != null">module = #{value.module,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.ruleId != null">rule_id = #{value.ruleId,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataProductModel">
+		delete from xd_raw_data_product
+		where id =
+		#{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_raw_data_product
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_raw_data_product.id,</if>
+			<if test="output != null and output.name != null">name,</if>
+			<if test="output != null and output.briefInfo != null">brief_info,</if>
+			<if test="output != null and output.detail != null">detail,</if>
+			<if test="output != null and output.imageUrl != null">image_url,</if>
+			<if test="output != null and output.currApplyCount != null">curr_apply_count,</if>
+			<if test="output != null and output.totalApplyCount != null">total_apply_count,</if>
+			<if test="output != null and output.beginApplyTime != null">begin_apply_time,</if>
+			<if test="output != null and output.endApplyTime != null">end_apply_time,</if>
+			<if test="output != null and output.originalAmount != null">original_amount,</if>
+			<if test="output != null and output.payAmount != null">pay_amount,</if>
+			<if test="output != null and output.createTime != null">xd_raw_data_product.create_time,</if>
+			<if test="output != null and output.updateTime != null">update_time,</if>
+			<if test="output != null and output.misc != null">misc,</if>
+			<if test="output != null and output.showStatus != null">show_status,</if>
+			<if test="output != null and output.praiseCount != null">praise_count,</if>
+			<if test="output != null and output.type != null">type,</if>
+			<if test="output != null and output.questionBankSetting != null">question_bank_setting,</if>
+			<if test="output != null and output.resourceSubject != null">resource_subject,</if>
+			<if test="output != null and output.shareUrl != null">share_url,</if>
+			<if test="output != null and output.courseCode != null">course_code,</if>
+			<if test="output != null and output.courseQuality != null">course_quality,</if>
+			<if test="output != null and output.courseCredit != null">course_credit,</if>
+			<if test="output != null and output.courseCheckType != null">course_check_type,</if>
+			<if test="output != null and output.moduleCourse != null">module_course,</if>
+			<if test="output != null and output.examDate != null">exam_date,</if>
+			<if test="output != null and output.ruleId != null">rule_id,</if>
+			<if test="output != null and output.module != null">module,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_raw_data_product.id=#{input.id}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.name != null">and name=#{input.name}</if>
+			<if test="input != null and input.briefInfo != null">and brief_info=#{input.briefInfo}</if>
+			<if test="input != null and input.detail != null">and detail=#{input.detail}</if>
+			<if test="input != null and input.imageUrl != null">and image_url=#{input.imageUrl}</if>
+			<if test="input != null and input.currApplyCount != null">and curr_apply_count=#{input.currApplyCount}</if>
+			<if test="input != null and input.totalApplyCount != null">and total_apply_count=#{input.totalApplyCount}</if>
+			<if test="input != null and input.beginApplyTime != null">and begin_apply_time=#{input.beginApplyTime}</if>
+			<if test="input != null and input.endApplyTime != null">and end_apply_time=#{input.endApplyTime}</if>
+			<if test="input != null and input.originalAmount != null">and original_amount=#{input.originalAmount}</if>
+			<if test="input != null and input.payAmount != null">and pay_amount=#{input.payAmount}</if>
+			<if test="input != null and input.createTime != null">and xd_raw_data_product.create_time=#{input.createTime}
+			</if>
+			<if test="input != null and input.updateTime != null">and update_time=#{input.updateTime}</if>
+			<if test="input != null and input.misc != null">and misc=#{input.misc}</if>
+			<if test="input != null and input.showStatus != null">and show_status=#{input.showStatus}</if>
+			<if test="input != null and input.praiseCount != null">and praise_count=#{input.praiseCount}</if>
+			<if test="input != null and input.type != null">and type=#{input.type}</if>
+			<if test="input != null and input.questionBankSetting != null">and question_bank_setting=#{input.questionBankSetting}
+			</if>
+			<if test="input != null and input.resourceSubject != null">and resource_subject=#{input.resourceSubject}</if>
+			<if test="input != null and input.shareUrl != null">and share_url=#{input.shareUrl}</if>
+			<if test="input != null and input.courseCode != null">and course_code=#{input.courseCode}</if>
+			<if test="input != null and input.courseQuality != null">and course_quality=#{input.courseQuality}</if>
+			<if test="input != null and input.courseCredit != null">and course_credit=#{input.courseCredit}</if>
+			<if test="input != null and input.courseCheckType != null">and course_check_type=#{input.courseCheckType}</if>
+			<if test="input != null and input.moduleCourse != null">and module_course=#{input.moduleCourse}</if>
+			<if test="input != null and input.examDate != null">and exam_date=#{input.examDate}</if>
+			<if test="input != null and input.ruleId != null">and rule_id=#{input.ruleId}</if>
+			<if test="input != null and input.module != null">and module=#{input.module}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.name != null and ( sort.name == 'ASC' or sort.name == 'DESC' )">name ${sort.name},</if>
+			<if
+				test="sort != null and sort.briefInfo != null and ( sort.briefInfo == 'ASC' or sort.briefInfo == 'DESC' )">brief_info ${sort.briefInfo},</if>
+			<if
+				test="sort != null and sort.detail != null and ( sort.detail == 'ASC' or sort.detail == 'DESC' )">detail ${sort.detail},</if>
+			<if
+				test="sort != null and sort.imageUrl != null and ( sort.imageUrl == 'ASC' or sort.imageUrl == 'DESC' )">image_url ${sort.imageUrl},</if>
+			<if
+				test="sort != null and sort.currApplyCount != null and ( sort.currApplyCount == 'ASC' or sort.currApplyCount == 'DESC' )">curr_apply_count ${sort.currApplyCount},</if>
+			<if
+				test="sort != null and sort.totalApplyCount != null and ( sort.totalApplyCount == 'ASC' or sort.totalApplyCount == 'DESC' )">total_apply_count ${sort.totalApplyCount},</if>
+			<if
+				test="sort != null and sort.beginApplyTime != null and ( sort.beginApplyTime == 'ASC' or sort.beginApplyTime == 'DESC' )">begin_apply_time ${sort.beginApplyTime},</if>
+			<if
+				test="sort != null and sort.endApplyTime != null and ( sort.endApplyTime == 'ASC' or sort.endApplyTime == 'DESC' )">end_apply_time ${sort.endApplyTime},</if>
+			<if
+				test="sort != null and sort.originalAmount != null and ( sort.originalAmount == 'ASC' or sort.originalAmount == 'DESC' )">original_amount ${sort.originalAmount},</if>
+			<if
+				test="sort != null and sort.payAmount != null and ( sort.payAmount == 'ASC' or sort.payAmount == 'DESC' )">pay_amount ${sort.payAmount},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">xd_raw_data_product.create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">update_time ${sort.updateTime},</if>
+			<if
+				test="sort != null and sort.misc != null and ( sort.misc == 'ASC' or sort.misc == 'DESC' )">misc ${sort.misc},</if>
+			<if
+				test="sort != null and sort.showStatus != null and ( sort.showStatus == 'ASC' or sort.showStatus == 'DESC' )">show_status ${sort.showStatus},</if>
+			<if
+				test="sort != null and sort.praiseCount != null and ( sort.praiseCount == 'ASC' or sort.praiseCount == 'DESC' )">praise_count ${sort.praiseCount},</if>
+			<if
+				test="sort != null and sort.type != null and ( sort.type == 'ASC' or sort.type == 'DESC' )">type ${sort.type},</if>
+			<if
+				test="sort != null and sort.questionBankSetting != null and ( sort.questionBankSetting == 'ASC' or sort.questionBankSetting == 'DESC' )">question_bank_setting ${sort.questionBankSetting},</if>
+			<if
+				test="sort != null and sort.resourceSubject != null and ( sort.resourceSubject == 'ASC' or sort.resourceSubject == 'DESC' )">resource_subject ${sort.resourceSubject},</if>
+			<if
+				test="sort != null and sort.shareUrl != null and ( sort.shareUrl == 'ASC' or sort.shareUrl == 'DESC' )">share_url ${sort.shareUrl},</if>
+			<if
+				test="sort != null and sort.courseCode != null and ( sort.courseCode == 'ASC' or sort.courseCode == 'DESC' )">course_code ${sort.courseCode},</if>
+			<if
+				test="sort != null and sort.courseQuality != null and ( sort.courseQuality == 'ASC' or sort.courseQuality == 'DESC' )">course_quality ${sort.courseQuality},</if>
+			<if
+				test="sort != null and sort.courseCredit != null and ( sort.courseCredit == 'ASC' or sort.courseCredit == 'DESC' )">course_credit ${sort.courseCredit},</if>
+			<if
+				test="sort != null and sort.courseCheckType != null and ( sort.courseCheckType == 'ASC' or sort.courseCheckType == 'DESC' )">course_check_type ${sort.courseCheckType},</if>
+			<if
+				test="sort != null and sort.moduleCourse != null and ( sort.moduleCourse == 'ASC' or sort.moduleCourse == 'DESC' )">module_course ${sort.moduleCourse},</if>
+			<if
+				test="sort != null and sort.examDate != null and ( sort.examDate == 'ASC' or sort.examDate == 'DESC' )">exam_date ${sort.examDate},</if>
+			<if
+				test="sort != null and sort.module != null and ( sort.module == 'ASC' or sort.module == 'DESC' )">module ${sort.module},</if>
+			<if
+				test="sort != null and sort.ruleId != null and ( sort.ruleId == 'ASC' or sort.ruleId == 'DESC' )">rule_id ${sort.ruleId},</if>
+		</trim>
+	</sql>
+</mapper>

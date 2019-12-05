@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<typeAliases>
+		<typeAlias alias="ForumCategoryModel"
+			type="com.xiaodou.resources.model.forum.ForumCategoryModel" />
+		<typeAlias alias="ForumPraiseModel"
+			type="com.xiaodou.resources.model.forum.ForumPraiseModel" />
+		<typeAlias alias="ForumRelateInfoModel"
+			type="com.xiaodou.resources.model.forum.ForumRelateInfoModel" />
+		<typeAlias alias="ForumCommentModel"
+			type="com.xiaodou.resources.model.forum.ForumCommentModel" />
+		<typeAlias alias="PushTaskModel"
+			type="com.xiaodou.resources.model.push.PushTaskModel" />
+		<typeAlias alias="CategoryRelationModel"
+			type="com.xiaodou.resources.model.forum.CategoryRelationModel" />
+		<typeAlias alias="ModuleSlideModel"
+			type="com.xiaodou.resources.model.forum.ModuleSlideModel" />
+		<typeAlias alias="ResourcesColumnist"
+			type="com.xiaodou.resources.model.forum.ResourcesColumnist" />
+		<typeAlias alias="ResourcesColumnistFollower"
+			type="com.xiaodou.resources.model.forum.ResourcesColumnistFollower" />
+		<typeAlias alias="ResourcesColumnistVisit"
+			type="com.xiaodou.resources.model.forum.ResourcesColumnistVisit" />
+		<typeAlias alias="RewardRecord"
+			type="com.xiaodou.resources.model.reward.RewardRecord" />
+
+
+		<!-- 题库 -->
+		<typeAlias type="com.xiaodou.resources.model.quesbk.QuesbkBase"
+			alias="QuesbkBase" />
+		<!-- 题库练习试卷 -->
+		<typeAlias type="com.xiaodou.resources.model.quesbk.QuesbkExamPaper"
+			alias="QuesbkExamPaper" />
+		<!-- 题库练习规则 -->
+		<typeAlias type="com.xiaodou.resources.model.quesbk.QuesbkExamRule"
+			alias="QuesbkExamRule" />
+		<!-- 题库练习类型 -->
+		<typeAlias type="com.xiaodou.resources.model.quesbk.QuesbkExamType"
+			alias="QuesbkExamType" />
+		<!-- 题库题目 -->
+		<typeAlias type="com.xiaodou.resources.model.quesbk.QuesbkQues"
+			alias="QuesbkQues" />
+		<!-- 题库题目分析统计 -->
+		<typeAlias type="com.xiaodou.resources.model.quesbk.QuesbkQuesStatistics"
+			alias="QuesbkQuesStatistics" />
+		<!-- 题库题目类型 -->
+		<typeAlias type="com.xiaodou.resources.model.quesbk.QuesbkQuesType"
+			alias="QuesbkQuesType" />
+		<!-- 题库用户个人练习记录 -->
+		<typeAlias type="com.xiaodou.resources.model.quesbk.UserExamRecord"
+			alias="UserExamRecord" />
+		<!-- 题库用户个人练习情况统计 -->
+		<typeAlias type="com.xiaodou.resources.model.quesbk.UserExamTotal"
+			alias="UserExamTotal" />
+		<!-- 题库用户收藏记录 -->
+		<typeAlias type="com.xiaodou.resources.model.quesbk.UserStoreRecord"
+			alias="UserStoreRecord" />
+		<!-- 题库用户收藏統計记录 -->
+		<typeAlias type="com.xiaodou.resources.model.quesbk.UserStoreRecordCollect"
+			alias="UserStoreRecordCollect" />
+		<!-- 题库用户错题记录 -->
+		<typeAlias type="com.xiaodou.resources.model.quesbk.UserWrongRecord"
+			alias="UserWrongRecord" />
+		<!-- 题库用户错题統計记录 -->
+		<typeAlias type="com.xiaodou.resources.model.quesbk.UserWrongRecordCollect"
+			alias="UserWrongRecordCollect" />
+		<!-- 用户举报错题 -->
+		<typeAlias type="com.xiaodou.resources.model.quesbk.RaiseWrongQues"
+			alias="RaiseWrongQues" />
+		<!-- 挑战记录 -->
+		<typeAlias type="com.xiaodou.resources.model.quesbk.UserChapterRecord"
+			alias="UserChapterRecord" />
+		<typeAlias
+			type="com.xiaodou.resources.model.quesbk.UserCourseStatisticDayModel"
+			alias="UserCourseStatisticDayModel" />
+		<!-- 采分点模型 -->
+		<typeAlias type="com.xiaodou.resources.model.quesbk.TaskScoreModel"
+			alias="TaskScoreModel" />
+		<typeAlias type="com.xiaodou.resources.model.log.UserScanModel"
+			alias="UserScanModel" />
+
+		<!-- admin -->
+		<typeAlias type="com.xiaodou.resources.model.admin.Admin"
+			alias="Admin" />
+
+		<!-- course -->
+		<typeAlias type="com.xiaodou.resources.model.product.ProductModel"
+			alias="ProductModel" />
+		<typeAlias type="com.xiaodou.resources.model.product.ProductCategoryModel"
+			alias="ProductCategoryModel" />
+		<typeAlias type="com.xiaodou.resources.model.order.ProductOrderModel"
+			alias="ProductOrderModel" />
+
+		<!-- user -->
+		<typeAlias type="com.xiaodou.resources.model.user.UserProductOrderModel"
+			alias="UserProductOrderModel" />
+		<!-- item -->
+		<typeAlias type="com.xiaodou.resources.model.product.ProductItemModel"
+			alias="ProductItemModel" />
+
+
+		<typeAlias type="com.xiaodou.resources.model.forum.SharePagePvModel"
+			alias="SharePagePvModel" />
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="conf/mybatis/forum/forumCategoryModel.xml" />
+		<mapper resource="conf/mybatis/forum/forumPraiseModel.xml" />
+		<mapper resource="conf/mybatis/forum/forumRelateInfoModel.xml" />
+		<mapper resource="conf/mybatis/forum/forumCommentModel.xml" />
+		<mapper resource="conf/mybatis/forum/forumModel.xml" />
+		<mapper resource="conf/mybatis/forum/cascadeQueryForum.xml" />
+		<mapper resource="conf/mybatis/push/pushTaskModel.xml" />
+		<mapper resource="conf/mybatis/forum/categoryRelationModel.xml" />
+		<mapper resource="conf/mybatis/forum/ModuleSlideModel.xml" />
+		<mapper resource="conf/mybatis/forum/ResourcesColumnist.xml" />
+		<mapper resource="conf/mybatis/forum/ResourcesColumnistVisit.xml" />
+		<mapper resource="conf/mybatis/forum/ResourcesColumnistFollower.xml" />
+		<mapper resource="conf/mybatis/reward/RewardRecord.xml" />
+
+		<!-- 题库 -->
+		<mapper resource="conf/mybatis/quesbk/QuesbkBaseMapper.xml" />
+		<!-- 题库练习试卷 -->
+		<mapper resource="conf/mybatis/quesbk/QuesbkExamPaperMapper.xml" />
+		<!-- 题库练习规则 -->
+		<mapper resource="conf/mybatis/quesbk/QuesbkExamRuleMapper.xml" />
+		<!-- 题库练习类型 -->
+		<mapper resource="conf/mybatis/quesbk/QuesbkExamTypeMapper.xml" />
+		<!-- 题库题目 -->
+		<mapper resource="conf/mybatis/quesbk/QuesbkQuesMapper.xml" />
+		<!-- 题库题目分析统计 -->
+		<mapper resource="conf/mybatis/quesbk/QuesbkQuesStatisticsMapper.xml" />
+		<!-- 题库题目类型 -->
+		<mapper resource="conf/mybatis/quesbk/QuesbkQuesTypeMapper.xml" />
+		<!-- 题库用户个人练习记录 -->
+		<mapper resource="conf/mybatis/quesbk/UserExamRecordMapper.xml" />
+		<!-- 题库用户个人练习情况统计 -->
+		<mapper resource="conf/mybatis/quesbk/UserExamTotalMapper.xml" />
+		<!-- 题库用户收藏統計记录 -->
+		<mapper resource="conf/mybatis/quesbk/UserStoreRecordCollectMapper.xml" />
+		<!-- 题库用户收藏记录 -->
+		<mapper resource="conf/mybatis/quesbk/UserStoreRecordMapper.xml" />
+		<!-- 题库用户错题統計记录 -->
+		<mapper resource="conf/mybatis/quesbk/UserWrongRecordCollectMapper.xml" />
+		<!-- 题库用户错题记录 -->
+		<mapper resource="conf/mybatis/quesbk/UserWrongRecordMapper.xml" />
+		<!-- 用户举报错题 -->
+		<mapper resource="conf/mybatis/quesbk/UserRaiseWrongQuesMapper.xml" />
+		<mapper resource="conf/mybatis/quesbk/UserChapterRecordMapper.xml" />
+		<mapper resource="conf/mybatis/quesbk/UserCourseStatisticDayModel.xml" />
+		<mapper resource="conf/mybatis/quesbk/TaskScoreModel.xml" />
+		<mapper resource="conf/mybatis/log/UserScanModel.xml" />
+
+		<!-- admin -->
+		<mapper resource="conf/mybatis/admin/admin.xml" />
+
+		<!-- course -->
+		<mapper resource="conf/mybatis/product/ProductModel.xml" />
+		<mapper resource="conf/mybatis/product/CasecadeProduct.xml" />
+		<mapper resource="conf/mybatis/product/CasecadeProductItem.xml" />
+		<mapper resource="conf/mybatis/product/ProductCategoryModel.xml" />
+		<mapper resource="conf/mybatis/order/ProductOrderModel.xml" />
+		<!-- user -->
+		<mapper resource="conf/mybatis/user/UserProductOrderModel.xml" />
+		<!-- item -->
+		<mapper resource="conf/mybatis/product/ProductItemModel.xml" />
+
+		<mapper resource="conf/mybatis/forum/SharePagePvModel.xml" />
+	</mappers>
+</configuration>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserCollectDataDetailModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.mission.domain.UserCollectDataDetailModel">
+		<id column="id" property="id" />
+		<result column="module" property="module" />
+		<result column="user_id" property="userId" />
+		<result column="data_type" property="dataType" />
+		<result column="main_id" property="mainId" />
+		<result column="foreign_id" property="foreignId" />
+		<result column="data_detail" property="dataDetail" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id ,
+		module ,
+		user_id ,
+		data_type ,
+		main_id ,
+		foreign_id ,
+		data_detail
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.mission.domain.UserCollectDataDetailModel">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_collect_data_detail
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_collect_data_detail
+		<include refid="dynamic_where" />
+	</select>
+	<delete id="deleteEntity"
+		parameterType="com.xiaodou.mission.domain.UserCollectDataDetailModel">
+		delete from
+		xd_user_collect_data_detail
+		where id =
+		#{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.mission.domain.UserCollectDataDetailModel"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_user_collect_data_detail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="module != null">module,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="dataType != null">data_type,</if>
+			<if test="mainId != null">main_id,</if>
+			<if test="foreignId != null">foreign_id,</if>
+			<if test="dataDetail != null">data_detail,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+			<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+			<if test="dataType != null">#{dataType,jdbcType=VARCHAR},</if>
+			<if test="mainId != null">#{mainId,jdbcType=VARCHAR},</if>
+			<if test="foreignId != null">#{foreignId,jdbcType=VARCHAR},</if>
+			<if test="dataDetail != null">#{dataDetail,jdbcType=VARCHAR},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.mission.domain.UserCollectDataDetailModel">
+		update xd_user_collect_data_detail
+		<set>
+			<if test="dataDetail != null">data_detail = #{dataDetail,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id = #{input.id,jdbcType=VARCHAR}</if>
+			<if test="input != null and input.userId != null">and user_id = #{input.userId,jdbcType=VARCHAR}</if>
+			<if test="input != null and input.module != null">and module = #{input.module,jdbcType=VARCHAR}</if>
+			<if test="input != null and input.dataType != null">and data_type = #{input.dataType,jdbcType=VARCHAR}</if>
+			<if test="input != null and input.mainId != null">and main_id = #{input.mainId,jdbcType=VARCHAR}</if>
+			<if test="input != null and input.foreignId != null">and foreign_id = #{input.foreignId,jdbcType=VARCHAR}</if>
+		</where>
+	</sql>
+</mapper>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SyncApplyDO">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dashboard.domain.staticinfo.SyncApplyDO">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
+		<result column="student_id" property="studentId" jdbcType="INTEGER" />
+		<result column="sync_id" property="syncId" jdbcType="VARCHAR" />
+		<result column="msg" property="msg" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, telephone, student_id, sync_id, msg, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.staticinfo.SyncApplyDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_sync_apply
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_sync_apply
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.st.dashboard.domain.staticinfo.SyncApplyDO">
+		insert into xd_dashboard_sync_apply
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="telephone != null">telephone,</if>
+			<if test="studentId != null">student_id,</if>
+			<if test="syncId != null">sync_id,</if>
+			<if test="msg != null">msg,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="telephone != null">#{telephone,jdbcType=VARCHAR},</if>
+			<if test="studentId != null">#{studentId,jdbcType=INTEGER},</if>
+			<if test="syncId != null">#{syncId,jdbcType=VARCHAR},</if>
+			<if test="msg != null">#{msg,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	
+	<insert id="addEntityList" parameterType="java.util.Map">
+		insert into xd_dashboard_sync_apply
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="column != null and column.id != null">id,</if>
+			<if test="column != null and column.telephone != null">telephone,</if>
+			<if test="column != null and column.studentId != null">student_id,</if>
+			<if test="column != null and column.syncId != null">sync_id,</if>
+			<if test="column != null and column.msg != null">msg,</if>
+			<if test="column != null and column.createTime != null">create_time,</if>
+		</trim>
+		values
+		<foreach collection="value" item="item" separator=",">
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<if test="item != null and item.id != null">#{item.id,jdbcType=INTEGER},</if>
+				<if test="item != null and item.telephone != null">#{item.telephone,jdbcType=VARCHAR},</if>
+				<if test="item != null and item.studentId != null">#{item.studentId,jdbcType=INTEGER},</if>
+				<if test="item != null and item.syncId != null">#{item.syncId,jdbcType=VARCHAR},</if>
+				<if test="item != null and item.msg != null">#{item.msg,jdbcType=VARCHAR},</if>
+				<if test="item != null and item.createTime != null">#{item.createTime,jdbcType=TIMESTAMP},</if>
+			</trim>
+		</foreach>
+	</insert>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.st.dashboard.domain.staticinfo.SyncApplyDO">
+		update xd_dashboard_sync_apply
+		<set>
+			<if test="value != null and value.telephone != null">telephone = #{value.telephone,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentId != null">student_id = #{value.studentId,jdbcType=INTEGER},</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.st.dashboard.domain.staticinfo.SyncApplyDO">
+		update xd_dashboard_sync_apply
+		<set>
+			<if test="value != null and value.telephone != null">telephone = #{value.telephone,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentId != null">student_id = #{value.studentId,jdbcType=INTEGER},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById"
+		parameterType="com.xiaodou.st.dashboard.domain.staticinfo.SyncApplyDO">
+		delete from xd_dashboard_sync_apply
+		where id =
+		#{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_sync_apply
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.telephone != null">telephone,</if>
+			<if test="output != null and output.studentId != null">student_id,</if>
+			<if test="output != null and output.syncId != null">sync_id,</if>
+			<if test="output != null and output.msg != null">msg,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.telephone != null">and telephone=#{input.telephone}</if>
+			<if test="input != null and input.studentId != null">and student_id=#{input.studentId}</if>
+			<if test="input != null and input.syncId != null">and sync_id=#{input.syncId}</if>
+			<if test="input != null and input.msg != null">and msg=#{input.msg}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.telephone != null and ( sort.telephone == 'ASC' or sort.telephone == 'DESC' )">telephone ${sort.telephone},</if>
+			<if
+				test="sort != null and sort.studentId != null and ( sort.studentId == 'ASC' or sort.studentId == 'DESC' )">student_id ${sort.studentId},</if>
+			<if
+				test="sort != null and sort.syncId != null and ( sort.syncId == 'ASC' or sort.syncId == 'DESC' )">sync_id ${sort.syncId},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

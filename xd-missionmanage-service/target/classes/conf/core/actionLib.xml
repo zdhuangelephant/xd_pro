@@ -1,0 +1,13 @@
+<Actions>
+	<Action package="ucenter" name="login" version="1.0">
+		<Api protocol="http" url="http://192.168.31.88:8002/user/login"
+			method="post">
+			<Param name="phoneNum" />
+			<Param name="pwd" />
+		</Api>
+	</Action>
+	<Action package="ucenter" name="login" version="3.0" special="true">
+		<Api protocol="http" url="http://www.baidu.com" method="get">
+		</Api>
+	</Action>
+</Actions>

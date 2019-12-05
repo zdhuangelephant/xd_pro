@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:oscache="http://www.springmodules.org/schema/oscache"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springmodules.org/schema/oscache http://www.springmodules.org/schema/cache/springmodules-oscache.xsd
+           http://code.alibabatech.com/schema/dubbo
+       	   http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<description>数据库配置</description>
+	<context:property-placeholder
+		location="classpath:conf/custom/env/jdbc.properties"
+		ignore-unresolvable="true" />
+	<context:property-placeholder
+		location="classpath:conf/custom/env/jdbc_sms.properties"
+		ignore-unresolvable="true" />
+	<context:property-placeholder
+		location="classpath:conf/custom/env/jdbc_ms.properties"
+		ignore-unresolvable="true" />
+	<context:property-placeholder
+		location="classpath:conf/custom/env/jdbc_base_user.properties"
+		ignore-unresolvable="true" />
+
+
+	<!--数据源 -->
+	<bean id="summerDataSource"
+		class="com.xiaodou.summer.dao.datasource.SummerDataSourceManager">
+		<property name="alias" value="report-main"></property>
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="driver" value="${jdbc.driverClassName}" />
+		<property name="driverUrl" value="${jdbc.url}" />
+		<property name="maximumConnectionCount" value="${jdbc.maximumConnectionCount}"></property>
+		<property name="maximumActiveTime" value="${jdbc.maximumActiveTime}"></property>
+		<property name="maximumConnectionLifetime" value="${jdbc.maximumConnectionLifetime}"></property>
+		<property name="prototypeCount" value="${jdbc.prototypeCount}"></property>
+		<property name="houseKeepingSleepTime" value="${jdbc.houseKeepingSleepTime}"></property>
+		<property name="simultaneousBuildThrottle" value="${jdbc.simultaneousBuildThrottle}"></property>
+		<property name="houseKeepingTestSql" value="${jdbc.houseKeepingTestSql}"></property>
+		<property name="verbose" value="${jdbc.verbose}"></property>
+		<property name="statistics" value="${jdbc.statistics}"></property>
+		<property name="statisticsLogLevel" value="${jdbc.statisticsLogLevel}"></property>
+		
+		<property name="salias" value="report-pri"></property>
+		<property name="suser" value="${jdbc.read.username}" />
+		<property name="spassword" value="${jdbc.read.password}" />
+		<property name="sdriver" value="${jdbc.read.driverClassName}" />
+		<property name="sdriverUrl" value="${jdbc.read.url}" />
+		<property name="smaximumConnectionCount" value="${jdbc.read.maximumConnectionCount}"></property>
+		<property name="smaximumActiveTime" value="${jdbc.read.maximumActiveTime}"></property>
+		<property name="smaximumConnectionLifetime" value="${jdbc.read.maximumConnectionLifetime}"></property>
+		<property name="sprototypeCount" value="${jdbc.read.prototypeCount}"></property>
+		<property name="shouseKeepingSleepTime" value="${jdbc.read.houseKeepingSleepTime}"></property>
+		<property name="ssimultaneousBuildThrottle" value="${jdbc.read.simultaneousBuildThrottle}"></property>
+		<property name="shouseKeepingTestSql" value="${jdbc.read.houseKeepingTestSql}"></property>
+		<property name="sverbose" value="${jdbc.read.verbose}"></property>
+		<property name="sstatistics" value="${jdbc.read.statistics}"></property>
+		<property name="sstatisticsLogLevel" value="${jdbc.read.statisticsLogLevel}"></property>
+	</bean>
+
+	<bean id="smsDataSource"
+		class="com.xiaodou.summer.dao.datasource.SummerDataSourceManager">
+		<property name="alias" value="sms_data"></property>
+		<property name="user" value="${sms_jdbc.username}" />
+		<property name="password" value="${sms_jdbc.password}" />
+		<property name="driver" value="${sms_jdbc.driverClassName}" />
+		<property name="driverUrl" value="${sms_jdbc.url}" />
+		<property name="maximumConnectionCount" value="${sms_jdbc.maximumConnectionCount}"></property>
+		<property name="maximumActiveTime" value="${sms_jdbc.maximumActiveTime}"></property>
+		<property name="prototypeCount" value="${sms_jdbc.prototypeCount}"></property>
+		<property name="simultaneousBuildThrottle" value="${sms_jdbc.simultaneousBuildThrottle}"></property>
+		<property name="houseKeepingTestSql" value="${sms_jdbc.houseKeepingTestSql}"></property>
+		<property name="verbose" value="${sms_jdbc.verbose}"></property>
+		<property name="statistics" value="${sms_jdbc.statistics}"></property>
+		<property name="statisticsLogLevel" value="${sms_jdbc.statisticsLogLevel}"></property>
+	</bean>
+
+	<bean id="misDataSource"
+		class="com.xiaodou.summer.dao.datasource.SummerDataSourceManager">
+		<property name="alias" value="ms_data"></property>
+		<property name="user" value="${ms_jdbc.username}" />
+		<property name="password" value="${ms_jdbc.password}" />
+		<property name="driver" value="${ms_jdbc.driverClassName}" />
+		<property name="driverUrl" value="${ms_jdbc.url}" />
+		<property name="maximumConnectionCount" value="${ms_jdbc.maximumConnectionCount}"></property>
+		<property name="maximumActiveTime" value="${ms_jdbc.maximumActiveTime}"></property>
+		<property name="prototypeCount" value="${ms_jdbc.prototypeCount}"></property>
+		<property name="simultaneousBuildThrottle" value="${ms_jdbc.simultaneousBuildThrottle}"></property>
+		<property name="houseKeepingTestSql" value="${ms_jdbc.houseKeepingTestSql}"></property>
+		<property name="verbose" value="${ms_jdbc.verbose}"></property>
+		<property name="statistics" value="${ms_jdbc.statistics}"></property>
+		<property name="statisticsLogLevel" value="${ms_jdbc.statisticsLogLevel}"></property>
+	</bean>
+
+	<bean id="baseUserDataSource"
+		class="com.xiaodou.summer.dao.datasource.SummerDataSourceManager">
+		<property name="alias" value="base_user_data"></property>
+		<property name="user" value="${base_user_jdbc.username}" />
+		<property name="password" value="${base_user_jdbc.password}" />
+		<property name="driver" value="${base_user_jdbc.driverClassName}" />
+		<property name="driverUrl" value="${base_user_jdbc.url}" />
+		<property name="maximumConnectionCount" value="${base_user_jdbc.maximumConnectionCount}"></property>
+		<property name="maximumActiveTime" value="${base_user_jdbc.maximumActiveTime}"></property>
+		<property name="prototypeCount" value="${base_user_jdbc.prototypeCount}"></property>
+		<property name="simultaneousBuildThrottle" value="${base_user_jdbc.simultaneousBuildThrottle}"></property>
+		<property name="houseKeepingTestSql" value="${base_user_jdbc.houseKeepingTestSql}"></property>
+		<property name="verbose" value="${base_user_jdbc.verbose}"></property>
+		<property name="statistics" value="${base_user_jdbc.statistics}"></property>
+		<property name="statisticsLogLevel" value="${base_user_jdbc.statisticsLogLevel}"></property>
+	</bean>
+
+	<!--mybatis与Spring整合 开始 -->
+	<bean id="paginationInterceptor" class="com.xiaodou.summer.dao.pagination.PaginationInterceptor">
+		<property name="dialect">
+			<bean class="com.xiaodou.summer.dao.pagination.dialect.MySQLDialect" />
+		</property>
+		<property name="paginationSqlRegEx" value=".*ByCond"></property>
+	</bean>
+	<bean id="summerSqlSessionFactory" name="summerSqlSessionFactory"
+		class="com.xiaodou.summer.dao.datasource.SummerSqlSessionFactory">
+		<property name="configLocation" value="classpath:conf/core/sqlMapConfig.xml" />
+		<property name="dataSourceManager" ref="summerDataSource" />
+		<property name="plugins">
+			<array>
+				<ref bean="paginationInterceptor" />
+			</array>
+		</property>
+	</bean>
+	<bean id="smsSqlSessionFactory" name="smsSqlSessionFactory"
+		class="com.xiaodou.summer.dao.datasource.SummerSqlSessionFactory">
+		<property name="configLocation" value="classpath:conf/core/smsSqlMapConfig.xml" />
+		<property name="dataSourceManager" ref="smsDataSource" />
+		<property name="plugins">
+			<array>
+				<ref bean="paginationInterceptor" />
+			</array>
+		</property>
+	</bean>
+	<bean id="misSqlSessionFactory" name="misSqlSessionFactory"
+		class="com.xiaodou.summer.dao.datasource.SummerSqlSessionFactory">
+		<property name="configLocation" value="classpath:conf/core/misSqlMapConfig.xml" />
+		<property name="dataSourceManager" ref="misDataSource" />
+		<property name="plugins">
+			<array>
+				<ref bean="paginationInterceptor" />
+			</array>
+		</property>
+	</bean>
+
+	<bean id="baseUserSqlSessionFactory" name="baseUserSqlSessionFactory"
+		class="com.xiaodou.summer.dao.datasource.SummerSqlSessionFactory">
+		<property name="configLocation" value="classpath:conf/core/baseUserSqlMapConfig.xml" />
+		<property name="dataSourceManager" ref="baseUserDataSource" />
+		<property name="plugins">
+			<array>
+				<ref bean="paginationInterceptor" />
+			</array>
+		</property>
+	</bean>
+
+
+	<!-- 事务管理器配置,主数据源事务 -->
+	<bean id="missionTransactionManager"
+		class="com.xiaodou.summer.dao.transaction.SummerDataSourceTransactionManager">
+		<property name="dataSourceManager" ref="summerDataSource" />
+	</bean>
+	<tx:annotation-driven transaction-manager="missionTransactionManager" />
+	<!-- 下面使用AOP切面的方式来实现 -->
+	<tx:advice id="txAdvice" transaction-manager="missionTransactionManager">
+		<!-- 配置事务的传播性，隔离级别以及超时回滚等问题 -->
+		<tx:attributes>
+			<!-- <tx:method name="find*" propagation="SUPPORTS" rollback-for="java.lang.Exception" 
+				/> <tx:method name="query*" propagation="SUPPORTS" rollback-for="java.lang.Exception" 
+				/> <tx:method name="select*" propagation="SUPPORTS" rollback-for="java.lang.Exception" 
+				/> <tx:method name="list*" propagation="SUPPORTS" rollback-for="java.lang.Exception" 
+				/> <tx:method name="save*" propagation="SUPPORTS" rollback-for="java.lang.Exception" 
+				/> <tx:method name="update*" propagation="SUPPORTS" rollback-for="java.lang.Exception" 
+				/> -->
+			<tx:method name="*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<!-- 配置事务的切点 -->
+		<aop:pointcut id="facades"
+			expression="execution(* com.xiaodou.st.dashboard.service.facade..*.*(..))" />
+		<aop:pointcut id="services"
+			expression="execution(* com.xiaodou.st.dashboard.service.*.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="facades" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="services" />
+	</aop:config>
+
+</beans>

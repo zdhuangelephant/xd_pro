@@ -1,0 +1,335 @@
+html,  body,  div,  span,  applet,  object,  iframe, h1,  h2,  h3,  h4,  h5,  h6,  p,  blockquote,  pre, a,  abbr,  acronym,  address,  big,  cite,  code, del,  dfn,  em,  img,  ins,  kbd,  q,  s,  samp, small,  strike,    sub,  sup,  tt,  var, b,  u,  i,  center, dl,  dt,  dd,  ol,  ul,  li, fieldset,  form,  label,  legend, table,  caption,  tbody,  tfoot,  thead,  tr,  th,  article,  aside,  canvas,  details,  embed,  figure,  figcaption,  footer,  header,  hgroup,  menu,  nav,  output,  ruby,  section,  summary, time,  mark,  audio,  video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
+article,  aside,  details,  figcaption,  figure, footer,  header,  hgroup,  menu,  nav,  section { display: block;}
+ol,  ul {list-style: none; }
+blockquote,  q {quotes: none;}
+blockquote:before,  blockquote:after,q:before,  q:after {content: '';content: none;}
+table { border-collapse: collapse; border-spacing: 0; }
+
+/* CSS Resets End */
+
+
+
+/* Counter */
+/* 
+.ft_counter { width:100%; height:190px; margin-top:110px; float:left; }
+*/
+
+
+/* .EightycloudsFlipTimer {
+    height: 95px;
+    width: 800px;
+    margin:0 auto;
+} */
+
+
+.EightycloudsFlipTimer .block.days {
+    float: left;
+  /*   height: 190px;
+    width: 170px; */
+    margin-left: 0px;
+}
+
+.EightycloudsFlipTimer .block_left {
+    height: 75px;
+    width: 50px;
+    float:left;
+    position: relative;
+    left:10px;
+}
+
+.EightycloudsFlipTimer .block_left_top {
+    height: 36px;
+    width: 50px;
+    position: absolute;
+    top:10px;
+    z-index: 0;
+    background:#fff;
+    overflow: hidden;
+	box-shadow:  0px 1px 4px 1px rgba(0, 0, 0, 0.3);
+}
+.EightycloudsFlipTimer .block_left_bottom {
+    height: 36px;
+    width: 50px;
+    position: absolute;
+    top:48px;
+    z-index: 0;
+    background:#FFF;
+    overflow: hidden;
+	box-shadow:  0px 1px 4px 1px rgba(0, 0, 0, 0.3);
+}
+
+.EightycloudsFlipTimer .block_left_top_count {
+    font-family: 'Atomic Age', cursive;
+    font-size: 50px;
+    line-height: 50px;
+    color:#474747;
+    text-align: center;
+    margin-top:8px;
+}
+
+.EightycloudsFlipTimer .block_left_bottom_count {
+    font-family: 'Atomic Age', cursive;
+    font-size: 50px;
+    line-height: 100px;
+    color:#474747;
+    text-align: center;
+    margin-top:-53px;
+    margin-left:0px;
+}
+.EightycloudsFlipTimer .block_mid {
+    height: 75px;
+    width: 50px;
+    float:left;
+    margin-left:10px;
+    position: relative;
+    left:5px;
+}
+
+.EightycloudsFlipTimer .block_mid_top {
+    height: 36px;
+    width: 50px;
+    position: absolute;
+    top:10px;
+    z-index: 0;
+    background:#fff;
+    overflow: hidden;
+	box-shadow:  0px 1px 4px 1px rgba(0, 0, 0, 0.3);
+}
+.EightycloudsFlipTimer .block_mid_bottom {
+    height: 36px;
+    width: 50px;
+    position: absolute;
+    top:48px;
+    z-index: 0;
+    background:#FFF;
+    overflow: hidden;
+	box-shadow:  0px 1px 4px 1px rgba(0, 0, 0, 0.3);
+}
+
+.EightycloudsFlipTimer .block_mid_top_count {
+    font-family: 'Atomic Age', cursive;
+    font-size: 50px;
+    line-height: 50px;
+    color:#474747;
+    text-align: center;
+    margin-top:8px;
+}
+
+.EightycloudsFlipTimer .block_mid_bottom_count {
+    font-family: 'Atomic Age', cursive;
+    font-size: 50px;
+    line-height: 100px;
+    color:#474747;
+    text-align: center;
+    margin-top:-53px;
+    margin-left:0px;
+}
+
+.EightycloudsFlipTimer .block_right {
+    height: 75px;
+    width: 50px;
+    float:left;
+    margin-left:5px;
+    position: relative;
+    left:5px;
+}
+
+.EightycloudsFlipTimer .block_right_top {
+    height: 36px;
+    width: 50px;
+    position: absolute;
+    top:10px;
+    z-index: 0;
+    background:#fff;
+    overflow: hidden;
+	box-shadow:  0px 1px 4px 1px rgba(0, 0, 0, 0.3);
+}
+.EightycloudsFlipTimer .block_middle_separator {
+    height: 26px;
+    width: 55px;
+    position: absolute;
+    top:28px;
+    left:-5px;
+    z-index: 1;
+}
+.EightycloudsFlipTimer .block_right_bottom {
+    height: 36px;
+    width: 50px;
+    position: absolute;
+    top:48px;
+    z-index: 0;
+    background:#FFF;
+    overflow: hidden;
+	box-shadow:  0px 1px 4px 1px rgba(0, 0, 0, 0.3);
+}
+
+.EightycloudsFlipTimer .block_right_top_count {
+    font-family: 'Atomic Age', cursive;
+    font-size: 50px;
+    line-height: 50px;
+    color:#474747;
+    text-align: center;
+    margin-top:8px;
+}
+
+.EightycloudsFlipTimer .block_right_bottom_count {
+    font-family: 'Atomic Age', cursive;
+    font-size: 50px;
+    line-height: 100px;
+    color:#474747;
+    text-align: center;
+    margin-top:-53px;
+    margin-left:0px;
+}
+
+
+
+.EightycloudsFlipTimer .block_effect1 {
+    height: 1px;
+    width: 50px;
+    position: absolute;
+    top:10px;
+    left:0px;
+    z-index: 0;
+    background:#FFF;
+}
+
+.EightycloudsFlipTimer .block_effect2 {
+    height: 1px;
+    width: 50px;
+    position: absolute;
+    top:10px;
+    left:0px;
+    z-index: 0;
+    background:#d5d5d5;
+}
+
+.EightycloudsFlipTimer .block_effect3 {
+    height: 4px;
+    width: 50px;
+    position: absolute;
+    bottom:-9px;
+    left:0px;
+    z-index: 0;
+    background:#d6d6d6;
+}
+
+.EightycloudsFlipTimer .block_effect4 {
+    height: 3px;
+    width: 50px;
+    position: absolute;
+    bottom:-8px;
+    left:0px;
+    z-index: 0;
+    background:#ccc;
+}
+
+.EightycloudsFlipTimer .block_effect5 {
+    height:32px;
+    width: 49px;
+    position: absolute;
+    top:13px;
+    left:1px;
+    z-index: 0;
+    background:#fff;/* e7e7e7; */
+    border-top:1px solid #ccc;
+    border-left:1px solid #ccc;
+    opacity:0.9;
+    display: block;
+}
+/* .EightycloudsFlipTimer .block_effect6 {
+    height:34px;
+    width: 50px;
+    position: absolute;
+    top:44px;
+    left:2px;
+    z-index: 0;
+    background:#e7e7e7;
+    border-top:1px solid #ccc;
+    border-left:1px solid #ccc;
+    opacity:0.9;
+    display: block;
+} */
+ .EightycloudsFlipTimer .block_effect6 {
+    height:0px;
+    width: 49px;
+    position: absolute;
+    top:75px;
+    left:-1px;
+    z-index: 0;
+    background:#fff;
+    border-bottom:1px solid #ccc;
+    border-left:1px solid #ccc;
+    opacity:0.9;
+    display: block;
+}
+
+
+
+/* Seconds Specifics */
+
+/* Numbers */
+.EightycloudsFlipTimer .block.seconds .block_left_top_count { 
+    color: #fff;
+}
+.EightycloudsFlipTimer .block.seconds .block_left_bottom_count { 
+    color: #fff;
+}
+.EightycloudsFlipTimer .block.seconds .block_right_top_count { 
+    color: #fff;
+}
+.EightycloudsFlipTimer .block.seconds .block_right_bottom_count { 
+    color: #fff;
+}
+
+/* Backgrounds */
+.EightycloudsFlipTimer .block.seconds .block_right_top {
+    background:#c60000;
+}
+.EightycloudsFlipTimer .block.seconds .block_right_bottom {
+    background:#ff2626;
+}
+
+
+.EightycloudsFlipTimer .block.seconds .block_left_top {
+    background:#c60000;
+	border-top:1px solid #ff2626;
+}
+.EightycloudsFlipTimer .block.seconds .block_left_bottom {
+    background:#ff2626;
+}
+
+
+
+/* Middle Separator */
+.EightycloudsFlipTimer .block.seconds .block_middle_separator {
+    background-image:url("../image/middle_separator.png");
+}
+
+
+
+/* Effects */
+.EightycloudsFlipTimer .block.seconds .block_effect1 {
+    background:#db1111;
+}
+.EightycloudsFlipTimer .block.seconds .block_effect2 {
+    background:#ae0000;
+}
+.EightycloudsFlipTimer .block.seconds .block_effect3 {
+    background:#ae0000;
+	border-bottom:1px solid #880000;
+}
+.EightycloudsFlipTimer .block.seconds .block_effect4 {
+    background:#980000;
+	border-bottom:1px solid #810000;
+}
+.EightycloudsFlipTimer .block.seconds .block_effect5 {
+    background:#db1111;
+	border-top:1px solid #880000;
+    border-left:1px solid #880000;
+}
+.EightycloudsFlipTimer .block.seconds .block_effect6 {
+    background:#db1111;
+	border-bottom:1px solid #880000;
+    border-left:1px solid #880000;
+}

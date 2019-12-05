@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon Aug 20 17:02:06 CST 2012-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Gorder">
+
+  <resultMap id="gorderMap" type="Gorder">
+    <result property="id" column="ID"/>
+    <result property="buyAccountId" column="BUY_ACCOUNT_ID"/>
+    <result property="gorderIp" column="GORDER_IP"/>
+    <result property="gorderTime" column="GORDER_TIME"/>
+    <result property="preCloseTime" column="PRE_CLOSE_TIME"/>
+    <result property="gorderAmount" column="GORDER_AMOUNT"/>
+    <result property="originalGpayAmount" column="ORIGINAL_GPAY_AMOUNT"/>
+    <result property="gpayAmount" column="GPAY_AMOUNT"/>
+    <result property="gsaveAmount" column="GSAVE_AMOUNT"/>
+    <result property="gfee" column="GFEE"/>
+    <result property="goodsName" column="GOODS_NAME"/>
+    <result property="gorderStatus" column="GORDER_STATUS"/>
+    <result property="realPayMethod" column="REAL_PAY_METHOD"/>
+    <result property="payOrderId" column="PAY_ORDER_ID"/>
+    <result property="payUrl" column="PAY_URL"/>
+    <result property="paySuccessTime" column="PAY_SUCCESS_TIME"/>
+    <result property="sellerNickName" column="SELLER_NICK_NAME"/>
+    <result property="invoice" column="INVOICE"/>
+    <result property="shippingAddress" column="SHIPPING_ADDRESS"/>
+    <result property="receiverEmail" column="RECEIVER_EMAIL"/>
+    <result property="receiverPhone" column="RECEIVER_PHONE"/>
+    <result property="deliveryDateType" column="DELIVERY_DATE_TYPE"/>
+    <result property="expectedShippingTime" column="EXPECTED_SHIPPING_TIME"/>
+    <result property="outerOrigin" column="OUTER_ORIGIN"/>
+    <result property="innerOrigin" column="INNER_ORIGIN"/>
+    <result property="parentGorderId" column="PARENT_GORDER_ID"/>
+    <result property="note" column="NOTE"/>
+    <result property="updateTime" column="UPDATE_TIME"/>
+    <result property="clientType" column="CLIENT_TYPE"/>
+    <result property="closeTime" column="CLOSE_TIME"/>
+    <result property="gorderDesc" column="GORDER_DESC"/>
+    <result property="productType" column="PRODUCT_TYPE"/>
+    <result property="city" column="CITY"/>
+    <result property="isNeedInvoice" column="IS_NEED_INVOICE"/>
+    <result property="receiverName" column="RECEIVER_NAME"/>
+    <result property="uid" column="UID"/>
+    <result property="deviceId" column="DEVICE_ID"/>
+    <result property="orderFrom" column="ORDER_FROM_ID"/>
+    <result property="isLogin" column="IS_LOGIN"/>
+    <result property="tags" column="TAGS"/>
+  </resultMap>
+  <sql id="dynamic_where">
+    <where>
+      <if test="input != null and input.id != null">and
+        ID=#{input.id}
+      </if>
+      <if test="input != null and input.listId != null">and
+        ID in
+        <foreach collection="input.listId" item="item" separator="," close=")" open="(">#{item}</foreach>
+      </if>
+      <if test="input != null and input.idLower != null">and
+        ID &gt;= #{input.idLower}
+      </if>
+      <if test="input != null and input.idUpper != null">and
+        ID &lt;= #{input.idUpper}
+      </if>
+      <if test="input != null and input.gorderTimeLower != null">and
+        GORDER_TIME &gt;= #{input.gorderTimeLower}
+      </if>
+      <if test="input != null and input.gorderTimeUpper != null">and
+        GORDER_TIME &lt;= #{input.gorderTimeUpper}
+      </if>
+      <if test="input != null and input.gorderAmount != null">and
+        GORDER_AMOUNT=#{input.gorderAmount}
+      </if>
+      <if test="input != null and input.originalGpayAmount != null">and
+        ORIGINAL_GPAY_AMOUNT=#{input.originalGpayAmount}
+      </if>
+      <if test="input != null and input.gpayAmount != null">and
+        GPAY_AMOUNT=#{input.gpayAmount}
+      </if>
+      <if test="input != null and input.buyAccountId != null">and
+        BUY_ACCOUNT_ID=#{input.buyAccountId}
+      </if>
+      <if test="input != null and input.gsaveAmount != null">and
+        GSAVE_AMOUNT=#{input.gsaveAmount}
+      </if>
+      <if test="input != null and input.gfee != null">and
+        GFEE = #{input.gfee}
+      </if>
+      <if test="input != null and input.gsaveAmount != null">and
+        GSAVE_AMOUNT=#{input.gsaveAmount}
+      </if>
+      <if test="input != null and input.parentGorderId != null">and
+        PARENT_GORDER_ID=#{input.parentGorderId}
+      </if>
+      <if test="input != null and input.note != null">and
+        NOTE like concat('%',#{input.note},'%')
+      </if>
+      <if test="input != null and input.gorderIp != null ">and
+        GORDER_IP=#{input.gorderIp}
+      </if>
+      <if test="input != null and input.preCloseTimeLower != null ">and
+        PRE_CLOSE_TIME &gt;= #{input.preCloseTimeLower}
+      </if>
+      <if test="input != null and input.preCloseTimeUpper != null ">and
+        PRE_CLOSE_TIME &lt;= #{input.preCloseTimeUpper}
+      </if>
+      <if test="input != null and input.goodsName != null ">and
+        GOODS_NAME like concat('%',#{input.goodsName},'%')
+      </if>
+      <if test="input != null and input.gorderStatus != null ">and
+        GORDER_STATUS = #{input.gorderStatus}
+      </if>
+      <if test="input != null and input.listGorderStatus != null ">and
+        GORDER_STATUS in
+        <foreach collection="input.listGorderStatus" item="item" separator="," close=")" open="(">
+          #{item,jdbcType=NUMERIC}
+        </foreach>
+      </if>
+      <if test="input != null and input.realPayMethod != null ">and
+        REAL_PAY_METHOD = #{input.realPayMethod}
+      </if>
+      <if test="input != null and input.payOrderId != null ">and
+        PAY_ORDER_ID = #{input.payOrderId}
+      </if>
+      <if test="input != null and input.payUrl != null ">and
+        PAY_URL like concat('%',#{input.payUrl},'%')
+      </if>
+      <if test="input != null and input.paySuccessTimeLower != null">and
+        PAY_SUCCESS_TIME &gt;= #{input.paySuccessTimeLower}
+      </if>
+      <if test="input != null and input.paySuccessTimeUpper != null">and
+        PAY_SUCCESS_TIME &lt;= #{input.paySuccessTimeUpper}
+      </if>
+      <if test="input != null and input.sellerNickName != null">and
+        SELLER_NICK_NAME like '%'||#{input.sellerNickName}||'%'
+      </if>
+      <if test="input != null and input.invoice != null">and
+        INVOICE concat('%',#{input.invoice},'%')
+      </if>
+      <if test="input != null and input.shippingAddress != null">and
+        SHIPPING_ADDRESS like concat('%',#{input.shippingAddress},'%')
+      </if>
+      <if test="input != null and input.receiverEmail != null">and
+        RECEIVER_EMAIL = #{input.receiverEmail}
+      </if>
+      <if test="input != null and input.receiverPhone != null">and
+        RECEIVER_PHONE = #{input.receiverPhone}
+      </if>
+      <if test="input != null and input.deliveryDateType != null">and
+        DELIVERY_DATE_TYPE = #{input.deliveryDateType}
+      </if>
+      <if test="input != null and input.expectedShippingTimeLower != null">and
+        EXPECTED_SHIPPING_TIME &gt;= #{input.expectedShippingTimeLower}
+      </if>
+      <if test="input != null and input.expectedShippingTimeUpper != null">and
+        EXPECTED_SHIPPING_TIME &lt;= #{input.expectedShippingTimeUpper}
+      </if>
+      <if test="input != null and input.outerOrigin != null">and
+        OUTER_ORIGIN like concat('%',#{input.outerOrigin},'%')
+      </if>
+      <if test="input != null and input.innerOrigin != null">and
+        INNER_ORIGIN like concat('%',#{input.innerOrigin},'%')
+      </if>
+      <if test="input != null and input.clientType != null">and
+        CLIENT_TYPE = #{input.clientType}
+      </if>
+      <if test="input != null and input.closeTimeLower != null ">and
+        CLOSE_TIME &gt;= #{input.closeTimeLower}
+      </if>
+      <if test="input != null and input.closeTimeUpper != null ">and
+        CLOSE_TIME &lt;= #{input.closeTimeUpper}
+      </if>
+      <if test="input != null and input.gorderDesc != null">and
+        GORDER_DESC like concat('%',#{input.gorderDesc},'%')
+      </if>
+      <if test="input != null and input.productType != null">and
+        PRODUCT_TYPE =#{input.productType}
+      </if>
+      <if test="input != null and input.productTypeList != null">and
+        product_type in
+        <foreach collection="input.productTypeList" item="item" separator="," open="(" close=")">
+          #{item}
+        </foreach>
+      </if>
+      <if test="input != null and input.isNeedInvoice != null">and
+        IS_NEED_INVOICE =#{input.isNeedInvoice}
+      </if>
+      <if test="input != null and input.receiverName != null">and
+        RECEIVER_NAME =#{input.receiverName}
+      </if>
+      <if test="input != null and input.tags != null">and
+        TAGS =#{input.tags}
+      </if>
+    </where>
+  </sql>
+
+  <sql id="gorderInsertColumns">
+    <trim suffixOverrides=",">
+      <if test="id != null">ID,</if>
+      <if test="buyAccountId != null">BUY_ACCOUNT_ID,</if>
+      <if test="gorderIp != null">GORDER_IP,</if>
+      <if test="gorderTime != null">GORDER_TIME,</if>
+      <if test="preCloseTime != null">PRE_CLOSE_TIME,</if>
+      <if test="gorderAmount != null">GORDER_AMOUNT,</if>
+      <if test="originalGpayAmount != null">ORIGINAL_GPAY_AMOUNT,</if>
+      <if test="gpayAmount != null">GPAY_AMOUNT,</if>
+      <if test="gsaveAmount != null">GSAVE_AMOUNT,</if>
+      <if test="gfee != null">GFEE,</if>
+      <if test="goodsName != null">GOODS_NAME,</if>
+      <if test="gorderStatus != null">GORDER_STATUS,</if>
+      <if test="realPayMethod != null">REAL_PAY_METHOD,</if>
+      <if test="payOrderId != null">PAY_ORDER_ID,</if>
+      <if test="payUrl != null">PAY_URL,</if>
+      <if test="paySuccessTime != null">PAY_SUCCESS_TIME,</if>
+      <if test="sellerNickName != null">SELLER_NICK_NAME,</if>
+      <if test="shippingAddress != null">SHIPPING_ADDRESS,</if>
+      <if test="invoice != null">INVOICE,</if>
+      <if test="receiverEmail != null">RECEIVER_EMAIL,</if>
+      <if test="receiverPhone != null">RECEIVER_PHONE,</if>
+      <if test="deliveryDateType != null">DELIVERY_DATE_TYPE,</if>
+      <if test="expectedShippingTime != null">EXPECTED_SHIPPING_TIME,</if>
+      <if test="outerOrigin != null">OUTER_ORIGIN,</if>
+      <if test="innerOrigin != null">INNER_ORIGIN,</if>
+      <if test="parentGorderId != null">PARENT_GORDER_ID,</if>
+      <if test="note != null">NOTE,</if>
+      <if test="updateTime != null">UPDATE_TIME,</if>
+      <if test="clientType != null">CLIENT_TYPE,</if>
+      <if test="closeTime != null">CLOSE_TIME,</if>
+      <if test="gorderDesc != null">GORDER_DESC,</if>
+      <if test="productType != null">PRODUCT_TYPE,</if>
+      <if test="city != null">CITY,</if>
+      <if test="isNeedInvoice != null">IS_NEED_INVOICE,</if>
+      <if test="receiverName != null">RECEIVER_NAME,</if>
+      <if test="uid != null">UID,</if>
+      <if test="deviceId != null">DEVICE_ID,</if>
+      <if test="orderFrom != null">ORDER_FROM_ID,</if>
+      <if test="isLogin != null">IS_LOGIN,</if>
+      <if test="tags != null">tags,</if>
+    </trim>
+  </sql>
+
+  <sql id="gorderInsertValues">
+    <trim suffixOverrides=",">
+      <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+      <if test="buyAccountId != null">#{buyAccountId,jdbcType=VARCHAR},</if>
+      <if test="gorderIp != null">#{gorderIp,jdbcType=VARCHAR},</if>
+      <if test="gorderTime != null">#{gorderTime,jdbcType=TIMESTAMP},</if>
+      <if test="preCloseTime != null">#{preCloseTime,jdbcType=TIMESTAMP},</if>
+      <if test="gorderAmount != null">#{gorderAmount,jdbcType=NUMERIC},</if>
+      <if test="originalGpayAmount != null">#{originalGpayAmount,jdbcType=NUMERIC},</if>
+      <if test="gpayAmount != null">#{gpayAmount,jdbcType=NUMERIC},</if>
+      <if test="gsaveAmount != null">#{gsaveAmount,jdbcType=NUMERIC},</if>
+      <if test="gfee != null">#{gfee,jdbcType=NUMERIC},</if>
+      <if test="goodsName != null">#{goodsName,jdbcType=VARCHAR},</if>
+      <if test="gorderStatus != null">#{gorderStatus,jdbcType=NUMERIC},</if>
+      <if test="realPayMethod != null">#{realPayMethod,jdbcType=VARCHAR},</if>
+      <if test="payOrderId != null">#{payOrderId,jdbcType=VARCHAR},</if>
+      <if test="payUrl != null">#{payUrl,jdbcType=VARCHAR},</if>
+      <if test="paySuccessTime != null">#{paySuccessTime,jdbcType=TIMESTAMP},</if>
+      <if test="sellerNickName != null">#{sellerNickName,jdbcType=VARCHAR},</if>
+      <if test="shippingAddress != null">#{shippingAddress,jdbcType=VARCHAR},</if>
+      <if test="invoice != null">#{invoice,jdbcType=VARCHAR},</if>
+      <if test="receiverEmail != null">#{receiverEmail,jdbcType=VARCHAR},</if>
+      <if test="receiverPhone != null">#{receiverPhone,jdbcType=VARCHAR},</if>
+      <if test="deliveryDateType != null">#{deliveryDateType,jdbcType=NUMERIC},</if>
+      <if test="expectedShippingTime != null">#{expectedShippingTime,jdbcType=TIMESTAMP},</if>
+      <if test="outerOrigin != null">#{outerOrigin,jdbcType=VARCHAR},</if>
+      <if test="innerOrigin != null">#{innerOrigin,jdbcType=VARCHAR},</if>
+      <if test="parentGorderId != null">#{parentGorderId,jdbcType=VARCHAR},</if>
+      <if test="note != null">#{note,jdbcType=VARCHAR},</if>
+      <if test="updateTime != null">now(),</if>
+      <if test="clientType != null">#{clientType,jdbcType=VARCHAR},</if>
+      <if test="closeTime != null">#{closeTime,jdbcType=TIMESTAMP},</if>
+      <if test="gorderDesc != null">#{gorderDesc,jdbcType=VARCHAR},</if>
+      <if test="productType != null">#{productType,jdbcType=VARCHAR},</if>
+      <if test="city != null">#{city,jdbcType=VARCHAR},</if>
+      <if test="isNeedInvoice != null">#{isNeedInvoice,jdbcType=NUMERIC},</if>
+      <if test="receiverName != null">#{receiverName,jdbcType=VARCHAR},</if>
+      <if test="uid != null">#{uid,jdbcType=VARCHAR},</if>
+      <if test="deviceId != null">#{deviceId,jdbcType=VARCHAR},</if>
+      <if test="orderFrom != null">#{orderFrom,jdbcType=VARCHAR},</if>
+      <if test="isLogin != null">#{isLogin,jdbcType=NUMERIC},</if>
+      <if test="tags != null">#{tags,jdbcType=NUMERIC},</if>
+    </trim>
+  </sql>
+
+  <sql id="dynamic_select">
+    <trim suffixOverrides=",">
+      <if test="output != null and output.id != null">
+        id ID,
+      </if>
+      <if test="output != null and output.gorderAmount != null">
+        gorder_amount GORDER_AMOUNT,
+      </if>
+      <if test="output != null and output.originalGpayAmount != null">
+        original_gpay_amount ORIGINAL_GPAY_AMOUNT,
+      </if>
+      <if test="output != null and output.gpayAmount != null">
+        gpay_amount GPAY_AMOUNT,
+      </if>
+      <if test="output != null and output.buyAccountId != null">
+        buy_account_id BUY_ACCOUNT_ID,
+      </if>
+      <if test="output != null and output.gsaveAmount != null">
+        gsave_amount GSAVE_AMOUNT,
+      </if>
+      <if test="output != null and output.gfee != null">
+        gfee GFEE,
+      </if>
+      <if test="output != null and output.gsaveAmount != null">
+        gsave_amount GSAVE_AMOUNT,
+      </if>
+      <if test="output != null and output.parentGorderId != null">
+        parent_gorder_id PARENT_GORDER_ID,
+      </if>
+      <if test="output != null and output.note != null">
+        note NOTE ,
+      </if>
+      <if test="output != null and output.gorderTime != null">
+        gorder_time GORDER_TIME ,
+      </if>
+      <if test="output != null and output.gorderIp != null ">
+        gorder_ip GORDER_IP,
+      </if>
+      <if test="output != null and output.preCloseTime != null ">
+        pre_close_time PRE_CLOSE_TIME ,
+      </if>
+      <if test="output != null and output.goodsName != null ">
+        goods_name GOODS_NAME ,
+      </if>
+      <if test="output != null and output.gorderStatus != null ">
+        gorder_status GORDER_STATUS ,
+      </if>
+      <if test="output != null and output.realPayMethod != null ">
+        real_pay_method REAL_PAY_METHOD ,
+      </if>
+      <if test="output != null and output.payOrderId != null ">
+        pay_order_id PAY_ORDER_ID ,
+      </if>
+      <if test="output != null and output.payUrl != null ">
+        pay_url PAY_URL ,
+      </if>
+      <if test="output != null and output.paySuccessTime != null">
+        pay_success_time PAY_SUCCESS_TIME ,
+      </if>
+      <if test="output != null and output.sellerNickName != null">
+        seller_nick_name SELLER_NICK_NAME ,
+      </if>
+      <if test="output != null and output.invoice != null">
+        invoice INVOICE,
+      </if>
+      <if test="output != null and output.shippingAddress != null">
+        shipping_address SHIPPING_ADDRESS ,
+      </if>
+      <if test="output != null and output.receiverEmail != null">
+        receiver_email RECEIVER_EMAIL ,
+      </if>
+      <if test="output != null and output.receiverPhone != null">
+        receiver_phone RECEIVER_PHONE ,
+      </if>
+      <if test="output != null and output.deliveryDateType != null">
+        delivery_date_type DELIVERY_DATE_TYPE,
+      </if>
+      <if test="output != null and output.expectedShippingTime != null">
+        expected_shipping_time EXPECTED_SHIPPING_TIME ,
+      </if>
+      <if test="output != null and output.outerOrigin != null">
+        outer_origin OUTER_ORIGIN ,
+      </if>
+      <if test="output != null and output.innerOrigin != null">
+        inner_origin INNER_ORIGIN ,
+      </if>
+      <if test="output != null and output.clientType != null">
+        client_type CLIENT_TYPE ,
+      </if>
+      <if test="output != null and output.closeTime != null ">
+        close_time CLOSE_TIME ,
+      </if>
+      <if test="output != null and output.gorderDesc != null">
+        gorder_desc GORDER_DESC ,
+      </if>
+      <if test="output != null and output.productType != null">
+        product_type PRODUCT_TYPE ,
+      </if>
+      <if test="output != null and output.isNeedInvoice != null">
+        is_need_invoice IS_NEED_INVOICE ,
+      </if>
+      <if test="output != null and output.receiverName != null">
+        receiver_name RECEIVER_NAME ,
+      </if>
+      <if test="output != null and output.uid != null">
+        uid UID ,
+      </if>
+      <if test="output != null and output.deviceId != null">
+        device_id DEVICE_ID ,
+      </if>
+      <if test="output != null and output.orderFrom != null">
+        order_from_id ORDER_FROM_ID ,
+      </if>
+      <if test="output != null and output.isLogin != null">
+        is_login IS_LOGIN ,
+      </if>
+      <if test="output !=null and output.tags !=null">
+        tags TAGS ,
+      </if>
+    </trim>
+  </sql>
+
+  <insert id="insertGorder" parameterType="Gorder">
+    insert into
+    xd_order_gorder
+    (<include refid="gorderInsertColumns"/>)
+    values
+    (<include refid="gorderInsertValues"/>)
+  </insert>
+
+
+  <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="gorderMap">
+    select
+    <include refid="dynamic_select"/>
+    from xd_order_gorder
+    <include refid="dynamic_where"/>
+    <if test="input != null and input.orderDescend != null">
+      order by GORDER_TIME desc
+    </if>
+    <if test="input != null and input.orderAscend != null">
+      order by GORDER_TIME asc
+    </if>
+    <if test="input != null and input.forUpdate != null">
+      for update
+    </if>
+  </select>
+
+  <update id="updateGorder" parameterType="java.util.Map">
+    update xd_order_gorder
+    <set>
+      UPDATE_TIME = now(),
+      <if test="value != null and value.gorderAmount != null">
+        GORDER_AMOUNT=#{value.gorderAmount},
+      </if>
+      <if test="value != null and value.originalGpayAmount != null">
+        ORIGINAL_GPAY_AMOUNT=#{value.originalGpayAmount},
+      </if>
+      <if test="value != null and value.gpayAmount != null">
+        GPAY_AMOUNT=#{value.gpayAmount},
+      </if>
+      <if test="value != null and value.gsaveAmount != null">
+        GSAVE_AMOUNT=#{value.gsaveAmount},
+      </if>
+      <if test="value != null and value.gfee != null">
+        GFEE = #{value.gfee},
+      </if>
+      <if test="value != null and value.preCloseTime != null ">
+        PRE_CLOSE_TIME = #{value.preCloseTime},
+      </if>
+      <if test="value != null and value.goodsName != null ">
+        GOODS_NAME = #{value.goodsName},
+      </if>
+      <if test="value != null and value.gorderStatus != null ">
+        GORDER_STATUS = #{value.gorderStatus},
+      </if>
+      <if test="value != null and value.realPayMethod != null ">
+        REAL_PAY_METHOD = #{value.realPayMethod},
+      </if>
+      <if test="value != null and value.payOrderId != null ">
+        PAY_ORDER_ID = #{value.payOrderId},
+      </if>
+      <if test="value != null and value.payUrl != null ">
+        PAY_URL = #{value.payUrl},
+      </if>
+      <if test="value != null and value.paySuccessTime != null">
+        PAY_SUCCESS_TIME = #{value.paySuccessTime},
+      </if>
+      <if test="value != null and value.sellerNickName != null">
+        SELLER_NICK_NAME = #{value.sellerNickName},
+      </if>
+      <if test="value != null and value.invoice != null">
+        INVOICE = #{value.invoice},
+      </if>
+      <if test="value != null and value.shippingAddress != null">
+        SHIPPING_ADDRESS = #{value.shippingAddress},
+      </if>
+      <if test="value != null and value.receiverEmail != null">
+        RECEIVER_EMAIL = #{value.receiverEmail},
+      </if>
+      <if test="value != null and value.receiverPhone != null">
+        RECEIVER_PHONE = #{value.receiverPhone},
+      </if>
+      <if test="value != null and value.deliveryDateType != null">
+        DELIVERY_DATE_TYPE = #{value.deliveryDateType},
+      </if>
+      <if test="value != null and value.expectedShippingTime != null">
+        EXPECTED_SHIPPING_TIME = #{value.expectedShippingTime},
+      </if>
+      <if test="value != null and value.outerOrigin != null">
+        OUTER_ORIGIN = #{value.outerOrigin},
+      </if>
+      <if test="value != null and value.innerOrigin != null">
+        INNER_ORIGIN = #{value.innerOrigin},
+      </if>
+      <if test="value != null and value.parentGorderId != null">
+        PARENT_GORDER_ID = #{value.parentGorderId},
+      </if>
+      <if test="value != null and value.note != null">
+        NOTE = concat_ws('||',NOTE,#{value.note,jdbcType=VARCHAR}),
+      </if>
+      <if test="value != null and value.clientType != null">
+        CLIENT_TYPE = #{value.clientType},
+      </if>
+      <if test="value != null and value.closeTime != null">
+        CLOSE_TIME = #{value.closeTime},
+      </if>
+      <if test="value != null and value.gorderDesc != null">
+        GORDER_DESC = #{value.gorderDesc},
+      </if>
+      <if test="value != null and value.productType != null">
+        PRODUCT_TYPE = #{value.productType},
+      </if>
+      <if test="value != null and value.isNeedInvoice != null">
+        IS_NEED_INVOICE = #{value.isNeedInvoice},
+      </if>
+      <if test="value != null and value.receiverName != null">
+        RECEIVER_NAME = #{value.receiverName}
+      </if>
+      <if test="value != null and value.tags != null">
+        TAGS = #{value.tags}
+      </if>
+    </set>
+    <include refid="dynamic_where"/>
+  </update>
+  <select id="selectByPk" parameterType="java.lang.String" resultMap="gorderMap">
+		select
+		*
+		from xd_order_gorder where id=#{value}
+	</select>
+  <select id="selectByMerchantId" parameterType="java.lang.String" resultMap="gorderMap">
+		select 
+		*
+        from xd_order_gorder where merchant_id=#{value}
+	</select>
+  <select id="selectByPkForUpdate" parameterType="java.lang.String" resultMap="gorderMap">
+		select 
+		*
+		from xd_order_gorder where id=#{value} for update
+	</select>
+	<!-- ONLY ALLOW TO UPDATE LOGNOTE -->
+<update id="updateBuyAccountIdByGorderId" parameterType="java.util.Map">
+   update xd_order_gorder
+	<set>
+	  	<if test="value != null and value.buyAccountId != null">
+			BUY_ACCOUNT_ID=#{value.buyAccountId,jdbcType=VARCHAR}
+		</if>
+	</set>
+	<where>
+	    ID=#{input.gorderId} 
+	</where>
+</update>
+</mapper>

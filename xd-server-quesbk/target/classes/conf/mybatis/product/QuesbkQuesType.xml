@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="QuesbkQuesType">
+	<resultMap id="BaseResultMap" type="com.xiaodou.domain.product.QuesbkQuesType">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="type_name" property="typeName" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="mdesc" property="mdesc" jdbcType="VARCHAR" />
+		<result column="misc" property="misc" jdbcType="VARCHAR" />
+		<result column="answer_type" property="answerType" jdbcType="TINYINT" />
+	</resultMap>
+	<sql id="base_column">id, type_name, status, mdesc, misc, answer_type</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.domain.product.QuesbkQuesType">
+		select
+		<include refid="base_column" />
+		from xd_quesbk_ques_type where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_quesbk_ques_type
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.domain.product.QuesbkQuesType"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_quesbk_ques_type
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="typeName != null">type_name,</if>
+			<if test="status != null">status,</if>
+			<if test="mdesc != null">mdesc,</if>
+			<if test="misc != null">misc,</if>
+			<if test="answerType != null">answer_type,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="typeName != null">#{typeName,jdbcType=VARCHAR},</if>
+			<if test="status != null">#{status,jdbcType=VARCHAR},</if>
+			<if test="mdesc != null">#{mdesc,jdbcType=VARCHAR},</if>
+			<if test="misc != null">#{misc,jdbcType=VARCHAR},</if>
+			<if test="answerType != null">#{answerType,jdbcType=TINYINT},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.domain.product.QuesbkQuesType">
+		update xd_quesbk_ques_type
+		<set>
+			<if test="value != null and value.typeName != null">type_name = #{value.typeName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.mdesc != null">mdesc = #{value.mdesc,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.misc != null">misc = #{value.misc,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.answerType != null">answer_type = #{value.answerType,jdbcType=TINYINT},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.domain.product.QuesbkQuesType">
+		update xd_quesbk_ques_type
+		<set>
+			<if test="value != null and value.typeName != null">type_name = #{value.typeName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.mdesc != null">mdesc = #{value.mdesc,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.misc != null">misc = #{value.misc,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.answerType != null">answer_type = #{value.answerType,jdbcType=TINYINT},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.domain.product.QuesbkQuesType"> delete from
+		xd_quesbk_ques_type where id = #{id,jdbcType=BIGINT}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_quesbk_ques_type
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.typeName != null">type_name,</if>
+			<if test="output != null and output.status != null">status,</if>
+			<if test="output != null and output.mdesc != null">mdesc,</if>
+			<if test="output != null and output.misc != null">misc,</if>
+			<if test="output != null and output.answerType != null">answer_type,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.idLower != null">and id &gt; #{input.idLower}</if>
+			<if test="input != null and input.idUpper != null">and id &lt; #{input.idUpper}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.typeName != null">and type_name=#{input.typeName}</if>
+			<if test="input != null and input.status != null">and status=#{input.status}</if>
+			<if test="input != null and input.mdesc != null">and mdesc=#{input.mdesc}</if>
+			<if test="input != null and input.misc != null">and misc=#{input.misc}</if>
+			<if test="input != null and input.answerType != null">and answer_type=#{input.answerType}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.typeName != null and ( sort.typeName == 'ASC' or sort.typeName == 'DESC' )">type_name ${sort.typeName},</if>
+			<if
+				test="sort != null and sort.status != null and ( sort.status == 'ASC' or sort.status == 'DESC' )">status ${sort.status},</if>
+			<if
+				test="sort != null and sort.mdesc != null and ( sort.mdesc == 'ASC' or sort.mdesc == 'DESC' )">mdesc ${sort.mdesc},</if>
+			<if
+				test="sort != null and sort.misc != null and ( sort.misc == 'ASC' or sort.misc == 'DESC' )">misc ${sort.misc},</if>
+			<if
+				test="sort != null and sort.answerType != null and ( sort.answerType == 'ASC' or sort.answerType == 'DESC' )">answer_type ${sort.answerType},</if>
+		</trim>
+	</sql>
+	
+</mapper>

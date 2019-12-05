@@ -1,0 +1,185 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #162945;
+    line-height: 23px;
+    font-family: 微软雅黑;
+}
+
+.l {
+    float: left;
+}
+
+.r {
+    float: right;
+}
+
+.w1920 {
+    margin: 0 auto;
+    max-width: 1920px;
+    min-width: 1024px;
+    overflow: hidden;
+}
+.mo-top-wrap {
+    padding: 0 0 50px 0;
+    max-width: 1820px;
+}
+.learning-title {
+    margin: 0 auto;
+    width: 630px;
+    height: 109px;
+    line-height: 109px;
+    text-align: center;
+    background: #162945 url("../images/title-bg.png") no-repeat center;
+}
+
+.learning-title img {
+    margin: 32px 0 0 0;
+}
+
+.mo-logo-wrap {
+    margin: 0 auto;
+    max-width: 1800px;
+}
+
+.l-logo, .r-logo {
+    margin: 100px 0 0 0;
+    width: 480px;
+    height: 243px;
+    background: #162945 url("../images/480-bg.png") no-repeat center;
+}
+
+.logo-m-left {
+    margin-left: 25px;
+}
+
+.l-logo img {
+    margin-top: 85px;
+}
+
+.r-logo img {
+    margin-top: 85px;
+    width: 419px;
+    height: 52px;
+}
+
+.update-time {
+    height: 55px;
+    line-height: 55px;
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+}
+
+.data {
+    height: 100px;
+    line-height: 100px;
+    width: 860px;
+    text-align: center;
+    font-size: 70px;
+    color: #fff;
+    background: url("../images/data-bg.png") center no-repeat;
+}
+
+.echart-wrap {
+    padding: 20px 0;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+.echarts-l {
+    margin-right: 43px;
+}
+
+.echarts-l, .echarts-r {
+    width: 422px;
+}
+
+.echarts-m {
+    margin-right: 43px;
+    width: 868px !important;
+    height: 594px !important;
+}
+.main-map {
+    width: 868px !important;
+    height: 555px !important;
+    border: 1px solid #009cff;
+    border-top: none;
+}
+.echarts-bg {
+    width: 422px;
+    height: 288px;
+    background: url("../images/echarts-bg.png") no-repeat !important;
+}
+
+.m-bottom {
+    margin-bottom: 20px;
+}
+#counter {
+    height: 168px;
+}
+#counter img {
+    margin: 40px 8px 0 0;
+}
+.m-top-bg {
+    width: 868px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    color: #68cbff;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid #009cff;
+    border-bottom: none;
+    background: url("../images/m-top-bg.png") no-repeat;
+}
+.top-logo-wrap {
+    padding: 60px 0 0 0;
+}
+/*小于 1920 begin*/
+@media ( max-width: 1900px) and (min-width: 0px) {
+    .echarts-l {
+        margin-right: 2%;
+    }
+
+    .echarts-l, .echarts-r {
+        width: 22.5%;
+    }
+
+    .echarts-bg {
+        width: 100%;
+        border: 1px solid #009cff;
+        background: none;
+    }
+
+    .echarts-m {
+        margin-right: 2%;
+        width: 48% !important;
+    }
+    .main-map, .m-top-bg {
+        width:  100% !important;
+    }
+    .l-logo, .r-logo {
+        background: none;
+    }
+    .l-logo {
+        width: 25%;
+    }
+    .r-logo {
+        width: 30%;
+    }
+    .top-logo-wrap {
+        width: 45%;
+    }
+    .logo-m-left {
+        margin-left: 0;
+    }
+    .data {
+        width: 100%;
+        background: none;
+    }
+}
+/*小于 1920 end*/

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CommentModel">
+
+	<!-- ===========================具体业务sql====================================== -->
+	<!-- 添加数据 -->
+	<insert id="addEntity" parameterType="CommentModel">
+		insert into xd_course_product_item_comment
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- 根据条件删除数据 -->
+	<delete id="deleteList" parameterType="java.util.Map">
+		delete from xd_course_product_item_comment
+		<include refid="dynamic_where" />
+	</delete>
+
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_course_product_item_comment
+		<include refid="dynamic_update" />
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 查询 -->
+	<select id="findEntityById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM xd_course_product_item_comment
+		where id =#{id}
+	</select>
+	<select id="findEntityListByCond" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM xd_course_product_item_comment
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM xd_course_product_item_comment
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<select id="queryCommentNumber" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(id)
+		FROM xd_course_product_item_comment
+		<include refid="dynamic_where" />
+	</select>
+	<!-- <select id="queryCommentListByCondNoPage" parameterType="java.util.Map" 
+		resultMap="CommentModel"> select <include refid="all_columns"></include> 
+		from <include refid="table_name" /> <include refid="dynamic_where"/> order 
+		by id desc <include refid="dynamic_limit_forum"></include> </select> -->
+	<!-- ==========================基础属性配置=========================================== -->
+
+	<sql id="table_name">`xd_course_product_item_comment`</sql>
+	<sql id="id_column">`id`</sql>
+	<sql id="base_columns">
+		course_id, chapter_id, item_id, reply_id, target_id,
+		target_comment_id,
+		create_time,
+		operator,
+		operatorip,content,
+		target_content
+	</sql>
+	<sql id="all_columns">
+		<include refid="id_column" />
+		,
+		<include refid="base_columns" />
+	</sql>
+	<sql id="base_count">
+		count(1)
+	</sql>
+
+	<!-- 动态语句：修改 -->
+	<sql id="dynamic_update">
+		<set>
+			<if test="value != null and value.id != null"> id =#{value.id},</if>
+			<if test="value != null and value.courseId != null"> course_id =#{value.courseId},</if>
+			<if test="value != null and value.chapterId != null"> chapter_id =#{value.chapterId},</if>
+			<if test="value != null and value.itemId != null"> item_id =#{value.itemId},</if>
+			<if test="value != null and value.content != null"> content =#{value.content},</if>
+			<if test="value != null and value.replyId != null"> reply_id =#{value.replyId},</if>
+			<if test="value != null and value.targetId != null"> target_id =#{value.targetId},</if>
+			<if test="value != null and value.targetContent != null"> target_content =#{value.targetContent},</if>
+			<if test="value != null and value.targetCommentId != null"> target_comment_id =#{value.targetCommentId},</if>
+			<if test="value != null and value.createTime != null"> create_time =#{value.createTime},</if>
+			<if test="value != null and value.operator != null"> operator =#{value.operator},</if>
+			<if test="value != null and value.operatorip != null"> operatorip =#{value.operatorip},</if>
+		</set>
+	</sql>
+	<!-- 动态语句：返回结果 -->
+	<resultMap id="BaseResultMap" type="CommentModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="course_id" property="courseId" jdbcType="BIGINT" />
+		<result column="chapter_id" property="chapterId" jdbcType="BIGINT" />
+		<result column="item_id" property="itemId" jdbcType="BIGINT" />
+		<result column="reply_id" property="replyId" jdbcType="BIGINT" />
+		<result column="target_id" property="targetId" jdbcType="BIGINT" />
+		<result column="target_comment_id" property="targetCommentId"
+			jdbcType="BIGINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="operator" property="operator" jdbcType="VARCHAR" />
+		<result column="operatorip" property="operatorip" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="LONGVARCHAR" />
+		<result column="target_content" property="targetContent"
+			jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<!-- 动态语句：条件 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.idUpper != null"> id &lt; #{input.idUpper}</if>
+			<if test="input != null and input.id != null"> id =#{input.id}</if>
+			<if test="input != null and input.courseId != null">and course_id =#{input.courseId}</if>
+			<if test="input != null and input.chapterId != null">and chapter_id =#{input.chapterId}</if>
+			<if test="input != null and input.itemId != null">and item_id =#{input.itemId}</if>
+			<if test="input != null and input.content != null">and content =#{input.content}</if>
+			<if test="input != null and input.replyId != null">and reply_id =#{input.replyId}</if>
+			<if test="input != null and input.targetId != null">and target_id =#{input.targetId}</if>
+			<if test="input != null and input.targetContent != null">and target_content =#{input.targetContent}</if>
+			<if test="input != null and input.targetCommentId != null">and target_comment_id =#{input.targetCommentId}</if>
+			<if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+			<if test="input != null and input.timestamp != null">and _timestamp =#{input.timestamp}</if>
+			<if test="input != null and input.operator != null">and operator =#{input.operator}</if>
+			<if test="input != null and input.operatorip != null">and operatorip =#{input.operatorip}</if>
+		</where>
+	</sql>
+	<!-- 动态排序 -->
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort != null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">
+				update_time ${sort.updateTime},
+			</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">
+				create_time ${sort.createTime},
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">
+				id ${sort.id},
+			</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limitCount != null">
+			limit ${limitCount}
+		</if>
+	</sql>
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="courseId != null">course_id,</if>
+			<if test="chapterId != null">chapter_id,</if>
+			<if test="itemId != null">item_id,</if>
+			<if test="content != null">content,</if>
+			<if test="replyId != null">reply_id,</if>
+			<if test="targetId != null">target_id,</if>
+			<if test="targetContent != null">target_content,</if>
+			<if test="targetCommentId != null">target_comment_id,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="operator != null">operator,</if>
+			<if test="operatorip != null">operatorip,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="courseId != null">#{courseId},</if>
+			<if test="chapterId != null">#{chapterId},</if>
+			<if test="itemId != null">#{itemId},</if>
+			<if test="content != null">#{content},</if>
+			<if test="replyId != null">#{replyId},</if>
+			<if test="targetId != null">#{targetId},</if>
+			<if test="targetContent != null">#{targetContent},</if>
+			<if test="targetCommentId != null">
+				#{targetCommentId},
+			</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="operator != null">#{operator},</if>
+			<if test="operatorip != null">#{operatorip},</if>
+		</trim>
+	</sql>
+
+	<sql id="Base_Column_List">
+		id, course_id, chapter_id, item_id, reply_id, target_id,
+		target_comment_id,
+		create_time,
+		operator,
+		operatorip,content,
+		target_content
+	</sql>
+
+</mapper>

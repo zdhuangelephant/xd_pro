@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="OrderDO">
+	<resultMap id="BaseResultMap" type="com.xiaodou.st.dashboard.domain.order.OrderDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="pilot_unit_id" property="pilotUnitId" jdbcType="BIGINT" />
+		<result column="pilot_unit_name" property="pilotUnitName"
+			jdbcType="VARCHAR" />
+		<result column="student_count" property="studentCount"
+			jdbcType="INTEGER" />
+		<result column="apply_count" property="applyCount" jdbcType="INTEGER" />
+		<result column="order_number" property="orderNumber" jdbcType="BIGINT" />
+		<result column="total_amount" property="totalAmount" jdbcType="DOUBLE" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+		<result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="price_rate" property="priceRate" jdbcType="DOUBLE" />
+		<result column="admin_id" property="adminId" jdbcType="INTEGER" />
+		<result column="admin_real_name" property="adminRealName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, pilot_unit_id, pilot_unit_name, student_count,
+		apply_count, order_number, total_amount, status, order_time, pay_time,
+		create_time, price_rate, admin_id, admin_real_name</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.order.OrderDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_order
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_order
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.st.dashboard.domain.order.OrderDO"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_dashboard_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="pilotUnitId != null">pilot_unit_id,</if>
+			<if test="pilotUnitName != null">pilot_unit_name,</if>
+			<if test="studentCount != null">student_count,</if>
+			<if test="applyCount != null">apply_count,</if>
+			<if test="orderNumber != null">order_number,</if>
+			<if test="totalAmount != null">total_amount,</if>
+			<if test="status != null">status,</if>
+			<if test="orderTime != null">order_time,</if>
+			<if test="payTime != null">pay_time,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="priceRate != null">price_rate,</if>
+			<if test="adminId != null">admin_id,</if>
+			<if test="adminRealName != null">admin_real_name,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="pilotUnitId != null">#{pilotUnitId,jdbcType=BIGINT},</if>
+			<if test="pilotUnitName != null">#{pilotUnitName,jdbcType=VARCHAR},</if>
+			<if test="studentCount != null">#{studentCount,jdbcType=INTEGER},</if>
+			<if test="applyCount != null">#{applyCount,jdbcType=INTEGER},</if>
+			<if test="orderNumber != null">#{orderNumber,jdbcType=BIGINT},</if>
+			<if test="totalAmount != null">#{totalAmount,jdbcType=DOUBLE},</if>
+			<if test="status != null">#{status,jdbcType=TINYINT},</if>
+			<if test="orderTime != null">#{orderTime,jdbcType=TIMESTAMP},</if>
+			<if test="payTime != null">#{payTime,jdbcType=TIMESTAMP},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="priceRate != null">#{priceRate,jdbcType=DOUBLE},</if>
+			<if test="adminId != null">#{adminId,jdbcType=INTEGER},</if>
+			<if test="adminRealName != null">#{adminRealName,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.st.dashboard.domain.order.OrderDO">
+		update xd_dashboard_order
+		<set>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=BIGINT},
+			</if>
+			<if test="value != null and value.pilotUnitName != null">pilot_unit_name =
+				#{value.pilotUnitName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentCount != null">student_count = #{value.studentCount,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.applyCount != null">apply_count = #{value.applyCount,jdbcType=INTEGER},</if>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=TINYINT},</if>
+			<if test="value != null and value.payTime != null">pay_time = #{value.payTime},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.st.dashboard.domain.order.OrderDO">
+		update xd_dashboard_order
+		<set>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=BIGINT},
+			</if>
+			<if test="value != null and value.pilotUnitName != null">pilot_unit_name =
+				#{value.pilotUnitName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentCount != null">student_count = #{value.studentCount,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.applyCount != null">apply_count = #{value.applyCount,jdbcType=INTEGER},</if>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=TINYINT},</if>
+			<if test="value != null and value.payTime != null">pay_time = #{value.payTime},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.st.dashboard.domain.order.OrderDO">
+		delete from
+		xd_dashboard_order
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_order
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.pilotUnitId != null">pilot_unit_id,</if>
+			<if test="output != null and output.pilotUnitName != null">pilot_unit_name,</if>
+			<if test="output != null and output.studentCount != null">student_count,</if>
+			<if test="output != null and output.applyCount != null">apply_count,</if>
+			<if test="output != null and output.orderNumber != null">order_number,</if>
+			<if test="output != null and output.totalAmount != null">total_amount,</if>
+			<if test="output != null and output.status != null">status,</if>
+			<if test="output != null and output.orderTime != null">order_time,</if>
+			<if test="output != null and output.payTime != null">pay_time,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.priceRate != null">price_rate,</if>
+			<if test="output != null and output.adminId != null">admin_id,</if>
+			<if test="output != null and output.adminRealName != null">admin_real_name,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.pilotUnitId != null">and pilot_unit_id=#{input.pilotUnitId}</if>
+			<if test="input != null and input.pilotUnitName != null">and pilot_unit_name=#{input.pilotUnitName}</if>
+			<if test="input != null and input.studentCount != null">and student_count=#{input.studentCount}</if>
+			<if test="input != null and input.applyCount != null">and apply_count=#{input.applyCount}</if>
+			<if test="input != null and input.orderNumber != null">and order_number=#{input.orderNumber}</if>
+			<if test="input != null and input.totalAmount != null">and total_amount=#{input.totalAmount}</if>
+			<if test="input != null and input.status != null">and status=#{input.status}</if>
+			<if test="input != null and input.orderTime != null">and TO_DAYS(order_time)=TO_DAYS(#{input.orderTime})</if>
+			<if test="input != null and input.payTime != null">and TO_DAYS(pay_time)=TO_DAYS(#{input.payTime})</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+			<if test="input != null and input.priceRate != null">and price_rate=#{input.priceRate}</if>
+			<if test="input != null and input.adminId != null">and admin_id=#{input.adminId}</if>
+			<if test="input != null and input.adminRealName != null">and admin_real_name=#{input.adminRealName}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.pilotUnitId != null and ( sort.pilotUnitId == 'ASC' or sort.pilotUnitId == 'DESC' )">pilot_unit_id ${sort.pilotUnitId},</if>
+			<if
+				test="sort != null and sort.pilotUnitName != null and ( sort.pilotUnitName == 'ASC' or sort.pilotUnitName == 'DESC' )">pilot_unit_name ${sort.pilotUnitName},</if>
+			<if
+				test="sort != null and sort.studentCount != null and ( sort.studentCount == 'ASC' or sort.studentCount == 'DESC' )">student_count ${sort.studentCount},</if>
+			<if
+				test="sort != null and sort.applyCount != null and ( sort.applyCount == 'ASC' or sort.applyCount == 'DESC' )">apply_count ${sort.applyCount},</if>
+			<if
+				test="sort != null and sort.orderNumber != null and ( sort.orderNumber == 'ASC' or sort.orderNumber == 'DESC' )">order_number ${sort.orderNumber},</if>
+			<if
+				test="sort != null and sort.totalAmount != null and ( sort.totalAmount == 'ASC' or sort.totalAmount == 'DESC' )">total_amount ${sort.totalAmount},</if>
+			<if
+				test="sort != null and sort.status != null and ( sort.status == 'ASC' or sort.status == 'DESC' )">status ${sort.status},</if>
+			<if
+				test="sort != null and sort.orderTime != null and ( sort.orderTime == 'ASC' or sort.orderTime == 'DESC' )">order_time ${sort.orderTime},</if>
+			<if
+				test="sort != null and sort.payTime != null and ( sort.payTime == 'ASC' or sort.payTime == 'DESC' )">pay_time ${sort.payTime},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.priceRate != null and ( sort.priceRate == 'ASC' or sort.priceRate == 'DESC' )">price_rate ${sort.priceRate},</if>
+			<if
+				test="sort != null and sort.adminId != null and ( sort.adminId == 'ASC' or sort.adminId == 'DESC' )">admin_id ${sort.adminId},</if>
+			<if
+				test="sort != null and sort.adminRealName != null and ( sort.adminRealName == 'ASC' or sort.adminRealName == 'DESC' )">admin_real_name ${sort.adminRealName},</if>
+		</trim>
+	</sql>
+</mapper>

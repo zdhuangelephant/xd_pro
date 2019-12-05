@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon Aug 20 17:02:08 CST 2012-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Invoice">
+	<resultMap id="InvoiceMap" type="Invoice">
+		<result property="id" column="id"/>
+		<result property="gorderId" column="gorder_id"/>
+		<result property="buyAccountId" column="buy_account_id"/>
+		<result property="amount" column="amount"/>
+		<result property="title" column="title"/>
+		<result property="content" column="content"/>
+		<result property="address" column="address"/>
+		<result property="createTime" column="create_time"/>
+		<result property="postcode" column="postcode"/>
+		<result property="receiverName" column="receiver_name"/>
+		<result property="receiverPhone" column="receiver_phone"/>
+		<result property="invoiceStatus" column="invoice_status"/>
+		<result property="invoiceTime" column="invoice_time"/>
+		<result property="operator" column="operator"/>
+		<result property="productType" column="product_type"/>
+		<result property="note" column="note"/>
+		<result property="isValid" column="is_valid"/>
+		<result property="orderCompleteTime" column="order_complete_time"/>
+		<result property="invoiceCode" column="invoice_code"/>
+	</resultMap>
+	
+	<sql id="dynamic_select">
+       <trim suffixOverrides=","> 
+         <if test="output != null and output.id != null">
+			id,
+		</if>
+		<if test="output != null and output.gorderId != null">
+			gorder_id,
+		</if>
+		<if test="output != null and output.buyAccountId != null">
+			buy_account_id,
+		</if>
+		<if test="output != null and output.amount != null">
+			amount,
+		</if>
+		<if test="output != null and output.title != null">
+			title,
+		</if>
+		<if test="output != null and output.content != null">
+			content,
+		</if>
+		<if test="output != null and output.address != null">
+		    address,
+		</if>
+		<if test="output != null and output.createTime != null">
+			create_time,
+		</if>
+		<if test="output != null and output.postcode != null">
+		    postcode,
+		</if>
+		<if test="output != null and output.receiverName != null">
+			receiver_name,
+		</if>
+		<if test="output != null and output.receiverPhone != null">
+			receiver_phone,
+		</if>
+		<if test="output != null and output.invoiceStatus != null">
+			invoice_status,
+		</if>
+		<if test="output != null and output.invoiceTime != null">
+			invoice_time,
+		</if>
+		<if test="output != null and output.operator != null">
+			operator,
+		</if>
+		<if test="output != null and output.productType != null">
+			product_type,
+		</if>
+		<if test="output != null and output.note != null">
+			note,
+		</if>
+		<if test="output != null and output.isValid != null">
+			is_valid,
+		</if>
+		<if test="output != null and output.orderCompleteTime != null">
+			order_complete_time,
+		</if>
+		<if test="output != null and output.invoiceCode != null">
+			invoice_code,
+		</if>
+       </trim>  
+    </sql>
+	
+	<sql id="dynamic_where">
+	    <where>
+		<if test="input != null and input.id != null">and
+			id=#{input.id}
+		</if>
+		<if test="input != null and input.gorderId != null">and
+			gorder_id=#{input.gorderId}
+		</if>
+		<if test="input != null and input.buyAccountId != null">and
+			buy_account_id=#{input.buyAccountId}
+		</if>
+		<if test="input != null and input.invoiceStatus != null">and
+			invoice_status=#{input.invoiceStatus}
+		</if>
+		<if test="input != null and input.productType != null">and
+			product_type=#{input.productType}
+		</if>
+		<if test="input != null and input.createTimeLower != null">and
+			create_time &gt;= #{input.createTimeLower}
+		</if>
+		<if test="input != null and input.createTimeUpper != null">and
+		    create_time &lt;= #{input.createTimeUpper}
+		</if>
+		<if test="input != null and input.invoiceTimeLower != null">and
+			invoice_time &gt;= #{input.invoiceTimeLower}
+		</if>
+		<if test="input != null and input.invoiceTimeUpper != null">and
+		    invoice_time &lt;= #{input.invoiceTimeUpper}
+		</if>
+		<if test="input != null and input.isValid != null">and
+		    is_valid = #{input.isValid}
+		</if>
+		<if test="input != null and input.invoiceCode != null">and
+		    invoice_code = #{input.invoiceCode}
+		</if>
+	  </where>
+	</sql>
+	
+	<insert id="addEntity" parameterType="Invoice">
+		insert into
+		xd_order_invoice (gorder_id,buy_account_id,amount,title,content,address,postcode,receiver_name,receiver_phone,invoice_status,product_type,is_valid)
+		values
+			(#{gorderId,jdbcType=VARCHAR}, 
+			#{buyAccountId,jdbcType=VARCHAR}, 
+			#{amount,jdbcType=NUMERIC}, 
+			#{title,jdbcType=VARCHAR},
+			#{content,jdbcType=VARCHAR},
+			#{address,jdbcType=VARCHAR},
+			#{postcode,jdbcType=VARCHAR},
+			#{receiverName,jdbcType=VARCHAR},
+			#{receiverPhone,jdbcType=VARCHAR},
+			#{invoiceStatus,jdbcType=NUMERIC}, 
+			#{productType,jdbcType=VARCHAR},
+			#{isValid,jdbcType=NUMERIC})
+	</insert>
+	
+	<select id="findEntityListByCond" parameterType="java.util.Map" resultMap="InvoiceMap">
+	   select id,gorder_id,buy_account_id,amount,title,content, address,create_time, postcode,receiver_name,receiver_phone,
+	   invoice_status,invoice_time,operator,product_type,note,is_valid,order_complete_time,invoice_code,province,city,area,invoice_item
+	    from xd_order_invoice  
+	   <include refid="dynamic_where"/>
+	</select>	
+	
+	<select id="queryEntityListCnt" parameterType="java.util.Map" resultType="java.lang.Integer">
+	   select count(1) from xd_order_invoice  
+	   <include refid="dynamic_where"/>
+	</select>
+	
+		
+	<update id="updateEntity" parameterType="java.util.Map">
+       update xd_order_invoice
+       <set>
+         <if test="entity.amount != null">
+            amount = #{entity.amount,jdbcType=DECIMAL},
+         </if>
+         <if test="entity.invoiceStatus != null">
+            invoice_status = #{entity.invoiceStatus,jdbcType=NUMERIC},
+         </if>
+         <if test="entity.invoiceTime != null">
+           invoice_time = #{entity.invoiceTime,jdbcType=TIMESTAMP},
+         </if>
+         <if test="entity.operator != null">
+            operator = #{entity.operator,jdbcType=VARCHAR},
+         </if>
+         <if test="entity.note != null">
+             note = concat_ws('||',entity.note,#{entity.note,jdbcType=VARCHAR})
+         </if>
+         <if test="entity.isValid != null">
+            is_valid = #{entity.isValid,jdbcType=NUMERIC},
+         </if>
+         <if test="entity.orderCompleteTime != null">
+            order_complete_time = #{entity.orderCompleteTime,jdbcType=TIMESTAMP},
+         </if>
+         <if test="entity.invoiceCode != null">
+            invoice_code = #{entity.invoiceCode,jdbcType=VARCHAR},
+         </if>
+       </set>
+        <include refid="dynamic_where"/>
+  </update>
+  
+  <update id="batchUpdateEntity" parameterType="java.util.Map">   
+       update xd_order_invoice   
+       <trim prefix="set" suffixOverrides=",">  
+	       <trim prefix="invoice_code =case" suffix="end,">  
+	           <foreach collection="invoicelist" item="item" index="index">  
+	                   <if test="item.invoiceCode!=null">  
+	                    when (gorder_id=#{item.gorderId} and id=#{item.id}) then #{item.invoiceCode}  
+	                   </if>  
+	           </foreach>  
+	        </trim> 
+	        <trim prefix="invoice_time =case" suffix="end,">  
+	           <foreach collection="invoicelist" item="item" index="index">  
+	                   <if test="item.invoiceCode!=null">  
+	                    when (gorder_id=#{item.gorderId} and id=#{item.id}) then #{item.invoiceTime}  
+	                   </if>  
+	           </foreach>  
+	        </trim>  
+	        invoice_status=1   
+       </trim>   
+       	where   
+       <foreach collection="invoicelist" separator="or" item="item" index="index" >  
+       		<if test="item.invoiceCode!=null and item.gorderId!=null and item.id!=null">  
+       			(gorder_id =#{item.gorderId} and id=#{item.id} and invoice_status=0) 
+       		</if> 
+       </foreach> 
+	</update>  
+    
+</mapper>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.xiaodou.course.model.product.ProductCategoryModel"
+			alias="ProductCategoryModel" />
+		<typeAlias type="com.xiaodou.course.model.product.ProductItemModel"
+			alias="ProductItemModel" />
+		<typeAlias type="com.xiaodou.course.model.product.ProductModel"
+			alias="ProductModel" />
+		<typeAlias type="com.xiaodou.course.model.product.ProductModuleModel"
+			alias="ProductModuleModel" />
+		<typeAlias type="com.xiaodou.course.model.user.UserLearnRecordModel"
+			alias="UserLearnRecordModel" />
+		<typeAlias type="com.xiaodou.course.model.product.ModuleSlideModel"
+			alias="ModuleSlideModel" />
+		<typeAlias type="com.xiaodou.course.model.user.UserLearnTaskModel"
+			alias="UserLearnTaskModel" />
+		<typeAlias type="com.xiaodou.course.model.user.UserProductOrderModel"
+			alias="UserProductOrderModel" />
+		<typeAlias type="com.xiaodou.course.vo.user.UserChapterRecordVo"
+			alias="UserChapterRecordVo" />
+		<typeAlias type="com.xiaodou.course.model.user.UserChapterRecordModel"
+			alias="UserChapterRecordModel" />
+		<typeAlias type="com.xiaodou.course.model.comment.CommentModel"
+			alias="CommentModel" />
+		<typeAlias type="com.xiaodou.course.model.order.ProductOrderModel"
+			alias="ProductOrderModel" />
+		<typeAlias type="com.xiaodou.course.model.user.UserLearnAchieveModel"
+			alias="UserLearnAchieveModel" />
+		<typeAlias type="com.xiaodou.course.model.user.UserLearnRecordDayModel"
+			alias="UserLearnRecordDayModel" />
+		<typeAlias type="com.xiaodou.course.model.user.UserSignRecordModel"
+			alias="UserSignRecordModel" />
+		<typeAlias type="com.xiaodou.course.model.user.UserSignStatistic"
+			alias="UserSignStatistic" />
+		<typeAlias type="com.xiaodou.course.model.product.MajorCourseModel"
+			alias="MajorCourseModel" />
+		<typeAlias type="com.xiaodou.course.model.product.MajorDataModel"
+			alias="MajorDataModel" />
+		<typeAlias type="com.xiaodou.course.model.notes.NotesModel"
+			alias="NotesModel" />
+		<typeAlias type="com.xiaodou.course.model.forum.ForumModel"
+			alias="ForumModel" />
+		<typeAlias type="com.xiaodou.course.model.forum.AuthorModel"
+			alias="AuthorModel" />
+		<typeAlias type="com.xiaodou.course.model.forum.ForumPraiseModel"
+			alias="ForumPraiseModel" />
+		<typeAlias type="com.xiaodou.course.model.forum.UserScanRecordModel"
+			alias="UserScanRecordModel" />
+		<typeAlias type="com.xiaodou.course.model.product.FinalExamModel"
+			alias="FinalExamModel" />
+		<typeAlias type="com.xiaodou.course.model.user.UserCourseHourProgress"
+			alias="UserCourseHourProgress" />
+		<typeAlias type="com.xiaodou.course.model.product.CourseKeywordResourceModel"
+			alias="CourseKeywordResourceModel" />
+		<typeAlias type="com.xiaodou.course.model.product.CourseKeywordModel"
+			alias="CourseKeywordModel" />
+		<typeAlias type="com.xiaodou.course.model.product.CourseResourceVideoModel"
+			alias="CourseResourceVideoModel" />
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="conf/mybatis/product/ProductCategoryModel.xml" />
+		<mapper resource="conf/mybatis/product/ProductItemModel.xml" />
+		<mapper resource="conf/mybatis/product/ProductModel.xml" />
+		<mapper resource="conf/mybatis/product/ProductModuleModel.xml" />
+		<mapper resource="conf/mybatis/product/UserLearnRecordModel.xml" />
+		<mapper resource="conf/mybatis/product/ModuleSlideModel.xml" />
+		<mapper resource="conf/mybatis/product/UserLearnTaskModel.xml" />
+		<mapper resource="conf/mybatis/product/UserSignRecordModel.xml" />
+		<mapper resource="conf/mybatis/product/UserSignStatistic.xml" />
+		<mapper resource="conf/mybatis/user/UserProductOrderModel.xml" />
+		<mapper resource="conf/mybatis/user/UserChapterRecordVo.xml" />
+		<mapper resource="conf/mybatis/user/UserChapterRecordModel.xml" />
+		<mapper resource="conf/mybatis/comment/commentModel.xml" />
+		<mapper resource="conf/mybatis/order/ProductOrderModel.xml" />
+		<mapper resource="conf/mybatis/user/UserLearnAchieveModel.xml" />
+		<mapper resource="conf/mybatis/user/UserLearnRecordDayModel.xml" />
+		<mapper resource="conf/mybatis/product/MajorCourseModel.xml" />
+		<mapper resource="conf/mybatis/product/MajorDataModel.xml" />
+		<mapper resource="conf/mybatis/notes/NotesModel.xml" />
+		<mapper resource="conf/mybatis/forum/ForumModel.xml" />
+		<mapper resource="conf/mybatis/forum/AuthorModel.xml" />
+		<mapper resource="conf/mybatis/forum/ForumPraiseModel.xml" />
+		<mapper resource="conf/mybatis/forum/UserScanRecordModel.xml" />
+		<mapper resource="conf/mybatis/product/FinalExamModel.xml" />
+		<mapper resource="conf/mybatis/user/UserCourseHourProgress.xml" />
+		<mapper resource="conf/mybatis/product/CourseKeywordResourceModel.xml" />
+		<mapper resource="conf/mybatis/product/CourseKeywordModel.xml" />
+		<mapper resource="conf/mybatis/product/CourseResourceVideoModel.xml" />
+		
+	</mappers>
+</configuration>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ModuleSlideModel">
+
+    <resultMap id="BaseResultMap" type="ModuleSlideModel">
+        <id column="id" property="id"/>
+        <result column="description" property="description"/>
+        <result column="image_url" property="imageUrl"/>
+        <result column="link_url" property="linkUrl"/>
+        <result column="list_order" property="listOrder"/>
+        <result column="create_time" property="createTime"/>
+        <result column="module_id" property="moduleId"/>
+
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">description,image_url,link_url,list_order,create_time,module_id</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="description != null">description,</if>
+            <if test="imageUrl != null">image_url,</if>
+            <if test="linkUrl != null">link_url,</if>
+            <if test="listOrder != null">list_order,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="moduleId != null">module_id,</if>
+
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="description != null">#{description},</if>
+            <if test="imageUrl != null">#{imageUrl},</if>
+            <if test="linkUrl != null">#{linkUrl},</if>
+            <if test="listOrder != null">#{listOrder},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="moduleId != null">#{moduleId},</if>
+
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="ModuleSlideModel">
+        insert into xd_module_slide
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update xd_module_slide
+        <set>
+            <if test="value != null and value.description != null">description = #{value.description},</if>
+            <if test="value != null and value.imageUrl != null">image_url = #{value.imageUrl},</if>
+            <if test="value != null and value.linkUrl != null">link_url = #{value.linkUrl},</if>
+            <if test="value != null and value.listOrder != null">list_order = #{value.listOrder},</if>
+            <if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+            <if test="value != null and value.moduleId != null">module_id = #{value.moduleId},</if>
+
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_module_slide
+        <include refid="dynamic_where"/>
+        order by list_order asc;
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="ModuleSlideModel" resultMap="BaseResultMap">
+        select * from xd_module_slide where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from xd_module_slide
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and id =#{input.id}</if>
+            <if test="input != null and input.description != null">and description =#{input.description}</if>
+            <if test="input != null and input.imageUrl != null">and image_url =#{input.imageUrl}</if>
+            <if test="input != null and input.linkUrl != null">and link_url =#{input.linkUrl}</if>
+            <if test="input != null and input.listOrder != null">and list_order =#{input.listOrder}</if>
+            <if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+            <if test="input != null and input.moduleId != null">and module_id =#{input.moduleId}</if>
+
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">id,</if>
+            <if test="output != null and output.description != null">description,</if>
+            <if test="output != null and output.imageUrl != null">image_url,</if>
+            <if test="output != null and output.linkUrl != null">link_url,</if>
+            <if test="output != null and output.listOrder != null">list_order,</if>
+            <if test="output != null and output.createTime != null">create_time,</if>
+            <if test="output != null and output.moduleId != null">module_id,</if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RankUserInfo">
+
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseResultMap" type="com.xiaodou.userCenter.model.RankUserInfo">
+		<result column="user_id" property="userId" />
+		<result column="nick_name" property="nickName" />
+		<result column="gender" property="gender" />
+		<result column="portrait" property="portrait" />
+		<result column="credit" property="credit"/>
+		<!-- <result column="module_info" property="moduleInfo" />
+		<result column="parise_num" property="pariseNum" />
+		<result column="is_friend" property="isFriend" />
+		<result column="be_praise_num" property="bePraiseNum" /> -->
+	</resultMap>
+
+	<sql id="outColumns">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.userId != null">id user_id,</if>
+			<if test="output != null and output.nickName != null">nick_name,</if>
+			<if test="output != null and output.gender != null">gender,</if>
+			<if test="output != null and output.portrait != null">portrait,</if>
+			<if test="output != null and output.credit != null">credit,</if>
+			<!-- <if test="output != null and output.isFriend != null">IFNULL(f.relation_ship,3) 
+				is_friend,</if> -->
+				
+			<!-- <if test="output != null and output.moduleInfo != null">u.module_info,</if>
+			<if test="output != null and output.isFriend != null">f.relation_ship is_friend,</if>
+			<if test="output != null and output.bePraiseNum != null">u.be_praise_num,</if> -->
+		</trim>
+	</sql>
+
+	<select id="queryPraiseListByCondOld" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		<include refid="outColumns" />
+		FROM xd_user u
+		LEFT JOIN xd_user_friendship f ON u.id =
+		f.target_user_id
+		<if test="input != null and input.userId != null">AND f.user_id =#{input.userId}</if>
+		<!-- 过滤游客 -->
+		<!-- where u.platform != 'device' -->
+		ORDER BY u.be_praise_num DESC
+		<!-- 只展示前50名 -->
+		limit 50
+	</select>
+
+	<!-- 查看用户信息 ：直接根据用户id从查出的praiseList/creditList里面找 -->
+
+	<select id="queryCreditListByCondOld" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		<!-- SELECT @counter:=@counter+1 AS
+		rank,user_id,nick_name,portrait,gender,credit,module_info,is_friend,be_praise_num
+		FROM ( -->
+		SELECT
+		<include refid="outColumns" />
+		FROM xd_user u
+		left join xd_user_friendship f on f.target_user_id =
+		u.id
+		<if test="input != null and input.userId != null">AND f.user_id =#{input.userId}</if>
+		<where>
+			<if test="input != null and input.targetUserIdList != null">
+				and u.id in
+				<foreach collection="input.targetUserIdList" item="item"
+					open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<!-- 过滤游客 -->
+			<!-- and u.platform != 'device' -->
+			and u.nick_name NOT IN ("游客") 
+		</where>
+		ORDER BY credit DESC
+		<!-- ) temp,(select @counter:= 0) b -->
+		<!-- 只展示前50名 -->
+		<!-- limit 50 -->
+	</select>
+	
+	<select id="queryCreditListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		<include refid="outColumns" />
+		FROM xd_user 
+		<where>
+			nick_name NOT IN ("游客") 
+		</where>
+		ORDER BY credit DESC 
+		<!-- limit 50 -->
+		<!-- 只展示前50名 -->
+	</select>
+	
+	<select id="queryCreditBySelf" resultType="Integer" parameterType="java.lang.Long">
+		SELECT credit FROM xd_user WHERE id=#{_parameter} and nick_name NOT IN ("游客")
+	</select>
+	<!-- 查找大于自己积分的用户数目 -->
+	<select id="countGtSelf" resultType="Integer" parameterType="java.lang.Integer">
+		SELECT count(*) FROM `xd_user` WHERE credit &gt; #{_parameter} and nick_name NOT IN ("游客")
+	</select>
+	<!-- 查询等于自己积分的用户数目 -->
+	<select id="countEqSelf" resultType="Integer" parameterType="java.util.Map">
+		SELECT count(*) FROM `xd_user` WHERE credit = #{credit} AND id &lt;= #{userId} and nick_name NOT IN ("游客") 
+	</select>
+	
+</mapper>

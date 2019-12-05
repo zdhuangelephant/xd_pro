@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SmsLogModel">
+
+	<!-- ==========================具体业务sql============================ -->
+	<!-- 添加数据 -->
+	<insert id="addEntity" parameterType="SmsLogModel">
+		insert into xd_sms_log
+		(
+		<include refid="insertColumns"/>
+		)
+		values
+		(
+		<include refid="insertValues"/>
+		)
+	</insert>
+
+	<!-- 删除数据 -->
+	<delete id="deleteList" parameterType="java.util.Map">
+		delete from xd_sms_log
+		<include refid="dynamic_where"/>
+	</delete>
+	
+	<!-- 修改数据 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_sms_log
+		<include refid="dynamic_update"/>
+		<include refid="dynamic_where"/>
+	</update>
+	
+	<!-- 查询 -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		FROM xd_sms_log
+		<include refid="dynamic_where"/>
+	</select>
+
+	<!-- ===========================基础属性配置============================= -->
+	
+	<!-- 返回结果 -->
+	<resultMap id="BaseResultMap" type="SmsChannelModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="message" property="message" />
+		<result column="send_status" property="sendStatus" />
+		<result column="channel_id" property="channelId" />
+		<result column="template_id" property="templateId" />
+		<result column="channel_send_result" property="channelSendResult" />
+		<result column="mobile" property="mobile" />
+		<result column="create_time" property="createTime" />
+		<result column="type_id" property="typeId" />
+		<result column="product_line" property="productLine" />
+		<result column="app_message_id" property="appMessageId" />
+	</resultMap>
+	
+	<sql id="Base_Column_List" >
+	    id, message, send_status, channel_id, template_id, channel_send_result,
+	    mobile, create_time, type_id,product_line, app_message_id
+	</sql>
+	
+	<!-- 动态更新 -->
+	<sql id="dynamic_update">
+		<set>
+			<if test="value != null and value.id != null"> id =#{value.id},</if>
+			<if test="value != null and value.message != null"> message =#{value.message},</if>
+			<if test="value != null and value.sendStatus != null"> send_status =#{value.sendStatus},</if>
+			<if test="value != null and value.channelId != null"> channel_id =#{value.channelId},</if>
+			<if test="value != null and value.templateId != null"> template_id =#{value.templateId},</if>
+			<if test="value != null and value.channelSendResult != null"> channel_send_result =#{value.channelSendResult},</if>
+			<if test="value != null and value.mobile != null"> mobile =#{value.mobile},</if>
+			<if test="value != null and value.createTime != null"> create_time =#{value.createTime},</if>
+			<if test="value != null and value.typeId != null"> type_id =#{value.typeId},</if>
+			<if test="value != null and value.productLine != null"> product_line =#{value.productLine},</if>
+			<if test="value != null and value.appMessageId != null"> app_message_id =#{value.appMessageId},</if>
+		</set>
+	</sql>
+	
+	<!-- 动态语句：条件 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id =#{input.id}</if>
+			<if test="input != null and input.message != null">and message =#{input.message}</if>
+			<if test="input != null and input.sendStatus != null">and send_status =#{input.sendStatus}</if>
+			<if test="input != null and input.channelId != null">and channel_id =#{input.channelId}</if>
+			<if test="input != null and input.templateId != null">and template_id =#{input.templateId}</if>
+			<if test="input != null and input.channelSendResult != null">and channel_send_result =#{input.channelSendResult}</if>
+			<if test="input != null and input.mobile != null">and mobile =#{input.mobile}</if>
+			<if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+			<if test="input != null and input.typeId != null">and type_id =#{input.typeId}</if>
+			<if test="input != null and input.productLine != null">and product_line =#{input.productLine}</if>
+			<if test="input != null and input.appMessageId != null">and app_message_id =#{input.appMessageId}</if>
+		</where>
+	</sql>
+	
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="message != null">message,</if>
+			<if test="sendStatus != null">send_status,</if>
+			<if test="channelId != null">channel_id,</if>
+			<if test="templateId != null">template_id,</if>
+			<if test="channelSendResult != null">channel_send_result,</if>
+			<if test="mobile != null">mobile,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="typeId != null">type_id,</if>
+			<if test="productLine != null">product_line,</if>
+			<if test="appMessageId != null">app_message_id,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="message != null">#{message},</if>
+			<if test="sendStatus != null">#{sendStatus},</if>
+			<if test="channelId != null">#{channelId},</if>
+			<if test="templateId != null">#{templateId},</if>
+			<if test="channelSendResult != null">#{channelSendResult},</if>
+			<if test="mobile != null">#{mobile},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="typeId != null">#{typeId},</if>
+			<if test="productLine != null">#{productLine},</if>
+			<if test="appMessageId != null">#{appMessageId},</if>
+		</trim>
+	</sql>
+</mapper>

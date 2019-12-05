@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ClassDO">
+	<resultMap id="BaseResultMap" type="com.xiaodou.st.dashboard.domain.grade.ClassDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="pilot_unit_id" property="pilotUnitId" jdbcType="BIGINT" />
+		<result column="pilot_unit_name" property="pilotUnitName"
+			jdbcType="VARCHAR" />
+		<result column="admin_id" property="adminId" jdbcType="INTEGER" />
+		<result column="admin_name" property="adminName" jdbcType="VARCHAR" />
+		<result column="class_name" property="className" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="student_count" property="studentCount"
+			jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, pilot_unit_id, pilot_unit_name, admin_id, admin_name,
+		class_name, description, student_count, create_time
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.grade.ClassDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_class
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_class
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.st.dashboard.domain.grade.ClassDO">
+		insert into xd_dashboard_class
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="pilotUnitId != null">pilot_unit_id,</if>
+			<if test="pilotUnitName != null">pilot_unit_name,</if>
+			<if test="adminId != null">admin_id,</if>
+			<if test="adminName != null">admin_name,</if>
+			<if test="className != null">class_name,</if>
+			<if test="description != null">description,</if>
+			<if test="studentCount != null">student_count,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="pilotUnitId != null">#{pilotUnitId,jdbcType=BIGINT},</if>
+			<if test="pilotUnitName != null">#{pilotUnitName,jdbcType=VARCHAR},</if>
+			<if test="adminId != null">#{adminId,jdbcType=INTEGER},</if>
+			<if test="adminName != null">#{adminName,jdbcType=VARCHAR},</if>
+			<if test="className != null">#{className,jdbcType=VARCHAR},</if>
+			<if test="description != null">#{description,jdbcType=VARCHAR},</if>
+			<if test="studentCount != null">#{studentCount,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.st.dashboard.domain.grade.ClassDO">
+		update xd_dashboard_class
+		<set>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=BIGINT},
+			</if>
+			<if test="value != null and value.pilotUnitName != null">pilot_unit_name =
+				#{value.pilotUnitName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.adminId != null">admin_id = #{value.adminId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.adminName != null">admin_name = #{value.adminName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.className != null">class_name = #{value.className,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.description != null">description = #{value.description,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentCount != null">student_count = #{value.studentCount,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.st.dashboard.domain.grade.ClassDO">
+		update xd_dashboard_class
+		<set>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=BIGINT},
+			</if>
+			<if test="value != null and value.pilotUnitName != null">pilot_unit_name =
+				#{value.pilotUnitName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.adminId != null">admin_id = #{value.adminId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.adminName != null">admin_name = #{value.adminName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.className != null">class_name = #{value.className,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.description != null">description = #{value.description,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentCount != null">student_count = #{value.studentCount,jdbcType=INTEGER},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.st.dashboard.domain.grade.ClassDO">
+		delete from
+		xd_dashboard_class
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_class
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.pilotUnitId != null">pilot_unit_id,</if>
+			<if test="output != null and output.pilotUnitName != null">pilot_unit_name,</if>
+			<if test="output != null and output.adminId != null">admin_id,</if>
+			<if test="output != null and output.adminName != null">admin_name,</if>
+			<if test="output != null and output.className != null">class_name,</if>
+			<if test="output != null and output.description != null">description,</if>
+			<if test="output != null and output.studentCount != null">student_count,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.pilotUnitId != null">and pilot_unit_id=#{input.pilotUnitId}</if>
+			<if test="input != null and input.pilotUnitName != null">and pilot_unit_name=#{input.pilotUnitName}</if>
+			<if test="input != null and input.adminId != null">and admin_id=#{input.adminId}</if>
+			<if test="input != null and input.adminName != null">and admin_name=#{input.adminName}</if>
+			<if test="input != null and input.className != null">and class_name=#{input.className}</if>
+			<if test="input != null and input.description != null">and description=#{input.description}</if>
+			<if test="input != null and input.studentCount != null">and student_count=#{input.studentCount}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.pilotUnitId != null and ( sort.pilotUnitId == 'ASC' or sort.pilotUnitId == 'DESC' )">pilot_unit_id ${sort.pilotUnitId},</if>
+			<if
+				test="sort != null and sort.pilotUnitName != null and ( sort.pilotUnitName == 'ASC' or sort.pilotUnitName == 'DESC' )">pilot_unit_name ${sort.pilotUnitName},</if>
+			<if
+				test="sort != null and sort.adminId != null and ( sort.adminId == 'ASC' or sort.adminId == 'DESC' )">admin_id ${sort.adminId},</if>
+			<if
+				test="sort != null and sort.adminName != null and ( sort.adminName == 'ASC' or sort.adminName == 'DESC' )">admin_name ${sort.adminName},</if>
+			<if
+				test="sort != null and sort.className != null and ( sort.className == 'ASC' or sort.className == 'DESC' )">class_name ${sort.className},</if>
+			<if
+				test="sort != null and sort.description != null and ( sort.description == 'ASC' or sort.description == 'DESC' )">description ${sort.description},</if>
+			<if
+				test="sort != null and sort.studentCount != null and ( sort.studentCount == 'ASC' or sort.studentCount == 'DESC' )">student_count ${sort.studentCount},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

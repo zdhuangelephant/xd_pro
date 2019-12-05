@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="StudentBaseUserDO">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dashboard.domain.student.StudentBaseUserDO">
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="findTelByTelephoneAndModule" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.student.StudentBaseUserDO">
+		select telephone 
+		from xd_base_user
+		<where>
+			<if test="telephone != null"> and telephone = #{telephone}</if>
+			<if test="module != null">and module = #{module}</if>
+		</where>
+	</select>
+	<!-- 修改学生手机号码 开始 -->
+	<update id="updateTelephone"
+		parameterType="com.xiaodou.st.dashboard.domain.student.StudentBaseUserDO">
+		update xd_base_user set telephone = #{newTelephone}
+		<where>
+			<if test="telephone != null"> and telephone = #{telephone}</if>
+			<if test="module != null">and module = #{module}</if>
+		</where>
+	</update>
+	<!-- 修改学生手机号码 结束 -->
+</mapper>

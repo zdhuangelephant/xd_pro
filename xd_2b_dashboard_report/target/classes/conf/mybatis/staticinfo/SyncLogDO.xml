@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SyncLogDO">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dashboard.domain.staticinfo.SyncLogDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="sync_type" property="syncType" jdbcType="TINYINT" />
+		<result column="sync_time" property="syncTime" jdbcType="TIMESTAMP" />
+		<result column="sync_admin_id" property="syncAdminId" jdbcType="INTEGER" />
+		<result column="sync_admin_name" property="syncAdminName"
+			jdbcType="VARCHAR" />
+		<result column="sync_result" property="syncResult" jdbcType="VARCHAR" />
+		<result column="sync_result_msg" property="syncResultMsg"
+			jdbcType="VARCHAR" />
+		<result column="sync_id" property="syncId" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, sync_type, sync_time, sync_admin_id, sync_admin_name,
+		sync_result, sync_result_msg, sync_id, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.staticinfo.SyncLogDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_sync_log
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_sync_log
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.st.dashboard.domain.staticinfo.SyncLogDO"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_dashboard_sync_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="syncType != null">sync_type,</if>
+			<if test="syncTime != null">sync_time,</if>
+			<if test="syncAdminId != null">sync_admin_id,</if>
+			<if test="syncAdminName != null">sync_admin_name,</if>
+			<if test="syncResult != null">sync_result,</if>
+			<if test="syncResultMsg != null">sync_result_msg,</if>
+			<if test="syncId != null">sync_id,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="syncType != null">#{syncType,jdbcType=TINYINT},</if>
+			<if test="syncTime != null">#{syncTime,jdbcType=TIMESTAMP},</if>
+			<if test="syncAdminId != null">#{syncAdminId,jdbcType=INTEGER},</if>
+			<if test="syncAdminName != null">#{syncAdminName,jdbcType=VARCHAR},</if>
+			<if test="syncResult != null">#{syncResult,jdbcType=VARCHAR},</if>
+			<if test="syncResultMsg != null">#{syncResultMsg,jdbcType=VARCHAR},</if>
+			<if test="syncId != null">#{syncId,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.st.dashboard.domain.staticinfo.SyncLogDO">
+		update xd_dashboard_sync_log
+		<set>
+			<if test="value != null and value.syncResult != null">sync_result = #{value.syncResult,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.syncResultMsg != null">sync_result_msg =
+				#{value.syncResultMsg,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.st.dashboard.domain.staticinfo.SyncLogDO">
+		update xd_dashboard_sync_log
+		<set>
+			<if test="value != null and value.syncResult != null">sync_result = #{value.syncResult,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.syncResultMsg != null">sync_result_msg =
+				#{value.syncResultMsg,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById"
+		parameterType="com.xiaodou.st.dashboard.domain.staticinfo.SyncLogDO">
+		delete from xd_dashboard_sync_log
+		where id =
+		#{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_sync_log
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.syncType != null">sync_type,</if>
+			<if test="output != null and output.syncTime != null">sync_time,</if>
+			<if test="output != null and output.syncAdminId != null">sync_admin_id,</if>
+			<if test="output != null and output.syncAdminName != null">sync_admin_name,</if>
+			<if test="output != null and output.syncResult != null">sync_result,</if>
+			<if test="output != null and output.syncResultMsg != null">sync_result_msg,</if>
+			<if test="output != null and output.syncId != null">sync_id,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.syncType != null">and sync_type=#{input.syncType}</if>
+			<if test="input != null and input.syncTime != null">and sync_time=#{input.syncTime}</if>
+			<if test="input != null and input.syncAdminId != null">and sync_admin_id=#{input.syncAdminId}</if>
+			<if test="input != null and input.syncAdminName != null">and sync_admin_name=#{input.syncAdminName}</if>
+			<if test="input != null and input.syncResult != null">and sync_result=#{input.syncResult}</if>
+			<if test="input != null and input.syncResultMsg != null">and sync_result_msg=#{input.syncResultMsg}</if>
+			<if test="input != null and input.syncId != null">and sync_id=#{input.syncId}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.syncType != null and ( sort.syncType == 'ASC' or sort.syncType == 'DESC' )">sync_type ${sort.syncType},</if>
+			<if
+				test="sort != null and sort.syncTime != null and ( sort.syncTime == 'ASC' or sort.syncTime == 'DESC' )">sync_time ${sort.syncTime},</if>
+			<if
+				test="sort != null and sort.syncAdminId != null and ( sort.syncAdminId == 'ASC' or sort.syncAdminId == 'DESC' )">sync_admin_id ${sort.syncAdminId},</if>
+			<if
+				test="sort != null and sort.syncAdminName != null and ( sort.syncAdminName == 'ASC' or sort.syncAdminName == 'DESC' )">sync_admin_name ${sort.syncAdminName},</if>
+			<if
+				test="sort != null and sort.syncResult != null and ( sort.syncResult == 'ASC' or sort.syncResult == 'DESC' )">sync_result ${sort.syncResult},</if>
+			<if
+				test="sort != null and sort.syncResultMsg != null and ( sort.syncResultMsg == 'ASC' or sort.syncResultMsg == 'DESC' )">sync_result_msg ${sort.syncResultMsg},</if>
+			<if
+				test="sort != null and sort.syncId != null and ( sort.syncId == 'ASC' or sort.syncId == 'DESC' )">sync_id ${sort.syncId},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ResourcesColumnistFollower">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.resources.model.forum.ResourcesColumnistFollower">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="columnist_id" property="columnistId" jdbcType="VARCHAR" />
+		<result column="follow_time" property="followTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, module, user_id, columnist_id, follow_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.resources.model.forum.ResourcesColumnistFollower">
+		select
+		<include refid="base_column" />
+		from xd_resources_follower
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_resources_follower
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<select id="findEntityCountByCond" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		select count(id)
+		from xd_resources_follower
+		<include refid="dynamic_where" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.resources.model.forum.ResourcesColumnistFollower">
+		insert into xd_resources_follower
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="module != null">module,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="columnistId != null">columnist_id,</if>
+			<if test="followTime != null">follow_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+			<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+			<if test="columnistId != null">#{columnistId,jdbcType=VARCHAR},</if>
+			<if test="followTime != null">#{followTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_resources_follower
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.module != null">module,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.columnistId != null">columnist_id,</if>
+			<if test="output != null and output.followTime != null">follow_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.module != null">and module=#{input.module}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.columnistId != null">and columnist_id=#{input.columnistId}</if>
+			<if test="input != null and input.columnistIdLower != null">and columnist_id &gt; #{input.columnistId}</if>
+			<if test="input != null and input.columnistIdUpper != null">and columnist_id &lt; #{input.columnistId}</if>
+			<if test="input != null and input.followTimeLower != null">and follow_time &gt; #{input.followTimeLower}</if>
+			<if test="input != null and input.followTimeUpper != null">and follow_time &lt; #{input.followTimeLower}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.module != null and ( sort.module == 'ASC' or sort.module == 'DESC' )">module ${sort.module},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.columnistId != null and ( sort.columnistId == 'ASC' or sort.columnistId == 'DESC' )">columnist_id ${sort.columnistId},</if>
+			<if
+				test="sort != null and sort.followTime != null and ( sort.followTime == 'ASC' or sort.followTime == 'DESC' )">follow_time ${sort.followTime},</if>
+		</trim>
+	</sql>
+</mapper>

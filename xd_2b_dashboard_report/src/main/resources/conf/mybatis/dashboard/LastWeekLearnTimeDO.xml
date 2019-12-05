@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LastWeekLearnTimeDO">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dashboard.domain.dashboard.LastWeekLearnTimeDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="rank" property="rank" jdbcType="INTEGER" />
+		<result column="student_id" property="studentId" jdbcType="BIGINT" />
+		<result column="learn_time" property="learnTime" jdbcType="BIGINT" />
+		<result column="answer_count" property="answerCount" jdbcType="BIGINT" />
+		<result column="right_percent" property="rightPercent"
+			jdbcType="VARCHAR" />
+		<result column="role_type" property="roleType" jdbcType="VARCHAR" />
+		<result column="unit_id" property="unitId" jdbcType="BIGINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="real_name" property="realName"/>
+		<result column="pilot_unit_name" property="pilotUnitName"/>
+		<result column="class_name" property="className"/>
+		<result column="portrait" property="portrait"/>
+	</resultMap>
+	<sql id="base_column">id, rank, student_id, learn_time, answer_count,
+		right_percent, role_type, unit_id, create_time
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.dashboard.LastWeekLearnTimeDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_last_week_learn_time
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_last_week_learn_time
+		left join xd_dashboard_student
+		on xd_dashboard_last_week_learn_time.student_id = xd_dashboard_student.id
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_dashboard_last_week_learn_time.id,</if>
+			<if test="output != null and output.rank != null">rank,</if>
+			<if test="output != null and output.studentId != null">student_id,</if>
+			<if test="output != null and output.learnTime != null">learn_time,</if>
+			<if test="output != null and output.answerCount != null">answer_count,</if>
+			<if test="output != null and output.rightPercent != null">right_percent,</if>
+			<if test="output != null and output.roleType != null">role_type,</if>
+			<if test="output != null and output.unitId != null">unit_id,</if>
+			<if test="output != null and output.createTime != null">xd_dashboard_last_week_learn_time.create_time,</if>
+			
+			<if test="output != null and output.realName!=null">real_name,</if>
+			<if test="output != null and output.pilotUnitName!=null">pilot_unit_name,</if>
+			<if test="output != null and output.className!=null">class_name,</if>
+			<if test="output != null and output.portrait!=null">portrait,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.rank != null">and rank=#{input.rank}</if>
+			<if test="input != null and input.studentId != null">and student_id=#{input.studentId}</if>
+			<if test="input != null and input.learnTime != null">and learn_time=#{input.learnTime}</if>
+			<if test="input != null and input.answerCount != null">and answer_count=#{input.answerCount}</if>
+			<if test="input != null and input.rightPercent != null">and right_percent=#{input.rightPercent}</if>
+			<if test="input != null and input.roleType != null">and role_type=#{input.roleType}</if>
+			<if test="input != null and input.unitId != null">and unit_id=#{input.unitId}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.rank != null and ( sort.rank == 'ASC' or sort.rank == 'DESC' )">xd_dashboard_last_week_learn_time.rank ${sort.rank},</if>
+			<if
+				test="sort != null and sort.studentId != null and ( sort.studentId == 'ASC' or sort.studentId == 'DESC' )">student_id ${sort.studentId},</if>
+			<if
+				test="sort != null and sort.learnTime != null and ( sort.learnTime == 'ASC' or sort.learnTime == 'DESC' )">xd_dashboard_last_week_learn_time.learn_time ${sort.learnTime},</if>
+			<if
+				test="sort != null and sort.answerCount != null and ( sort.answerCount == 'ASC' or sort.answerCount == 'DESC' )">answer_count ${sort.answerCount},</if>
+			<if
+				test="sort != null and sort.rightPercent != null and ( sort.rightPercent == 'ASC' or sort.rightPercent == 'DESC' )">right_percent ${sort.rightPercent},</if>
+			<if
+				test="sort != null and sort.roleType != null and ( sort.roleType == 'ASC' or sort.roleType == 'DESC' )">role_type ${sort.roleType},</if>
+			<if
+				test="sort != null and sort.unitId != null and ( sort.unitId == 'ASC' or sort.unitId == 'DESC' )">unit_id ${sort.unitId},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">xd_dashboard_last_week_learn_time.create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

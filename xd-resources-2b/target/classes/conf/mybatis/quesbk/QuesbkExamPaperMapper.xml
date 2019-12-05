@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaodou.resources.dao.quesbk.QuesbkExamPaperMapper">
+	<resultMap id="BaseResultMap" type="com.xiaodou.resources.model.quesbk.QuesbkExamPaper">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="product_id" property="courseId" jdbcType="BIGINT" />
+		<result column="product_chapter_id" property="chapterId"
+			jdbcType="BIGINT" />
+		<result column="product_item_id" property="itemId" jdbcType="BIGINT" />
+		<result column="exam_type_id" property="examTypeId" jdbcType="BIGINT" />
+		<result column="exam_name" property="examName" jdbcType="VARCHAR" />
+		<result column="ques_num" property="quesNum" jdbcType="INTEGER" />
+		<result column="ques_ids" property="quesIds" jdbcType="VARCHAR" />
+		<result column="mdesc" property="mdesc" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="diffculty" property="diffculty" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, product_id, product_chapter_id, product_item_id,
+		exam_type_id, exam_name, ques_num,
+		ques_ids, mdesc,
+		status, diffculty
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from xd_quesbk_exam_paper
+		where id = #{0}
+	</select>
+	<select id="selectBySubjectId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from xd_quesbk_exam_paper
+		where product_id = #{0}
+	</select>
+	<select id="selectBySubjectIdAndExamType" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from xd_quesbk_exam_paper
+		where product_id = #{0}
+		and exam_type_id =
+		#{1}
+	</select>
+	
+	<select id="queryTodayExamPaperList" resultType="java.lang.String"
+		parameterType="java.util.Map">
+		select
+		p.ques_ids
+		from xd_user_exam_record r, xd_quesbk_exam_paper p
+		where r.user_id = #{uid}
+		and r.course_id in
+		<foreach collection="courseIdList" open="(" close=")" item="item"
+			separator=",">
+			#{item}
+		</foreach>
+		and r.exam_time &gt; CURDATE()
+		and r.paper_no = p.id
+	</select>
+	<!-- ldh START -->
+	<select id="queryTotalExamPaperList" resultType="java.lang.String"
+		parameterType="java.util.Map">
+		select
+		p.ques_ids
+		from xd_user_exam_record r, xd_quesbk_exam_paper p
+		where r.user_id = #{uid}
+		and r.course_id in
+		<foreach collection="courseIdList" open="(" close=")" item="item"
+			separator=",">
+			#{item}
+		</foreach>
+		and r.paper_no = p.id
+	</select>
+	<!-- ldh END -->
+	
+	<select id="queryTodayChallengeRecordList" resultType="java.lang.String"
+		parameterType="java.util.Map">
+		select
+		p.ques_ids
+		from xd_user_exam_record r, xd_quesbk_exam_paper p
+		where r.user_id = #{uid}
+		and r.course_id in
+		<foreach collection="courseIdList" open="(" close=")" item="item"
+			separator=",">
+			#{item}
+		</foreach>
+		<!-- and r.exam_time &gt; CURDATE() -->
+		and r.exam_time = CURDATE()
+		and r.paper_no = p.id
+	</select>
+	
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		xd_quesbk_exam_paper
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.xiaodou.resources.model.quesbk.QuesbkExamPaper">
+		insert into
+		xd_quesbk_exam_paper (id, product_id, product_chapter_id,
+		product_item_id, exam_type_id,
+		exam_name,
+		ques_num, ques_ids,
+		mdesc,
+		status, diffculty
+		)
+		values
+		(#{id,jdbcType=VARCHAR},
+		#{courseId,jdbcType=BIGINT},
+		#{chapterId,jdbcType=BIGINT},
+		#{itemId,jdbcType=BIGINT},
+		#{examTypeId,jdbcType=BIGINT},
+		#{examName,jdbcType=VARCHAR},
+		#{quesNum,jdbcType=INTEGER},
+		#{quesIds,jdbcType=VARCHAR},
+		#{mdesc,jdbcType=VARCHAR},
+		#{status,jdbcType=VARCHAR},
+		#{diffculty,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.xiaodou.resources.model.quesbk.QuesbkExamPaper">
+		insert into xd_quesbk_exam_paper
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="courseId != null">
+				product_id,
+			</if>
+			<if test="chapterId != null">
+				product_chapter_id,
+			</if>
+			<if test="itemId != null">
+				product_item_id,
+			</if>
+			<if test="examTypeId != null">
+				exam_type_id,
+			</if>
+			<if test="examName != null">
+				exam_name,
+			</if>
+			<if test="quesNum != null">
+				ques_num,
+			</if>
+			<if test="quesIds != null">
+				ques_ids,
+			</if>
+			<if test="mdesc != null">
+				mdesc,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="diffculty != null">
+				diffculty,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null">
+				#{courseId,jdbcType=BIGINT},
+			</if>
+			<if test="chapterId != null">
+				#{chapterId,jdbcType=BIGINT},
+			</if>
+			<if test="itemId != null">
+				#{itemId,jdbcType=BIGINT},
+			</if>
+			<if test="examTypeId != null">
+				#{examTypeId,jdbcType=BIGINT},
+			</if>
+			<if test="examName != null">
+				#{examName,jdbcType=VARCHAR},
+			</if>
+			<if test="quesNum != null">
+				#{quesNum,jdbcType=INTEGER},
+			</if>
+			<if test="quesIds != null">
+				#{quesIds,jdbcType=VARCHAR},
+			</if>
+			<if test="mdesc != null">
+				#{mdesc,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="diffculty != null">
+				#{diffculty,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.xiaodou.resources.model.quesbk.QuesbkExamPaper">
+		update xd_quesbk_exam_paper
+		<set>
+			<if test="courseId != null">
+				product_id = #{courseId,jdbcType=BIGINT},
+			</if>
+			<if test="chapterId != null">
+				product_chapter_id = #{chapterId,jdbcType=BIGINT},
+			</if>
+			<if test="itemId != null">
+				product_item_id = #{itemId,jdbcType=BIGINT},
+			</if>
+			<if test="examTypeId != null">
+				exam_type_id = #{examTypeId,jdbcType=BIGINT},
+			</if>
+			<if test="examName != null">
+				exam_name = #{examName,jdbcType=VARCHAR},
+			</if>
+			<if test="quesNum != null">
+				ques_num = #{quesNum,jdbcType=INTEGER},
+			</if>
+			<if test="quesIds != null">
+				ques_ids = #{quesIds,jdbcType=VARCHAR},
+			</if>
+			<if test="mdesc != null">
+				mdesc = #{mdesc,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="diffculty != null">
+				diffculty = #{diffculty,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.xiaodou.resources.model.quesbk.QuesbkExamPaper">
+		update
+		xd_quesbk_exam_paper
+		set product_id = #{courseId,jdbcType=BIGINT},
+		exam_type_id = #{examTypeId,jdbcType=BIGINT},
+		exam_name =
+		#{examName,jdbcType=VARCHAR},
+		ques_num = #{quesNum,jdbcType=INTEGER},
+		ques_ids = #{quesIds,jdbcType=VARCHAR},
+		mdesc =
+		#{mdesc,jdbcType=VARCHAR},
+		status = #{status,jdbcType=VARCHAR},
+		diffculty = #{diffculty,jdbcType=VARCHAR}
+		where id =
+		#{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

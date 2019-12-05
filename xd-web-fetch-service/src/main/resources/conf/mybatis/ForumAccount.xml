@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ForumAccount">
+	<resultMap id="BaseResultMap" type="com.xiaodou.webfetch.web.domain.ForumAccount">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="platform" property="platform" jdbcType="TINYINT" />
+		<result column="signature" property="signature" jdbcType="VARCHAR" />
+		<result column="state" property="state" jdbcType="TINYINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, platform, signature, state, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.webfetch.web.domain.ForumAccount">
+		select
+		<include refid="base_column" />
+		from xd_resource_fetch_account where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_resource_fetch_account
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.webfetch.web.domain.ForumAccount"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_resource_fetch_account
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="platform != null">platform,</if>
+			<if test="signature != null">signature,</if>
+			<if test="state != null">state,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="platform != null">#{platform,jdbcType=TINYINT},</if>
+			<if test="signature != null">#{signature,jdbcType=VARCHAR},</if>
+			<if test="state != null">#{state,jdbcType=TINYINT},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.webfetch.web.domain.ForumAccount">
+		update xd_resource_fetch_account
+		<set>
+			<if test="value != null and value.platform != null">platform = #{value.platform,jdbcType=TINYINT},</if>
+			<if test="value != null and value.signature != null">signature = #{value.signature,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.state != null">state = #{value.state,jdbcType=TINYINT},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.webfetch.web.domain.ForumAccount">
+		update xd_resource_fetch_account
+		<set>
+			<if test="value != null and value.platform != null">platform = #{value.platform,jdbcType=TINYINT},</if>
+			<if test="value != null and value.signature != null">signature = #{value.signature,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.state != null">state = #{value.state,jdbcType=TINYINT},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.webfetch.web.domain.ForumAccount"> delete from
+		xd_resource_fetch_account where id = #{id,jdbcType=INTEGER}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_resource_fetch_account
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.platform != null">platform,</if>
+			<if test="output != null and output.signature != null">signature,</if>
+			<if test="output != null and output.state != null">state,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.platform != null">and platform=#{input.platform}</if>
+			<if test="input != null and input.signature != null">and signature=#{input.signature}</if>
+			<if test="input != null and input.state != null">and state=#{input.state}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.platform != null and ( sort.platform == 'ASC' or sort.platform == 'DESC' )">platform ${sort.platform},</if>
+			<if
+				test="sort != null and sort.signature != null and ( sort.signature == 'ASC' or sort.signature == 'DESC' )">signature ${sort.signature},</if>
+			<if
+				test="sort != null and sort.state != null and ( sort.state == 'ASC' or sort.state == 'DESC' )">state ${sort.state},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

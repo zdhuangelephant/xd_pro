@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="xd_2b_dashboard_clean">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="xiaodou-util-2.0.10-snapshot.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-util/xd-util">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xiaodou-summer-4.0.14-snapshot.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-summer-v4.x.x/xd-summer-v4.x.x">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xiaodou-jredis-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xiaodou-jredis/xiaodou-jredis">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-queue-4.2.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-queue/xd-queue">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="aop-agent-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aop-agent/aop-agent">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-queue-aliyun-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-queue-aliyun/xd-queue-aliyun">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xiaodou-MQCR-2.1.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-mqcr/xd-mqcr">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-dataclean-core-0.1.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-dataclean-core/xd-dataclean-core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xiaodou-jmsg-client-1.1.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xiaodou-jmsg-client/xiaodou-jmsg-client">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xiaodou-jmsg-1.1.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xiaodou-jmsg/xiaodou-jmsg">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="xd_2b_dashboard_clean"/>
+        <property name="java-output-path" value="/xd_2b_dashboard_clean/target/classes"/>
+    </wb-module>
+</project-modules>

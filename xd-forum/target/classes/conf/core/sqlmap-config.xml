@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<typeAliases>
+		<typeAlias alias="ForumCategoryModel"  type="com.xiaodou.forum.model.forum.ForumCategoryModel"/> 
+		<typeAlias alias="ForumPraiseModel"  type="com.xiaodou.forum.model.forum.ForumPraiseModel"/>
+		<typeAlias alias="ForumRelateInfoModel"  type="com.xiaodou.forum.model.forum.ForumRelateInfoModel"/>  
+ 		<typeAlias alias="ForumCommentModel"  type="com.xiaodou.forum.model.forum.ForumCommentModel"/> 
+ 		<typeAlias alias="PushTaskModel"  type="com.xiaodou.forum.model.push.PushTaskModel"/>
+ 		<typeAlias alias="AppBindingModel"  type="com.xiaodou.model.AppBindingModel"/>
+ 	</typeAliases>
+
+	<mappers>
+		<mapper resource="conf/mybatis/forum/forumCategoryModel.xml" />
+		<mapper resource="conf/mybatis/forum/forumPraiseModel.xml" />
+		<mapper resource="conf/mybatis/forum/forumRelateInfoModel.xml" />
+		<mapper resource="conf/mybatis/forum/forumCommentModel.xml" />
+		 <mapper resource="conf/mybatis/forum/forumModel.xml" />
+		<mapper resource="conf/mybatis/forum/cascadeQueryForum.xml" /> 
+		<mapper resource="conf/mybatis/push/pushTaskModel.xml" />
+		<mapper resource="conf/mybatis/appBindingModel.xml" />
+	</mappers>
+</configuration>

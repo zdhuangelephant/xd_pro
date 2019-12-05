@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ProductModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.resources.model.product.ProductModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="brief_info" property="briefInfo" jdbcType="VARCHAR" />
+		<result column="detail" property="detail" jdbcType="VARCHAR" />
+		<result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+		<result column="curr_apply_count" property="currApplyCount"
+			jdbcType="INTEGER" />
+		<result column="total_apply_count" property="totalApplyCount"
+			jdbcType="INTEGER" />
+		<result column="begin_apply_time" property="beginApplyTime"
+			jdbcType="TIMESTAMP" />
+		<result column="end_apply_time" property="endApplyTime"
+			jdbcType="TIMESTAMP" />
+		<result column="original_amount" property="originalAmount"
+			jdbcType="VARCHAR" />
+		<result column="pay_amount" property="payAmount" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="misc" property="misc" jdbcType="VARCHAR" />
+		<result column="show_status" property="showStatus" jdbcType="INTEGER" />
+		<result column="praise_count" property="praiseCount" jdbcType="INTEGER" />
+		<result column="question_bank_setting" property="questionBankSetting"
+			jdbcType="VARCHAR" />
+		<result column="resource_subject" property="resourceSubject"
+			jdbcType="INTEGER" />
+		<result column="share_url" property="shareUrl" jdbcType="VARCHAR" />
+		<result column="bg_img_url" property="bgImgUrl" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="talk_weight" property="talkWeight" jdbcType="INTEGER" />
+		<result column="task_weight" property="taskWeight" jdbcType="INTEGER" />
+		<result column="exam_weight" property="examWeight" jdbcType="INTEGER" />
+		<result column="final_weight" property="finalWeight" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="base_column">id, name, brief_info, detail, image_url, curr_apply_count,
+		total_apply_count, begin_apply_time, end_apply_time, original_amount,
+		pay_amount, create_time, update_time, misc, show_status, praise_count,
+		question_bank_setting, resource_subject, share_url, bg_img_url,
+		user_id, talk_weight, task_weight, exam_weight, final_weight</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.resources.model.product.ProductModel">
+		select
+		<include refid="base_column" />
+		from xd_course_product
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_product
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.name != null">name,</if>
+			<if test="output != null and output.briefInfo != null">brief_info,</if>
+			<if test="output != null and output.detail != null">detail,</if>
+			<if test="output != null and output.imageUrl != null">image_url,</if>
+			<if test="output != null and output.currApplyCount != null">curr_apply_count,</if>
+			<if test="output != null and output.totalApplyCount != null">total_apply_count,</if>
+			<if test="output != null and output.beginApplyTime != null">begin_apply_time,</if>
+			<if test="output != null and output.endApplyTime != null">end_apply_time,</if>
+			<if test="output != null and output.originalAmount != null">original_amount,</if>
+			<if test="output != null and output.payAmount != null">pay_amount,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.updateTime != null">update_time,</if>
+			<if test="output != null and output.misc != null">misc,</if>
+			<if test="output != null and output.showStatus != null">show_status,</if>
+			<if test="output != null and output.praiseCount != null">praise_count,</if>
+			<if test="output != null and output.questionBankSetting != null">question_bank_setting,</if>
+			<if test="output != null and output.resourceSubject != null">resource_subject,</if>
+			<if test="output != null and output.shareUrl != null">share_url,</if>
+			<if test="output != null and output.bgImgUrl != null">bg_img_url,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.talkWeight != null">talk_weight,</if>
+			<if test="output != null and output.taskWeight != null">task_weight,</if>
+			<if test="output != null and output.examWeight != null">exam_weight,</if>
+			<if test="output != null and output.finalWeight != null">final_weight,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.name != null">and name=#{input.name}</if>
+			<if test="input != null and input.briefInfo != null">and brief_info=#{input.briefInfo}</if>
+			<if test="input != null and input.detail != null">and detail=#{input.detail}</if>
+			<if test="input != null and input.imageUrl != null">and image_url=#{input.imageUrl}</if>
+			<if test="input != null and input.currApplyCount != null">and curr_apply_count=#{input.currApplyCount}</if>
+			<if test="input != null and input.totalApplyCount != null">and total_apply_count=#{input.totalApplyCount}</if>
+			<if test="input != null and input.beginApplyTimeLower != null">and begin_apply_time &gt; #{input.beginApplyTimeLower}
+			</if>
+			<if test="input != null and input.beginApplyTimeUpper != null">and begin_apply_time &lt; #{input.beginApplyTimeLower}
+			</if>
+			<if test="input != null and input.endApplyTimeLower != null">and end_apply_time &gt; #{input.endApplyTimeLower}</if>
+			<if test="input != null and input.endApplyTimeUpper != null">and end_apply_time &lt; #{input.endApplyTimeLower}</if>
+			<if test="input != null and input.originalAmount != null">and original_amount=#{input.originalAmount}</if>
+			<if test="input != null and input.payAmount != null">and pay_amount=#{input.payAmount}</if>
+			<if test="input != null and input.createTimeLower != null">and create_time &gt; #{input.createTimeLower}</if>
+			<if test="input != null and input.createTimeUpper != null">and create_time &lt; #{input.createTimeLower}</if>
+			<if test="input != null and input.updateTimeLower != null">and update_time &gt; #{input.updateTimeLower}</if>
+			<if test="input != null and input.updateTimeUpper != null">and update_time &lt; #{input.updateTimeLower}</if>
+			<if test="input != null and input.misc != null">and misc=#{input.misc}</if>
+			<if test="input != null and input.showStatus != null">and show_status=#{input.showStatus}</if>
+			<if test="input != null and input.praiseCount != null">and praise_count=#{input.praiseCount}</if>
+			<if test="input != null and input.questionBankSetting != null">and question_bank_setting=#{input.questionBankSetting}
+			</if>
+			<if test="input != null and input.resourceSubject != null">and resource_subject=#{input.resourceSubject}</if>
+			<if test="input != null and input.shareUrl != null">and share_url=#{input.shareUrl}</if>
+			<if test="input != null and input.bgImgUrl != null">and bg_img_url=#{input.bgImgUrl}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.talkWeight != null">and talk_weight=#{input.talkWeight}</if>
+			<if test="input != null and input.taskWeight != null">and task_weight=#{input.taskWeight}</if>
+			<if test="input != null and input.examWeight != null">and exam_weight=#{input.examWeight}</if>
+			<if test="input != null and input.finalWeight != null">and final_weight=#{input.finalWeight}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limitStart != null and limitCount != null">
+			limit ${limitStart}, ${limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.name != null and ( sort.name == 'ASC' or sort.name == 'DESC' )">name ${sort.name},</if>
+			<if
+				test="sort != null and sort.briefInfo != null and ( sort.briefInfo == 'ASC' or sort.briefInfo == 'DESC' )">brief_info ${sort.briefInfo},</if>
+			<if
+				test="sort != null and sort.detail != null and ( sort.detail == 'ASC' or sort.detail == 'DESC' )">detail ${sort.detail},</if>
+			<if
+				test="sort != null and sort.imageUrl != null and ( sort.imageUrl == 'ASC' or sort.imageUrl == 'DESC' )">image_url ${sort.imageUrl},</if>
+			<if
+				test="sort != null and sort.currApplyCount != null and ( sort.currApplyCount == 'ASC' or sort.currApplyCount == 'DESC' )">curr_apply_count ${sort.currApplyCount},</if>
+			<if
+				test="sort != null and sort.totalApplyCount != null and ( sort.totalApplyCount == 'ASC' or sort.totalApplyCount == 'DESC' )">total_apply_count ${sort.totalApplyCount},</if>
+			<if
+				test="sort != null and sort.beginApplyTime != null and ( sort.beginApplyTime == 'ASC' or sort.beginApplyTime == 'DESC' )">begin_apply_time ${sort.beginApplyTime},</if>
+			<if
+				test="sort != null and sort.endApplyTime != null and ( sort.endApplyTime == 'ASC' or sort.endApplyTime == 'DESC' )">end_apply_time ${sort.endApplyTime},</if>
+			<if
+				test="sort != null and sort.originalAmount != null and ( sort.originalAmount == 'ASC' or sort.originalAmount == 'DESC' )">original_amount ${sort.originalAmount},</if>
+			<if
+				test="sort != null and sort.payAmount != null and ( sort.payAmount == 'ASC' or sort.payAmount == 'DESC' )">pay_amount ${sort.payAmount},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">update_time ${sort.updateTime},</if>
+			<if
+				test="sort != null and sort.misc != null and ( sort.misc == 'ASC' or sort.misc == 'DESC' )">misc ${sort.misc},</if>
+			<if
+				test="sort != null and sort.showStatus != null and ( sort.showStatus == 'ASC' or sort.showStatus == 'DESC' )">show_status ${sort.showStatus},</if>
+			<if
+				test="sort != null and sort.praiseCount != null and ( sort.praiseCount == 'ASC' or sort.praiseCount == 'DESC' )">praise_count ${sort.praiseCount},</if>
+			<if
+				test="sort != null and sort.questionBankSetting != null and ( sort.questionBankSetting == 'ASC' or sort.questionBankSetting == 'DESC' )">question_bank_setting ${sort.questionBankSetting},</if>
+			<if
+				test="sort != null and sort.resourceSubject != null and ( sort.resourceSubject == 'ASC' or sort.resourceSubject == 'DESC' )">resource_subject ${sort.resourceSubject},</if>
+			<if
+				test="sort != null and sort.shareUrl != null and ( sort.shareUrl == 'ASC' or sort.shareUrl == 'DESC' )">share_url ${sort.shareUrl},</if>
+			<if
+				test="sort != null and sort.bgImgUrl != null and ( sort.bgImgUrl == 'ASC' or sort.bgImgUrl == 'DESC' )">bg_img_url ${sort.bgImgUrl},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.talkWeight != null and ( sort.talkWeight == 'ASC' or sort.talkWeight == 'DESC' )">talk_weight ${sort.talkWeight},</if>
+			<if
+				test="sort != null and sort.taskWeight != null and ( sort.taskWeight == 'ASC' or sort.taskWeight == 'DESC' )">task_weight ${sort.taskWeight},</if>
+			<if
+				test="sort != null and sort.examWeight != null and ( sort.examWeight == 'ASC' or sort.examWeight == 'DESC' )">exam_weight ${sort.examWeight},</if>
+			<if
+				test="sort != null and sort.finalWeight != null and ( sort.finalWeight == 'ASC' or sort.finalWeight == 'DESC' )">final_weight ${sort.finalWeight},</if>
+		</trim>
+	</sql>
+</mapper>

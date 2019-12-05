@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserExamRecord">
+	<resultMap id="BaseResultMap" type="com.xiaodou.domain.behavior.UserExamRecord">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="exam_type_id" property="examTypeId" jdbcType="BIGINT" />
+		<result column="course_id" property="courseId" jdbcType="BIGINT" />
+		<result column="exam_name" property="examName" jdbcType="VARCHAR" />
+		<result column="paper_no" property="paperNo" jdbcType="VARCHAR" />
+		<result column="questions" property="questions" jdbcType="VARCHAR" />
+		<result column="exam_time" property="examTime" jdbcType="TIMESTAMP" />
+		<result column="exam_detail" property="examDetail" jdbcType="VARCHAR" />
+		<result column="exam_cost" property="examCost" jdbcType="BIGINT" />
+		<result column="my_score" property="myScore" jdbcType="DECIMAL" />
+
+		<result column="ques_type" property="quesDetail.quesType"
+			jdbcType="VARCHAR" />
+		<result column="key_point" property="quesDetail.keyPoint"
+			jdbcType="VARCHAR" />
+		<result column="diff_level" property="quesDetail.diffLevel"
+			jdbcType="VARCHAR" />
+		<result column="answer_id" property="quesDetail.answerId"
+			jdbcType="VARCHAR" />
+		<result column="mdesc" property="quesDetail.mdesc" jdbcType="VARCHAR" />
+		<result column="manalyze" property="quesDetail.manalyze"
+			jdbcType="VARCHAR" />
+		<result column="status" property="quesDetail.status" jdbcType="VARCHAR" />
+		<result column="misc" property="quesDetail.misc" jdbcType="VARCHAR" />
+		<result column="answer_list" property="quesDetail.answerList"
+			jdbcType="VARCHAR" />
+		<result column="ques_time" property="quesDetail.quesTime"
+			jdbcType="TIMESTAMP" />
+
+		<result column="exam_date" property="examDate.examDate"
+			jdbcType="VARCHAR" />
+		<result column="date_exam_cost" property="examDate.dateExamCost"
+			jdbcType="BIGINT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, exam_type_id, course_id, exam_name,
+		paper_no,
+		questions,
+		exam_time, exam_detail, exam_cost, my_score
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_exam_record
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="selectByUidAndExamId" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_exam_record
+		where id = #{input.id}
+		and user_id =
+		#{input.uid}
+	</select>
+	<select id="selectByUidAndSubjectId" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_exam_record
+		where user_id = #{input.userId}
+		and course_id =
+		#{input.subject}
+		order
+		by exam_time desc
+	</select>
+	<select id="selectByUidSubjectIdAndExamTypeId" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_exam_record
+		where user_id = #{input.userId}
+		and course_id =
+		#{input.subject}
+		and
+		exam_type_id = #{input.examTypeId}
+		order
+		by exam_time
+		desc
+	</select>
+	<select id="selectByNotUidSubjectIdAndExamTypeId" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_exam_record
+		<where>
+			<if test="input.uid != null">
+				and user_id != #{input.uid}
+			</if>
+			<if test="input.courseId != null">
+				and course_id = #{input.courseId}
+			</if>
+			<if test="input.examTypeIdList != null">
+				and exam_type_id in
+				<foreach collection="input.examTypeIdList" open="(" close=")"
+					item="item" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input.paperIdList != null">
+				and paper_no not in
+				<foreach collection="input.paperIdList" open="(" close=")"
+					item="item" separator=",">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+		order
+		by exam_time desc
+	</select>
+	<select id="selectByUidAndPaperId" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_exam_record
+		where user_id = #{input.uid}
+		and paper_no =
+		#{input.paperId}
+		order
+		by exam_time desc
+	</select>
+	<select id="selectByPaperId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_exam_record
+		where paper_no = #{0}
+		order by my_score desc
+	</select>
+
+	<select id="selectExamCostByExamCost" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT DATE(exam_time) exam_date,SUM(exam_cost)
+		date_exam_cost
+		FROM xd_user_exam_record
+		WHERE user_id = #{input.userId}
+		AND
+		course_id = #{input.courseId}
+		GROUP BY DATE(exam_time)
+		ORDER BY
+		DATE(exam_time) ASC
+		LIMIT 10
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		xd_user_exam_record
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.xiaodou.domain.behavior.UserExamRecord">
+		insert into
+		xd_user_exam_record (id, user_id, exam_type_id,
+		course_id,
+		exam_name,
+		paper_no, questions, exam_time,
+		exam_detail, exam_cost,
+		my_score)
+		values
+		(#{id,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR},
+		#{examTypeId,jdbcType=BIGINT},
+		#{courseId,jdbcType=BIGINT},
+		#{examName,jdbcType=VARCHAR},
+		#{paperNo,jdbcType=VARCHAR},
+		#{questions,jdbcType=VARCHAR},
+		#{examTime,jdbcType=TIMESTAMP},
+		#{examDetail,jdbcType=VARCHAR},
+		#{examCost,jdbcType=BIGINT},
+		#{myScore,jdbcType=DECIMAL})
+	</insert>
+	<insert id="insertSelective" parameterType="com.xiaodou.domain.behavior.UserExamRecord">
+		insert into xd_user_exam_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="examTypeId != null">
+				exam_type_id,
+			</if>
+			<if test="courseId != null">
+				course_id,
+			</if>
+			<if test="examName != null">
+				exam_name,
+			</if>
+			<if test="paperNo != null">
+				paper_no,
+			</if>
+			<if test="questions != null">
+				questions,
+			</if>
+			<if test="examTime != null">
+				exam_time,
+			</if>
+			<if test="examDetail != null">
+				exam_detail,
+			</if>
+			<if test="examCost != null">
+				exam_cost,
+			</if>
+			<if test="myScore != null">
+				my_score,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="examTypeId != null">
+				#{examTypeId,jdbcType=BIGINT},
+			</if>
+			<if test="courseId != null">
+				#{courseId,jdbcType=BIGINT},
+			</if>
+			<if test="examName != null">
+				#{examName,jdbcType=VARCHAR},
+			</if>
+			<if test="paperNo != null">
+				#{paperNo,jdbcType=VARCHAR},
+			</if>
+			<if test="questions != null">
+				#{questions,jdbcType=VARCHAR},
+			</if>
+			<if test="examTime != null">
+				#{examTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="examDetail != null">
+				#{examDetail,jdbcType=VARCHAR},
+			</if>
+			<if test="examCost != null">
+				#{examCost,jdbcType=BIGINT},
+			</if>
+			<if test="myScore != null">
+				#{myScore,jdbcType=DECIMAL}
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.xiaodou.domain.behavior.UserExamRecord">
+		update xd_user_exam_record
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="examTypeId != null">
+				exam_type_id = #{examTypeId,jdbcType=BIGINT},
+			</if>
+			<if test="courseId != null">
+				course_id = #{courseId,jdbcType=BIGINT},
+			</if>
+			<if test="examName != null">
+				exam_name = #{examName,jdbcType=VARCHAR},
+			</if>
+			<if test="paperNo != null">
+				paper_no = #{paperNo,jdbcType=VARCHAR},
+			</if>
+			<if test="questions != null">
+				questions = #{questions,jdbcType=VARCHAR},
+			</if>
+			<if test="examTime != null">
+				exam_time = #{examTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="examDetail != null">
+				exam_detail = #{examDetail,jdbcType=VARCHAR},
+			</if>
+			<if test="examCost != null">
+				exam_cost = #{examCost,jdbcType=BIGINT},
+			</if>
+			<if test="myScore != null">
+				my_score = #{myScore,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.xiaodou.domain.behavior.UserExamRecord">
+		update
+		xd_user_exam_record
+		set user_id = #{userId,jdbcType=VARCHAR},
+		exam_type_id =
+		#{examTypeId,jdbcType=BIGINT},
+		course_id =
+		#{courseId,jdbcType=BIGINT},
+		exam_name = #{examName,jdbcType=VARCHAR},
+		paper_no =
+		#{paperNo,jdbcType=VARCHAR},
+		questions =
+		#{questions,jdbcType=VARCHAR},
+		exam_time =
+		#{examTime,jdbcType=TIMESTAMP},
+		exam_detail =
+		#{examDetail,jdbcType=VARCHAR},
+		my_score = #{myScore,
+		jdbcType=DECIMAL},
+		exam_cost = exam_cost
+		+
+		#{examCost,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

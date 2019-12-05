@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CommentModel">
+	<resultMap id="BaseResultMap" type="com.xiaodou.course.model.comment.CommentModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="course_id" property="courseId" jdbcType="BIGINT" />
+		<result column="chapter_id" property="chapterId" jdbcType="BIGINT" />
+		<result column="item_id" property="itemId" jdbcType="BIGINT" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="reply_id" property="replyId" jdbcType="BIGINT" />
+		<result column="target_id" property="targetId" jdbcType="BIGINT" />
+		<result column="target_comment_id" property="targetCommentId"
+			jdbcType="BIGINT" />
+		<result column="images" property="images" jdbcType="VARCHAR" />
+		<result column="target_content" property="targetContent"
+			jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="operator" property="operator" jdbcType="VARCHAR" />
+		<result column="operatorip" property="operatorip" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, course_id, chapter_id, item_id, content, type,
+		reply_id, target_id, target_comment_id, images, target_content,
+		create_time, operator, operatorip</sql>
+	<select id="queryCommentNumber" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(id)
+		FROM xd_course_product_item_comment
+		<include refid="dynamic_where" />
+	</select>
+	
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.course.model.comment.CommentModel">
+		select
+		<include refid="base_column" />
+		from xd_course_product_item_comment where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_product_item_comment
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.course.model.comment.CommentModel">
+		insert into xd_course_product_item_comment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="courseId != null">course_id,</if>
+			<if test="chapterId != null">chapter_id,</if>
+			<if test="itemId != null">item_id,</if>
+			<if test="content != null">content,</if>
+			<if test="type != null">type,</if>
+			<if test="replyId != null">reply_id,</if>
+			<if test="targetId != null">target_id,</if>
+			<if test="targetCommentId != null">target_comment_id,</if>
+			<if test="images != null">images,</if>
+			<if test="targetContent != null">target_content,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="operator != null">operator,</if>
+			<if test="operatorip != null">operatorip,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="courseId != null">#{courseId,jdbcType=BIGINT},</if>
+			<if test="chapterId != null">#{chapterId,jdbcType=BIGINT},</if>
+			<if test="itemId != null">#{itemId,jdbcType=BIGINT},</if>
+			<if test="content != null">#{content,jdbcType=VARCHAR},</if>
+			<if test="type != null">#{type,jdbcType=INTEGER},</if>
+			<if test="replyId != null">#{replyId,jdbcType=BIGINT},</if>
+			<if test="targetId != null">#{targetId,jdbcType=BIGINT},</if>
+			<if test="targetCommentId != null">#{targetCommentId,jdbcType=BIGINT},</if>
+			<if test="images != null">#{images,jdbcType=VARCHAR},</if>
+			<if test="targetContent != null">#{targetContent,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="operator != null">#{operator,jdbcType=VARCHAR},</if>
+			<if test="operatorip != null">#{operatorip,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.course.model.comment.CommentModel">
+		update xd_course_product_item_comment
+		<set>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.itemId != null">item_id = #{value.itemId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.content != null">content = #{value.content,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.type != null">type = #{value.type,jdbcType=INTEGER},</if>
+			<if test="value != null and value.replyId != null">reply_id = #{value.replyId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.targetId != null">target_id = #{value.targetId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.targetCommentId != null">target_comment_id =
+				#{value.targetCommentId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.images != null">images = #{value.images,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.targetContent != null">target_content = #{value.targetContent,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.operator != null">operator = #{value.operator,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.operatorip != null">operatorip = #{value.operatorip,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.course.model.comment.CommentModel">
+		update xd_course_product_item_comment
+		<set>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.itemId != null">item_id = #{value.itemId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.content != null">content = #{value.content,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.type != null">type = #{value.type,jdbcType=INTEGER},</if>
+			<if test="value != null and value.replyId != null">reply_id = #{value.replyId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.targetId != null">target_id = #{value.targetId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.targetCommentId != null">target_comment_id =
+				#{value.targetCommentId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.images != null">images = #{value.images,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.targetContent != null">target_content = #{value.targetContent,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.operator != null">operator = #{value.operator,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.operatorip != null">operatorip = #{value.operatorip,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.course.model.comment.CommentModel"> delete from
+		xd_course_product_item_comment where id = #{id,jdbcType=BIGINT}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_course_product_item_comment
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.courseId != null">course_id,</if>
+			<if test="output != null and output.chapterId != null">chapter_id,</if>
+			<if test="output != null and output.itemId != null">item_id,</if>
+			<if test="output != null and output.content != null">content,</if>
+			<if test="output != null and output.type != null">type,</if>
+			<if test="output != null and output.replyId != null">reply_id,</if>
+			<if test="output != null and output.targetId != null">target_id,</if>
+			<if test="output != null and output.targetCommentId != null">target_comment_id,</if>
+			<if test="output != null and output.images != null">images,</if>
+			<if test="output != null and output.targetContent != null">target_content,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.operator != null">operator,</if>
+			<if test="output != null and output.operatorip != null">operatorip,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.idLower != null">and id &gt; #{input.idLower}</if>
+			<if test="input != null and input.idUpper != null">and id &lt; #{input.idUpper}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.courseId != null">and course_id=#{input.courseId}</if>
+			<if test="input != null and input.chapterId != null">and chapter_id=#{input.chapterId}</if>
+			<if test="input != null and input.itemId != null">and item_id=#{input.itemId}</if>
+			<if test="input != null and input.content != null">and content=#{input.content}</if>
+			<if test="input != null and input.type != null">and type=#{input.type}</if>
+			<if test="input != null and input.replyId != null">and reply_id=#{input.replyId}</if>
+			<if test="input != null and input.targetId != null">and target_id=#{input.targetId}</if>
+			<if test="input != null and input.targetCommentId != null">and target_comment_id=#{input.targetCommentId}</if>
+			<if test="input != null and input.images != null">and images=#{input.images}</if>
+			<if test="input != null and input.targetContent != null">and target_content=#{input.targetContent}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+			<if test="input != null and input.operator != null">and operator=#{input.operator}</if>
+			<if test="input != null and input.operatorip != null">and operatorip=#{input.operatorip}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.courseId != null and ( sort.courseId == 'ASC' or sort.courseId == 'DESC' )">course_id ${sort.courseId},</if>
+			<if
+				test="sort != null and sort.chapterId != null and ( sort.chapterId == 'ASC' or sort.chapterId == 'DESC' )">chapter_id ${sort.chapterId},</if>
+			<if
+				test="sort != null and sort.itemId != null and ( sort.itemId == 'ASC' or sort.itemId == 'DESC' )">item_id ${sort.itemId},</if>
+			<if
+				test="sort != null and sort.content != null and ( sort.content == 'ASC' or sort.content == 'DESC' )">content ${sort.content},</if>
+			<if
+				test="sort != null and sort.type != null and ( sort.type == 'ASC' or sort.type == 'DESC' )">type ${sort.type},</if>
+			<if
+				test="sort != null and sort.replyId != null and ( sort.replyId == 'ASC' or sort.replyId == 'DESC' )">reply_id ${sort.replyId},</if>
+			<if
+				test="sort != null and sort.targetId != null and ( sort.targetId == 'ASC' or sort.targetId == 'DESC' )">target_id ${sort.targetId},</if>
+			<if
+				test="sort != null and sort.targetCommentId != null and ( sort.targetCommentId == 'ASC' or sort.targetCommentId == 'DESC' )">target_comment_id ${sort.targetCommentId},</if>
+			<if
+				test="sort != null and sort.images != null and ( sort.images == 'ASC' or sort.images == 'DESC' )">images ${sort.images},</if>
+			<if
+				test="sort != null and sort.targetContent != null and ( sort.targetContent == 'ASC' or sort.targetContent == 'DESC' )">target_content ${sort.targetContent},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.operator != null and ( sort.operator == 'ASC' or sort.operator == 'DESC' )">operator ${sort.operator},</if>
+			<if
+				test="sort != null and sort.operatorip != null and ( sort.operatorip == 'ASC' or sort.operatorip == 'DESC' )">operatorip ${sort.operatorip},</if>
+		</trim>
+	</sql>
+</mapper>

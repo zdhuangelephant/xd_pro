@@ -1,0 +1,12 @@
+{
+	"module": "test",
+	"events": [{
+		"name": "test",
+		"rate": "10",
+		"threshold": "200",
+		"starttime": "7",
+		"endtime": "23",
+		"message": "13718037895","15311479569"
+		"mail": "zhaodan@corp.51xiaodou.com"
+	}]
+}

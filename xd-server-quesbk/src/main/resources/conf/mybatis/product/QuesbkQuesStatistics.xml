@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="QuesbkQuesStatistics">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.domain.product.QuesbkQuesStatistics">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="course_id" property="courseId" jdbcType="BIGINT" />
+		<result column="question_id" property="questionId" jdbcType="BIGINT" />
+		<result column="exam_times" property="examTimes" jdbcType="INTEGER" />
+		<result column="wrong_times" property="wrongTimes" jdbcType="INTEGER" />
+		<result column="right_percent" property="rightPercent"
+			jdbcType="VARCHAR" />
+		<result column="answer_detail" property="answerDetail"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, course_id, question_id, exam_times, wrong_times,
+		right_percent, answer_detail</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.domain.product.QuesbkQuesStatistics">
+		select
+		<include refid="base_column" />
+		from xd_quesbk_ques_statistics where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_quesbk_ques_statistics
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.domain.product.QuesbkQuesStatistics"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_quesbk_ques_statistics
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="courseId != null">course_id,</if>
+			<if test="questionId != null">question_id,</if>
+			<if test="examTimes != null">exam_times,</if>
+			<if test="wrongTimes != null">wrong_times,</if>
+			<if test="rightPercent != null">right_percent,</if>
+			<if test="answerDetail != null">answer_detail,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="courseId != null">#{courseId,jdbcType=BIGINT},</if>
+			<if test="questionId != null">#{questionId,jdbcType=BIGINT},</if>
+			<if test="examTimes != null">#{examTimes,jdbcType=INTEGER},</if>
+			<if test="wrongTimes != null">#{wrongTimes,jdbcType=INTEGER},</if>
+			<if test="rightPercent != null">#{rightPercent,jdbcType=VARCHAR},</if>
+			<if test="answerDetail != null">#{answerDetail,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.domain.product.QuesbkQuesStatistics">
+		update xd_quesbk_ques_statistics
+		<set>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.questionId != null">question_id = #{value.questionId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.examTimes != null">exam_times = #{value.examTimes,jdbcType=INTEGER},</if>
+			<if test="value != null and value.wrongTimes != null">wrong_times = #{value.wrongTimes,jdbcType=INTEGER},</if>
+			<if test="value != null and value.rightPercent != null">right_percent = #{value.rightPercent,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.answerDetail != null">answer_detail = #{value.answerDetail,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.domain.product.QuesbkQuesStatistics">
+		update xd_quesbk_ques_statistics
+		<set>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.questionId != null">question_id = #{value.questionId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.examTimes != null">exam_times = #{value.examTimes,jdbcType=INTEGER},</if>
+			<if test="value != null and value.wrongTimes != null">wrong_times = #{value.wrongTimes,jdbcType=INTEGER},</if>
+			<if test="value != null and value.rightPercent != null">right_percent = #{value.rightPercent,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.answerDetail != null">answer_detail = #{value.answerDetail,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.domain.product.QuesbkQuesStatistics"> delete from
+		xd_quesbk_ques_statistics where id = #{id,jdbcType=BIGINT}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_quesbk_ques_statistics
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.courseId != null">course_id,</if>
+			<if test="output != null and output.questionId != null">question_id,</if>
+			<if test="output != null and output.examTimes != null">exam_times,</if>
+			<if test="output != null and output.wrongTimes != null">wrong_times,</if>
+			<if test="output != null and output.rightPercent != null">right_percent,</if>
+			<if test="output != null and output.answerDetail != null">answer_detail,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.idLower != null">and id &gt; #{input.idLower}</if>
+			<if test="input != null and input.idUpper != null">and id &lt; #{input.idUpper}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.courseId != null">and course_id=#{input.courseId}</if>
+			<if test="input != null and input.questionId != null">and question_id=#{input.questionId}</if>
+			<if test="input != null and input.examTimes != null">and exam_times=#{input.examTimes}</if>
+			<if test="input != null and input.wrongTimes != null">and wrong_times=#{input.wrongTimes}</if>
+			<if test="input != null and input.rightPercent != null">and right_percent=#{input.rightPercent}</if>
+			<if test="input != null and input.answerDetail != null">and answer_detail=#{input.answerDetail}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.courseId != null and ( sort.courseId == 'ASC' or sort.courseId == 'DESC' )">course_id ${sort.courseId},</if>
+			<if
+				test="sort != null and sort.questionId != null and ( sort.questionId == 'ASC' or sort.questionId == 'DESC' )">question_id ${sort.questionId},</if>
+			<if
+				test="sort != null and sort.examTimes != null and ( sort.examTimes == 'ASC' or sort.examTimes == 'DESC' )">exam_times ${sort.examTimes},</if>
+			<if
+				test="sort != null and sort.wrongTimes != null and ( sort.wrongTimes == 'ASC' or sort.wrongTimes == 'DESC' )">wrong_times ${sort.wrongTimes},</if>
+			<if
+				test="sort != null and sort.rightPercent != null and ( sort.rightPercent == 'ASC' or sort.rightPercent == 'DESC' )">right_percent ${sort.rightPercent},</if>
+			<if
+				test="sort != null and sort.answerDetail != null and ( sort.answerDetail == 'ASC' or sort.answerDetail == 'DESC' )">answer_detail ${sort.answerDetail},</if>
+		</trim>
+	</sql>
+	
+	
+	
+</mapper>

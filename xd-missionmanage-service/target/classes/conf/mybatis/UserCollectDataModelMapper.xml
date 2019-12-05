@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserCollectDataModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.mission.domain.UserCollectDataModel">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="module" property="module" />
+		<result column="pk_total_times_caculate" property="pkTotalTimesForCaculate" />
+		<result column="pk_total_times_statics" property="pkTotalTimesForStatistic" />
+		<result column="pk_win_times" property="pkWinTimes" />
+		<result column="pk_fail_times" property="pkFailTimes" />
+		<result column="notes_count" property="notesCount" />
+		<result column="tollgate_total_times" property="tollgateTotalTimes" />
+		<result column="tollgate_set" property="tollgateSet" />
+		<result column="tollgate_onestar_count" property="tollgateOnestarCount" />
+		<result column="tollgate_onestar_set" property="tollgateOnestarSet" />
+		<result column="tollgate_twostar_count" property="tollgateTwostarCount" />
+		<result column="tollgate_twostar_set" property="tollgateTwostarSet" />
+		<result column="tollgate_threestar_count" property="tollgateThreestarCount" />
+		<result column="tollgate_threestar_set" property="tollgateThreestarSet" />
+		<result column="score_total" property="scoreTotal" />
+		<result column="score_oneday" property="scoreOneday" />
+		<result column="credit_total" property="creditTotal" />
+		<result column="credit_oneday" property="creditOneday" />
+		<result column="friend_count_total" property="friendCountTotal" />
+		<result column="friend_count_oneday" property="friendCountOneday" />
+		<result column="answer_total" property="answerTotal" />
+		<result column="answer_oneday" property="answerOneday" />
+		<result column="wrong_ques_solve_total" property="wrongQuesSolveTotal" />
+		<result column="wrong_ques_solve_oneday" property="wrongQuesSolveOneday" />
+		<result column="collection_total" property="collectionTotal" />
+		<result column="collection_oneday" property="collectionOneday" />
+		<result column="improve_protrait" property="improveProtrait" />
+		<result column="improve_sign" property="improveSign" />
+		<result column="improve_nickname" property="improveNickname" />
+		<result column="buy_course" property="buyCourse" />
+		<result column="follow_count_total" property="followCountTotal" />
+		<result column="follow_count_oneday" property="followCountOneday" />
+		<result column="followed_count_total" property="followedCountTotal" />
+		<result column="followed_count_oneday" property="followedCountOneday" />
+		<result column="active_total_days" property="activeTotalDays" />
+		<result column="active_continuous_days" property="activeContinuousDays" />
+		<result column="last_update_time" property="lastUpdateTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, module, pk_total_times_caculate,
+		pk_total_times_statics, pk_win_times,
+		pk_fail_times, notes_count,
+		tollgate_total_times, tollgate_set,
+		tollgate_onestar_count,
+		tollgate_onestar_set, tollgate_twostar_count,
+		tollgate_twostar_set,
+		tollgate_threestar_count,
+		tollgate_threestar_set,
+		score_total,
+		score_oneday, credit_total,
+		credit_oneday, friend_count_total,
+		friend_count_oneday,
+		answer_total,
+		answer_oneday,
+		wrong_ques_solve_total, wrong_ques_solve_oneday,
+		collection_total,
+		collection_oneday,
+		improve_protrait, improve_sign,
+		improve_nickname,
+		buy_course,
+		follow_count_total, follow_count_oneday,
+		followed_count_total,
+		followed_count_oneday, active_total_days,
+		active_continuous_days,
+		last_update_time
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.mission.domain.UserCollectDataModel">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_collect_data
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="select4Update" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_collect_data
+		<include refid="dynamic_where" />
+		for update
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_collect_data
+		<include refid="dynamic_where" />
+	</select>
+	<delete id="deleteEntity" parameterType="com.xiaodou.mission.domain.UserCollectDataModel">
+		delete from
+		xd_user_collect_data
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="addEntity" parameterType="com.xiaodou.mission.domain.UserCollectDataModel"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_user_collect_data
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="module != null">module,</if>
+			<if test="pkTotalTimesForCaculate != null">pk_total_times_caculate,</if>
+			<if test="pkTotalTimesForStatistic != null">pk_total_times_statics,</if>
+			<if test="pkWinTimes != null">pk_win_times,</if>
+			<if test="pkFailTimes != null">pk_fail_times,</if>
+			<if test="notesCount != null">notes_count,</if>
+			<if test="tollgateTotalTimes != null">tollgate_total_times,</if>
+			<if test="tollgateSet != null">tollgate_set,</if>
+			<if test="tollgateOnestarCount != null">tollgate_onestar_count,</if>
+			<if test="tollgateOnestarSet != null">tollgate_onestar_set,</if>
+			<if test="tollgateTwostarCount != null">tollgate_twostar_count,</if>
+			<if test="tollgateTwostarSet != null">tollgate_twostar_set,</if>
+			<if test="tollgateThreestarCount != null">tollgate_threestar_count,</if>
+			<if test="tollgateThreestarSet != null">tollgate_threestar_set,</if>
+			<if test="scoreTotal != null">score_total,</if>
+			<if test="scoreOneday != null">score_oneday,</if>
+			<if test="creditTotal != null">credit_total,</if>
+			<if test="creditOneday != null">credit_oneday,</if>
+			<if test="friendCountTotal != null">friend_count_total,</if>
+			<if test="friendCountOneday != null">friend_count_oneday,</if>
+			<if test="answerTotal != null">answer_total,</if>
+			<if test="answerOneday != null">answer_oneday,</if>
+			<if test="wrongQuesSolveTotal != null">wrong_ques_solve_total,</if>
+			<if test="wrongQuesSolveOneday != null">wrong_ques_solve_oneday,</if>
+			<if test="collectionTotal != null">collection_total,</if>
+			<if test="collectionOneday != null">collection_oneday,</if>
+			<if test="improveProtrait != null">improve_protrait,</if>
+			<if test="improveSign != null">improve_sign,</if>
+			<if test="improveNickname != null">improve_nickname,</if>
+			<if test="buyCourse != null">buy_course,</if>
+			<if test="followCountTotal != null">follow_count_total,</if>
+			<if test="followCountOneday != null">follow_count_oneday,</if>
+			<if test="followedCountTotal != null">followed_count_total,</if>
+			<if test="followedCountOneday != null">followed_count_oneday,</if>
+			<if test="activeTotalDays != null">active_total_days,</if>
+			<if test="activeContinuousDays != null">active_continuous_days,</if>
+			<if test="lastUpdateTime != null">last_update_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+			<if test="pkTotalTimesForCaculate != null">#{pkTotalTimesForCaculate,jdbcType=INTEGER},</if>
+			<if test="pkTotalTimesForStatistic != null">#{pkTotalTimesForStatistic,jdbcType=INTEGER},</if>
+			<if test="pkWinTimes != null">#{pkWinTimes,jdbcType=INTEGER},</if>
+			<if test="pkFailTimes != null">#{pkFailTimes,jdbcType=INTEGER},</if>
+			<if test="notesCount != null">#{notesCount,jdbcType=INTEGER},</if>
+			<if test="tollgateTotalTimes != null">#{tollgateTotalTimes,jdbcType=INTEGER},</if>
+			<if test="tollgateSet != null">#{tollgateSet,jdbcType=VARCHAR},</if>
+			<if test="tollgateOnestarCount != null">#{tollgateOnestarCount,jdbcType=INTEGER},</if>
+			<if test="tollgateOnestarSet != null">#{tollgateOnestarSet,jdbcType=VARCHAR},</if>
+			<if test="tollgateTwostarCount != null">#{tollgateTwostarCount,jdbcType=INTEGER},</if>
+			<if test="tollgateTwostarSet != null">#{tollgateTwostarSet,jdbcType=VARCHAR},</if>
+			<if test="tollgateThreestarCount != null">#{tollgateThreestarCount,jdbcType=INTEGER},</if>
+			<if test="tollgateThreestarSet != null">#{tollgateThreestarSet,jdbcType=VARCHAR},</if>
+			<if test="scoreTotal != null">#{scoreTotal,jdbcType=INTEGER},</if>
+			<if test="scoreOneday != null">#{scoreOneday,jdbcType=INTEGER},</if>
+			<if test="creditTotal != null">#{creditTotal,jdbcType=INTEGER},</if>
+			<if test="creditOneday != null">#{creditOneday,jdbcType=INTEGER},</if>
+			<if test="friendCountTotal != null">#{friendCountTotal,jdbcType=INTEGER},</if>
+			<if test="friendCountOneday != null">#{friendCountOneday,jdbcType=INTEGER},</if>
+			<if test="answerTotal != null">#{answerTotal,jdbcType=INTEGER},</if>
+			<if test="answerOneday != null">#{answerOneday,jdbcType=INTEGER},</if>
+			<if test="wrongQuesSolveTotal != null">#{wrongQuesSolveTotal,jdbcType=INTEGER},</if>
+			<if test="wrongQuesSolveOneday != null">#{wrongQuesSolveOneday,jdbcType=INTEGER},</if>
+			<if test="collectionTotal != null">#{collectionTotal,jdbcType=INTEGER},</if>
+			<if test="collectionOneday != null">#{collectionOneday,jdbcType=INTEGER},</if>
+			<if test="improveProtrait != null">#{improveProtrait,jdbcType=INTEGER},</if>
+			<if test="improveSign != null">#{improveSign,jdbcType=INTEGER},</if>
+			<if test="improveNickname != null">#{improveNickname,jdbcType=INTEGER},</if>
+			<if test="buyCourse != null">#{buyCourse,jdbcType=INTEGER},</if>
+			<if test="followCountTotal != null">#{followCountTotal,jdbcType=INTEGER},</if>
+			<if test="followCountOneday != null">#{followCountOneday,jdbcType=INTEGER},</if>
+			<if test="followedCountTotal != null">#{followedCountTotal,jdbcType=INTEGER},</if>
+			<if test="followedCountOneday != null">#{followedCountOneday,jdbcType=INTEGER},</if>
+			<if test="activeTotalDays != null">#{activeTotalDays,jdbcType=INTEGER},</if>
+			<if test="activeContinuousDays != null">#{activeContinuousDays,jdbcType=INTEGER},</if>
+			<if test="lastUpdateTime != null">#{lastUpdateTime,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.mission.domain.UserCollectDataModel">
+		update xd_user_collect_data
+		<set>
+			<if test="userId != null">user_id = #{userId,jdbcType=VARCHAR},</if>
+			<if test="module != null">module = #{module,jdbcType=VARCHAR},</if>
+			<if test="pkTotalTimesForCaculate != null">pk_total_times_caculate =
+				#{pkTotalTimesForCaculate,jdbcType=INTEGER},
+			</if>
+			<if test="pkTotalTimesForStatistic != null">pk_total_times_statics =
+				#{pkTotalTimesForStatistic,jdbcType=INTEGER},
+			</if>
+			<if test="pkWinTimes != null">pk_win_times = #{pkWinTimes,jdbcType=INTEGER},</if>
+			<if test="pkFailTimes != null">pk_fail_times = #{pkFailTimes,jdbcType=INTEGER},</if>
+			<if test="notesCount != null">notes_count = #{notesCount,jdbcType=INTEGER},</if>
+			<if test="tollgateTotalTimes != null">tollgate_total_times =
+				#{tollgateTotalTimes,jdbcType=INTEGER},
+			</if>
+			<if test="tollgateSet != null">tollgate_set = #{tollgateSet,jdbcType=VARCHAR},</if>
+			<if test="tollgateOnestarCount != null">tollgate_onestar_count =
+				#{tollgateOnestarCount,jdbcType=INTEGER},
+			</if>
+			<if test="tollgateOnestarSet != null">tollgate_onestar_set =
+				#{tollgateOnestarSet,jdbcType=VARCHAR},
+			</if>
+			<if test="tollgateTwostarCount != null">tollgate_twostar_count =
+				#{tollgateTwostarCount,jdbcType=INTEGER},
+			</if>
+			<if test="tollgateTwostarSet != null">tollgate_twostar_set =
+				#{tollgateTwostarSet,jdbcType=VARCHAR},
+			</if>
+			<if test="tollgateThreestarCount != null">tollgate_threestar_count =
+				#{tollgateThreestarCount,jdbcType=INTEGER},
+			</if>
+			<if test="tollgateThreestarSet != null">tollgate_threestar_set =
+				#{tollgateThreestarSet,jdbcType=VARCHAR},
+			</if>
+			<if test="scoreTotal != null">score_total = #{scoreTotal,jdbcType=INTEGER},</if>
+			<if test="scoreOneday != null">score_oneday = #{scoreOneday,jdbcType=INTEGER},</if>
+			<if test="creditTotal != null">credit_total = #{creditTotal,jdbcType=INTEGER},</if>
+			<if test="creditOneday != null">credit_oneday = #{creditOneday,jdbcType=INTEGER},</if>
+			<if test="friendCountTotal != null">friend_count_total =
+				#{friendCountTotal,jdbcType=INTEGER},
+			</if>
+			<if test="friendCountOneday != null">friend_count_oneday =
+				#{friendCountOneday,jdbcType=INTEGER},
+			</if>
+			<if test="answerTotal != null">answer_total = #{answerTotal,jdbcType=INTEGER},</if>
+			<if test="answerOneday != null">answer_oneday = #{answerOneday,jdbcType=INTEGER},</if>
+			<if test="wrongQuesSolveTotal != null">wrong_ques_solve_total =
+				#{wrongQuesSolveTotal,jdbcType=INTEGER},
+			</if>
+			<if test="wrongQuesSolveOneday != null">wrong_ques_solve_oneday =
+				#{wrongQuesSolveOneday,jdbcType=INTEGER},
+			</if>
+			<if test="collectionTotal != null">collection_total = #{collectionTotal,jdbcType=INTEGER},
+			</if>
+			<if test="collectionOneday != null">collection_oneday = #{collectionOneday,jdbcType=INTEGER},
+			</if>
+			<if test="improveProtrait != null">improve_protrait = #{improveProtrait,jdbcType=INTEGER},
+			</if>
+			<if test="improveSign != null">improve_sign = #{improveSign,jdbcType=INTEGER},</if>
+			<if test="improveNickname != null">improve_nickname = #{improveNickname,jdbcType=INTEGER},
+			</if>
+			<if test="buyCourse != null">buy_course = #{buyCourse,jdbcType=INTEGER},</if>
+			<if test="followCountTotal != null">follow_count_total =
+				#{followCountTotal,jdbcType=INTEGER},
+			</if>
+			<if test="followCountOneday != null">follow_count_oneday =
+				#{followCountOneday,jdbcType=INTEGER},
+			</if>
+			<if test="followedCountTotal != null">followed_count_total =
+				#{followedCountTotal,jdbcType=INTEGER},
+			</if>
+			<if test="followedCountOneday != null">followed_count_oneday =
+				#{followedCountOneday,jdbcType=INTEGER},
+			</if>
+			<if test="activeTotalDays != null">active_total_days = #{activeTotalDays,jdbcType=INTEGER},
+			</if>
+			<if test="activeContinuousDays != null">active_continuous_days =
+				#{activeContinuousDays,jdbcType=INTEGER},
+			</if>
+			<if test="lastUpdateTime != null">last_update_time = #{lastUpdateTime,jdbcType=VARCHAR},
+			</if>
+
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id = #{input.id,jdbcType=VARCHAR}</if>
+			<if test="input != null and input.userId != null">and user_id = #{input.userId,jdbcType=VARCHAR}</if>
+			<if test="input != null and input.module != null">and module = #{input.module,jdbcType=VARCHAR}</if>
+		</where>
+	</sql>
+</mapper>

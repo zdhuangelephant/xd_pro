@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LiveInfo">
+	<resultMap id="BaseResultMap" type="com.xiaodou.live.domain.LiveInfo">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="TINYINT" />
+		<result column="serie_id" property="serieId" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="cover" property="cover" jdbcType="VARCHAR" />
+		<result column="time_begin" property="timeBegin" jdbcType="TIMESTAMP" />
+		<result column="time_over" property="timeOver" jdbcType="TIMESTAMP" />
+		<result column="duration" property="duration" jdbcType="VARCHAR" />
+		<result column="total_quotas" property="totalQuotas" jdbcType="INTEGER" />
+		<result column="enrollments" property="enrollments" jdbcType="INTEGER" />
+		<result column="introduction" property="introduction" jdbcType="VARCHAR" />
+		<result column="charge_type" property="chargeType" jdbcType="TINYINT" />
+		<result column="charge" property="charge" jdbcType="INTEGER" />
+		<result column="tags" property="tags" jdbcType="VARCHAR" />
+		<result column="owner_info" property="ownerInfo" jdbcType="VARCHAR" />
+		<result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+		<result column="review_deadline" property="reviewDeadline"
+			jdbcType="TIMESTAMP" />
+		<result column="review_time" property="reviewTime" jdbcType="TIMESTAMP" />
+		<result column="review_result" property="reviewResult"
+			jdbcType="TINYINT" />
+	</resultMap>
+	<sql id="base_column">id, type, serie_id, user_id, title, cover, time_begin,
+		time_over, duration, total_quotas, enrollments, introduction,
+		charge_type, charge, tags, owner_info, apply_time, review_deadline,
+		review_time, review_result</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.live.domain.LiveInfo">
+		select
+		<include refid="base_column" />
+		from xd_live_info
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="base_column" />
+		from xd_live_info
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<delete id="delete" parameterType="java.util.Map">
+		delete from
+		xd_live_info
+		<include refid="dynamic_where" />
+	</delete>
+	<insert id="addEntity" parameterType="com.xiaodou.live.domain.LiveInfo">
+		insert into xd_live_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="type != null">type,</if>
+			<if test="serieId != null">serie_id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="title != null">title,</if>
+			<if test="cover != null">cover,</if>
+			<if test="timeBegin != null">time_begin,</if>
+			<if test="timeOver != null">time_over,</if>
+			<if test="duration != null">duration,</if>
+			<if test="totalQuotas != null">total_quotas,</if>
+			<if test="enrollments != null">enrollments,</if>
+			<if test="introduction != null">introduction,</if>
+			<if test="chargeType != null">charge_type,</if>
+			<if test="charge != null">charge,</if>
+			<if test="tags != null">tags,</if>
+			<if test="ownerInfo != null">owner_info,</if>
+			<if test="applyTime != null">apply_time,</if>
+			<if test="reviewDeadline != null">review_deadline,</if>
+			<if test="reviewTime != null">review_time,</if>
+			<if test="reviewResult != null">review_result,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="type != null">#{type,jdbcType=TINYINT},</if>
+			<if test="serieId != null">#{serieId,jdbcType=VARCHAR},</if>
+			<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+			<if test="title != null">#{title,jdbcType=VARCHAR},</if>
+			<if test="cover != null">#{cover,jdbcType=VARCHAR},</if>
+			<if test="timeBegin != null">#{timeBegin,jdbcType=TIMESTAMP},</if>
+			<if test="timeOver != null">#{timeOver,jdbcType=TIMESTAMP},</if>
+			<if test="duration != null">#{duration,jdbcType=VARCHAR},</if>
+			<if test="totalQuotas != null">#{totalQuotas,jdbcType=INTEGER},</if>
+			<if test="enrollments != null">#{enrollments,jdbcType=INTEGER},</if>
+			<if test="introduction != null">#{introduction,jdbcType=VARCHAR},</if>
+			<if test="chargeType != null">#{chargeType,jdbcType=TINYINT},</if>
+			<if test="charge != null">#{charge,jdbcType=INTEGER},</if>
+			<if test="tags != null">#{tags,jdbcType=VARCHAR},</if>
+			<if test="ownerInfo != null">#{ownerInfo,jdbcType=VARCHAR},</if>
+			<if test="applyTime != null">#{applyTime,jdbcType=TIMESTAMP},</if>
+			<if test="reviewDeadline != null">#{reviewDeadline,jdbcType=TIMESTAMP},</if>
+			<if test="reviewTime != null">#{reviewTime,jdbcType=TIMESTAMP},</if>
+			<if test="reviewResult != null">#{reviewResult,jdbcType=TINYINT},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.live.domain.LiveInfo">
+		update xd_live_info
+		<set>
+			<if test="value != null and value.title != null">title = #{value.title,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.cover != null">cover = #{value.cover,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.timeBegin != null">time_begin = #{value.timeBegin,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.timeOver != null">time_over = #{value.timeOver,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.duration != null">duration = #{value.duration,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.totalQuotas != null">total_quotas = #{value.totalQuotas,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.enrollments != null">enrollments = #{value.enrollments,jdbcType=INTEGER},</if>
+			<if test="value != null and value.introduction != null">introduction = #{value.introduction,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.chargeType != null">charge_type = #{value.chargeType,jdbcType=TINYINT},</if>
+			<if test="value != null and value.charge != null">charge = #{value.charge,jdbcType=INTEGER},</if>
+			<if test="value != null and value.tags != null">tags = #{value.tags,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.ownerInfo != null">owner_info = #{value.ownerInfo,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.applyTime != null">apply_time = #{value.applyTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.reviewDeadline != null">review_deadline =
+				#{value.reviewDeadline,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.reviewTime != null">review_time = #{value.reviewTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.reviewResult != null">review_result = #{value.reviewResult,jdbcType=TINYINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.live.domain.LiveInfo">
+		update xd_live_info
+		<set>
+			<if test="value != null and value.title != null">title = #{value.title,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.cover != null">cover = #{value.cover,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.timeBegin != null">time_begin = #{value.timeBegin,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.timeOver != null">time_over = #{value.timeOver,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.duration != null">duration = #{value.duration,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.totalQuotas != null">total_quotas = #{value.totalQuotas,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.enrollments != null">enrollments = #{value.enrollments,jdbcType=INTEGER},</if>
+			<if test="value != null and value.introduction != null">introduction = #{value.introduction,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.chargeType != null">charge_type = #{value.chargeType,jdbcType=TINYINT},</if>
+			<if test="value != null and value.charge != null">charge = #{value.charge,jdbcType=INTEGER},</if>
+			<if test="value != null and value.tags != null">tags = #{value.tags,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.ownerInfo != null">owner_info = #{value.ownerInfo,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.applyTime != null">apply_time = #{value.applyTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.reviewDeadline != null">review_deadline =
+				#{value.reviewDeadline,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.reviewTime != null">review_time = #{value.reviewTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.reviewResult != null">review_result = #{value.reviewResult,jdbcType=TINYINT},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_live_info
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.type != null">type,</if>
+			<if test="output != null and output.serieId != null">serie_id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.title != null">title,</if>
+			<if test="output != null and output.cover != null">cover,</if>
+			<if test="output != null and output.timeBegin != null">time_begin,</if>
+			<if test="output != null and output.timeOver != null">time_over,</if>
+			<if test="output != null and output.duration != null">duration,</if>
+			<if test="output != null and output.totalQuotas != null">total_quotas,</if>
+			<if test="output != null and output.enrollments != null">enrollments,</if>
+			<if test="output != null and output.introduction != null">introduction,</if>
+			<if test="output != null and output.chargeType != null">charge_type,</if>
+			<if test="output != null and output.charge != null">charge,</if>
+			<if test="output != null and output.tags != null">tags,</if>
+			<if test="output != null and output.ownerInfo != null">owner_info,</if>
+			<if test="output != null and output.applyTime != null">apply_time,</if>
+			<if test="output != null and output.reviewDeadline != null">review_deadline,</if>
+			<if test="output != null and output.reviewTime != null">review_time,</if>
+			<if test="output != null and output.reviewResult != null">review_result,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.type != null">and type=#{input.type}</if>
+			<if test="input != null and input.serieId != null">and serie_id=#{input.serieId}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.title != null">and title=#{input.title}</if>
+			<if test="input != null and input.cover != null">and cover=#{input.cover}</if>
+			<if test="input != null and input.timeBeginLower != null">and time_begin &gt; #{input.timeBeginLower}</if>
+			<if test="input != null and input.timeBeginUpper != null">and time_begin &lt; #{input.timeBeginLower}</if>
+			<if test="input != null and input.timeOverLower != null">and time_over &gt; #{input.timeOverLower}</if>
+			<if test="input != null and input.timeOverUpper != null">and time_over &lt; #{input.timeOverLower}</if>
+			<if test="input != null and input.duration != null">and duration=#{input.duration}</if>
+			<if test="input != null and input.totalQuotas != null">and total_quotas=#{input.totalQuotas}</if>
+			<if test="input != null and input.enrollments != null">and enrollments=#{input.enrollments}</if>
+			<if test="input != null and input.introduction != null">and introduction=#{input.introduction}</if>
+			<if test="input != null and input.chargeType != null">and charge_type=#{input.chargeType}</if>
+			<if test="input != null and input.charge != null">and charge=#{input.charge}</if>
+			<if test="input != null and input.tags != null">and tags=#{input.tags}</if>
+			<if test="input != null and input.ownerInfo != null">and owner_info=#{input.ownerInfo}</if>
+			<if test="input != null and input.applyTimeLower != null">and apply_time &gt; #{input.applyTimeLower}</if>
+			<if test="input != null and input.applyTimeUpper != null">and apply_time &lt; #{input.applyTimeLower}</if>
+			<if test="input != null and input.reviewDeadlineLower != null">and review_deadline &gt; #{input.reviewDeadlineLower}
+			</if>
+			<if test="input != null and input.reviewDeadlineUpper != null">and review_deadline &lt; #{input.reviewDeadlineLower}
+			</if>
+			<if test="input != null and input.reviewTimeLower != null">and review_time &gt; #{input.reviewTimeLower}</if>
+			<if test="input != null and input.reviewTimeUpper != null">and review_time &lt; #{input.reviewTimeLower}</if>
+			<if test="input != null and input.reviewResult != null">and review_result=#{input.reviewResult}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limitStart != null and limitCount != null">
+			limit ${limitStart}, ${limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.type != null and ( sort.type == 'ASC' or sort.type == 'DESC' )">type ${sort.type},</if>
+			<if
+				test="sort != null and sort.serieId != null and ( sort.serieId == 'ASC' or sort.serieId == 'DESC' )">serie_id ${sort.serieId},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.title != null and ( sort.title == 'ASC' or sort.title == 'DESC' )">title ${sort.title},</if>
+			<if
+				test="sort != null and sort.cover != null and ( sort.cover == 'ASC' or sort.cover == 'DESC' )">cover ${sort.cover},</if>
+			<if
+				test="sort != null and sort.timeBegin != null and ( sort.timeBegin == 'ASC' or sort.timeBegin == 'DESC' )">time_begin ${sort.timeBegin},</if>
+			<if
+				test="sort != null and sort.timeOver != null and ( sort.timeOver == 'ASC' or sort.timeOver == 'DESC' )">time_over ${sort.timeOver},</if>
+			<if
+				test="sort != null and sort.duration != null and ( sort.duration == 'ASC' or sort.duration == 'DESC' )">duration ${sort.duration},</if>
+			<if
+				test="sort != null and sort.totalQuotas != null and ( sort.totalQuotas == 'ASC' or sort.totalQuotas == 'DESC' )">total_quotas ${sort.totalQuotas},</if>
+			<if
+				test="sort != null and sort.enrollments != null and ( sort.enrollments == 'ASC' or sort.enrollments == 'DESC' )">enrollments ${sort.enrollments},</if>
+			<if
+				test="sort != null and sort.introduction != null and ( sort.introduction == 'ASC' or sort.introduction == 'DESC' )">introduction ${sort.introduction},</if>
+			<if
+				test="sort != null and sort.chargeType != null and ( sort.chargeType == 'ASC' or sort.chargeType == 'DESC' )">charge_type ${sort.chargeType},</if>
+			<if
+				test="sort != null and sort.charge != null and ( sort.charge == 'ASC' or sort.charge == 'DESC' )">charge ${sort.charge},</if>
+			<if
+				test="sort != null and sort.tags != null and ( sort.tags == 'ASC' or sort.tags == 'DESC' )">tags ${sort.tags},</if>
+			<if
+				test="sort != null and sort.ownerInfo != null and ( sort.ownerInfo == 'ASC' or sort.ownerInfo == 'DESC' )">owner_info ${sort.ownerInfo},</if>
+			<if
+				test="sort != null and sort.applyTime != null and ( sort.applyTime == 'ASC' or sort.applyTime == 'DESC' )">apply_time ${sort.applyTime},</if>
+			<if
+				test="sort != null and sort.reviewDeadline != null and ( sort.reviewDeadline == 'ASC' or sort.reviewDeadline == 'DESC' )">review_deadline ${sort.reviewDeadline},</if>
+			<if
+				test="sort != null and sort.reviewTime != null and ( sort.reviewTime == 'ASC' or sort.reviewTime == 'DESC' )">review_time ${sort.reviewTime},</if>
+			<if
+				test="sort != null and sort.reviewResult != null and ( sort.reviewResult == 'ASC' or sort.reviewResult == 'DESC' )">review_result ${sort.reviewResult},</if>
+		</trim>
+	</sql>
+</mapper>

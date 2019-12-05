@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaodou.resources.dao.quesbk.UserChapterRecordMapper">
+
+
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseResultMap" type="com.xiaodou.resources.model.quesbk.UserChapterRecord">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="course_id" property="courseId" />
+		<result column="chapter_id" property="chapterId" />
+		<result column="item_id" property="itemId" />
+		<result column="star_level" property="starLevel" />
+		<result column="score" property="score" />
+		<result column="status" property="status" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, user_id, course_id, chapter_id, item_id,
+		star_level,
+		score,
+		status
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_course_chapter_record
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_course_chapter_record
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<!-- 动态分页 -->
+	<sql id="dynamic_limit">
+		<if test="limitStart != null and limitCount != null">
+			limit ${limitStart}, ${limitCount}
+		</if>
+	</sql>
+	<!-- 动态排序 -->
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.score != null and ( sort.score == 'ASC' or sort.score == 'DESC' )">
+				score ${sort.score},
+			</if>
+		</trim>
+	</sql>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		xd_user_course_chapter_record
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insertSelective" parameterType="com.xiaodou.resources.model.quesbk.UserChapterRecord">
+		insert into xd_user_course_chapter_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="courseId != null">
+				course_id,
+			</if>
+			<if test="chapterId != null">
+				chapter_id,
+			</if>
+			<if test="itemId != null">
+				item_id,
+			</if>
+			<if test="starLevel != null">
+				star_level,
+			</if>
+			<if test="score != null">
+				score,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null">
+				#{courseId,jdbcType=BIGINT},
+			</if>
+			<if test="chapterId != null">
+				#{chapterId,jdbcType=BIGINT},
+			</if>
+			<if test="itemId != null">
+				#{itemId,jdbcType=BIGINT},
+			</if>
+			<if test="starLevel != null">
+				#{starLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="score != null">
+				#{score,jdbcType=DECIMAL},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKey" parameterType="com.xiaodou.resources.model.quesbk.UserChapterRecord">
+		update xd_user_course_chapter_record
+		<set>
+			<if test="starLevel != null">
+				star_level = #{starLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="score != null">
+				score = #{score,jdbcType=DECIMAL},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.userId != null">
+				and user_id = #{input.userId,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.courseId != null">
+				and course_id = #{input.courseId,jdbcType=BIGINT}
+			</if>
+			<if test="input != null and input.chapterId != null">
+				and chapter_id =
+				#{input.chapterId,jdbcType=BIGINT}
+			</if>
+			<if test="input != null and input.itemId != null">
+				and item_id =
+				#{input.itemId,jdbcType=BIGINT}
+			</if>
+			<if test="input != null and input.starLevel != null">
+				and star_level =
+				#{input.starLevel,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.score != null">
+				and score =
+				#{input.score,jdbcType=DECIMAL}
+			</if>
+			<if test="input != null and input.status != null">
+				and status =
+				#{input.status,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</sql>
+
+</mapper>

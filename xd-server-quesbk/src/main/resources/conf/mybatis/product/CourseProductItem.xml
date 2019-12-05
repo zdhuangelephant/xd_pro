@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CourseProductItem">
+	<resultMap id="BaseResultMap" type="com.xiaodou.domain.product.CourseProductItem">
+		<id column="id" property="id" />
+		<result column="parent_id" property="parentId" />
+		<result column="product_id" property="productId" />
+		<result column="resource_id" property="resourceId" />
+		<result column="resource_type" property="resourceType" />
+		<result column="level" property="level" />
+		<result column="name" property="name" />
+		<result column="show_status" property="showStatus" />
+		<result column="detail" property="detail" />
+		<result column="misc" property="misc" />
+		<result column="all_parent_id" property="allParentId" />
+		<result column="child_id" property="childId" />
+		<result column="all_child_id" property="allChildId" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="is_free" property="isFree" />
+		<result column="is_leaf" property="isLeaf" />
+		<result column="chapter_id" property="chapterId" />
+		<result column="importance_level" property="importanceLevel" />
+		<result column="list_order" property="listOrder" />
+		<result column="points" property="points" />
+		<result column="fee_type" property="feeType" />
+		<result column="complete_count" property="completeCount" />
+		<result column="top_user" property="topUserList" />
+		<result column="ques_num" property="quesNum" />
+		<result column="weight" property="weight" />
+		<result column="exam_ques_num" property="examDetail.examQuesNum" />
+		<result column="right_ques_num" property="examDetail.rightQuesNum" />
+	</resultMap>
+
+	<!--字段 -->
+	<sql id="Base_Column_List">
+		id,parent_id,product_id,resource_type,name,is_free,chapter_id,importance_level,list_order,points,fee_type,complete_count,top_user,ques_num,weight
+	</sql>
+
+	<select id="selectByProductId" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_course_product_item
+		where product_id = #{input.productId}
+		and
+		resource_type = #{input.resourceType}
+		order by list_order
+	</select>
+
+	<select id="selectByProductIdAndUserId" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		item.id,item.parent_id,item.product_id,item.resource_type,item.name,item.is_free,item.importance_level,item.ques_num,item.list_order,item.complete_count,item.top_user,
+		count(wrong1.question_id) exam_ques_num,
+		sum(
+		CASE
+		WHEN
+		wrong1.right_times > 0 THEN
+		1
+		ELSE
+		0
+		END
+		) AS
+		right_ques_num
+		from
+		xd_course_product_item
+		item
+		left join
+		xd_user_wrong_record wrong1
+		on
+		item.id =
+		wrong1.chapter_id and
+		wrong1.user_id = #{input.userId}
+		and
+		item.product_id
+		= wrong1.course_id
+		where
+		item.product_id
+		=
+		#{input.productId}
+		and
+		item.resource_type = #{input.resourceType}
+		group
+		by
+		item.id,item.parent_id,item.product_id,item.resource_type,item.name,item.importance_level,item.ques_num
+		order by item.list_order
+	</select>
+
+	<select id="selectByProductIdAndUserIdBak" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		item.id,item.parent_id,item.product_id,item.resource_type,item.name,item.is_free,item.importance_level,item.ques_num,item.list_order,item.complete_count,item.top_user,
+		count(wrong1.question_id) exam_ques_num,
+		sum(
+		CASE
+		WHEN
+		wrong1.right_times > 0
+		AND wrong1.wrong_times = 0 THEN
+		1
+		WHEN
+		wrong1.right_times > 2
+		AND wrong1.wrong_times > 0 THEN
+		1
+		ELSE
+		0
+		END
+		) AS
+		right_ques_num
+		from xd_course_product_item
+		item
+		left join
+		xd_user_wrong_record wrong1
+		on
+		item.id =
+		wrong1.chapter_id and
+		wrong1.user_id = #{1}
+		and item.product_id
+		= wrong1.course_id
+		where
+		item.product_id
+		= #{0}
+		and
+		item.resource_type = 1
+		group by
+		item.id,item.parent_id,item.product_id,item.resource_type,item.name,item.importance_level,item.ques_num
+		order by item.list_order
+	</select>
+
+	<select id="selectChapterByProductId" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_course_product_item
+		where product_id = #{input.productId}
+		and
+		resource_type = #{input.resourceType}
+		and parent_id = #{input.parentId}
+		order by list_order
+	</select>
+
+	<select id="selectItemByProductIdAndChapterId" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_course_product_item
+		where product_id = #{input.productId}
+		<if test="input != null and input.parentId != null">
+			and parent_id = #{input.parentId}
+		</if>
+		and resource_type = #{input.resourceType}
+		and parent_id >
+		#{input.parentIdLower}
+		order by list_order
+	</select>
+
+	<select id="selectChapterByProductIdAndChapterId" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_course_product_item
+		where product_id = #{input.productId}
+		and
+		parent_id = #{input.parentId}
+		and id = #{input.id}
+		and resource_type =
+		#{input.resourceType}
+		order by list_order
+	</select>
+
+	<select id="selectItemByProductIdAndChapterIdAndItemId"
+		resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_course_product_item
+		where product_id = #{input.productId}
+		and
+		parent_id = #{input.parentId}
+		and id = #{input.id}
+		and resource_type =
+		#{input.resourceType}
+		and parent_id > #{input.parentIdLower}
+		order by
+		list_order
+	</select>
+
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<!-- 任务模型 -->
+		<typeAlias type="com.xiaodou.mission.domain.MissionModel"
+			alias="MissionModel" />
+		<!-- 用户采集数据模型 -->
+		<typeAlias type="com.xiaodou.mission.domain.UserCollectDataModel"
+			alias="UserCollectDataModel" />
+		<!-- 用户采集数据模型 -->
+		<typeAlias type="com.xiaodou.mission.domain.UserCollectDataDetailModel"
+			alias="UserCollectDataDetailModel" />
+		<!-- 用户任务数据模型 -->
+		<typeAlias type="com.xiaodou.mission.domain.UserMissionRecordModel"
+			alias="UserMissionRecordModel" />
+		<!-- 联合查询任务数据模型 -->
+		<typeAlias type="com.xiaodou.mission.domain.CascadeMissionRecordModel"
+			alias="CascadeMissionRecordModel" />
+		<!-- 产品专业关系模型 -->
+		<typeAlias type="com.xiaodou.mission.domain.ProductRelation"
+			alias="ProductRelation" />
+		<!-- 产品专业关系模型 -->
+		<typeAlias type="com.xiaodou.mission.domain.UserTaskHitCompleteModel"
+			alias="UserTaskHitCompleteModel" />
+	</typeAliases>
+	<mappers>
+		<!-- 任务模型 -->
+		<mapper resource="conf/mybatis/MissionModelMapper.xml" />
+		<!-- 用户采集数据模型 -->
+		<mapper resource="conf/mybatis/UserCollectDataModelMapper.xml" />
+		<!-- 用户采集数据模型 -->
+		<mapper resource="conf/mybatis/UserCollectDataDetailModelMapper.xml" />
+		<!-- 用户任务数据模型 -->
+		<mapper resource="conf/mybatis/UserMissionRecordModelMapper.xml" />
+		<!-- 联合查询任务数据模型 -->
+		<mapper resource="conf/mybatis/CascadeMissionRecordModelMapper.xml" />
+		<!-- 产品专业关系模型 -->
+		<mapper resource="conf/mybatis/ProductRelation.xml" />
+		<mapper resource="conf/mybatis/UserTaskHitCompleteModel.xml" />
+	</mappers>
+</configuration>

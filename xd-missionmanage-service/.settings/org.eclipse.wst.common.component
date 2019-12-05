@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="xd-missionmanage-service">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="xiaodou-autobuild-1.1.0-snapshot.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-autobuild/xd-autobuild">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xiaodou-summer-3.3.3-snapshot.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-summer-trunk/xd-summer-trunk">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xiaodou-jredis-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xiaodou-jredis/xiaodou-jredis">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-ucenter-model2b-3.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-ucenter-model2b/xd-ucenter-model2b">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-queue-aliyun-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-queue-aliyun/xd-queue-aliyun">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-dataclean-core-0.1.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-dataclean-core/xd-dataclean-core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="xd-missionmanage-service"/>
+        <property name="java-output-path" value="/xd-missionmanage-service/target/classes"/>
+    </wb-module>
+</project-modules>

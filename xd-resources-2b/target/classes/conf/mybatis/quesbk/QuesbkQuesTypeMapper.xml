@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaodou.resources.dao.quesbk.QuesbkQuesTypeMapper">
+	<resultMap id="BaseResultMap" type="com.xiaodou.resources.model.quesbk.QuesbkQuesType">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="type_name" property="typeName" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="mdesc" property="mdesc" jdbcType="VARCHAR" />
+		<result column="misc" property="misc" jdbcType="VARCHAR" />
+		<result column="answer_type" property="answerType" jdbcType="TINYINT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, type_name, status, mdesc, misc, answer_type
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from xd_quesbk_ques_type
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="selectQuesType" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from xd_quesbk_ques_type
+	</select>
+</mapper>

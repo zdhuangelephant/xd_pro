@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:oscache="http://www.springmodules.org/schema/oscache"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springmodules.org/schema/oscache http://www.springmodules.org/schema/cache/springmodules-oscache.xsd
+           http://code.alibabatech.com/schema/dubbo
+       	   http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<description>数据库配置</description>
+	<context:property-placeholder
+		location="classpath:conf/custom/env/jdbc.properties"
+		ignore-unresolvable="true" />
+	<context:property-placeholder
+		location="classpath:conf/custom/env/jdbc_crontab.properties"
+		ignore-unresolvable="true" />
+	<context:property-placeholder
+		location="classpath:conf/custom/env/jdbc_cront_monitor.properties"
+		ignore-unresolvable="true" />
+
+	<!--数据源 -->
+	<bean id="summerDataSource"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerDataSourceManager">
+		<property name="alias" value="quesbk"></property>
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="driver" value="${jdbc.driverClassName}" />
+		<property name="driverUrl" value="${jdbc.url}" />
+		<property name="maximumConnectionCount" value="${jdbc.maximumConnectionCount}"></property>
+		<property name="maximumActiveTime" value="${jdbc.maximumActiveTime}"></property>
+		<property name="maximumConnectionLifetime" value="${jdbc.maximumConnectionLifetime}"></property>
+		<property name="prototypeCount" value="${jdbc.prototypeCount}"></property>
+		<property name="houseKeepingSleepTime" value="${jdbc.houseKeepingSleepTime}"></property>
+		<property name="simultaneousBuildThrottle" value="${jdbc.simultaneousBuildThrottle}"></property>
+		<property name="houseKeepingTestSql" value="${jdbc.houseKeepingTestSql}"></property>
+		<property name="verbose" value="${jdbc.verbose}"></property>
+		<property name="statistics" value="${jdbc.statistics}"></property>
+		<property name="statisticsLogLevel" value="${jdbc.statisticsLogLevel}"></property>
+	</bean>
+
+	<!--数据源 -->
+	<bean id="crontabDataSource"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerDataSourceManager">
+		<property name="alias" value="crontab"></property>
+		<property name="user" value="${jdbc.crontab.username}" />
+		<property name="password" value="${jdbc.crontab.password}" />
+		<property name="driver" value="${jdbc.crontab.driverClassName}" />
+		<property name="driverUrl" value="${jdbc.crontab.url}" />
+		<property name="maximumConnectionCount" value="${jdbc.crontab.maximumConnectionCount}"></property>
+		<property name="maximumActiveTime" value="${jdbc.crontab.maximumActiveTime}"></property>
+		<property name="maximumConnectionLifetime" value="${jdbc.crontab.maximumConnectionLifetime}"></property>
+		<property name="prototypeCount" value="${jdbc.crontab.prototypeCount}"></property>
+		<property name="houseKeepingSleepTime" value="${jdbc.crontab.houseKeepingSleepTime}"></property>
+		<property name="simultaneousBuildThrottle" value="${jdbc.crontab.simultaneousBuildThrottle}"></property>
+		<property name="houseKeepingTestSql" value="${jdbc.crontab.houseKeepingTestSql}"></property>
+		<property name="verbose" value="${jdbc.crontab.verbose}"></property>
+		<property name="statistics" value="${jdbc.crontab.statistics}"></property>
+		<property name="statisticsLogLevel" value="${jdbc.crontab.statisticsLogLevel}"></property>
+	</bean>
+	
+		<!--数据源 -->
+	<bean id="crontMonitorDataSource"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerDataSourceManager">
+		<property name="alias" value="crontMonitor"></property>
+		<property name="user" value="${jdbc.cront.monitor.username}" />
+		<property name="password" value="${jdbc.cront.monitor.password}" />
+		<property name="driver" value="${jdbc.cront.monitor.driverClassName}" />
+		<property name="driverUrl" value="${jdbc.cront.monitor.url}" />
+		<property name="maximumConnectionCount" value="${jdbc.cront.monitor.maximumConnectionCount}"></property>
+		<property name="maximumActiveTime" value="${jdbc.cront.monitor.maximumActiveTime}"></property>
+		<property name="maximumConnectionLifetime" value="${jdbc.cront.monitor.maximumConnectionLifetime}"></property>
+		<property name="prototypeCount" value="${jdbc.cront.monitor.prototypeCount}"></property>
+		<property name="houseKeepingSleepTime" value="${jdbc.cront.monitor.houseKeepingSleepTime}"></property>
+		<property name="simultaneousBuildThrottle" value="${jdbc.cront.monitor.simultaneousBuildThrottle}"></property>
+		<property name="houseKeepingTestSql" value="${jdbc.cront.monitor.houseKeepingTestSql}"></property>
+		<property name="verbose" value="${jdbc.cront.monitor.verbose}"></property>
+		<property name="statistics" value="${jdbc.cront.monitor.statistics}"></property>
+		<property name="statisticsLogLevel" value="${jdbc.cront.monitor.statisticsLogLevel}"></property>
+	</bean>
+
+	<!--mybatis与Spring整合 开始 -->
+	<bean id="paginationInterceptor" class="com.xiaodou.summer.dao.pagination.PaginationInterceptor">
+		<property name="dialect">
+			<bean class="com.xiaodou.summer.dao.pagination.dialect.MySQLDialect" />
+		</property>
+		<property name="paginationSqlRegEx" value=".*ByCond"></property>
+	</bean>
+
+	<bean id="summerSqlSessionFactory" name="summerSqlSessionFactory"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerSqlSessionFactory">
+		<property name="configLocation" value="classpath:conf/core/sqlMapConfig.xml" />
+		<property name="dataSourceManager" ref="summerDataSource" />
+		<property name="plugins">
+			<array>
+				<ref bean="paginationInterceptor" />
+			</array>
+		</property>
+	</bean>
+
+	<bean id="crontabSqlSessionFactory" name="crontabSqlSessionFactory"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerSqlSessionFactory">
+		<property name="configLocation" value="classpath:conf/core/crontabMapConfig.xml" />
+		<property name="dataSourceManager" ref="crontabDataSource" />
+		<property name="plugins">
+			<array>
+				<ref bean="paginationInterceptor" />
+			</array>
+		</property>
+	</bean>
+
+	<bean id="crontMonitorSqlSessionFactory" name="crontMonitorSqlSessionFactory"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerSqlSessionFactory">
+		<property name="configLocation" value="classpath:conf/core/crontMonitorMapConfig.xml" />
+		<property name="dataSourceManager" ref="crontMonitorDataSource" />
+		<property name="plugins">
+			<array>
+				<ref bean="paginationInterceptor" />
+			</array>
+		</property>
+	</bean>
+
+	<!-- 事务管理器配置,主数据源事务 -->
+	<bean id="autoPayTransactionManager"
+		class="com.xiaodou.summer.source.jdbc.transaction.SummerDataSourceTransactionManager">
+		<property name="dataSourceManager" ref="summerDataSource" />
+	</bean>
+	<tx:annotation-driven transaction-manager="autoPayTransactionManager" />
+	<tx:advice id="autoPayDefaultTxAdvice" transaction-manager="autoPayTransactionManager">
+		<tx:attributes>
+			<tx:method name="find*" propagation="SUPPORTS"
+				rollback-for="java.lang.Exception" />
+			<tx:method name="query*" propagation="SUPPORTS"
+				rollback-for="java.lang.Exception" />
+			<tx:method name="select*" propagation="SUPPORTS"
+				rollback-for="java.lang.Exception" />
+			<tx:method name="*" rollback-for="java.lang.Exception" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut id="autoPayServiceOperations"
+			expression="execution(* com.xiaodou.service.facade..*.*(..))" />
+		<aop:advisor advice-ref="autoPayDefaultTxAdvice"
+			pointcut-ref="autoPayServiceOperations" />
+	</aop:config>
+
+</beans>

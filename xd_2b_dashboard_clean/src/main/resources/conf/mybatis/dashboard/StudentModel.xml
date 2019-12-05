@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="StudentModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dataclean.model.domain.dashboard.StudentModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="pilot_unit_id" property="pilotUnitId" jdbcType="INTEGER" />
+		<result column="pilot_unit_name" property="pilotUnitName"
+			jdbcType="VARCHAR" />
+		<result column="chief_units" property="chiefUnits" jdbcType="VARCHAR" />
+		<result column="cats" property="cats" jdbcType="VARCHAR" />
+		<result column="class_id" property="classId" jdbcType="INTEGER" />
+		<result column="class_name" property="className" jdbcType="VARCHAR" />
+		<result column="admin_id" property="adminId" jdbcType="INTEGER" />
+		<result column="admin_name" property="adminName" jdbcType="VARCHAR" />
+		<result column="gender" property="gender" jdbcType="INTEGER" />
+		<result column="real_name" property="realName" jdbcType="VARCHAR" />
+		<result column="portrait" property="portrait" jdbcType="VARCHAR" />
+		<result column="telephone" property="telephone" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="identification_card_code" property="identificationCardCode"
+			jdbcType="VARCHAR" />
+		<result column="admission_card_code" property="admissionCardCode"
+			jdbcType="VARCHAR" />
+		<result column="student_status" property="studentStatus"
+			jdbcType="VARCHAR" />
+		<result column="source_portrait" property="sourcePortrait"
+			jdbcType="VARCHAR" />
+		<result column="collect_way" property="collectWay" jdbcType="VARCHAR" />
+		<result column="upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
+		<result column="upload_device" property="uploadDevice"
+			jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, pilot_unit_id, pilot_unit_name, chief_units, cats,
+		class_id, class_name, admin_id, admin_name, gender, real_name,
+		portrait, telephone, user_id, identification_card_code,
+		admission_card_code, student_status, source_portrait, collect_way,
+		upload_time, upload_device, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.StudentModel">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_student
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_student
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.StudentModel">
+		insert into xd_dashboard_student
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="pilotUnitId != null">pilot_unit_id,</if>
+			<if test="pilotUnitName != null">pilot_unit_name,</if>
+			<if test="chiefUnits != null">chief_units,</if>
+			<if test="cats != null">cats,</if>
+			<if test="classId != null">class_id,</if>
+			<if test="className != null">class_name,</if>
+			<if test="adminId != null">admin_id,</if>
+			<if test="adminName != null">admin_name,</if>
+			<if test="gender != null">gender,</if>
+			<if test="realName != null">real_name,</if>
+			<if test="portrait != null">portrait,</if>
+			<if test="telephone != null">telephone,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="identificationCardCode != null">identification_card_code,</if>
+			<if test="admissionCardCode != null">admission_card_code,</if>
+			<if test="studentStatus != null">student_status,</if>
+			<if test="sourcePortrait != null">source_portrait,</if>
+			<if test="collectWay != null">collect_way,</if>
+			<if test="uploadTime != null">upload_time,</if>
+			<if test="uploadDevice != null">upload_device,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="pilotUnitId != null">#{pilotUnitId,jdbcType=INTEGER},</if>
+			<if test="pilotUnitName != null">#{pilotUnitName,jdbcType=VARCHAR},</if>
+			<if test="chiefUnits != null">#{chiefUnits,jdbcType=VARCHAR},</if>
+			<if test="cats != null">#{cats,jdbcType=VARCHAR},</if>
+			<if test="classId != null">#{classId,jdbcType=INTEGER},</if>
+			<if test="className != null">#{className,jdbcType=VARCHAR},</if>
+			<if test="adminId != null">#{adminId,jdbcType=INTEGER},</if>
+			<if test="adminName != null">#{adminName,jdbcType=VARCHAR},</if>
+			<if test="gender != null">#{gender,jdbcType=INTEGER},</if>
+			<if test="realName != null">#{realName,jdbcType=VARCHAR},</if>
+			<if test="portrait != null">#{portrait,jdbcType=VARCHAR},</if>
+			<if test="telephone != null">#{telephone,jdbcType=BIGINT},</if>
+			<if test="userId != null">#{userId,jdbcType=INTEGER},</if>
+			<if test="identificationCardCode != null">#{identificationCardCode,jdbcType=VARCHAR},</if>
+			<if test="admissionCardCode != null">#{admissionCardCode,jdbcType=VARCHAR},</if>
+			<if test="studentStatus != null">#{studentStatus,jdbcType=VARCHAR},</if>
+			<if test="sourcePortrait != null">#{sourcePortrait,jdbcType=VARCHAR},</if>
+			<if test="collectWay != null">#{collectWay,jdbcType=VARCHAR},</if>
+			<if test="uploadTime != null">#{uploadTime,jdbcType=TIMESTAMP},</if>
+			<if test="uploadDevice != null">#{uploadDevice,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="java.util.Map">
+		update xd_dashboard_student
+		<set>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.pilotUnitName != null">pilot_unit_name =
+				#{value.pilotUnitName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.chiefUnits != null">chief_units = #{value.chiefUnits,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.cats != null">cats = #{value.cats,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.classId != null">class_id = #{value.classId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.className != null">class_name = #{value.className,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.adminId != null">admin_id = #{value.adminId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.adminName != null">admin_name = #{value.adminName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.gender != null">gender = #{value.gender,jdbcType=INTEGER},</if>
+			<if test="value != null and value.realName != null">real_name = #{value.realName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.portrait != null">portrait = #{value.portrait,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.telephone != null">telephone = #{value.telephone,jdbcType=BIGINT},</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.identificationCardCode != null">identification_card_code =
+				#{value.identificationCardCode,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.admissionCardCode != null">admission_card_code =
+				#{value.admissionCardCode,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentStatus != null">student_status = #{value.studentStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.sourcePortrait != null">source_portrait =
+				#{value.sourcePortrait,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.collectWay != null">collect_way = #{value.collectWay,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.uploadTime != null">upload_time = #{value.uploadTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.uploadDevice != null">upload_device = #{value.uploadDevice,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_dashboard_student
+		<set>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.pilotUnitName != null">pilot_unit_name =
+				#{value.pilotUnitName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.chiefUnits != null">chief_units = #{value.chiefUnits,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.cats != null">cats = #{value.cats,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.classId != null">class_id = #{value.classId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.className != null">class_name = #{value.className,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.adminId != null">admin_id = #{value.adminId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.adminName != null">admin_name = #{value.adminName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.gender != null">gender = #{value.gender,jdbcType=INTEGER},</if>
+			<if test="value != null and value.realName != null">real_name = #{value.realName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.portrait != null">portrait = #{value.portrait,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.telephone != null">telephone = #{value.telephone,jdbcType=BIGINT},</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.identificationCardCode != null">identification_card_code =
+				#{value.identificationCardCode,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.admissionCardCode != null">admission_card_code =
+				#{value.admissionCardCode,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentStatus != null">student_status = #{value.studentStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.sourcePortrait != null">source_portrait =
+				#{value.sourcePortrait,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.collectWay != null">collect_way = #{value.collectWay,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.uploadTime != null">upload_time = #{value.uploadTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.uploadDevice != null">upload_device = #{value.uploadDevice,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById"
+		parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.StudentModel">
+		delete from xd_dashboard_student
+		where id =
+		#{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_student
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.pilotUnitId != null">pilot_unit_id,</if>
+			<if test="output != null and output.pilotUnitName != null">pilot_unit_name,</if>
+			<if test="output != null and output.chiefUnits != null">chief_units,</if>
+			<if test="output != null and output.cats != null">cats,</if>
+			<if test="output != null and output.classId != null">class_id,</if>
+			<if test="output != null and output.className != null">class_name,</if>
+			<if test="output != null and output.adminId != null">admin_id,</if>
+			<if test="output != null and output.adminName != null">admin_name,</if>
+			<if test="output != null and output.gender != null">gender,</if>
+			<if test="output != null and output.realName != null">real_name,</if>
+			<if test="output != null and output.portrait != null">portrait,</if>
+			<if test="output != null and output.telephone != null">telephone,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.identificationCardCode != null">identification_card_code,</if>
+			<if test="output != null and output.admissionCardCode != null">admission_card_code,</if>
+			<if test="output != null and output.studentStatus != null">student_status,</if>
+			<if test="output != null and output.sourcePortrait != null">source_portrait,</if>
+			<if test="output != null and output.collectWay != null">collect_way,</if>
+			<if test="output != null and output.uploadTime != null">upload_time,</if>
+			<if test="output != null and output.uploadDevice != null">upload_device,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.pilotUnitId != null">and pilot_unit_id=#{input.pilotUnitId}</if>
+			<if test="input != null and input.pilotUnitName != null">and pilot_unit_name=#{input.pilotUnitName}</if>
+			<if test="input != null and input.chiefUnits != null">and chief_units=#{input.chiefUnits}</if>
+			<if test="input != null and input.cats != null">and cats=#{input.cats}</if>
+			<if test="input != null and input.classId != null">and class_id=#{input.classId}</if>
+			<if test="input != null and input.className != null">and class_name=#{input.className}</if>
+			<if test="input != null and input.adminId != null">and admin_id=#{input.adminId}</if>
+			<if test="input != null and input.adminName != null">and admin_name=#{input.adminName}</if>
+			<if test="input != null and input.gender != null">and gender=#{input.gender}</if>
+			<if test="input != null and input.realName != null">and real_name=#{input.realName}</if>
+			<if test="input != null and input.portrait != null">and portrait=#{input.portrait}</if>
+			<if test="input != null and input.telephone != null">and telephone=#{input.telephone}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.identificationCardCode != null">and
+				identification_card_code=#{input.identificationCardCode}</if>
+			<if test="input != null and input.admissionCardCode != null">and admission_card_code=#{input.admissionCardCode}</if>
+			<if test="input != null and input.studentStatus != null">and student_status=#{input.studentStatus}</if>
+			<if test="input != null and input.sourcePortrait != null">and source_portrait=#{input.sourcePortrait}</if>
+			<if test="input != null and input.collectWay != null">and collect_way=#{input.collectWay}</if>
+			<if test="input != null and input.uploadTimeLower != null">and upload_time &gt; #{input.uploadTimeLower}</if>
+			<if test="input != null and input.uploadTimeUpper != null">and upload_time &lt; #{input.uploadTimeUpper}</if>
+			<if test="input != null and input.uploadDevice != null">and upload_device=#{input.uploadDevice}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

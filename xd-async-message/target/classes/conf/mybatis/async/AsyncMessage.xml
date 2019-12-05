@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AsyncMessage">
+	<resultMap id="BaseResultMap" type="AsyncMessage">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="TINYINT" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="classify" property="classify" jdbcType="TINYINT" />
+		<result column="src_uid" property="srcUid" jdbcType="INTEGER" />
+
+		<result column="src_nickname" property="srcNickName" jdbcType="VARCHAR" />
+		<result column="src_portrait" property="srcPortrait" jdbcType="VARCHAR" />
+		<result column="src_gender" property="srcGender" jdbcType="VARCHAR" />
+		<result column="src_username" property="srcUserName" jdbcType="VARCHAR" />
+		<result column="src_moduleinfo" property="srcModuleInfo"
+			jdbcType="VARCHAR" />
+
+		<result column="to_uid" property="toUid" jdbcType="INTEGER" />
+		<result column="message_body" property="messageBody" jdbcType="VARCHAR" />
+		<result column="callback_message" property="callBackMessage"
+			jdbcType="VARCHAR" />
+		<result column="callback_content" property="callBackContent"
+			jdbcType="VARCHAR" />
+		<result column="deal_result" property="dealResult" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!-- 添加数据 -->
+	<insert id="addEntity" parameterType="AsyncMessage">
+		insert into xd_async_message
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- 根据条件删除数据 -->
+	<delete id="deleteList" parameterType="java.util.Map">
+		delete from xd_async_message
+		<include refid="dynamic_where" />
+	</delete>
+
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_async_message
+		<include refid="dynamic_update" />
+		where id = #{id}
+	</update>
+
+	<update id="updateList" parameterType="java.util.Map">
+		update xd_async_message
+		<include refid="dynamic_update" />
+		<include refid="dynamic_where" />
+	</update>
+
+	<update id="ignoreUnReadMessage" parameterType="java.lang.String">
+		update
+		xd_async_message
+		set status = 2
+		where to_uid =
+		#{0}
+		and
+		status = 1
+	</update>
+
+	<select id="count" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(id) from xd_async_message
+		<include refid="dynamic_where" />
+	</select>
+
+	<!-- 查询 -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM xd_async_message m left join xd_user u on m.src_uid = u.id
+		<include refid="dynamic_where_join" />
+		order by m.create_time desc
+		<include refid="dynamic_limit" />
+	</select>
+
+	<select id="queryOneById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM xd_async_message m left join xd_user u on m.src_uid = u.id
+		where
+		m.id = #{0}
+	</select>
+	<!-- ==========================基础属性配置=========================================== -->
+
+	<sql id="table_name">`xd_async_message`</sql>
+	<sql id="id_column">`id`</sql>
+	<sql id="base_columns">
+		module, type, status, classify, src_uid,
+		to_uid,
+		message_body,
+		callback_message,
+		callback_content,
+		deal_result,
+		create_time
+	</sql>
+	<sql id="all_columns">
+		<include refid="id_column" />
+		,
+		<include refid="base_columns" />
+	</sql>
+	<sql id="base_count">
+		count(1)
+	</sql>
+
+	<!-- 动态排序 -->
+	<sql id="dynamic_limit">
+		<if test="limitCount != null">
+			limit ${limitCount}
+		</if>
+	</sql>
+
+	<!-- 动态语句：修改 -->
+	<sql id="dynamic_update">
+		<set>
+			<if test="module != null"> module =#{module},</if>
+			<if test="type != null"> type =#{type},</if>
+			<if test="status != null"> status =#{status},</if>
+			<if test="classify != null"> classify =#{classify},</if>
+			<if test="srcUid != null"> src_uid =#{srcUid},</if>
+			<if test="toUid != null"> to_uid =#{toUid},</if>
+			<if test="messageBody != null"> message_body =#{messageBody},</if>
+			<if test="callBackMessage != null"> callback_message =#{callBackMessage},</if>
+			<if test="callBackContent != null"> callback_content =#{callBackContent},</if>
+			<if test="dealResult != null"> deal_result =#{dealResult},</if>
+			<if test="createTime != null"> create_time =#{createTime},</if>
+		</set>
+	</sql>
+
+	<!-- 动态语句：条件 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.idUpper != null">and id &lt;= #{input.idUpper}</if>
+			<if test="input != null and input.idLower != null">and id &gt;= #{input.idUpper}</if>
+			<if test="input != null and input.id != null">and id =#{input.id}</if>
+			<if test="input != null and input.module != null">and module =#{input.module}</if>
+			<if test="input != null and input.type != null">and type =#{input.type}</if>
+			<if test="input != null and input.status != null">and status =#{input.status}</if>
+			<if test="input != null and input.classify != null">and classify =#{input.classify}</if>
+			<if test="input != null and input.srcUid != null">and src_uid =#{input.srcUid}</if>
+			<if test="input != null and input.toUid != null">and to_uid =#{input.toUid}</if>
+			<if test="input != null and input.messageBody != null">and message_body =#{input.messageBody}</if>
+			<if test="input != null and input.callBackMessage != null">and callback_message =#{input.callBackMessage}</if>
+			<if test="input != null and input.callBackContent != null">and callback_content =#{input.callBackContent}</if>
+			<if test="input != null and input.dealResult != null">and deal_result =#{input.dealResult}</if>
+			<if test="input != null and input.dealResultList != null">
+				and deal_result in
+				<foreach collection="input.dealResultList" open="(" close=")"
+					item="item" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+			<if test="input != null and input.createTimeUpperEq != null">and create_time &lt;= #{input.createTimeUpperEq}</if>
+			<if test="input != null and input.createTimeLowerEq != null">and create_time &gt;= #{input.createTimeLowerEq}</if>
+			<if test="input != null and input.createTimeUpperNq != null">and create_time &lt; #{input.createTimeUpperNq}</if>
+			<if test="input != null and input.createTimeLowerNq != null">and create_time &gt; #{input.createTimeLowerNq}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_where_join">
+		<where>
+			<if test="input != null and input.idUpper != null">and m.id &lt;= #{input.idUpper}</if>
+			<if test="input != null and input.idLower != null">and m.id &gt;= #{input.idUpper}</if>
+			<if test="input != null and input.id != null">and m.id =#{input.id}</if>
+			<if test="input != null and input.module != null">and m.module =#{input.module}</if>
+			<if test="input != null and input.type != null">and m.type =#{input.type}</if>
+			<if test="input != null and input.status != null">and m.status =#{input.status}</if>
+			<if test="input != null and input.classify != null">and m.classify =#{input.classify}</if>
+			<if test="input != null and input.srcUid != null">and m.src_uid =#{input.srcUid}</if>
+			<if test="input != null and input.toUid != null">and m.to_uid =#{input.toUid}</if>
+			<if test="input != null and input.messageBody != null">and m.message_body =#{input.messageBody}</if>
+			<if test="input != null and input.callBackMessage != null">and m.callback_message =#{input.callBackMessage}</if>
+			<if test="input != null and input.callBackContent != null">and m.callback_content =#{input.callBackContent}</if>
+			<if test="input != null and input.dealResult != null">and m.deal_result =#{input.dealResult}</if>
+			<if test="input != null and input.dealResultList != null">
+				and deal_result in
+				<foreach collection="input.dealResultList" open="(" close=")"
+					item="item" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.createTime != null">and m.create_time =#{input.createTime}</if>
+			<if test="input != null and input.createTimeUpperEq != null">and m.create_time &lt;= #{input.createTimeUpperEq}</if>
+			<if test="input != null and input.createTimeLowerEq != null">and m.create_time &gt;= #{input.createTimeLowerEq}</if>
+			<if test="input != null and input.createTimeUpperNq != null">and m.create_time &lt; #{input.createTimeUpperNq}</if>
+			<if test="input != null and input.createTimeLowerNq != null">and m.create_time &gt; #{input.createTimeLowerNq}</if>
+		</where>
+	</sql>
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="module != null"> module,</if>
+			<if test="type != null"> type,</if>
+			<if test="status != null"> status,</if>
+			<if test="classify != null"> classify,</if>
+			<if test="srcUid != null"> src_uid,</if>
+			<if test="toUid != null"> to_uid,</if>
+			<if test="messageBody != null"> message_body,</if>
+			<if test="callBackMessage != null"> callback_message,</if>
+			<if test="callBackContent != null"> callback_content,</if>
+			<if test="dealResult != null"> deal_result,</if>
+			<if test="createTime != null"> create_time,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="module != null">#{module},</if>
+			<if test="type != null">#{type},</if>
+			<if test="status != null">#{status},</if>
+			<if test="classify != null">#{classify},</if>
+			<if test="srcUid != null">#{srcUid},</if>
+			<if test="toUid != null">#{toUid},</if>
+			<if test="messageBody != null">#{messageBody},</if>
+			<if test="callBackMessage != null">#{callBackMessage},</if>
+			<if test="callBackContent != null">#{callBackContent},</if>
+			<if test="dealResult != null">#{dealResult},</if>
+			<if test="createTime != null">#{createTime},</if>
+		</trim>
+	</sql>
+
+	<sql id="Base_Column_List">
+		m.id, m.module, m.type, m.status, m.classify, m.src_uid,
+		u.nick_name src_nickname,
+		u.portrait src_portrait,
+		u.gender src_gender,
+		u.xd_unique_id src_username,
+		u.module_info src_moduleinfo,
+		m.to_uid,
+		m.message_body,
+		m.callback_message,
+		m.callback_content,
+		m.deal_result,
+		m.create_time
+	</sql>
+
+</mapper>

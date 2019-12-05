@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SmsTemplateTypeModel">
+
+	<!-- 1. 根据条件 查询 文档列表(不分页) -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM
+		xd_sms_template_type
+		<include refid="dynamic_where" />
+	</select>
+
+	<!-- 2. 根据条件 修改 文档 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_sms_template_type
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name},</if>
+			<if test="value != null and value.description != null">description = #{value.description},</if>
+			<if test="value != null and value.channelIds != null">channel_ids = #{value.channelIds},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+			<if test="value != null and value.retryTime != null">retry_time = #{value.retryTime},</if>
+			<if test="value != null and value.cacheTime != null">cache_time = #{value.cacheTime},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 3.文档 插入 方法 -->
+	<insert id="addEntity" parameterType="SmsTemplateTypeModel">
+		insert into xd_sms_template_type
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+	
+	<!-- 4.文档 删除 方法 -->
+	<delete id="deleteList" parameterType="java.util.Map">
+		delete from xd_sms_template_type
+		<include refid="dynamic_where" />
+	</delete>
+	<!-- ******************************** 上面是DAO层方法实现, 下面是各个动态语句的拼写 ******************************************* -->
+
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseResultMap" type="SmsTemplateTypeModel">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="description" property="description" />
+		<result column="channel_ids" property="channelIds" />
+		<result column="create_time" property="createTime" />
+		<result column="_timestamp" property="timestamp" />
+		<result column="retry_time" property="retryTime" />
+		<result column="cache_time" property="cacheTime" />
+	</resultMap>
+	
+	<sql id="Base_Column_List" >
+	    id, name, description, channel_ids, create_time, retry_time, cache_time
+	</sql>
+	
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id =#{input.id}</if>
+			<if test="input != null and input.name != null">and name =#{input.name}</if>
+			<if test="input != null and input.description != null">and description =#{input.description}</if>
+			<if test="input != null and input.channelIds != null">and channel_ids =#{input.channelIds}</if>
+			<if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+			<if test="input != null and input.retryTime != null">and retry_time =#{input.retryTime}</if>
+			<if test="input != null and input.cacheTime != null">and cache_time =#{input.cacheTime}</if>
+		</where>
+	</sql>
+
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="name != null">name,</if>
+			<if test="description != null">description,</if>
+			<if test="channelIds != null">channel_ids,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="retryTime != null">retry_time,</if>
+			<if test="cacheTime != null">cache_time,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="name != null">#{name},</if>
+			<if test="description != null">#{description},</if>
+			<if test="channelIds != null">#{channelIds},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="retryTime != null">#{retryTime},</if>
+			<if test="cacheTime != null">#{cacheTime},</if>
+		</trim>
+	</sql>
+	
+</mapper>

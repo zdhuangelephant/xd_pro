@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaodou.resources.dao.quesbk.CourseKeywordResourceMapper">
+	<resultMap id="BaseResultMap" type="com.xiaodou.resources.model.quesbk.CourseKeywordResource">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="resource_id" property="resourceId" jdbcType="BIGINT" />
+		<result column="keyword_id" property="keywordId" jdbcType="BIGINT" />
+		<result column="resource_type" property="resourceType"
+			jdbcType="SMALLINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, resource_id, keyword_id, resource_type, create_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from xd_course_keyword_resource
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+</mapper>

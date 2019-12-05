@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ForumCategoryModel">
+	<!-- ====================================各种具体业务sql====================================================== -->
+	
+	<!-- 增加 -->
+	<insert id="addEntity" parameterType="ForumCategoryModel">
+		insert into xd_forum_category
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+	
+	<!-- 更新 peopleNumber -->
+	<update id="updatePeopleNumber" parameterType="java.util.Map">
+		update xd_forum_category set people_number = #{peopleNumber}
+		where id = #{id}
+	</update>
+	
+	<!-- 更新 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_forum_category
+		<set>
+			<if test="value != null and value.title != null"> title =#{value.title},</if>
+			<if test="value != null and value.outline != null"> outline =#{value.outline},</if>
+			<if test="value != null and value.forumNumber != null"> forum_number =#{value.forumNumber},</if>
+			<if test="value != null and value.peopleNumber != null"> people_number =#{value.peopleNumber},</if>
+			<if test="value != null and value.tag != null"> tag =#{value.tag},</if>
+			<if test="value != null and value.operator != null"> operator =#{value.operator},</if>
+			<if test="value != null and value.operatorip != null"> operatorip =#{value.operatorip},</if>
+			<if test="value != null and value.createTime != null"> create_time =#{value.createTime},</if>
+			<if test="value != null and value.content != null"> content =#{value.content},</if>
+			<if test="value != null and value.images != null"> images =#{value.images},</if>
+			<if test="value != null and value.shortName != null"> short_name =#{input.shortName}</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	
+	<!-- 基础查询 -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+		 <include refid="Base_Column_List" />
+		 FROM xd_forum_category 
+		<include refid="dynamic_where" />
+		order by show_order ASC
+	</select>
+	
+	
+	<!-- ====================================基础属性配置========================================================= -->
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseResultMap" type="ForumCategoryModel">
+		<id column="id" property="id" />
+		<result column="title" property="title" />
+		<result column="outline" property="outline" />
+		<result column="forum_number" property="forumNumber" />
+		<result column="people_number" property="peopleNumber" />
+		<result column="tag" property="tag" />
+		<result column="operator" property="operator" />
+		<result column="operatorip" property="operatorip" />
+		<result column="create_time" property="createTime" />
+		<result column="content" property="content" />
+		<result column="images" property="images" />
+		<result column="short_name" property="shortName" />
+	    <result column="show_order" property="showOrder" />
+	</resultMap>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null"> id =#{input.id}</if>
+			<if test="input != null and input.title != null">and title =#{input.title}</if>
+			<if test="input != null and input.outline != null">and outline =#{input.outline}</if>
+			<if test="input != null and input.forumNumber != null">and forum_number =#{input.forumNumber}</if>
+			<if test="input != null and input.peopleNumber != null">and people_number =#{input.peopleNumber}</if>
+			<if test="input != null and input.tag != null">and tag =#{input.tag}</if>
+			<if test="input != null and input.operator != null">and operator =#{input.operator}</if>
+			<if test="input != null and input.operatorip != null">and operatorip =#{input.operatorip}</if>
+			<if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+			<if test="input != null and input.content != null">and content =#{input.content}</if>
+			<if test="input != null and input.images != null">and images =#{input.images}</if>
+			<if test="input != null and input.shortName != null">and short_name =#{input.shortName}</if>
+		</where>
+	</sql>
+
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="title != null">title,</if>
+			<if test="outline != null">outline,</if>
+			<if test="forumNumber != null">forum_number,</if>
+			<if test="peopleNumber != null">people_number,</if>
+			<if test="tag != null">tag,</if>
+			<if test="operator != null">operator,</if>
+			<if test="operatorip != null">operatorip,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="content != null">content,</if>
+			<if test="images != null">images,</if>
+			<if test="shortName != null">short_name,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="title != null">#{title},</if>
+			<if test="outline != null">#{outline},</if>
+			<if test="forumNumber != null">#{forumNumber},</if>
+			<if test="peopleNumber != null">#{peopleNumber},</if>
+			<if test="tag != null">#{tag},</if>
+			<if test="operator != null">#{operator},</if>
+			<if test="operatorip != null">#{operatorip},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="content != null">#{content},</if>
+			<if test="images != null">#{images},</if>
+			<if test="shortName != null">#{shortName},</if>
+		</trim>
+	</sql>
+	
+	<sql id="Base_Column_List" >
+   	 	id, title, outline, forum_number, people_number, tag, operator, operatorip, create_time, content, images, short_name
+  	</sql>
+ 
+</mapper>

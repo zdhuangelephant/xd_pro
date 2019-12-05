@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CourseModel">
+
+	<select id="findEntityByUserId" resultType="com.xiaodou.model.CourseModel"
+		parameterType="java.util.Map">
+		SELECT p.id course_id ,p.name course_name,o.course_score
+		score,p.is_latest flag,IF(ISNULL(o.course_score),0,1) status
+		FROM
+		xd_course_product p
+		LEFT JOIN xd_user_course_order o
+		ON p.id =
+		o.course_id AND o.user_id = #{userId}
+	</select>
+
+	<select id="findBuyCourseByCond" resultType="com.xiaodou.model.CourseModel"
+		parameterType="java.util.Map">
+		SELECT o.course_id FROM
+		xd_user_course_order o
+		<where>
+			<if test="userId != null">
+				and o.user_id = #{userId}
+			</if>
+			<if test="courseId != null">
+				and o.course_id = #{courseId}
+			</if>
+		</where>
+	</select>
+
+</mapper>

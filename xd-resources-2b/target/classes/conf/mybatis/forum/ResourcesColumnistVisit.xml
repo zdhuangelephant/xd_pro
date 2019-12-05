@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ResourcesColumnistVisit">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.resources.model.forum.ResourcesColumnistVisit">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="columnist_id" property="columnistId" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="last_visit_time" property="lastVisitTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, module, columnist_id, user_id, last_visit_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.resources.model.forum.ResourcesColumnistVisit">
+		select
+		<include refid="base_column" />
+		from xd_resources_columnist_visit
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_resources_columnist_visit
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.resources.model.forum.ResourcesColumnistVisit">
+		insert into xd_resources_columnist_visit
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="module != null">module,</if>
+			<if test="columnistId != null">columnist_id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="lastVisitTime != null">last_visit_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+			<if test="columnistId != null">#{columnistId,jdbcType=VARCHAR},</if>
+			<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+			<if test="lastVisitTime != null">#{lastVisitTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.resources.model.forum.ResourcesColumnistVisit">
+		update xd_resources_columnist_visit
+		<set>
+			<if test="value != null and value.lastVisitTime != null">last_visit_time =
+				#{value.lastVisitTime,jdbcType=TIMESTAMP},</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.resources.model.forum.ResourcesColumnistVisit">
+		update xd_resources_columnist_visit
+		<set>
+			<if test="value != null and value.lastVisitTime != null">last_visit_time =
+				#{value.lastVisitTime,jdbcType=TIMESTAMP},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById"
+		parameterType="com.xiaodou.resources.model.forum.ResourcesColumnistVisit">
+		delete from xd_resources_columnist_visit
+		where id =
+		#{id,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_resources_columnist_visit
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.module != null">module,</if>
+			<if test="output != null and output.columnistId != null">columnist_id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.lastVisitTime != null">last_visit_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.module != null">and module=#{input.module}</if>
+			<if test="input != null and input.columnistId != null">and columnist_id=#{input.columnistId}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.lastVisitTimeLower != null">and last_visit_time &gt; #{input.lastVisitTimeLower}</if>
+			<if test="input != null and input.lastVisitTimeUpper != null">and last_visit_time &lt; #{input.lastVisitTimeLower}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.module != null and ( sort.module == 'ASC' or sort.module == 'DESC' )">module ${sort.module},</if>
+			<if
+				test="sort != null and sort.columnistId != null and ( sort.columnistId == 'ASC' or sort.columnistId == 'DESC' )">columnist_id ${sort.columnistId},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.lastVisitTime != null and ( sort.lastVisitTime == 'ASC' or sort.lastVisitTime == 'DESC' )">last_visit_time ${sort.lastVisitTime},</if>
+		</trim>
+	</sql>
+</mapper>

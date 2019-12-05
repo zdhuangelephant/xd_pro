@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="FeedBackCategoryDO">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.userCenter.model.FeedBackCategoryDO">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="feedback_id" property="feedbackId" jdbcType="INTEGER" />
+		<result column="category_desc" property="categoryDesc"
+			jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, feedback_id, category_desc, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.userCenter.model.FeedBackCategoryDO">
+		select
+		<include refid="base_column" />
+		from xd_user_feedback_category where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_user_feedback_category
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.userCenter.model.FeedBackCategoryDO">
+		insert into xd_user_feedback_category
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="feedbackId != null">feedback_id,</if>
+			<if test="categoryDesc != null">category_desc,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="feedbackId != null">#{feedbackId,jdbcType=INTEGER},</if>
+			<if test="categoryDesc != null">#{categoryDesc,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+
+	<insert id="addEntityList" parameterType="java.util.Map">
+		insert into xd_user_feedback_category
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="column != null">
+				<if test="column.id != null">id,</if>
+				<if test="column.feedbackId != null">feedback_id,</if>
+				<if test="column.categoryDesc != null">category_desc,</if>
+				<if test="column.createTime != null">create_time,</if>
+			</if>
+		</trim>
+		values
+		<foreach collection="value" item="item" separator=",">
+			<trim prefix=" (" suffix=")" suffixOverrides=",">
+				<if test="item != null">
+					<if test="item.id != null">#{item.id,jdbcType=INTEGER},</if>
+					<if test="item.feedbackId != null">#{item.feedbackId,jdbcType=INTEGER},</if>
+					<if test="item.categoryDesc != null">#{item.categoryDesc,jdbcType=VARCHAR},</if>
+					<if test="item.createTime != null">#{item.createTime,jdbcType=TIMESTAMP},</if>
+				</if>
+			</trim>
+		</foreach>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.userCenter.model.FeedBackCategoryDO">
+		update xd_user_feedback_category
+		<set>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.userCenter.model.FeedBackCategoryDO">
+		update xd_user_feedback_category
+		<set>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.userCenter.model.FeedBackCategoryDO"> delete from
+		xd_user_feedback_category where id = #{id,jdbcType=INTEGER}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_user_feedback_category
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.feedbackId != null">feedback_id,</if>
+			<if test="output != null and output.categoryDesc != null">category_desc,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.feedbackId != null">and feedback_id=#{input.feedbackId}</if>
+			<if test="input != null and input.categoryDesc != null">and category_desc=#{input.categoryDesc}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.feedbackId != null and ( sort.feedbackId == 'ASC' or sort.feedbackId == 'DESC' )">feedback_id ${sort.feedbackId},</if>
+			<if
+				test="sort != null and sort.categoryDesc != null and ( sort.categoryDesc == 'ASC' or sort.categoryDesc == 'DESC' )">category_desc ${sort.categoryDesc},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

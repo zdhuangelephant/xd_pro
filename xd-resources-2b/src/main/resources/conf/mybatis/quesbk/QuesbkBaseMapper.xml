@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaodou.resources.dao.quesbk.QuesbkBaseMapper">
+	<resultMap id="BaseResultMap" type="com.xiaodou.resources.model.quesbk.QuesbkBase">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="category_id" property="categoryId" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="expense" property="expense" jdbcType="VARCHAR" />
+		<result column="ques_count" property="quesCount" jdbcType="VARCHAR" />
+		<result column="course_info_lst" property="courseInfoList"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, category_id, name, status, expense, ques_count,
+		course_info_lst
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from xd_quesbk_base
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from xd_quesbk_base
+	</select>
+	<select id="selectAllByCategoryId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from xd_quesbk_base
+		where category_id = #{categoryId,jdbcType=BIGINT}
+		and status = '1'
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		xd_quesbk_base
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.xiaodou.resources.model.quesbk.QuesbkBase">
+		insert into xd_quesbk_base
+		(id, category_id, name,
+		status, expense, ques_count, course_info_lst )
+		values (#{id,jdbcType=BIGINT}, #{categoryId,jdbcType=BIGINT},
+		#{name,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+		#{expense,jdbcType=VARCHAR}, #{quesCount,jdbcType=VARCHAR},
+		#{courseInfoList,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.xiaodou.resources.model.quesbk.QuesbkBase">
+		insert into xd_quesbk_base
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="categoryId != null">
+				category_id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="expense != null">
+				expense,
+			</if>
+			<if test="quesCount != null">
+				ques_count,
+			</if>
+			<if test="courseInfoList != null">
+				course_info_list,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="categoryId != null">
+				#{categoryId,jdbcType=BIGINT}
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="expense != null">
+				#{expense,jdbcType=VARCHAR},
+			</if>
+			<if test="quesCount != null">
+				#{quesCount,jdbcType=VARCHAR},
+			</if>
+			<if test="courseInfoList != null">
+				#{courseInfoList,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.xiaodou.resources.model.quesbk.QuesbkBase">
+		update xd_quesbk_base
+		<set>
+			<if test="categoryId != null">
+				category_id = #{categoryId,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="expense != null">
+				expense = #{expense,jdbcType=VARCHAR},
+			</if>
+			<if test="quesCount != null">
+				ques_count = #{quesCount,jdbcType=VARCHAR},
+			</if>
+			<if test="courseInfoList != null">
+				course_info_list = #{courseInfoList,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.xiaodou.resources.model.quesbk.QuesbkBase">
+		update
+		xd_quesbk_base
+		set category_id = #{categoryId,jdbcType=BIGINT},
+		name =
+		#{name,jdbcType=VARCHAR},
+		status = #{status,jdbcType=VARCHAR},
+		expense =
+		#{expense,jdbcType=VARCHAR},
+		ques_count =
+		#{quesCount,jdbcType=VARCHAR},
+		course_info_list =
+		#{courseInfoList,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

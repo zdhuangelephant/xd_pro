@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RolePrivilegeDO">
+	<resultMap id="BaseResultMap" type="com.xiaodou.st.dashboard.domain.admin.RolePrivilegeDO">
+		<id column="id" property="id" jdbcType="INTEGER" />
+<result column="role_id" property="roleId" jdbcType="INTEGER" />
+<result column="privilege_id" property="privilegeId" jdbcType="INTEGER" />
+<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+	</resultMap>
+	<sql id="base_column">id, role_id, privilege_id, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.admin.RolePrivilegeDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_role_privilege
+		where id = #{id,jdbcType=INTEGER}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_role_privilege
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.st.dashboard.domain.admin.RolePrivilegeDO" useGeneratedKeys="true" keyProperty="id" >
+		insert into xd_dashboard_role_privilege
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+<if test="roleId != null">role_id,</if>
+<if test="privilegeId != null">privilege_id,</if>
+<if test="createTime != null">create_time,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+<if test="roleId != null">#{roleId,jdbcType=INTEGER},</if>
+<if test="privilegeId != null">#{privilegeId,jdbcType=INTEGER},</if>
+<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.st.dashboard.domain.admin.RolePrivilegeDO">
+		update xd_dashboard_role_privilege
+		<set>
+			<if test="value != null and value.roleId != null">role_id = #{value.roleId,jdbcType=INTEGER},</if>
+<if test="value != null and value.privilegeId != null">privilege_id = #{value.privilegeId,jdbcType=INTEGER},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.st.dashboard.domain.admin.RolePrivilegeDO">
+		update xd_dashboard_role_privilege
+		<set>
+			<if test="value != null and value.roleId != null">role_id = #{value.roleId,jdbcType=INTEGER},</if>
+<if test="value != null and value.privilegeId != null">privilege_id = #{value.privilegeId,jdbcType=INTEGER},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.st.dashboard.domain.admin.RolePrivilegeDO">
+		delete from xd_dashboard_role_privilege
+		where id = #{id,jdbcType=INTEGER}
+
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_role_privilege
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+<if test="output != null and output.roleId != null">role_id,</if>
+<if test="output != null and output.privilegeId != null">privilege_id,</if>
+<if test="output != null and output.createTime != null">create_time,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+<if test="input != null and input.idList != null">and id in 
+<foreach collection="input.idList" open="(" close=")" separator="," item="item">#{item}</foreach>
+</if>
+<if test="input != null and input.roleId != null">and role_id=#{input.roleId}</if>
+<if test="input != null and input.roleIdList != null">and role_id in 
+<foreach collection="input.roleIdList" open="(" close=")" separator="," item="item">#{item}</foreach>
+</if>
+<if test="input != null and input.privilegeId != null">and privilege_id=#{input.privilegeId}</if>
+<if test="input != null and input.privilegeIdList != null">and privilege_id in 
+<foreach collection="input.privilegeIdList" open="(" close=")" separator="," item="item">#{item}</foreach>
+</if>
+<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+<if test="sort != null and sort.roleId != null and ( sort.roleId == 'ASC' or sort.roleId == 'DESC' )">role_id ${sort.roleId},</if>
+<if test="sort != null and sort.privilegeId != null and ( sort.privilegeId == 'ASC' or sort.privilegeId == 'DESC' )">privilege_id ${sort.privilegeId},</if>
+<if test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+
+		</trim>
+	</sql>
+</mapper>

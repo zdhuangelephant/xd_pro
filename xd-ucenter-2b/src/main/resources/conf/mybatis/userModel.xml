@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserModel">
+
+	<!-- 1. 根据条件 查询 文档列表(不分页) -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.age != null">age,</if>
+			<if test="output != null and output.address != null">address,</if>
+			<if test="output != null and output.latestDeviceIp != null">latest_device_ip,</if>
+			<if test="output != null and output.xdUniqueId != null">xd_unique_id,</if>
+			<if test="output != null and output.nickName != null">nick_name,</if>
+			<if test="output != null and output.portrait != null">portrait,</if>
+			<if test="output != null and output.tokenTime != null">token_time,</if>
+			<if test="output != null and output.token != null">token,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.usedDeviceId != null">used_device_id,</if>
+			<if test="output != null and output.gender != null">gender,</if>
+			<if test="output != null and output.module != null">module,</if>
+			<if test="output != null and output.moduleInfo != null">module_info,</if>
+			<if test="output != null and output.credit != null">credit,</if>
+			<!-- <if test="output != null and output.coin != null">coin,</if> -->
+			<if test="output != null and output.bePraiseNum != null">be_praise_num,</if>
+			<if test="output != null and output.userType">user_type,</if>
+			<if test="output != null and output.officialInfo">official_info,</if>
+			<if test="output != null and output.learnDays">learn_days,</if>
+			<if test="output != null and output.loginDays">login_days,</if>
+			<if test="output != null and output.packageTag">package_tag,</if>
+		</trim>
+		FROM
+		xd_user
+		<include refid="dynamic_where" />
+		ORDER BY token_time DESC
+	</select>
+
+	<!-- 2. 根据条件 修改 文档 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_user
+		<set>
+			<if test="value != null and value.age != null">age = #{value.age},</if>
+			<if test="value != null and value.address != null">address = #{value.address},</if>
+			<if test="value != null and value.xdUniqueId != null">xd_unique_id = #{value.xdUniqueId},</if>
+			<if test="value != null and value.nickName != null">nick_name = #{value.nickName},</if>
+			<if test="value != null and value.portrait != null">portrait = #{value.portrait},</if>
+			<if test="value != null and value.tokenTime != null">token_time = #{value.tokenTime},</if>
+			<if test="value != null and value.token != null">token = #{value.token},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+			<if test="value != null and value.usedDeviceId != null">used_device_id = #{value.usedDeviceId},</if>
+			<if test="value != null and value.latestDeviceIp != null">latest_device_ip = #{value.latestDeviceIp},</if>
+			<if test="value != null and value.gender != null">gender = #{value.gender},</if>
+			<if test="value != null and value.moduleInfo != null">module_info = #{value.moduleInfo},</if>
+			<if test="value != null and value.credit != null">credit = #{value.credit},</if>
+			<!-- <if test="value != null and value.coin != null">coin = #{value.coin},</if> -->
+			<if test="value != null and value.bePraiseNum != null">be_praise_num = #{value.bePraiseNum},</if>
+			<!-- <if test="value != null and value.userType != null">user_type = #{value.userType}</if> -->
+			<if test="value != null and value.officialInfo != null">official_info = #{value.officialInfo},</if>
+			<if test="value != null and value.learnDays != null">learn_days = #{value.learnDays},</if>
+			<if test="value != null and value.loginDays != null">login_days = #{value.loginDays},</if>
+			<if test="value != null and value.packageTag != null">package_tag = #{value.packageTag},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	
+	<update id="updateOfficialInfo" parameterType="java.util.Map">
+		update xd_user
+		<set>
+			<if test="value != null and value.officialInfo != null">official_info = #{value.officialInfo}</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 3.文档 插入 方法 -->
+	<insert id="addEntity" parameterType="com.xiaodou.userCenter.model.UserModel"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_user
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+	
+	<insert id="insertOrUpdateEntity" parameterType="com.xiaodou.userCenter.model.UserModel"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO xd_user 
+		(
+		<include refid="insertColumns" />
+		)
+ 		VALUES 
+		(
+		<include refid="insertValues" />
+		)
+ 		ON DUPLICATE KEY UPDATE xd_unique_id=VALUES(xd_unique_id);
+	</insert>
+	
+	<insert id="addOfficialEntity" parameterType="com.xiaodou.userCenter.model.UserModel"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_user
+		(
+		<if test="userType != null">user_type,</if>
+		<if test="officialInfo != null">official_info,</if>
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<if test="userType != null">#{userType},</if>
+		<if test="officialInfo != null">#{officialInfo},</if>
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- ******************************** 上面是DAO层方法实现, 下面是各个动态语句的拼写 ******************************************* -->
+
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseResultMap" type="com.xiaodou.userCenter.model.UserModel">
+		<id column="id" property="id" />
+		<result column="nick_name" property="nickName" />
+		<result column="gender" property="gender" />
+		<result column="age" property="age" />
+		<result column="address" property="address" />
+		<result column="portrait" property="portrait" />
+		<result column="token_time" property="tokenTime" />
+		<result column="token" property="token" />
+		<result column="create_time" property="createTime" />
+		<result column="_timestamp" property="timestamp" />
+		<result column="used_device_id" property="usedDeviceId" />
+		<result column="latest_device_ip" property="latestDeviceIp" />
+		<result column="xd_unique_id" property="xdUniqueId" />
+		<result column="module" property="module" />
+		<result column="module_info" property="moduleInfo" />
+		<result column="credit" property="credit" />
+		<!-- <result column="coin" property="coin" /> -->
+		<result column="be_praise_num" property="bePraiseNum" />
+		<result column="user_type" property="userType"/>
+		<result column="official_info" property="officialInfo"/>
+		<result column="learn_days" property="learnDays"/>	
+		<result column="login_days" property="loginDays"/>	
+		<result column="package_tag" property="packageTag"/>	
+	</resultMap>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id =#{input.id}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.age != null">and age = #{input.age}</if>
+			<if test="input != null and input.address != null">and address = #{input.address}</if>
+			<if test="input != null and input.nickName != null">and nick_name =#{input.nickName}</if>
+			<if test="input != null and input.portrait != null">and portrait =#{input.portrait}</if>
+			<if test="input != null and input.tokenTime != null">and token_time =#{input.tokenTime}</if>
+			<if test="input != null and input.token != null">and token =#{input.token}</if>
+			<if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+			<if test="input != null and input.usedDeviceId != null">and used_device_id =#{input.usedDeviceId}</if>
+			<if test="input != null and input.latestDeviceIp != null">and latest_device_ip =#{input.latestDeviceIp}</if>
+			<if test="input != null and input.gender != null">and gender =#{input.gender}</if>
+			<if test="input != null and input.xdUniqueId != null">and xd_unique_id =#{input.xdUniqueId}</if>
+			<if test="input != null and input.moduleInfo != null">and module_info =#{input.moduleInfo}</if>
+			<if test="input != null and input.credit != null">and credit =#{input.credit}</if>
+			<!-- <if test="input != null and input.coin != null">and coin =#{input.coin}</if> -->
+			<if test="input != null and input.bePraiseNum != null">and be_praise_num =#{input.bePraiseNum}</if>
+			<if test="input != null and input.userType != null">and user_type = #{input.userType}</if>
+			<if test="input != null and input.officialInfo != null">and official_info = #{input.officialInfo}</if>
+			<if test="input != null and input.learnDays != null">and learn_days = #{input.learnDays}</if>
+			<if test="input != null and input.loginDays != null">and login_days = #{input.loginDays}</if>
+			<if test="input != null and input.packageTag != null">and package_tag = #{input.packageTag}</if>
+		</where>
+	</sql>
+
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="age != null">age,</if>
+			<if test="address != null">address,</if>
+			<if test="nickName != null">nick_name,</if>
+			<if test="portrait != null">portrait,</if>
+			<if test="tokenTime != null">token_time,</if>
+			<if test="token != null">token,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="usedDeviceId != null">used_device_id,</if>
+			<if test="latestDeviceIp != null">latest_device_ip,</if>
+			<if test="gender != null">gender,</if>
+			<if test="xdUniqueId != null">xd_unique_id,</if>
+			<if test="moduleInfo != null">module_info,</if>
+			<if test="credit != null">credit,</if>
+			<if test="bePraiseNum != null">be_praise_num,</if>
+			<if test="learnDays != null">learn_days,</if>
+			<if test="loginDays != null">login_days,</if>
+			<if test="packageTag != null">package_tag,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="age != null">#{age},</if>
+			<if test="address != null">#{address},</if>
+			<if test="nickName != null">#{nickName},</if>
+			<if test="portrait != null">#{portrait},</if>
+			<if test="tokenTime != null">#{tokenTime},</if>
+			<if test="token != null">#{token},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="usedDeviceId != null">#{usedDeviceId},</if>
+			<if test="latestDeviceIp != null">#{latestDeviceIp},</if>
+			<if test="gender != null">#{gender},</if>
+			<if test="xdUniqueId != null">#{xdUniqueId},</if>
+			<if test="moduleInfo != null">#{moduleInfo},</if>
+			<if test="credit != null">#{credit},</if>
+			<if test="bePraiseNum != null">#{bePraiseNum},</if>
+			<if test="learnDays != null">#{learnDays},</if>
+			<if test="loginDays != null">#{loginDays},</if>
+			<if test="packageTag != null">#{packageTag},</if>
+		</trim>
+	</sql>
+
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ProductCategoryUtilModel">
+
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.userCenter.model.ProductCategoryUtilModel">
+		<id column="id" property="id" />
+		<result column="parent_id" property="parentId" />
+		<result column="child_id" property="childId" />
+		<result column="show_status" property="showStatus" />
+		<result column="all_parent_id" property="allParentId" />
+		<result column="all_child_id" property="allChildId" />
+		<result column="level" property="level" />
+		<result column="name" property="name" />
+		<result column="course_category_type" property="courseCategoryType" />
+		<result column="detail" property="detail" />
+		<result column="misc" property="misc" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="module" property="module" />
+		<result column="type_code" property="typeCode" />
+		<result column="is_leaf" property="isLeaf" />
+		<result column="degree" property="degree" />
+		<result column="major_level" property="majorLevel" />
+		<result column="chief_academy" property="chiefAcademy" />
+		<result column="major_info" property="majorInfo" />
+		<result column="picture_url" property="pictureUrl" />
+	</resultMap>
+
+
+	<!-- 查询 -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_product_category
+		left join xd_course_product_module on
+		xd_course_product_category.module = xd_course_product_module.id
+		left
+		join xd_major_data ON
+		xd_course_product_category.type_code =
+		xd_major_data.id
+		<include refid="dynamic_where" />
+	</select>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_course_product_category.id =#{input.id}</if>
+			<!-- <if test="input != null and input.ids != null"> and xd_course_product_category.id 
+				in <foreach collection="input.ids" open="(" close=")" separator="," item="item" 
+				index="index"> #{item} </foreach> </if> -->
+			<if test="input != null and input.parentId != null">and xd_course_product_category.parent_id
+				=#{input.parentId}
+			</if>
+			<if test="input != null and input.childId != null">and xd_course_product_category.child_id =#{input.childId}
+			</if>
+			<if test="input != null and input.showStatus != null">and xd_course_product_category.show_status
+				=#{input.showStatus}
+			</if>
+			<if test="input != null and input.allParentId != null">and xd_course_product_category.all_parent_id
+				=#{input.allParentId}
+			</if>
+			<if test="input != null and input.allChildId != null">and xd_course_product_category.all_child_id
+				=#{input.allChildId}
+			</if>
+			<if test="input != null and input.level != null">and xd_course_product_category.level =#{input.level}</if>
+			<if test="input != null and input.name != null">and xd_course_product_category.name =#{input.name}</if>
+			<if test="input != null and input.courseCategoryType != null">and xd_course_product_category.course_category_type
+				=#{input.courseCategoryType}
+			</if>
+			<if test="input != null and input.detail != null">and xd_course_product_category.detail =#{input.detail}
+			</if>
+			<if test="input != null and input.misc != null">and xd_course_product_category.misc =#{input.misc}</if>
+			<if test="input != null and input.createTime != null">and xd_course_product_category.create_time
+				=#{input.createTime}
+			</if>
+			<if test="input != null and input.updateTime != null">and xd_course_product_category.update_time
+				=#{input.updateTime}
+			</if>
+			<if test="input != null and input.isLeaf != null">and xd_course_product_category.is_leaf =#{input.isLeaf}
+			</if>
+			<if test="input != null and input.module != null">and xd_course_product_category.module =#{input.module}
+			</if>
+			<if test="input != null and input.typeCode != null">and xd_course_product_category.type_code
+				=#{input.typeCode}
+			</if>
+			<if test="input != null and input.moduleName != null">and moduleName =#{input.name}</if>
+			<if test="input != null and input.degree != null">and xd_course_product_category.degree =#{input.degree}
+			</if>
+			<if test="input != null and input.majorLevel != null">and xd_course_product_category.major_level
+				=#{input.majorLevel}
+			</if>
+			<if test="input != null and input.chiefAcademy != null">and xd_course_product_category.chief_academy
+				=#{input.chiefAcademy}
+			</if>
+		</where>
+	</sql>
+	<!--动态语句:输出 -->
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_course_product_category.id,</if>
+			<if test="output != null and output.parentId != null">xd_course_product_category.parent_id,</if>
+			<if test="output != null and output.childId != null">xd_course_product_category.child_id,</if>
+			<if test="output != null and output.showStatus != null">xd_course_product_category.show_status,</if>
+			<if test="output != null and output.allParentId != null">xd_course_product_category.all_parent_id,</if>
+			<if test="output != null and output.allChildId != null">xd_course_product_category.all_child_id,</if>
+			<if test="output != null and output.level != null">xd_course_product_category.level,</if>
+			<if test="output != null and output.name != null">xd_major_data.name,</if>
+			<if test="output != null and output.courseCategoryType != null">xd_course_product_category.course_category_type,</if>
+			<if test="output != null and output.detail != null">xd_course_product_category.detail,</if>
+			<if test="output != null and output.misc != null">xd_course_product_category.misc,</if>
+			<if test="output != null and output.createTime != null">xd_course_product_category.create_time,</if>
+			<if test="output != null and output.updateTime != null">xd_course_product_category.update_time,</if>
+			<if test="output != null and output.isLeaf != null">xd_course_product_category.is_leaf,</if>
+			<if test="output != null and output.module != null">xd_course_product_category.module,</if>
+			<if test="output != null and output.typeCode != null">xd_course_product_category.type_code,</if>
+			<if test="output != null and output.moduleName != null">xd_course_product_module.name as moduleName,</if>
+			<if test="output != null and output.degree != null">xd_course_product_category.degree,</if>
+			<if test="output != null and output.majorLevel != null">xd_course_product_category.major_level,</if>
+			<if test="output != null and output.chiefAcademy != null">xd_course_product_category.chief_academy,</if>
+			<if test="output != null and output.majorInfo != null">xd_major_data.major_info,</if>
+			<if test="output != null and output.pictureUrl != null">xd_course_product_category.picture_url,</if>
+		</trim>
+	</sql>
+
+
+</mapper>

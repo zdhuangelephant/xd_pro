@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserModelVo">
+
+	<!-- 1. 根据条件 查询 文档列表(不分页) -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">a.id,</if>
+			<if test="output != null and output.age != null">age,</if>
+			<if test="output != null and output.address != null">address,</if>
+			<if test="output != null and output.latestDeviceIp != null">latest_device_ip,</if>
+			<if test="output != null and output.userName != null">a.user_name,</if>
+			<if test="output != null and output.nickName != null">nick_name,</if>
+			<if test="output != null and output.salt != null">salt,</if>
+			<if test="output != null and output.password != null">password,</if>
+			<if test="output != null and output.portrait != null">portrait,</if>
+			<if test="output != null and output.tokenTime != null">token_time,</if>
+			<if test="output != null and output.token != null">token,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.usedDeviceId != null">used_device_id,</if>
+			<if test="output != null and output.gender != null">gender,</if>
+			<if test="output != null and output.platform != null">platform,</if>
+			<if test="output != null and output.uniqueId != null">unique_id,</if>
+			<if test="output != null and output.module != null">module,</if>
+			<if test="output != null and output.moduleInfo != null">module_info,</if>
+		</trim>
+		FROM
+		xd_user a JOIN xd_user_module_info b 
+		ON a.user_name = b.user_name 
+		<include refid="dynamic_where" />  
+		 ORDER BY token_time DESC 
+	</select>
+
+	<!-- ******************************** 上面是DAO层方法实现, 下面是各个动态语句的拼写 ******************************************* -->
+
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseResultMap" type="com.xiaodou.userCenter.model.vo.UserModelVo">
+		<id column="id" property="id" />
+		<result column="user_name" property="userName" />
+		<result column="salt" property="salt" />
+		<result column="password" property="password" />
+		<result column="nick_name" property="nickName" />
+		<result column="gender" property="gender" />
+		<result column="age" property="age" />
+		<result column="address" property="address" />
+		<result column="portrait" property="portrait" />
+		<result column="token_time" property="tokenTime" />
+		<result column="token" property="token" />
+		<result column="create_time" property="createTime" />
+		<result column="used_device_id" property="usedDeviceId" />
+		<result column="latest_device_ip" property="latestDeviceIp" />
+		<result column="platform" property="platform" />
+		<result column="unique_id" property="uniqueId" />
+		<result column="module" property="module" />
+		<result column="module_info" property="moduleInfo" />
+	</resultMap>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and a.id =#{input.id}</if>
+			<if test="input != null and input.age != null">and age = #{input.age}</if>
+			<if test="input != null and input.address != null">and address = #{input.address}</if>
+			<if test="input != null and input.userName != null">and a.user_name =#{input.userName}</if>
+			<if test="input != null and input.nickName != null">and nick_name =#{input.nickName}</if>
+			<if test="input != null and input.salt != null">and salt =#{input.salt}</if>
+			<if test="input != null and input.password != null">and password =#{input.password}</if>
+			<if test="input != null and input.portrait != null">and portrait =#{input.portrait}</if>
+			<if test="input != null and input.tokenTime != null">and token_time =#{input.tokenTime}</if>
+			<if test="input != null and input.token != null">and token =#{input.token}</if>
+			<if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+			<if test="input != null and input.usedDeviceId != null">and used_device_id =#{input.usedDeviceId}</if>
+			<if test="input != null and input.latestDeviceIp != null">and latest_device_ip =#{input.latestDeviceIp}</if>
+			<if test="input != null and input.gender != null">and gender =#{input.gender}</if>
+			<if test="input != null and input.platform != null">and platform =#{input.platform}</if>
+			<if test="input != null and input.uniqueId != null">and unique_id =#{input.uniqueId}</if>
+			<if test="input != null and input.module != null">and module = #{input.module}</if>
+			<if test="input != null and input.moduleInfo != null">and module_info =#{input.moduleInfo}</if>
+		</where>
+	</sql>
+</mapper>

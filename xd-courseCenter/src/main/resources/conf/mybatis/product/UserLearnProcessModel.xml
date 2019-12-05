@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserLearnProcessModel">
+
+    <resultMap id="BaseResultMap" type="UserLearnProcessModel">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="product_id" property="productId"/>
+        <result column="item_id" property="itemId"/>
+        <result column="record_time" property="recordTime"/>
+        <result column="module_id" property="moduleId"/>
+
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">user_id,product_id,item_id,record_time,module_id</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="productId != null">product_id,</if>
+            <if test="itemId != null">item_id,</if>
+            <if test="recordTime != null">record_time,</if>
+            <if test="moduleId != null">module_id,</if>
+
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="productId != null">#{productId},</if>
+            <if test="itemId != null">#{itemId},</if>
+            <if test="recordTime != null">#{recordTime},</if>
+            <if test="moduleId != null">#{moduleId},</if>
+
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="UserLearnProcessModel">
+        insert into xd_user_learn_process
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update xd_user_learn_process
+        <set>
+            <if test="value != null and value.userId != null">user_id = #{value.userId},</if>
+            <if test="value != null and value.productId != null">product_id = #{value.productId},</if>
+            <if test="value != null and value.itemId != null">item_id = #{value.itemId},</if>
+            <if test="value != null and value.recordTime != null">record_time = #{value.recordTime},</if>
+            <if test="value != null and value.moduleId != null">module_id = #{value.moduleId},</if>
+
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_user_learn_process
+        <include refid="dynamic_where"/>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="UserLearnProcessModel" resultMap="BaseResultMap">
+        select * from xd_user_learn_process where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from xd_user_learn_process
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and id =#{input.id}</if>
+            <if test="input != null and input.userId != null">and user_id =#{input.userId}</if>
+            <if test="input != null and input.productId != null">and product_id =#{input.productId}</if>
+            <if test="input != null and input.itemId != null">and item_id =#{input.itemId}</if>
+            <if test="input != null and input.recordTime != null">and record_time =#{input.recordTime}</if>
+            <if test="input != null and input.moduleId != null">and module_id =#{input.moduleId}</if>
+
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">id,</if>
+            <if test="output != null and output.userId != null">user_id,</if>
+            <if test="output != null and output.productId != null">product_id,</if>
+            <if test="output != null and output.itemId != null">item_id,</if>
+            <if test="output != null and output.recordTime != null">record_time,</if>
+            <if test="output != null and output.moduleId != null">module_id,</if>
+            
+        </trim>
+    </sql>
+
+
+</mapper>

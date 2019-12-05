@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="QuesbkQues">
+	<resultMap id="BaseResultMap" type="com.xiaodou.domain.product.QuesbkQues">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="question_type" property="questionType"
+			jdbcType="BIGINT" />
+		<result column="question_src" property="questionSrc" jdbcType="VARCHAR" />
+		<result column="chapter_id" property="chapterId" jdbcType="BIGINT" />
+		<result column="course_id" property="courseId" jdbcType="BIGINT" />
+		<result column="ques_img_url" property="quesImgUrl" jdbcType="VARCHAR" />
+		<result column="key_point" property="keyPoint" jdbcType="VARCHAR" />
+		<result column="cognition_level" property="cognitionLevel"
+			jdbcType="DECIMAL" />
+		<result column="diffcult_level" property="diffcultLevel"
+			jdbcType="DECIMAL" />
+		<result column="answer_ids" property="answerIds" jdbcType="VARCHAR" />
+		<result column="mdesc" property="mdesc" jdbcType="VARCHAR" />
+		<result column="manalyze" property="manalyze" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="misc" property="misc" jdbcType="VARCHAR" />
+		<result column="answer_list" property="answerList" jdbcType="VARCHAR" />
+		<result column="ques_time" property="quesTime" jdbcType="TIMESTAMP" />
+		<result column="zhenti" property="zhenti" jdbcType="TINYINT" />
+		<result column="wrong_status" property="wrongStatus" jdbcType="TINYINT" />
+		<result column="parent_id" property="parentChapter" jdbcType="VARCHAR" />
+		<result column="my_right_times" property="myRightTimes"
+			jdbcType="INTEGER" />
+		<result column="my_wrong_answer" property="myAnswerIds"
+			jdbcType="VARCHAR" />
+		<result column="my_exam_times" property="statistic.myExamTimes"
+			jdbcType="BIGINT" />
+		<result column="my_wrong_times" property="statistic.myWrongTimes"
+			jdbcType="BIGINT" />
+		<result column="total_exam_times" property="statistic.totalExamTimes"
+			jdbcType="BIGINT" />
+		<result column="total_wrong_times" property="statistic.totalWrongTimes"
+			jdbcType="BIGINT" />
+		<result column="total_right_percent" property="statistic.totalRightPercent"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, question_type, question_type_name, question_type_score,
+		question_src, chapter_id, parent_chapter, course_id, ques_img_url,
+		key_point, cognition_level, diffcult_level, my_right_times,
+		my_answer_ids, answer_ids, mdesc, manalyze, status, misc, answer_list,
+		ques_time, zhenti, store_id, wrong_id, store_status, wrong_status,
+		statistic
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.domain.product.QuesbkQues">
+		select
+		<include refid="base_column" />
+		from xd_quesbk_ques where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_quesbk_ques
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<update id="updateEntityById" parameterType="com.xiaodou.domain.product.QuesbkQues">
+		update xd_quesbk_ques
+		<set>
+			<if test="value != null and value.questionType != null">question_type = #{value.questionType,jdbcType=BIGINT},
+			</if>
+			<if test="value != null and value.questionTypeName != null">question_type_name =
+				#{value.questionTypeName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.questionTypeScore != null">question_type_score =
+				#{value.questionTypeScore,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.questionSrc != null">question_src = #{value.questionSrc,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.parentChapter != null">parent_chapter = #{value.parentChapter,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.quesImgUrl != null">ques_img_url = #{value.quesImgUrl,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.keyPoint != null">key_point = #{value.keyPoint,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.cognitionLevel != null">cognition_level =
+				#{value.cognitionLevel,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.diffcultLevel != null">diffcult_level = #{value.diffcultLevel,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.myRightTimes != null">my_right_times = #{value.myRightTimes,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.myAnswerIds != null">my_answer_ids = #{value.myAnswerIds,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.answerIds != null">answer_ids = #{value.answerIds,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.mdesc != null">mdesc = #{value.mdesc,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.manalyze != null">manalyze = #{value.manalyze,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.misc != null">misc = #{value.misc,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.answerList != null">answer_list = #{value.answerList,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.quesTime != null">ques_time = #{value.quesTime,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.zhenti != null">zhenti = #{value.zhenti,jdbcType=TINYINT},</if>
+			<if test="value != null and value.storeId != null">store_id = #{value.storeId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.wrongId != null">wrong_id = #{value.wrongId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.storeStatus != null">store_status = #{value.storeStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.wrongStatus != null">wrong_status = #{value.wrongStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.statistic != null">statistic = #{value.statistic,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.domain.product.QuesbkQues">
+		update xd_quesbk_ques
+		<set>
+			<if test="value != null and value.questionType != null">question_type = #{value.questionType,jdbcType=BIGINT},
+			</if>
+			<if test="value != null and value.questionTypeName != null">question_type_name =
+				#{value.questionTypeName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.questionTypeScore != null">question_type_score =
+				#{value.questionTypeScore,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.questionSrc != null">question_src = #{value.questionSrc,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.parentChapter != null">parent_chapter = #{value.parentChapter,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.quesImgUrl != null">ques_img_url = #{value.quesImgUrl,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.keyPoint != null">key_point = #{value.keyPoint,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.cognitionLevel != null">cognition_level =
+				#{value.cognitionLevel,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.diffcultLevel != null">diffcult_level = #{value.diffcultLevel,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.myRightTimes != null">my_right_times = #{value.myRightTimes,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.myAnswerIds != null">my_answer_ids = #{value.myAnswerIds,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.answerIds != null">answer_ids = #{value.answerIds,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.mdesc != null">mdesc = #{value.mdesc,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.manalyze != null">manalyze = #{value.manalyze,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.misc != null">misc = #{value.misc,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.answerList != null">answer_list = #{value.answerList,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.quesTime != null">ques_time = #{value.quesTime,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.zhenti != null">zhenti = #{value.zhenti,jdbcType=TINYINT},</if>
+			<if test="value != null and value.storeId != null">store_id = #{value.storeId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.wrongId != null">wrong_id = #{value.wrongId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.storeStatus != null">store_status = #{value.storeStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.wrongStatus != null">wrong_status = #{value.wrongStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.statistic != null">statistic = #{value.statistic,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.domain.product.QuesbkQues"> delete from
+		xd_quesbk_ques where id = #{id,jdbcType=BIGINT}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_quesbk_ques
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.questionType != null">question_type,</if>
+			<if test="output != null and output.questionTypeName != null">question_type_name,</if>
+			<if test="output != null and output.questionTypeScore != null">question_type_score,</if>
+			<if test="output != null and output.questionSrc != null">question_src,</if>
+			<if test="output != null and output.chapterId != null">chapter_id,</if>
+			<if test="output != null and output.parentChapter != null">parent_chapter,</if>
+			<if test="output != null and output.courseId != null">course_id,</if>
+			<if test="output != null and output.quesImgUrl != null">ques_img_url,</if>
+			<if test="output != null and output.keyPoint != null">key_point,</if>
+			<if test="output != null and output.cognitionLevel != null">cognition_level,</if>
+			<if test="output != null and output.diffcultLevel != null">diffcult_level,</if>
+			<if test="output != null and output.myRightTimes != null">my_right_times,</if>
+			<if test="output != null and output.myAnswerIds != null">my_answer_ids,</if>
+			<if test="output != null and output.answerIds != null">answer_ids,</if>
+			<if test="output != null and output.mdesc != null">mdesc,</if>
+			<if test="output != null and output.manalyze != null">manalyze,</if>
+			<if test="output != null and output.status != null">status,</if>
+			<if test="output != null and output.misc != null">misc,</if>
+			<if test="output != null and output.answerList != null">answer_list,</if>
+			<if test="output != null and output.quesTime != null">ques_time,</if>
+			<if test="output != null and output.zhenti != null">zhenti,</if>
+			<if test="output != null and output.wrongId != null">wrong_id,</if>
+			<if test="output != null and output.wrongStatus != null">wrong_status,</if>
+			<if test="output != null and output.statistic != null">statistic,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.idLower != null">and id &gt; #{input.idLower}</if>
+			<if test="input != null and input.idUpper != null">and id &lt; #{input.idUpper}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.questionType != null">and question_type=#{input.questionType}</if>
+			<if test="input != null and input.questionTypeName != null">and question_type_name=#{input.questionTypeName}</if>
+			<if test="input != null and input.questionTypeScore != null">and question_type_score=#{input.questionTypeScore}</if>
+			<if test="input != null and input.questionSrc != null">and question_src=#{input.questionSrc}</if>
+			<if test="input != null and input.chapterId != null">and chapter_id=#{input.chapterId}</if>
+			<if test="input != null and input.parentChapter != null">and parent_chapter=#{input.parentChapter}</if>
+			<if test="input != null and input.courseId != null">and course_id=#{input.courseId}</if>
+			<if test="input != null and input.quesImgUrl != null">and ques_img_url=#{input.quesImgUrl}</if>
+			<if test="input != null and input.keyPoint != null">and key_point=#{input.keyPoint}</if>
+			<if test="input != null and input.cognitionLevel != null">and cognition_level=#{input.cognitionLevel}</if>
+			<if test="input != null and input.diffcultLevel != null">and diffcult_level=#{input.diffcultLevel}</if>
+			<if test="input != null and input.myRightTimes != null">and my_right_times=#{input.myRightTimes}</if>
+			<if test="input != null and input.myAnswerIds != null">and my_answer_ids=#{input.myAnswerIds}</if>
+			<if test="input != null and input.answerIds != null">and answer_ids=#{input.answerIds}</if>
+			<if test="input != null and input.mdesc != null">and mdesc=#{input.mdesc}</if>
+			<if test="input != null and input.manalyze != null">and manalyze=#{input.manalyze}</if>
+			<if test="input != null and input.status != null">and status=#{input.status}</if>
+			<if test="input != null and input.misc != null">and misc=#{input.misc}</if>
+			<if test="input != null and input.answerList != null">and answer_list=#{input.answerList}</if>
+			<if test="input != null and input.quesTime != null">and ques_time=#{input.quesTime}</if>
+			<if test="input != null and input.zhenti != null">and zhenti=#{input.zhenti}</if>
+			<if test="input != null and input.wrongId != null">and wrong_id=#{input.wrongId}</if>
+			<if test="input != null and input.wrongStatus != null">and wrong_status=#{input.wrongStatus}</if>
+			<if test="input != null and input.statistic != null">and statistic=#{input.statistic}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.questionType != null and ( sort.questionType == 'ASC' or sort.questionType == 'DESC' )">question_type ${sort.questionType},</if>
+			<if
+				test="sort != null and sort.questionTypeName != null and ( sort.questionTypeName == 'ASC' or sort.questionTypeName == 'DESC' )">question_type_name ${sort.questionTypeName},</if>
+			<if
+				test="sort != null and sort.questionTypeScore != null and ( sort.questionTypeScore == 'ASC' or sort.questionTypeScore == 'DESC' )">question_type_score ${sort.questionTypeScore},</if>
+			<if
+				test="sort != null and sort.questionSrc != null and ( sort.questionSrc == 'ASC' or sort.questionSrc == 'DESC' )">question_src ${sort.questionSrc},</if>
+			<if
+				test="sort != null and sort.chapterId != null and ( sort.chapterId == 'ASC' or sort.chapterId == 'DESC' )">chapter_id ${sort.chapterId},</if>
+			<if
+				test="sort != null and sort.parentChapter != null and ( sort.parentChapter == 'ASC' or sort.parentChapter == 'DESC' )">parent_chapter ${sort.parentChapter},</if>
+			<if
+				test="sort != null and sort.courseId != null and ( sort.courseId == 'ASC' or sort.courseId == 'DESC' )">course_id ${sort.courseId},</if>
+			<if
+				test="sort != null and sort.quesImgUrl != null and ( sort.quesImgUrl == 'ASC' or sort.quesImgUrl == 'DESC' )">ques_img_url ${sort.quesImgUrl},</if>
+			<if
+				test="sort != null and sort.keyPoint != null and ( sort.keyPoint == 'ASC' or sort.keyPoint == 'DESC' )">key_point ${sort.keyPoint},</if>
+			<if
+				test="sort != null and sort.cognitionLevel != null and ( sort.cognitionLevel == 'ASC' or sort.cognitionLevel == 'DESC' )">cognition_level ${sort.cognitionLevel},</if>
+			<if
+				test="sort != null and sort.diffcultLevel != null and ( sort.diffcultLevel == 'ASC' or sort.diffcultLevel == 'DESC' )">diffcult_level ${sort.diffcultLevel},</if>
+			<if
+				test="sort != null and sort.myRightTimes != null and ( sort.myRightTimes == 'ASC' or sort.myRightTimes == 'DESC' )">my_right_times ${sort.myRightTimes},</if>
+			<if
+				test="sort != null and sort.myAnswerIds != null and ( sort.myAnswerIds == 'ASC' or sort.myAnswerIds == 'DESC' )">my_answer_ids ${sort.myAnswerIds},</if>
+			<if
+				test="sort != null and sort.answerIds != null and ( sort.answerIds == 'ASC' or sort.answerIds == 'DESC' )">answer_ids ${sort.answerIds},</if>
+			<if
+				test="sort != null and sort.mdesc != null and ( sort.mdesc == 'ASC' or sort.mdesc == 'DESC' )">mdesc ${sort.mdesc},</if>
+			<if
+				test="sort != null and sort.manalyze != null and ( sort.manalyze == 'ASC' or sort.manalyze == 'DESC' )">manalyze ${sort.manalyze},</if>
+			<if
+				test="sort != null and sort.status != null and ( sort.status == 'ASC' or sort.status == 'DESC' )">status ${sort.status},</if>
+			<if
+				test="sort != null and sort.misc != null and ( sort.misc == 'ASC' or sort.misc == 'DESC' )">misc ${sort.misc},</if>
+			<if
+				test="sort != null and sort.answerList != null and ( sort.answerList == 'ASC' or sort.answerList == 'DESC' )">answer_list ${sort.answerList},</if>
+			<if
+				test="sort != null and sort.quesTime != null and ( sort.quesTime == 'ASC' or sort.quesTime == 'DESC' )">ques_time ${sort.quesTime},</if>
+			<if
+				test="sort != null and sort.zhenti != null and ( sort.zhenti == 'ASC' or sort.zhenti == 'DESC' )">zhenti ${sort.zhenti},</if>
+			<if
+				test="sort != null and sort.storeId != null and ( sort.storeId == 'ASC' or sort.storeId == 'DESC' )">store_id ${sort.storeId},</if>
+			<if
+				test="sort != null and sort.wrongId != null and ( sort.wrongId == 'ASC' or sort.wrongId == 'DESC' )">wrong_id ${sort.wrongId},</if>
+			<if
+				test="sort != null and sort.storeStatus != null and ( sort.storeStatus == 'ASC' or sort.storeStatus == 'DESC' )">store_status ${sort.storeStatus},</if>
+			<if
+				test="sort != null and sort.wrongStatus != null and ( sort.wrongStatus == 'ASC' or sort.wrongStatus == 'DESC' )">wrong_status ${sort.wrongStatus},</if>
+			<if
+				test="sort != null and sort.statistic != null and ( sort.statistic == 'ASC' or sort.statistic == 'DESC' )">statistic ${sort.statistic},</if>
+		</trim>
+	</sql>
+
+	<sql id="Abstract_Column_List">
+		q.id,
+		pq.question_type,
+		pq.product_id course_id,
+		pq.chapter_id,
+		q.answer_ids,
+		q.key_point,
+		pq.cognition_level,
+		pq.diffcult_level,
+		q.ques_img_url
+	</sql>
+
+	<sql id="Base_Column_List">
+		q.id, pq.question_type, pq.chapter_id, c.parent_id,
+		resource.name
+		question_src,
+		pq.product_id course_id, q.key_point,
+		pq.cognition_level,
+		pq.diffcult_level,
+		q.ques_img_url,
+		q.answer_ids,
+		q.mdesc,
+		q.manalyze,
+		q.status, q.misc,
+		q.answer_list,
+		q.ques_time,
+		q.zhenti,
+		s.exam_times total_exam_times,
+		s.wrong_times
+		total_wrong_times,
+		s.right_percent
+		total_right_percent,
+		m.right_times
+		my_right_times,
+		m.wrong_answer
+		my_wrong_answer,
+		m.total_times
+		my_exam_times,
+		m.wrong_times
+		my_wrong_times,
+		m.wrong_status
+	</sql>
+
+	<sql id="Base_Column_List_WithOut_MyInfo">
+		q.id, pq.question_type, pq.chapter_id, c.parent_id,
+		resource.name
+		question_src,
+		pq.product_id course_id, q.key_point,
+		pq.cognition_level,
+		pq.diffcult_level,
+		q.ques_img_url,
+		q.answer_ids,
+		q.mdesc,
+		q.manalyze,
+		q.status, q.misc,
+		q.answer_list,
+		q.ques_time,
+		q.zhenti,
+		s.exam_times total_exam_times,
+		s.wrong_times
+		total_wrong_times,
+		s.right_percent
+		total_right_percent
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		q.id,
+		pq.question_type,
+		pq.product_id course_id,
+		pq.chapter_id,
+		q.answer_ids,
+		q.key_point,
+		pq.cognition_level,
+		pq.diffcult_level,
+		q.ques_img_url,
+		q.mdesc,
+		q.manalyze
+		from
+		xd_course_product_question pq
+		left join xd_quesbk_ques q on
+		pq.question_id = q.id
+		where pq.question_id = #{input.questionId}
+		and
+		pq.product_id =
+		#{input.courseId}
+		and q.status = #{input.status}
+	</select>
+
+	<select id="selectAbstractByRule" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.engine.rule.model.Rule">
+		select
+		q.id, q.question_type, m.right_times my_right_times,
+		m.total_times my_exam_times,
+		m.wrong_times my_wrong_times
+		from
+		xd_quesbk_ques q
+		left join
+		xd_user_wrong_record m on q.id =
+		m.question_id
+		and m.user_id =
+		#{userId,jdbcType=VARCHAR}
+		<include refid="dynamic_where_older" />
+		order by my_right_times asc, my_wrong_times desc, my_exam_times asc
+	</select>
+
+	<select id="selectByRule" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.engine.rule.model.Rule">
+		select
+		<include refid="Base_Column_List" />
+		from xd_course_product_question pq
+		left join xd_quesbk_ques q on
+		pq.question_id = q.id
+		left join xd_course_product_item c on
+		pq.chapter_id = c.id
+		left join xd_quesbk_ques_statistics s on
+		pq.question_id = s.question_id and pq.product_id = s.course_id
+		left
+		join xd_user_wrong_record m on
+		pq.question_id = m.question_id and
+		m.chapter_id = pq.chapter_id and
+		m.user_id = #{userId}
+		left join
+		xd_user_store_record r on r.question_id
+		= pq.id and r.chapter_id =
+		pq.chapter_id and r.user_id =
+		#{userId}
+		left
+		join xd_quesbk_ques_resource
+		resource on q.resource_id =
+		resource.id
+		<include refid="dynamic_where_older" />
+		order by my_right_times asc, my_wrong_times desc, my_exam_times asc
+	</select>
+
+	<select id="selectByIdList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List_WithOut_MyInfo" />
+		from xd_course_product_question pq
+		left join xd_quesbk_ques q on
+		pq.question_id = q.id
+		left join xd_course_product_item c on
+		pq.chapter_id = c.id
+		left join xd_quesbk_ques_statistics s on
+		pq.question_id = s.question_id and pq.product_id = s.course_id
+		left
+		join xd_quesbk_ques_resource
+		resource
+		on
+		q.resource_id =
+		resource.id
+		where
+		pq.product_id = #{input.courseId} and
+		pq.question_id in
+		<foreach collection="input.idList" open="(" close=")" item="item"
+			separator=",">
+			#{item}
+		</foreach>
+	</select>
+
+	<select id="selectQuesIdByRule" resultType="java.lang.Long"
+		parameterType="com.xiaodou.engine.rule.model.Rule">
+		select
+		q.id
+		from xd_course_product_question pq, xd_quesbk_ques q
+		<where>
+			pq.question_id = q.id
+			and q.status = '99'
+			<if test="productChapterId != null"> and
+				pq.chapter_id = #{productChapterId,jdbcType=BIGINT}
+			</if>
+			<if test="itemList != null">
+				and
+				pq.chapter_id in
+				<foreach collection="itemList" item="item" close=")" open="("
+					separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="questionType != null"> and
+				q.question_type = #{questionType,jdbcType=VARCHAR}
+			</if>
+			<if test="easyLevel != null and easyLevel > 0"> and
+				q.diffcult_level = #{easyLevel,jdbcType=DECIMAL}
+			</if>
+			<if test="cognitionLevel != null and cognitionLevel > 0"> and
+				q.cognition_level =
+				#{cognitionLevel,jdbcType=DECIMAL}
+			</if>
+		</where>
+	</select>
+
+	<sql id="dynamic_where_older">
+		<where>
+			q.status = '99'
+			<if test="productChapterId != null"> and
+				pq.chapter_id = #{productChapterId,jdbcType=BIGINT}
+			</if>
+			<if test="itemList != null">
+				and
+				pq.chapter_id in
+				<foreach collection="itemList" item="item" close=")" open="("
+					separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="questionType != null"> and
+				pq.question_type = #{questionType,jdbcType=VARCHAR}
+			</if>
+			<if test="easyLevel != null and easyLevel > 0"> and
+				pq.diffcult_level = #{easyLevel,jdbcType=DECIMAL}
+			</if>
+			<if test="cognitionLevel != null and cognitionLevel > 0"> and
+				pq.cognition_level =
+				#{cognitionLevel,jdbcType=DECIMAL}
+			</if>
+		</where>
+	</sql>
+
+	<select id="selectByPrimaryKeyList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_course_product_question pq
+		left join xd_quesbk_ques q on
+		pq.question_id = q.id
+		left join xd_course_product_item c on
+		pq.chapter_id = c.id
+		left join xd_quesbk_ques_statistics s on
+		pq.question_id = s.question_id and pq.product_id = s.course_id
+		left
+		join xd_user_wrong_record m on
+		pq.question_id = m.question_id and
+		m.user_id = #{input.userId}
+		left join xd_quesbk_ques_resource resource
+		on q.resource_id
+		= resource.id
+		where pq.question_id
+		in
+		<foreach collection="input.list" open="(" close=")" separator=","
+			item="item">
+			#{item}
+		</foreach>
+		<if test="input.courseId != null">
+			and pq.product_id = #{input.courseId}
+		</if>
+		and q.status = #{input.status}
+	</select>
+
+	<select id="selectAbstractByPrimaryKeyList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Abstract_Column_List" />
+		from xd_course_product_question pq
+		left join xd_quesbk_ques q on
+		pq.question_id = q.id
+		where pq.question_id in
+		<foreach collection="input.list" open="(" close=")" separator=","
+			item="item">
+			#{item}
+		</foreach>
+		and q.status = #{input.status}
+		AND pq.product_id = #{input.courseId}
+	</select>
+</mapper>

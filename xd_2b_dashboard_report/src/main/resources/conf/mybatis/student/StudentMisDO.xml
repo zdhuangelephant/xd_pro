@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="StudentMisDO">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dashboard.domain.student.StudentMisDO">
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="official_info" property="officialInfo"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 重置学生头像 开始 -->
+	<select id="findUserOfficialInfoByUserId" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.student.StudentMisDO">
+		select id user_id,official_info
+		from xd_user
+		where id = #{userId}
+	</select>
+	<update id="updateUserOfficialInfoByUserId"
+		parameterType="com.xiaodou.st.dashboard.domain.student.StudentMisDO">
+		update xd_user
+		set official_info = #{officialInfo}
+		where id = #{userId}
+	</update>
+	<!-- 重置学生头像 结束 -->
+</mapper>

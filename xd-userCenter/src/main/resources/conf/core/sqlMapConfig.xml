@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties resource="conf/custom/env/config.properties"></properties>
+	<typeAliases>
+		<typeAlias type="com.xiaodou.userCenter.model.UserModel"
+			alias="UserModel" />
+		<typeAlias type="com.xiaodou.userCenter.model.HelpDocModel"
+			alias="HelpDocModel" />
+		<typeAlias type="com.xiaodou.userCenter.model.UserRelateNoticeModel"
+			alias="UserRelateNoticeModel" />
+		<typeAlias type="com.xiaodou.userCenter.model.FeedBackModel"
+			alias="FeedBackModel" />
+		<typeAlias type="com.xiaodou.common.city.model.City" alias="City" />
+		<typeAlias type="com.xiaodou.common.info.model.CommonInfo"
+			alias="CommonInfo" />
+		<typeAlias alias="AppBindingModel" type="com.xiaodou.model.AppBindingModel" />
+		<typeAlias type="com.xiaodou.userCenter.model.BlankNoticeModel"
+			alias="BlankNoticeModel" />
+		<typeAlias type="com.xiaodou.userCenter.model.vo.UserModelVo"
+			alias="UserModelVo" />
+		<typeAlias type="com.xiaodou.userCenter.model.UserModuleInfoModel"
+			alias="UserModuleInfoModel" />
+		<typeAlias type="com.xiaodou.userCenter.model.MajorModel"
+			alias="MajorModel" />
+		<typeAlias type="com.xiaodou.userCenter.model.CourseModel"
+			alias="CourseModel" />
+		<typeAlias type="com.xiaodou.userCenter.model.FriendModel"
+			alias="FriendModel" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="conf/mybatis/appBindingModel.xml" />
+		<mapper resource="conf/mybatis/city.xml" />
+		<mapper resource="conf/mybatis/common_info.xml" />
+		<mapper resource="conf/mybatis/userModel.xml" />
+		<mapper resource="conf/mybatis/helpdocModel.xml" />
+		<mapper resource="conf/mybatis/userRelateNoticeModel.xml" />
+		<mapper resource="conf/mybatis/feedbackModel.xml" />
+		<mapper resource="conf/mybatis/blankNoticeModel.xml" />
+		<mapper resource="conf/mybatis/userModelVo.xml" />
+		<mapper resource="conf/mybatis/userModuleInfoModel.xml" />
+		<mapper resource="conf/mybatis/majorModel.xml" />
+		<mapper resource="conf/mybatis/courseModel.xml" />
+		<mapper resource="conf/mybatis/userFriendship.xml" />
+	</mappers>
+</configuration>

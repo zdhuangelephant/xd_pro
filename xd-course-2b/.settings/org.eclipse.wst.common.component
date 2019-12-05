@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="xd-course-2b">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="xiaodou-cache-2.0.0-snapshot.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-cache/xd-cache">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xiaodou-jredis-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xiaodou-jredis/xiaodou-jredis">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xiaodou-mission-1.2.5-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-mission/xd-mission">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-share-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-share/xd-share">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-queue-4.2.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-queue/xd-queue">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-queue-aliyun-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-queue-aliyun/xd-queue-aliyun">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xiaodou-MQCR-2.1.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-mqcr/xd-mqcr">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-oms-agent-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-oms-agent/xd-oms-agent">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-payment-agent-2.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-payment-agent/xd-payment-agent">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-wallet-agent-2.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-wallet-agent/xd-wallet-agent">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-dataclean-core-0.1.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-dataclean-core/xd-dataclean-core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xiaodou-autobuild-1.1.0-snapshot.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-autobuild/xd-autobuild">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="aop-agent-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aop-agent/aop-agent">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xiaodou-jmsg-client-1.1.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xiaodou-jmsg-client/xiaodou-jmsg-client">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xiaodou-jmsg-1.1.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xiaodou-jmsg/xiaodou-jmsg">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xiaodou-util-2.0.10-snapshot.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-util/xd-util">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-framework-cache-1.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-framework-cache/xd-framework-cache">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="xiaodou-course-2b"/>
+        <property name="java-output-path" value="/xd-course-2b/target/classes"/>
+        <property name="component.exclusion.patterns" value="WEB-INF/classes/conf/custom/env/rabbit.properties"/>
+    </wb-module>
+</project-modules>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SharePagePvModel">
+	<resultMap id="BaseResultMap" type="com.xiaodou.resources.model.forum.SharePagePvModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+<result column="resource_id" property="resourceId" jdbcType="BIGINT" />
+<result column="pv" property="pv" jdbcType="BIGINT" />
+
+	</resultMap>
+	<sql id="base_column"></sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.resources.model.forum.SharePagePvModel">
+		select
+		<include refid="base_column" />
+		from xd_share_page_pv
+		where id = #{id,jdbcType=BIGINT}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_share_page_pv
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.resources.model.forum.SharePagePvModel">
+		insert into xd_share_page_pv
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+<if test="resourceId != null">resource_id,</if>
+<if test="pv != null">pv,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+<if test="resourceId != null">#{resourceId,jdbcType=BIGINT},</if>
+<if test="pv != null">#{pv,jdbcType=BIGINT},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.resources.model.forum.SharePagePvModel">
+		update xd_share_page_pv
+		<set>
+			<if test="value != null and value.pv != null">pv = #{value.pv,jdbcType=BIGINT},</if>
+
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.resources.model.forum.SharePagePvModel">
+		update xd_share_page_pv
+		<set>
+			<if test="value != null and value.pv != null">pv = #{value.pv,jdbcType=BIGINT},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.resources.model.forum.SharePagePvModel">
+		delete from xd_share_page_pv
+		where id = #{id,jdbcType=BIGINT}
+
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_share_page_pv
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+<if test="output != null and output.resourceId != null">resource_id,</if>
+<if test="output != null and output.pv != null">pv,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+<if test="input != null and input.resourceId != null">and resource_id=#{input.resourceId}</if>
+<if test="input != null and input.pv != null">and pv=#{input.pv}</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+<if test="sort != null and sort.resourceId != null and ( sort.resourceId == 'ASC' or sort.resourceId == 'DESC' )">resource_id ${sort.resourceId},</if>
+<if test="sort != null and sort.pv != null and ( sort.pv == 'ASC' or sort.pv == 'DESC' )">pv ${sort.pv},</if>
+
+		</trim>
+	</sql>
+</mapper>

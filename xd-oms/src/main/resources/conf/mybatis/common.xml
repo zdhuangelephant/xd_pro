@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon Aug 20 17:02:06 CST 2012-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="common">
+    <!--
+    <resultMap id="seqObjectMap" type="seqObject">
+		<result property="seqName" column="SEQNAME"/>
+		<result property="increment" column="INCREMENT"/>
+		<result property="currentValue" column="CURRENTVALUE"/>		
+	</resultMap>
+	
+	<select id="selectSeq" resultMap="seqObjectMap">
+		select SEQNAME seqName,CURRENTVALUE currentValue,INCREMENT increment from tb_shop_sequence FOR UPDATE
+  	</select>
+  	
+    <select id="updateSeq">
+		update tb_shop_sequence set CURRENTVALUE=CURRENTVALUE+INCREMENT;
+  	</select>
+  	
+  	<update id="updateSeq" >
+		REPLACE INTO tb_shop_sequence2(STUB) VALUES('a')
+  	</update>
+  	
+  	<select id="selectSeq" resultType="java.lang.Long">
+		SELECT LAST_INSERT_ID()
+  	</select>	
+  	-->
+</mapper>

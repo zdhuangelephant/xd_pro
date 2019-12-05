@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="StaticInfoDO">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dataclean.model.domain.staticinfo.StaticInfoDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="exam_date" property="examDate" jdbcType="VARCHAR" />
+		<result column="begin_apply_time" property="beginApplyTime"
+			jdbcType="VARCHAR" />
+		<result column="end_apply_time" property="endApplyTime"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, exam_date, begin_apply_time, end_apply_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dataclean.model.domain.staticinfo.StaticInfoDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_static_info
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_static_info
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.st.dataclean.model.domain.staticinfo.StaticInfoDO">
+		insert into xd_dashboard_static_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="examDate != null">exam_date,</if>
+			<if test="beginApplyTime != null">begin_apply_time,</if>
+			<if test="endApplyTime != null">end_apply_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="examDate != null">#{examDate,jdbcType=VARCHAR},</if>
+			<if test="beginApplyTime != null">#{beginApplyTime,jdbcType=VARCHAR},</if>
+			<if test="endApplyTime != null">#{endApplyTime,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.st.dataclean.model.domain.staticinfo.StaticInfoDO">
+		update xd_dashboard_static_info
+		<set>
+			<if test="value != null and value.examDate != null">exam_date = #{value.examDate,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.beginApplyTime != null">begin_apply_time =
+				#{value.beginApplyTime,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.endApplyTime != null">end_apply_time = #{value.endApplyTime,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.st.dataclean.model.domain.staticinfo.StaticInfoDO">
+		update xd_dashboard_static_info
+		<set>
+			<if test="value != null and value.examDate != null">exam_date = #{value.examDate,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.beginApplyTime != null">begin_apply_time =
+				#{value.beginApplyTime,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.endApplyTime != null">end_apply_time = #{value.endApplyTime,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById"
+		parameterType="com.xiaodou.st.dataclean.model.domain.staticinfo.StaticInfoDO">
+		delete from xd_dashboard_static_info
+		where id =
+		#{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_static_info
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.examDate != null">exam_date,</if>
+			<if test="output != null and output.beginApplyTime != null">begin_apply_time,</if>
+			<if test="output != null and output.endApplyTime != null">end_apply_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.examDate != null">and exam_date=#{input.examDate}</if>
+			<if test="input != null and input.beginApplyTime != null">and begin_apply_time=#{input.beginApplyTime}</if>
+			<if test="input != null and input.endApplyTime != null">and end_apply_time=#{input.endApplyTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time
+				${sort.createTime},
+			</if>
+		</trim>
+	</sql>
+</mapper>

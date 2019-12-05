@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RawDataUserScorePointRecord">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dataclean.model.domain.raw.RawDataUserScorePointRecord">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="rule_type" property="ruleType" jdbcType="TINYINT" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="product_id" property="productId" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="score" property="score" jdbcType="DOUBLE" />
+		<result column="complete_percent" property="completePercent"
+			jdbcType="DOUBLE" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, rule_type, module, product_id, user_id, score,
+		complete_percent, create_time, modify_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataUserScorePointRecord">
+		select
+		<include refid="base_column" />
+		from xd_raw_data_user_score_point_record
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_raw_data_user_score_point_record
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataUserScorePointRecord">
+		insert into xd_raw_data_user_score_point_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="ruleType != null">rule_type,</if>
+			<if test="module != null">module,</if>
+			<if test="productId != null">product_id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="score != null">score,</if>
+			<if test="completePercent != null">complete_percent,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="modifyTime != null">modify_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="ruleType != null">#{ruleType,jdbcType=TINYINT},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+			<if test="productId != null">#{productId,jdbcType=BIGINT},</if>
+			<if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+			<if test="score != null">#{score,jdbcType=DOUBLE},</if>
+			<if test="completePercent != null">#{completePercent,jdbcType=DOUBLE},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="modifyTime != null">#{modifyTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="java.util.Map">
+		update xd_raw_data_user_score_point_record
+		<set>
+			<if test="value != null and value.ruleType != null">rule_type = #{value.ruleType,jdbcType=TINYINT},</if>
+			<if test="value != null and value.module != null">module = #{value.module,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.score != null">score = #{value.score,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.completePercent != null">complete_percent =
+				#{value.completePercent,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.modifyTime != null">modify_time = #{value.modifyTime,jdbcType=TIMESTAMP},</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_raw_data_user_score_point_record
+		<set>
+			<if test="value != null and value.ruleType != null">rule_type = #{value.ruleType,jdbcType=TINYINT},</if>
+			<if test="value != null and value.module != null">module = #{value.module,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.score != null">score = #{value.score,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.completePercent != null">complete_percent =
+				#{value.completePercent,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.modifyTime != null">modify_time = #{value.modifyTime,jdbcType=TIMESTAMP},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataUserScorePointRecord">
+		delete from xd_raw_data_user_score_point_record
+		where id =
+		#{id,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_raw_data_user_score_point_record
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.ruleType != null">rule_type,</if>
+			<if test="output != null and output.module != null">module,</if>
+			<if test="output != null and output.productId != null">product_id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.score != null">score,</if>
+			<if test="output != null and output.completePercent != null">complete_percent,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.modifyTime != null">modify_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.ruleType != null">and rule_type=#{input.ruleType}</if>
+			<if test="input != null and input.ruleTypeList != null">
+				and rule_type in
+				<foreach collection="input.ruleTypeList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.module != null">and module=#{input.module}</if>
+			<if test="input != null and input.productId != null">and product_id=#{input.productId}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.score != null">and score=#{input.score}</if>
+			<if test="input != null and input.completePercent != null">and complete_percent=#{input.completePercent}</if>
+			<if test="input != null and input.createTimeLower != null">and create_time &gt; #{input.createTimeLower}</if>
+			<if test="input != null and input.createTimeUpper != null">and create_time &lt; #{input.createTimeUpper}</if>
+			<if test="input != null and input.modifyTimeLower != null">and modify_time &gt; #{input.modifyTimeLower}</if>
+			<if test="input != null and input.modifyTimeUpper != null">and modify_time &lt; #{input.modifyTimeUpper}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.ruleType != null and ( sort.ruleType == 'ASC' or sort.ruleType == 'DESC' )">rule_type ${sort.ruleType},</if>
+			<if
+				test="sort != null and sort.module != null and ( sort.module == 'ASC' or sort.module == 'DESC' )">module ${sort.module},</if>
+			<if
+				test="sort != null and sort.productId != null and ( sort.productId == 'ASC' or sort.productId == 'DESC' )">product_id ${sort.productId},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.score != null and ( sort.score == 'ASC' or sort.score == 'DESC' )">score ${sort.score},</if>
+			<if
+				test="sort != null and sort.completePercent != null and ( sort.completePercent == 'ASC' or sort.completePercent == 'DESC' )">complete_percent ${sort.completePercent},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.modifyTime != null and ( sort.modifyTime == 'ASC' or sort.modifyTime == 'DESC' )">modify_time ${sort.modifyTime},</if>
+		</trim>
+	</sql>
+</mapper>

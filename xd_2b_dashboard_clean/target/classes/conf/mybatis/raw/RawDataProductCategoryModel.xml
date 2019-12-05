@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RawDataProductCategoryModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dataclean.model.domain.raw.RawDataProductCategoryModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+		<result column="child_id" property="childId" jdbcType="VARCHAR" />
+		<result column="show_status" property="showStatus" jdbcType="INTEGER" />
+		<result column="all_parent_id" property="allParentId" jdbcType="VARCHAR" />
+		<result column="all_child_id" property="allChildId" jdbcType="VARCHAR" />
+		<result column="level" property="level" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="course_category_type" property="courseCategoryType"
+			jdbcType="INTEGER" />
+		<result column="detail" property="detail" jdbcType="VARCHAR" />
+		<result column="misc" property="misc" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="classify" property="classify" jdbcType="INTEGER" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="is_leaf" property="isLeaf" jdbcType="INTEGER" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="type_code" property="typeCode" jdbcType="VARCHAR" />
+		<result column="major_level" property="majorLevel" jdbcType="VARCHAR" />
+		<result column="chief_academy" property="chiefAcademy"
+			jdbcType="VARCHAR" />
+		<result column="is_cooperation" property="isCooperation"
+			jdbcType="TINYINT" />
+		<result column="is_sync" property="isSync" jdbcType="TINYINT" />
+		<result column="is_buy" property="isBuy" jdbcType="TINYINT" />
+		<result column="course_count" property="courseCount" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="base_column">id, parent_id, child_id, show_status, all_parent_id,
+		all_child_id, level, name, course_category_type, detail, misc,
+		create_time, classify, update_time, is_leaf, module, type_code,
+		major_level, chief_academy, is_cooperation, is_sync, is_buy,
+		course_count</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataProductCategoryModel">
+		select
+		<include refid="base_column" />
+		from xd_raw_data_product_category
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_raw_data_product_category
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataProductCategoryModel">
+		insert into xd_raw_data_product_category
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="parentId != null">parent_id,</if>
+			<if test="childId != null">child_id,</if>
+			<if test="showStatus != null">show_status,</if>
+			<if test="allParentId != null">all_parent_id,</if>
+			<if test="allChildId != null">all_child_id,</if>
+			<if test="level != null">level,</if>
+			<if test="name != null">name,</if>
+			<if test="courseCategoryType != null">course_category_type,</if>
+			<if test="detail != null">detail,</if>
+			<if test="misc != null">misc,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="classify != null">classify,</if>
+			<if test="updateTime != null">update_time,</if>
+			<if test="isLeaf != null">is_leaf,</if>
+			<if test="module != null">module,</if>
+			<if test="typeCode != null">type_code,</if>
+			<if test="majorLevel != null">major_level,</if>
+			<if test="chiefAcademy != null">chief_academy,</if>
+			<if test="isCooperation != null">is_cooperation,</if>
+			<if test="isSync != null">is_sync,</if>
+			<if test="isBuy != null">is_buy,</if>
+			<if test="courseCount != null">course_count,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="parentId != null">#{parentId,jdbcType=INTEGER},</if>
+			<if test="childId != null">#{childId,jdbcType=VARCHAR},</if>
+			<if test="showStatus != null">#{showStatus,jdbcType=INTEGER},</if>
+			<if test="allParentId != null">#{allParentId,jdbcType=VARCHAR},</if>
+			<if test="allChildId != null">#{allChildId,jdbcType=VARCHAR},</if>
+			<if test="level != null">#{level,jdbcType=INTEGER},</if>
+			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+			<if test="courseCategoryType != null">#{courseCategoryType,jdbcType=INTEGER},</if>
+			<if test="detail != null">#{detail,jdbcType=VARCHAR},</if>
+			<if test="misc != null">#{misc,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="classify != null">#{classify,jdbcType=INTEGER},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="isLeaf != null">#{isLeaf,jdbcType=INTEGER},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+			<if test="typeCode != null">#{typeCode,jdbcType=VARCHAR},</if>
+			<if test="majorLevel != null">#{majorLevel,jdbcType=VARCHAR},</if>
+			<if test="chiefAcademy != null">#{chiefAcademy,jdbcType=VARCHAR},</if>
+			<if test="isCooperation != null">#{isCooperation,jdbcType=TINYINT},</if>
+			<if test="isSync != null">#{isSync,jdbcType=TINYINT},</if>
+			<if test="isBuy != null">#{isBuy,jdbcType=TINYINT},</if>
+			<if test="courseCount != null">#{courseCount,jdbcType=INTEGER},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="java.util.Map">
+		update xd_raw_data_product_category
+		<set>
+			<if test="value != null and value.parentId != null">parent_id = #{value.parentId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.childId != null">child_id = #{value.childId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.showStatus != null">show_status = #{value.showStatus,jdbcType=INTEGER},</if>
+			<if test="value != null and value.allParentId != null">all_parent_id = #{value.allParentId,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.allChildId != null">all_child_id = #{value.allChildId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.level != null">level = #{value.level,jdbcType=INTEGER},</if>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.courseCategoryType != null">course_category_type =
+				#{value.courseCategoryType,jdbcType=INTEGER},</if>
+			<if test="value != null and value.detail != null">detail = #{value.detail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.misc != null">misc = #{value.misc,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.classify != null">classify = #{value.classify,jdbcType=INTEGER},</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.isLeaf != null">is_leaf = #{value.isLeaf,jdbcType=INTEGER},</if>
+			<if test="value != null and value.module != null">module = #{value.module,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.typeCode != null">type_code = #{value.typeCode,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.majorLevel != null">major_level = #{value.majorLevel,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.chiefAcademy != null">chief_academy = #{value.chiefAcademy,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.isCooperation != null">is_cooperation = #{value.isCooperation,jdbcType=TINYINT},
+			</if>
+			<if test="value != null and value.isSync != null">is_sync = #{value.isSync,jdbcType=TINYINT},</if>
+			<if test="value != null and value.isBuy != null">is_buy = #{value.isBuy,jdbcType=TINYINT},</if>
+			<if test="value != null and value.courseCount != null">course_count = #{value.courseCount,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_raw_data_product_category
+		<set>
+			<if test="value != null and value.parentId != null">parent_id = #{value.parentId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.childId != null">child_id = #{value.childId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.showStatus != null">show_status = #{value.showStatus,jdbcType=INTEGER},</if>
+			<if test="value != null and value.allParentId != null">all_parent_id = #{value.allParentId,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.allChildId != null">all_child_id = #{value.allChildId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.level != null">level = #{value.level,jdbcType=INTEGER},</if>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.courseCategoryType != null">course_category_type =
+				#{value.courseCategoryType,jdbcType=INTEGER},</if>
+			<if test="value != null and value.detail != null">detail = #{value.detail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.misc != null">misc = #{value.misc,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.classify != null">classify = #{value.classify,jdbcType=INTEGER},</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.isLeaf != null">is_leaf = #{value.isLeaf,jdbcType=INTEGER},</if>
+			<if test="value != null and value.module != null">module = #{value.module,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.typeCode != null">type_code = #{value.typeCode,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.majorLevel != null">major_level = #{value.majorLevel,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.chiefAcademy != null">chief_academy = #{value.chiefAcademy,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.isCooperation != null">is_cooperation = #{value.isCooperation,jdbcType=TINYINT},
+			</if>
+			<if test="value != null and value.isSync != null">is_sync = #{value.isSync,jdbcType=TINYINT},</if>
+			<if test="value != null and value.isBuy != null">is_buy = #{value.isBuy,jdbcType=TINYINT},</if>
+			<if test="value != null and value.courseCount != null">course_count = #{value.courseCount,jdbcType=INTEGER},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataProductCategoryModel">
+		delete from xd_raw_data_product_category
+		where id =
+		#{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_raw_data_product_category
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.parentId != null">parent_id,</if>
+			<if test="output != null and output.childId != null">child_id,</if>
+			<if test="output != null and output.showStatus != null">show_status,</if>
+			<if test="output != null and output.allParentId != null">all_parent_id,</if>
+			<if test="output != null and output.allChildId != null">all_child_id,</if>
+			<if test="output != null and output.level != null">level,</if>
+			<if test="output != null and output.name != null">name,</if>
+			<if test="output != null and output.courseCategoryType != null">course_category_type,</if>
+			<if test="output != null and output.detail != null">detail,</if>
+			<if test="output != null and output.misc != null">misc,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.classify != null">classify,</if>
+			<if test="output != null and output.updateTime != null">update_time,</if>
+			<if test="output != null and output.isLeaf != null">is_leaf,</if>
+			<if test="output != null and output.module != null">module,</if>
+			<if test="output != null and output.typeCode != null">type_code,</if>
+			<if test="output != null and output.majorLevel != null">major_level,</if>
+			<if test="output != null and output.chiefAcademy != null">chief_academy,</if>
+			<if test="output != null and output.isCooperation != null">is_cooperation,</if>
+			<if test="output != null and output.isSync != null">is_sync,</if>
+			<if test="output != null and output.isBuy != null">is_buy,</if>
+			<if test="output != null and output.courseCount != null">course_count,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.parentId != null">and parent_id=#{input.parentId}</if>
+			<if test="input != null and input.childId != null">and child_id=#{input.childId}</if>
+			<if test="input != null and input.showStatus != null">and show_status=#{input.showStatus}</if>
+			<if test="input != null and input.allParentId != null">and all_parent_id=#{input.allParentId}</if>
+			<if test="input != null and input.allChildId != null">and all_child_id=#{input.allChildId}</if>
+			<if test="input != null and input.level != null">and level=#{input.level}</if>
+			<if test="input != null and input.name != null">and name=#{input.name}</if>
+			<if test="input != null and input.courseCategoryType != null">and course_category_type=#{input.courseCategoryType}</if>
+			<if test="input != null and input.detail != null">and detail=#{input.detail}</if>
+			<if test="input != null and input.misc != null">and misc=#{input.misc}</if>
+			<if test="input != null and input.createTimeLower != null">and create_time &gt; #{input.createTimeLower}</if>
+			<if test="input != null and input.createTimeUpper != null">and create_time &lt; #{input.createTimeUpper}</if>
+			<if test="input != null and input.classify != null">and classify=#{input.classify}</if>
+			<if test="input != null and input.updateTimeLower != null">and update_time &gt; #{input.updateTimeLower}</if>
+			<if test="input != null and input.updateTimeUpper != null">and update_time &lt; #{input.updateTimeUpper}</if>
+			<if test="input != null and input.isLeaf != null">and is_leaf=#{input.isLeaf}</if>
+			<if test="input != null and input.module != null">and module=#{input.module}</if>
+			<if test="input != null and input.typeCode != null">and type_code=#{input.typeCode}</if>
+			<if test="input != null and input.majorLevel != null">and major_level=#{input.majorLevel}</if>
+			<if test="input != null and input.chiefAcademy != null">and chief_academy=#{input.chiefAcademy}</if>
+			<if test="input != null and input.isCooperation != null">and is_cooperation=#{input.isCooperation}</if>
+			<if test="input != null and input.isSync != null">and is_sync=#{input.isSync}</if>
+			<if test="input != null and input.isBuy != null">and is_buy=#{input.isBuy}</if>
+			<if test="input != null and input.courseCount != null">and course_count=#{input.courseCount}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.parentId != null and ( sort.parentId == 'ASC' or sort.parentId == 'DESC' )">parent_id ${sort.parentId},</if>
+			<if
+				test="sort != null and sort.childId != null and ( sort.childId == 'ASC' or sort.childId == 'DESC' )">child_id ${sort.childId},</if>
+			<if
+				test="sort != null and sort.showStatus != null and ( sort.showStatus == 'ASC' or sort.showStatus == 'DESC' )">show_status ${sort.showStatus},</if>
+			<if
+				test="sort != null and sort.allParentId != null and ( sort.allParentId == 'ASC' or sort.allParentId == 'DESC' )">all_parent_id ${sort.allParentId},</if>
+			<if
+				test="sort != null and sort.allChildId != null and ( sort.allChildId == 'ASC' or sort.allChildId == 'DESC' )">all_child_id ${sort.allChildId},</if>
+			<if
+				test="sort != null and sort.level != null and ( sort.level == 'ASC' or sort.level == 'DESC' )">level ${sort.level},</if>
+			<if
+				test="sort != null and sort.name != null and ( sort.name == 'ASC' or sort.name == 'DESC' )">name ${sort.name},</if>
+			<if
+				test="sort != null and sort.courseCategoryType != null and ( sort.courseCategoryType == 'ASC' or sort.courseCategoryType == 'DESC' )">course_category_type ${sort.courseCategoryType},</if>
+			<if
+				test="sort != null and sort.detail != null and ( sort.detail == 'ASC' or sort.detail == 'DESC' )">detail ${sort.detail},</if>
+			<if
+				test="sort != null and sort.misc != null and ( sort.misc == 'ASC' or sort.misc == 'DESC' )">misc ${sort.misc},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.classify != null and ( sort.classify == 'ASC' or sort.classify == 'DESC' )">classify ${sort.classify},</if>
+			<if
+				test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">update_time ${sort.updateTime},</if>
+			<if
+				test="sort != null and sort.isLeaf != null and ( sort.isLeaf == 'ASC' or sort.isLeaf == 'DESC' )">is_leaf ${sort.isLeaf},</if>
+			<if
+				test="sort != null and sort.module != null and ( sort.module == 'ASC' or sort.module == 'DESC' )">module ${sort.module},</if>
+			<if
+				test="sort != null and sort.typeCode != null and ( sort.typeCode == 'ASC' or sort.typeCode == 'DESC' )">type_code ${sort.typeCode},</if>
+			<if
+				test="sort != null and sort.majorLevel != null and ( sort.majorLevel == 'ASC' or sort.majorLevel == 'DESC' )">major_level ${sort.majorLevel},</if>
+			<if
+				test="sort != null and sort.chiefAcademy != null and ( sort.chiefAcademy == 'ASC' or sort.chiefAcademy == 'DESC' )">chief_academy ${sort.chiefAcademy},</if>
+			<if
+				test="sort != null and sort.isCooperation != null and ( sort.isCooperation == 'ASC' or sort.isCooperation == 'DESC' )">is_cooperation ${sort.isCooperation},</if>
+			<if
+				test="sort != null and sort.isSync != null and ( sort.isSync == 'ASC' or sort.isSync == 'DESC' )">is_sync ${sort.isSync},</if>
+			<if
+				test="sort != null and sort.isBuy != null and ( sort.isBuy == 'ASC' or sort.isBuy == 'DESC' )">is_buy ${sort.isBuy},</if>
+			<if
+				test="sort != null and sort.courseCount != null and ( sort.courseCount == 'ASC' or sort.courseCount == 'DESC' )">course_count ${sort.courseCount},</if>
+		</trim>
+	</sql>
+</mapper>

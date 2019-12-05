@@ -1,0 +1,35 @@
+.menu-min .sidebar-collapse > [class*="icon-"] {
+    font-size: 13px;
+    padding: 0 4px;
+    line-height: 15px;
+    border-width: 1px;
+    border-color: #aeaeae;
+}
+.sidebar-collapse > [class*="icon-"] {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 14px;
+    color: #aaa;
+    border: 1px solid #bbb;
+    padding: 0 5px;
+    line-height: 18px;
+    border-radius: 16px;
+    background-color: #fff;
+    position: relative;
+}
+[class*=" icon-"], [class^="icon-"] {
+    display: inline-block;
+    text-align: center;
+}
+.sidebar-collapse {
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f3f3f3;
+    text-align: center;
+    padding: 3px 0;
+    position: relative;
+}
+*, *::before, *::after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}

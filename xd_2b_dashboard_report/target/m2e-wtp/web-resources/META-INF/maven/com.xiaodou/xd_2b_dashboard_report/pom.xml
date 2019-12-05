@@ -1,0 +1,262 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.xiaodou</groupId>
+	<artifactId>xd_2b_dashboard_report</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>xd_2b_dashboard_report</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
+	<!-- scm svn trunk -->
+	<scm>
+		<connection>scm:svn:svn://svn.51xiaodou.com/repos/pub/xd_2b_dashboard_report/Trunk</connection>
+		<developerConnection>scm:svn:svn://svn.51xiaodou.com/repos/pub/xd_2b_dashboard_report/Trunk</developerConnection>
+		<url>svn://svn.51xiaodou.com/repos/pub/xd_2b_dashboard_report/Trunk</url>
+	</scm>
+	<!-- maven release plugins -->
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<resources>
+			<resource>
+				<directory>${project.basedir}/src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>${project.basedir}/src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.0</version>
+				<configuration>
+					<tagBase>svn://svn.51xiaodou.com/repos/pub/xd_2b_dashboard_report/Tags</tagBase>
+					<branchBase>
+						svn://svn.51xiaodou.com/repos/pub/xd_2b_dashboard_report/Branches</branchBase>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-war-plugin</artifactId> 
+				<version>2.5</version> </plugin> -->
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.xiaodou</groupId>
+				<artifactId>javadoc-plugin</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<id>javadoc for com.xiaodou</id>
+						<phase>install</phase>
+						<goals>
+							<goal>javadoc</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>xiaodou-releases</id>
+			<name>Nexus Release Repository</name>
+			<url>http://mvn.51xiaodou.com:8081/nexus/content/repositories/XiaodouRelease</url>
+		</repository>
+		<snapshotRepository>
+			<id>xiaodou-snapshots</id>
+			<name>Nexus Snapshot Repository</name>
+			<url>http://mvn.51xiaodou.com:8081/nexus/content/repositories/xiaodousnapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.xiaodou</groupId>
+			<artifactId>xiaodou-util</artifactId>
+			<version>1.9.5-snapshot</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.xiaodou</groupId>
+			<artifactId>xiaodou-summer</artifactId>
+			<version>2.0.14-snapshot</version>
+		</dependency>
+		<dependency>
+			<groupId>com.xiaodou</groupId>
+			<artifactId>xd-async-message</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<!-- 消息队列 -->
+		<dependency>
+			<groupId>com.xiaodou</groupId>
+			<artifactId>xd-queue</artifactId>
+			<version>1.2.2-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.xiaodou</groupId>
+			<artifactId>xiaodou-MQCR</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<!--unitils 单元测试组件 :begin -->
+		<dependency>
+			<groupId>org.unitils</groupId>
+			<artifactId>unitils-core</artifactId>
+			<version>3.3</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.unitils</groupId>
+			<artifactId>unitils-mock</artifactId>
+			<version>3.3</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.unitils</groupId>
+			<artifactId>unitils-spring</artifactId>
+			<version>3.3</version>
+			<scope>test</scope>
+		</dependency>
+		<!--spring 安全 start -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>3.1.2.RELEASE</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>3.1.3.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>3.1.3.RELEASE</version>
+		</dependency>
+		<!--spring 安全 end -->
+
+		<dependency>
+			<groupId>com.xiaodou</groupId>
+			<artifactId>xiaodou-autobuild</artifactId>
+			<version>1.0.2-snapshot</version>
+		</dependency>
+
+		<!-- 定时器Quartz -->
+		<dependency>
+			<groupId>opensymphony</groupId>
+			<artifactId>quartz-all</artifactId>
+			<version>1.6.3</version>
+		</dependency>
+		<!-- end -->
+
+
+		<!-- rabbitmq -->
+		<!-- <dependency> <groupId>com.rabbitmq</groupId> <artifactId>amqp-client</artifactId> 
+			<version>${rabbitmq-client.version}</version> </dependency> spring-rabbit 
+			<dependency> <groupId>org.springframework.amqp</groupId> <artifactId>spring-rabbit</artifactId> 
+			<version>${spring-rabbit.version}</version> </dependency> -->
+
+		<!-- alipay -->
+		<dependency>
+			<groupId>com.alipay</groupId>
+			<artifactId>commons-logging-1.1.1</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alipay</groupId>
+			<artifactId>alipay-sdk-java-web</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.xiaodou</groupId>
+			<artifactId>xd-goeasy</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.qiniu</groupId>
+			<artifactId>qiniu-java-sdk</artifactId>
+			<version>[7.0.0, 7.0.99]</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>1.1.3</version>
+		</dependency>
+		<!--七牛云存储 -->
+		<dependency>
+			<groupId>com.qiniu</groupId>
+			<artifactId>sdk</artifactId>
+			<version>6.1.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.9</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.9</version>
+		</dependency>
+	</dependencies>
+</project>

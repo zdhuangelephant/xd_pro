@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserSignRecordModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.course.model.user.UserSignRecordModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="sign_time" property="signTime" jdbcType="TIMESTAMP" />
+		<result column="sign_date" property="signDate" jdbcType="VARCHAR" />
+		<result column="learn_time" property="learnTime" jdbcType="BIGINT" />
+		<result column="target_time" property="targetTime" jdbcType="BIGINT" />
+	</resultMap>
+	<sql id="base_column">id, user_id, module, sign_time, sign_date, learn_time,
+		target_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.course.model.user.UserSignRecordModel">
+		select
+		<include refid="base_column" />
+		from xd_user_sign_record
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_user_sign_record
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.course.model.user.UserSignRecordModel">
+		insert into xd_user_sign_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="module != null">module,</if>
+			<if test="signTime != null">sign_time,</if>
+			<if test="signDate != null">sign_date,</if>
+			<if test="learnTime != null">learn_time,</if>
+			<if test="targetTime != null">target_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+			<if test="signTime != null">#{signTime,jdbcType=TIMESTAMP},</if>
+			<if test="signDate != null">#{signDate,jdbcType=VARCHAR},</if>
+			<if test="learnTime != null">#{learnTime,jdbcType=BIGINT},</if>
+			<if test="targetTime != null">#{targetTime,jdbcType=BIGINT},</if>
+		</trim>
+	</insert>
+	<update id="deleteEntityById" parameterType="com.xiaodou.course.model.user.UserSignRecordModel">
+		delete from
+		xd_user_sign_record
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_user_sign_record
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.module != null">module,</if>
+			<if test="output != null and output.signTime != null">sign_time,</if>
+			<if test="output != null and output.signDate != null">sign_date,</if>
+			<if test="output != null and output.learnTime != null">learn_time,</if>
+			<if test="output != null and output.targetTime != null">target_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.module != null">and module=#{input.module}</if>
+			<if test="input != null and input.signTimeLower != null">and sign_time &gt; #{input.signTimeLower}</if>
+			<if test="input != null and input.signTimeUpper != null">and sign_time &lt; #{input.signTimeLower}</if>
+			<if test="input != null and input.signDate != null">and sign_date=#{input.signDate}</if>
+			<if test="input != null and input.learnTime != null">and learn_time=#{input.learnTime}</if>
+			<if test="input != null and input.targetTime != null">and target_time=#{input.targetTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.module != null and ( sort.module == 'ASC' or sort.module == 'DESC' )">module ${sort.module},</if>
+			<if
+				test="sort != null and sort.signTime != null and ( sort.signTime == 'ASC' or sort.signTime == 'DESC' )">sign_time ${sort.signTime},</if>
+			<if
+				test="sort != null and sort.signDate != null and ( sort.signDate == 'ASC' or sort.signDate == 'DESC' )">sign_date ${sort.signDate},</if>
+			<if
+				test="sort != null and sort.learnTime != null and ( sort.learnTime == 'ASC' or sort.learnTime == 'DESC' )">learn_time ${sort.learnTime},</if>
+			<if
+				test="sort != null and sort.targetTime != null and ( sort.targetTime == 'ASC' or sort.targetTime == 'DESC' )">target_time ${sort.targetTime},</if>
+		</trim>
+	</sql>
+</mapper>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CaseRequest">
+	<resultMap id="BaseResultMap" type="com.xiaodou.autotest.web.model.operation.CaseRequest">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+<result column="name" property="name" jdbcType="VARCHAR" />
+<result column="case_request_desc" property="caseRequestDesc" jdbcType="VARCHAR" />
+<result column="method" property="method" jdbcType="VARCHAR" />
+<result column="params" property="params" jdbcType="VARCHAR" />
+<result column="collection_id" property="collectionId" jdbcType="VARCHAR" />
+<result column="protocol" property="protocol" jdbcType="VARCHAR" />
+<result column="url" property="url" jdbcType="VARCHAR" />
+<result column="format" property="format" jdbcType="VARCHAR" />
+<result column="pre_conds" property="preConds" jdbcType="VARCHAR" />
+<result column="pre_sets" property="preSets" jdbcType="VARCHAR" />
+<result column="test_cases" property="testCases" jdbcType="VARCHAR" />
+<result column="after_sets" property="afterSets" jdbcType="VARCHAR" />
+<result column="user_id" property="userId" jdbcType="VARCHAR" />
+<result column="sort" property="sort" jdbcType="INTEGER" />
+<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+
+	</resultMap>
+	<sql id="base_column">id, name, case_request_desc, method, params, collection_id, protocol, url, format, pre_conds, pre_sets, test_cases, after_sets, user_id, sort, create_time, update_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.autotest.web.model.operation.CaseRequest">
+		select
+		<include refid="base_column" />
+		from case_request
+		where id = #{id,jdbcType=VARCHAR}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from case_request
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.autotest.web.model.operation.CaseRequest"  >
+		insert into case_request
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+<if test="name != null">name,</if>
+<if test="caseRequestDesc != null">case_request_desc,</if>
+<if test="method != null">method,</if>
+<if test="params != null">params,</if>
+<if test="collectionId != null">collection_id,</if>
+<if test="protocol != null">protocol,</if>
+<if test="url != null">url,</if>
+<if test="format != null">format,</if>
+<if test="preConds != null">pre_conds,</if>
+<if test="preSets != null">pre_sets,</if>
+<if test="testCases != null">test_cases,</if>
+<if test="afterSets != null">after_sets,</if>
+<if test="userId != null">user_id,</if>
+<if test="sort != null">sort,</if>
+<if test="createTime != null">create_time,</if>
+<if test="updateTime != null">update_time,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+<if test="caseRequestDesc != null">#{caseRequestDesc,jdbcType=VARCHAR},</if>
+<if test="method != null">#{method,jdbcType=VARCHAR},</if>
+<if test="params != null">#{params,jdbcType=VARCHAR},</if>
+<if test="collectionId != null">#{collectionId,jdbcType=VARCHAR},</if>
+<if test="protocol != null">#{protocol,jdbcType=VARCHAR},</if>
+<if test="url != null">#{url,jdbcType=VARCHAR},</if>
+<if test="format != null">#{format,jdbcType=VARCHAR},</if>
+<if test="preConds != null">#{preConds,jdbcType=VARCHAR},</if>
+<if test="preSets != null">#{preSets,jdbcType=VARCHAR},</if>
+<if test="testCases != null">#{testCases,jdbcType=VARCHAR},</if>
+<if test="afterSets != null">#{afterSets,jdbcType=VARCHAR},</if>
+<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+<if test="sort != null">#{sort,jdbcType=INTEGER},</if>
+<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.autotest.web.model.operation.CaseRequest">
+		update case_request
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+<if test="value != null and value.caseRequestDesc != null">case_request_desc = #{value.caseRequestDesc,jdbcType=VARCHAR},</if>
+<if test="value != null and value.method != null">method = #{value.method,jdbcType=VARCHAR},</if>
+<if test="value != null and value.params != null">params = #{value.params,jdbcType=VARCHAR},</if>
+<if test="value != null and value.collectionId != null">collection_id = #{value.collectionId,jdbcType=VARCHAR},</if>
+<if test="value != null and value.protocol != null">protocol = #{value.protocol,jdbcType=VARCHAR},</if>
+<if test="value != null and value.url != null">url = #{value.url,jdbcType=VARCHAR},</if>
+<if test="value != null and value.format != null">format = #{value.format,jdbcType=VARCHAR},</if>
+<if test="value != null and value.preConds != null">pre_conds = #{value.preConds,jdbcType=VARCHAR},</if>
+<if test="value != null and value.preSets != null">pre_sets = #{value.preSets,jdbcType=VARCHAR},</if>
+<if test="value != null and value.testCases != null">test_cases = #{value.testCases,jdbcType=VARCHAR},</if>
+<if test="value != null and value.afterSets != null">after_sets = #{value.afterSets,jdbcType=VARCHAR},</if>
+<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+<if test="value != null and value.sort != null">sort = #{value.sort,jdbcType=INTEGER},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.autotest.web.model.operation.CaseRequest">
+		update case_request
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+<if test="value != null and value.caseRequestDesc != null">case_request_desc = #{value.caseRequestDesc,jdbcType=VARCHAR},</if>
+<if test="value != null and value.method != null">method = #{value.method,jdbcType=VARCHAR},</if>
+<if test="value != null and value.params != null">params = #{value.params,jdbcType=VARCHAR},</if>
+<if test="value != null and value.collectionId != null">collection_id = #{value.collectionId,jdbcType=VARCHAR},</if>
+<if test="value != null and value.protocol != null">protocol = #{value.protocol,jdbcType=VARCHAR},</if>
+<if test="value != null and value.url != null">url = #{value.url,jdbcType=VARCHAR},</if>
+<if test="value != null and value.format != null">format = #{value.format,jdbcType=VARCHAR},</if>
+<if test="value != null and value.preConds != null">pre_conds = #{value.preConds,jdbcType=VARCHAR},</if>
+<if test="value != null and value.preSets != null">pre_sets = #{value.preSets,jdbcType=VARCHAR},</if>
+<if test="value != null and value.testCases != null">test_cases = #{value.testCases,jdbcType=VARCHAR},</if>
+<if test="value != null and value.afterSets != null">after_sets = #{value.afterSets,jdbcType=VARCHAR},</if>
+<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+<if test="value != null and value.sort != null">sort = #{value.sort,jdbcType=INTEGER},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.autotest.web.model.operation.CaseRequest">
+		delete from case_request
+		where id = #{id,jdbcType=VARCHAR}
+
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from case_request
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+<if test="output != null and output.name != null">name,</if>
+<if test="output != null and output.caseRequestDesc != null">case_request_desc,</if>
+<if test="output != null and output.method != null">method,</if>
+<if test="output != null and output.params != null">params,</if>
+<if test="output != null and output.collectionId != null">collection_id,</if>
+<if test="output != null and output.protocol != null">protocol,</if>
+<if test="output != null and output.url != null">url,</if>
+<if test="output != null and output.format != null">format,</if>
+<if test="output != null and output.preConds != null">pre_conds,</if>
+<if test="output != null and output.preSets != null">pre_sets,</if>
+<if test="output != null and output.testCases != null">test_cases,</if>
+<if test="output != null and output.afterSets != null">after_sets,</if>
+<if test="output != null and output.userId != null">user_id,</if>
+<if test="output != null and output.sort != null">sort,</if>
+<if test="output != null and output.createTime != null">create_time,</if>
+<if test="output != null and output.updateTime != null">update_time,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+<if test="input != null and input.name != null">and name=#{input.name}</if>
+<if test="input != null and input.caseRequestDesc != null">and desc=#{input.caseRequestDesc}</if>
+<if test="input != null and input.method != null">and method=#{input.method}</if>
+<if test="input != null and input.params != null">and params=#{input.params}</if>
+<if test="input != null and input.collectionId != null">and collection_id=#{input.collectionId}</if>
+<if test="input != null and input.protocol != null">and protocol=#{input.protocol}</if>
+<if test="input != null and input.url != null">and url=#{input.url}</if>
+<if test="input != null and input.format != null">and format=#{input.format}</if>
+<if test="input != null and input.preConds != null">and pre_conds=#{input.preConds}</if>
+<if test="input != null and input.preSets != null">and pre_sets=#{input.preSets}</if>
+<if test="input != null and input.testCases != null">and test_cases=#{input.testCases}</if>
+<if test="input != null and input.afterSets != null">and after_sets=#{input.afterSets}</if>
+<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+<if test="input != null and input.sort != null">and sort=#{input.sort}</if>
+<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+<if test="input != null and input.updateTime != null">and update_time=#{input.updateTime}</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+<if test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">update_time ${sort.updateTime},</if>
+<if test="sort != null and sort.sort != null and ( sort.sort == 'ASC' or sort.sort == 'DESC' )">sort ${sort.sort},</if>
+
+		</trim>
+	</sql>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:oscache="http://www.springmodules.org/schema/oscache"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springmodules.org/schema/oscache http://www.springmodules.org/schema/cache/springmodules-oscache.xsd
+           http://code.alibabatech.com/schema/dubbo
+       	   http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<description>AOP切入配置</description>
+	<context:property-placeholder
+		location="classpath:conf/custom/env/aoppoint.properties"
+		ignore-unresolvable="true" />
+		
+  	<bean id="controllerInterceptor" class="com.xiaodou.summer.web.filter.ControllerInterceptor">
+  		<property name="cacheService" ref="controllerInterceptorCacheService"/>
+  	</bean>
+   
+  	<aop:config>
+    	<aop:aspect id="controllerInterceptorAop" ref="controllerInterceptor">
+      		<aop:pointcut id="outinTarget" expression="${controllerInterceptor.aop.point.service}"/>
+      		<aop:around method="service" pointcut-ref="outinTarget"/>
+      		<aop:pointcut id="batchTarget" expression="${controllerInterceptor.aop.point.batch}"/>
+      		<aop:around method="batch" pointcut-ref="batchTarget"/>
+    	</aop:aspect>
+  	</aop:config>
+	
+</beans>

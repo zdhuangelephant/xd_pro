@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ForumModel">
+	<resultMap id="ResultMap" type="com.xiaodou.forum.model.forum.ForumModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="digest" property="digest" jdbcType="TINYINT" />
+		<result column="top" property="top" jdbcType="TINYINT" />
+		<result column="recommend" property="recommend" jdbcType="TINYINT" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="outline" property="outline" jdbcType="VARCHAR" />
+		<result column="category_id" property="categoryId" jdbcType="BIGINT" />
+		<result column="publisher_id" property="publisherId" jdbcType="BIGINT" />
+		<result column="replies_number" property="repliesNumber" jdbcType="INTEGER" />
+		<result column="praise_number" property="praiseNumber"
+			jdbcType="INTEGER" />
+		<result column="assign" property="assign" jdbcType="INTEGER" />
+		<result column="tag" property="tag" jdbcType="INTEGER" />
+		<result column="operator" property="operator" jdbcType="VARCHAR" />
+		<result column="operatorip" property="operatorip" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!-- 1. 插入话题记录 -->
+	<insert id="addEntity"  parameterType="com.xiaodou.forum.model.forum.ForumModel" useGeneratedKeys="true" keyProperty="id">
+		insert into xd_forum_list
+		(
+		<include refid="insertColumns"/>
+		)
+		values
+		(
+		<include refid="insertValues"/>
+		)
+	</insert>
+	
+	<!-- 删除话题 -->
+	<delete id="deleteList" parameterType="java.util.Map">
+		delete from xd_forum_list
+		<include refid="dynamic_where"/>
+	</delete>
+	
+	<!-- 更新回复人数 -->
+	<update id="updateRepliesNumber" parameterType="java.util.Map">
+		update xd_forum_list forum set forum.replies_number = #{repliesNumber}, forum.update_time = #{updateTime}
+		where forum.id = #{id}
+	</update>
+	
+	<!-- 修改话题 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_forum_list
+		<include refid="dynamic_update"/>
+		<include refid="dynamic_where"/>
+	</update>
+
+	<!-- 3. 查询话题列表记录 -->
+	<select id="findEntityListByCond" parameterType="java.util.Map"
+		resultMap="ResultMap">
+		select
+		<include refid="dynamic_result" />
+		from xd_forum_list
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+
+	</select>
+
+	<!-- 4. 查询话题记录 -->
+	<!-- <select id="findEntityById" parameterType="com.xiaodou.forum.model.forum.ForumModel"
+		resultMap="ResultMap"> -->
+	<!-- 查询 -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		FROM xd_forum_list
+		<include refid="dynamic_where"/>
+	</select>
+	
+	<select id="queryForumNumber" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(id)
+		FROM xd_forum_list
+		<include refid="dynamic_where"/>
+	</select>
+	<!-- ===========================基础属性配置============================= -->
+	<!-- 动态更新 -->
+	<sql id="dynamic_update">
+		<set>
+			<if test="value != null and value.id != null"> id =#{value.id},</if>
+			<if test="value != null and value.digest != null"> digest =#{value.digest},</if>
+			<if test="value != null and value.top != null"> top =#{value.top},</if>
+			<if test="value != null and value.recommend != null"> recommend =#{value.recommend},</if>
+			<if test="value != null and value.title != null"> title =#{value.title},</if>
+			<if test="value != null and value.content != null"> content =#{value.content},</if>
+			<if test="value != null and value.outline != null"> outline =#{value.outline},</if>
+			<if test="value != null and value.images != null"> images =#{value.images},</if>
+			<if test="value != null and value.categoryId != null"> category_id =#{value.categoryId},</if>
+			<if test="value != null and value.publisherId != null"> publisher_id =#{value.publisherId},</if>
+			<if test="value != null and value.repliesNumber != null"> replies_number =#{value.repliesNumber},</if>
+			<if test="value != null and value.praiseNumber != null"> praise_number =#{value.praiseNumber},</if>
+			<if test="value != null and value.assign != null"> assign =#{value.assign},</if>
+			<if test="value != null and value.tag != null"> tag =#{value.tag},</if>
+			<if test="value != null and value.operator != null"> operator =#{value.operator},</if>
+			<if test="value != null and value.updateTime != null"> update_time =#{value.updateTime},</if>
+			<if test="value != null and value.operatorip != null"> operatorip =#{value.operatorip},</if>
+		</set>
+	</sql>
+	<!-- 动态语句：条件 -->
+	<sql id="dynamic_where">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="input != null and input.id != null">and id =#{input.id}</if>
+				<if test="input != null and input.digest != null">and digest =#{input.digest}</if>
+				<if test="input != null and input.top != null">and top =#{input.top}</if>
+				<if test="input != null and input.recommend != null">and recommend =#{input.recommend}</if>
+				<if test="input != null and input.categoryId != null">and category_id =#{input.categoryId}</if>
+				<if test="input != null and input.publisherId != null">and publisher_id =#{input.publisherId}</if>
+				<if test="input != null and input.assign != null">and assign =#{input.assign}</if>
+				<if test="input != null and input.repliesNumber != null">and replies_number =#{input.repliesNumber}</if>
+				<if test="input != null and input.praiseNumber != null">and praise_number =#{input.praiseNumber}</if>
+				<if test="input != null and input.repliesNumberMax != null">and replies_number &lt;= #{input.repliesNumberMax}</if>
+				<if test="input != null and input.repliesNumberMin != null">and replies_number &gt;= #{input.repliesNumberMin}</if>
+				<if test="input != null and input.praiseNumberMax != null">and praise_number &lt;= #{input.praiseNumberMax}</if>
+				<if test="input != null and input.praiseNumberMin != null">and praise_number &lt;= #{input.praiseNumberMin}</if>
+				<if test="input != null and input.createTimeLower != null">and create_time &gt;=#{input.createTimeLower}</if>
+				<if test="input != null and input.createTimeUpper != null">and create_time &lt; #{input.createTimeUpper}</if>
+				<if test="input != null and input.updateTimeLower != null">and update_time &gt;=#{input.updateTimeLower}</if>
+				<if test="input != null and input.updateTimeUpper != null">and update_time &lt;#{input.updateTimeUpper}</if>
+			</trim>
+		</where>
+	</sql>
+	<sql id="dynamic_result">
+		<trim suffixOverrides=",">
+			id,
+			<if test="output != null and output.digest != null">digest,</if>
+			<if test="output != null and output.top != null">top,</if>
+			<if test="output != null and output.recommend != null">recommend,</if>
+			<if test="output != null and output.title != null">title,</if>
+			<if test="output != null and output.content != null">content,</if>
+			<if test="output != null and output.outline != null">outline,</if>
+			<if test="output != null and output.categoryId != null">category_id,</if>
+			<if test="output != null and output.publisherId != null">publisher_id,</if>
+			<if test="output != null and output.assign != null">assign,</if>
+			<if test="output != null and output.repliesNumber != null">replies_number,</if>
+			<if test="output != null and output.praiseNumber != null">praise_number,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.updateTime != null">update_time,</if>
+		</trim>
+	</sql>
+
+
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="digest != null">
+				digest,
+			</if>
+			<if test="top != null">
+				top,
+			</if>
+			<if test="recommend != null">
+				recommend,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="outline != null">
+				outline,
+			</if>
+			<if test="categoryId != null">
+				category_id,
+			</if>
+			<if test="publisherId != null">
+				publisher_id,
+			</if>
+			<if test="repliesNumber != null">
+				replies_number,
+			</if>
+			<if test="praiseNumber != null">
+				praise_number,
+			</if>
+			<if test="assign != null">
+				assign,
+			</if>
+			<if test="tag != null">
+				tag,
+			</if>
+			<if test="operator != null">
+				operator,
+			</if>
+			<if test="operatorip != null">
+				operatorip,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="images != null">
+				images,
+			</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="digest != null">
+				#{digest,jdbcType=TINYINT},
+			</if>
+			<if test="top != null">
+				#{top,jdbcType=TINYINT},
+			</if>
+			<if test="recommend != null">
+				#{recommend,jdbcType=TINYINT},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="outline != null">
+				#{outline,jdbcType=VARCHAR},
+			</if>
+			<if test="categoryId != null">
+				#{categoryId,jdbcType=BIGINT},
+			</if>
+			<if test="publisherId != null">
+				#{publisherId,jdbcType=BIGINT},
+			</if>
+			<if test="repliesNumber != null">
+				#{repliesNumber,jdbcType=INTEGER},
+			</if>
+			<if test="praiseNumber != null">
+				#{praiseNumber,jdbcType=INTEGER},
+			</if>
+			<if test="assign != null">
+				#{assign,jdbcType=INTEGER},
+			</if>
+			<if test="tag != null">
+				#{tag,jdbcType=INTEGER},
+			</if>
+			<if test="operator != null">
+				#{operator,jdbcType=VARCHAR},
+			</if>
+			<if test="operatorip != null">
+				#{operatorip,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="images != null">
+				#{images,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 返回结果 -->
+	<resultMap id="BaseResultMap" type="com.xiaodou.forum.model.forum.ForumModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="digest" property="digest" jdbcType="TINYINT" />
+		<result column="top" property="top" jdbcType="TINYINT" />
+		<result column="recommend" property="recommend" jdbcType="TINYINT" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="outline" property="outline" jdbcType="VARCHAR" />
+		<result column="category_id" property="categoryId" jdbcType="BIGINT" />
+		<result column="publisher_id" property="publisherId" jdbcType="BIGINT" />
+		<result column="replies_number" property="repliesNumber"
+			jdbcType="INTEGER" />
+		<result column="praise_number" property="praiseNumber"
+			jdbcType="INTEGER" />
+		<result column="assign" property="assign" jdbcType="INTEGER" />
+		<result column="tag" property="tag" jdbcType="INTEGER" />
+		<result column="operator" property="operator" jdbcType="VARCHAR" />
+		<result column="operatorip" property="operatorip" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!-- 动态更新 -->
+	<!-- <sql id="dynamic_update">
+		<set>
+			<if test="value != null and value.digest != null">digest = #{value.digest},</if>
+			<if test="value != null and value.top != null">name = #{value.top},</if>
+			<if test="value != null and value.recommend">detail = #{value.recommend},</if>
+			<if test="value != null and value.title">title = #{value.title},</if>
+			<if test="value != null and value.content">title = #{value.content},</if>
+			<if test="value != null and value.outline">outline = #{value.outline},</if>
+			<if test="value != null and value.categoryId">category_id = #{value.category_id},</if>
+			<if test="value != null and value.repliesNumber">replies_number = #{value.repliesNumber},</if>
+			<if test="value != null and value.praiseNumber">praise_number = #{value.praiseNumber},</if>
+			<if test="value != null and value.assign">assign = #{value.assign},</if>
+			<if test="value != null and value.tag">tag = #{value.tag},</if>
+			<if test="value != null and value.updateTime">update_time = #{value.updateTime},</if>
+		</set>
+	</sql> -->
+	<sql id="Base_Column_List" >
+	    id, digest, top, recommend, title, content, outline, images, category_id, 
+	    publisher_id, replies_number, praise_number,assign, tag, operator,
+	    operatorip,create_time,update_time
+	</sql>
+
+	<!-- 动态排序 -->
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			order by
+			<choose>
+				<when
+					test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">
+					update_time ${sort.updateTime},
+				</when>
+				<otherwise>
+					update_time DESC,
+				</otherwise>
+			</choose>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">
+				id ${sort.id},
+			</if>
+			<!-- <otherwise> id DESC, </otherwise> -->
+			<if
+				test="sort != null and sort.assign != null and ( sort.passign == 'ASC' or sort.assign == 'DESC' )">
+				assign ${sort.assign},
+			</if>
+			<if
+				test="sort != null and sort.repliesNumber != null and ( sort.repliesNumber == 'ASC' or sort.repliesNumber == 'DESC' )">
+				replies_number ${sort.repliesNumber},
+			</if>
+			<if
+				test="sort != null and sort.praiseNumber != null and ( sort.praiseNumber == 'ASC' or sort.praiseNumber == 'DESC' )">
+				praise_number ${sort.praiseNumber},
+			</if>
+		</trim>
+	</sql>
+
+
+	
+</mapper>

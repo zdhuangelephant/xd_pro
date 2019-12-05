@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="PrivilegeDO">
+	<resultMap id="BaseResultMap" type="com.xiaodou.st.dashboard.domain.admin.PrivilegeDO">
+		<id column="id" property="id" jdbcType="INTEGER" />
+<result column="name" property="name" jdbcType="VARCHAR" />
+<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+<result column="url" property="url" jdbcType="VARCHAR" />
+<result column="sort_order" property="sortOrder" jdbcType="INTEGER" />
+<result column="display" property="display" jdbcType="INTEGER" />
+<result column="params" property="params" jdbcType="VARCHAR" />
+<result column="icon" property="icon" jdbcType="VARCHAR" />
+<result column="child_id" property="childId" jdbcType="VARCHAR" />
+<result column="all_parent_id" property="allParentId" jdbcType="VARCHAR" />
+<result column="all_child_id" property="allChildId" jdbcType="VARCHAR" />
+<result column="level" property="level" jdbcType="INTEGER" />
+<result column="is_leaf" property="isLeaf" jdbcType="INTEGER" />
+<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+	</resultMap>
+	<sql id="base_column">id, name, parent_id, url, sort_order, display, params, icon, child_id, all_parent_id, all_child_id, level, is_leaf, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.admin.PrivilegeDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_privilege
+		where id = #{id,jdbcType=INTEGER}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_privilege
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.st.dashboard.domain.admin.PrivilegeDO" useGeneratedKeys="true" keyProperty="id" >
+		insert into xd_dashboard_privilege
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+<if test="name != null">name,</if>
+<if test="parentId != null">parent_id,</if>
+<if test="url != null">url,</if>
+<if test="sortOrder != null">sort_order,</if>
+<if test="display != null">display,</if>
+<if test="params != null">params,</if>
+<if test="icon != null">icon,</if>
+<if test="childId != null">child_id,</if>
+<if test="allParentId != null">all_parent_id,</if>
+<if test="allChildId != null">all_child_id,</if>
+<if test="level != null">level,</if>
+<if test="isLeaf != null">is_leaf,</if>
+<if test="createTime != null">create_time,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+<if test="parentId != null">#{parentId,jdbcType=INTEGER},</if>
+<if test="url != null">#{url,jdbcType=VARCHAR},</if>
+<if test="sortOrder != null">#{sortOrder,jdbcType=INTEGER},</if>
+<if test="display != null">#{display,jdbcType=INTEGER},</if>
+<if test="params != null">#{params,jdbcType=VARCHAR},</if>
+<if test="icon != null">#{icon,jdbcType=VARCHAR},</if>
+<if test="childId != null">#{childId,jdbcType=VARCHAR},</if>
+<if test="allParentId != null">#{allParentId,jdbcType=VARCHAR},</if>
+<if test="allChildId != null">#{allChildId,jdbcType=VARCHAR},</if>
+<if test="level != null">#{level,jdbcType=INTEGER},</if>
+<if test="isLeaf != null">#{isLeaf,jdbcType=INTEGER},</if>
+<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.st.dashboard.domain.admin.PrivilegeDO">
+		update xd_dashboard_privilege
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+<if test="value != null and value.parentId != null">parent_id = #{value.parentId,jdbcType=INTEGER},</if>
+<if test="value != null and value.url != null">url = #{value.url,jdbcType=VARCHAR},</if>
+<if test="value != null and value.sortOrder != null">sort_order = #{value.sortOrder,jdbcType=INTEGER},</if>
+<if test="value != null and value.display != null">display = #{value.display,jdbcType=INTEGER},</if>
+<if test="value != null and value.params != null">params = #{value.params,jdbcType=VARCHAR},</if>
+<if test="value != null and value.icon != null">icon = #{value.icon,jdbcType=VARCHAR},</if>
+<if test="value != null and value.childId != null">child_id = #{value.childId,jdbcType=VARCHAR},</if>
+<if test="value != null and value.allParentId != null">all_parent_id = #{value.allParentId,jdbcType=VARCHAR},</if>
+<if test="value != null and value.allChildId != null">all_child_id = #{value.allChildId,jdbcType=VARCHAR},</if>
+<if test="value != null and value.level != null">level = #{value.level,jdbcType=INTEGER},</if>
+<if test="value != null and value.isLeaf != null">is_leaf = #{value.isLeaf,jdbcType=INTEGER},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.st.dashboard.domain.admin.PrivilegeDO">
+		update xd_dashboard_privilege
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+<if test="value != null and value.parentId != null">parent_id = #{value.parentId,jdbcType=INTEGER},</if>
+<if test="value != null and value.url != null">url = #{value.url,jdbcType=VARCHAR},</if>
+<if test="value != null and value.sortOrder != null">sort_order = #{value.sortOrder,jdbcType=INTEGER},</if>
+<if test="value != null and value.display != null">display = #{value.display,jdbcType=INTEGER},</if>
+<if test="value != null and value.params != null">params = #{value.params,jdbcType=VARCHAR},</if>
+<if test="value != null and value.icon != null">icon = #{value.icon,jdbcType=VARCHAR},</if>
+<if test="value != null and value.childId != null">child_id = #{value.childId,jdbcType=VARCHAR},</if>
+<if test="value != null and value.allParentId != null">all_parent_id = #{value.allParentId,jdbcType=VARCHAR},</if>
+<if test="value != null and value.allChildId != null">all_child_id = #{value.allChildId,jdbcType=VARCHAR},</if>
+<if test="value != null and value.level != null">level = #{value.level,jdbcType=INTEGER},</if>
+<if test="value != null and value.isLeaf != null">is_leaf = #{value.isLeaf,jdbcType=INTEGER},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.st.dashboard.domain.admin.PrivilegeDO">
+		delete from xd_dashboard_privilege
+		where id = #{id,jdbcType=INTEGER}
+
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_privilege
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+<if test="output != null and output.name != null">name,</if>
+<if test="output != null and output.parentId != null">parent_id,</if>
+<if test="output != null and output.url != null">url,</if>
+<if test="output != null and output.sortOrder != null">sort_order,</if>
+<if test="output != null and output.display != null">display,</if>
+<if test="output != null and output.params != null">params,</if>
+<if test="output != null and output.icon != null">icon,</if>
+<if test="output != null and output.childId != null">child_id,</if>
+<if test="output != null and output.allParentId != null">all_parent_id,</if>
+<if test="output != null and output.allChildId != null">all_child_id,</if>
+<if test="output != null and output.level != null">level,</if>
+<if test="output != null and output.isLeaf != null">is_leaf,</if>
+<if test="output != null and output.createTime != null">create_time,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+<if test="input != null and input.idList != null">and id in 
+<foreach collection="input.idList" open="(" close=")" separator="," item="item">#{item}</foreach>
+</if>
+<if test="input != null and input.name != null">and name=#{input.name}</if>
+<if test="input != null and input.parentId != null">and parent_id=#{input.parentId}</if>
+<if test="input != null and input.url != null">and url=#{input.url}</if>
+<if test="input != null and input.sortOrder != null">and sort_order=#{input.sortOrder}</if>
+<if test="input != null and input.display != null">and display=#{input.display}</if>
+<if test="input != null and input.params != null">and params=#{input.params}</if>
+<if test="input != null and input.icon != null">and icon=#{input.icon}</if>
+<if test="input != null and input.childId != null">and child_id=#{input.childId}</if>
+<if test="input != null and input.allParentId != null">and all_parent_id=#{input.allParentId}</if>
+<if test="input != null and input.allChildId != null">and all_child_id=#{input.allChildId}</if>
+<if test="input != null and input.level != null">and level=#{input.level}</if>
+<if test="input != null and input.isLeaf != null">and is_leaf=#{input.isLeaf}</if>
+<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+<if test="sort != null and sort.name != null and ( sort.name == 'ASC' or sort.name == 'DESC' )">name ${sort.name},</if>
+<if test="sort != null and sort.parentId != null and ( sort.parentId == 'ASC' or sort.parentId == 'DESC' )">parent_id ${sort.parentId},</if>
+<if test="sort != null and sort.url != null and ( sort.url == 'ASC' or sort.url == 'DESC' )">url ${sort.url},</if>
+<if test="sort != null and sort.sortOrder != null and ( sort.sortOrder == 'ASC' or sort.sortOrder == 'DESC' )">sort_order ${sort.sortOrder},</if>
+<if test="sort != null and sort.display != null and ( sort.display == 'ASC' or sort.display == 'DESC' )">display ${sort.display},</if>
+<if test="sort != null and sort.params != null and ( sort.params == 'ASC' or sort.params == 'DESC' )">params ${sort.params},</if>
+<if test="sort != null and sort.icon != null and ( sort.icon == 'ASC' or sort.icon == 'DESC' )">icon ${sort.icon},</if>
+<if test="sort != null and sort.childId != null and ( sort.childId == 'ASC' or sort.childId == 'DESC' )">child_id ${sort.childId},</if>
+<if test="sort != null and sort.allParentId != null and ( sort.allParentId == 'ASC' or sort.allParentId == 'DESC' )">all_parent_id ${sort.allParentId},</if>
+<if test="sort != null and sort.allChildId != null and ( sort.allChildId == 'ASC' or sort.allChildId == 'DESC' )">all_child_id ${sort.allChildId},</if>
+<if test="sort != null and sort.level != null and ( sort.level == 'ASC' or sort.level == 'DESC' )">level ${sort.level},</if>
+<if test="sort != null and sort.isLeaf != null and ( sort.isLeaf == 'ASC' or sort.isLeaf == 'DESC' )">is_leaf ${sort.isLeaf},</if>
+<if test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+
+		</trim>
+	</sql>
+</mapper>

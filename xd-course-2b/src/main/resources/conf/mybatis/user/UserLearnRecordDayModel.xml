@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserLearnRecordDayModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.course.model.user.UserLearnRecordDayModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="product_id" property="productId" jdbcType="INTEGER" />
+		<result column="module_id" property="moduleId" jdbcType="INTEGER" />
+		<result column="chapter_id" property="chapterId" jdbcType="INTEGER" />
+		<result column="item_id" property="itemId" jdbcType="INTEGER" />
+		<result column="learn_time" property="learnTime" jdbcType="INTEGER" />
+		<result column="learn_type" property="learnType" jdbcType="TINYINT" />
+		<result column="record_time" property="recordTime" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<!--column-->
+	<sql id="base_column">user_id,module_id,product_id,chapter_id,item_id,learn_time,learn_type,record_time,create_time
+	</sql>
+	<sql id="all_column">
+		id,
+		<include refid="base_column" />
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.course.model.user.UserLearnRecordDayModel">
+		select
+		<include refid="dynamic_output" />
+		from xd_user_learn_record_day
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_user_learn_record_day
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	
+	 <select id="selectLearnTimeByDay" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT record_time,SUM(learn_time) learn_time
+		FROM xd_user_learn_record_day
+		<include refid="dynamic_where" />
+		GROUP BY record_time
+		ORDER BY record_time ASC
+	</select> 
+	
+	<!-- <select id="selectLearnTimeByDay" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT <include refid="dynamic_output" />
+		FROM xd_user_learn_record_day
+		<include refid="dynamic_where" />
+		ORDER BY
+		DATE(record_time) ASC
+	</select> -->
+	
+	<!-- 根据分组查询记录 -->
+	<select id="findEntityListByGroup" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		SELECT record_time,user_id,SUM(learn_time) learn_time
+		FROM
+		xd_user_learn_record_day
+		<include refid="dynamic_where" />
+		GROUP BY record_time
+		ORDER BY record_time DESC
+	</select>
+	
+	<select id="queryCostLearnTime" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT user_id ,SUM(learn_time) learn_time
+		FROM xd_user_learn_record_day
+		<!-- WHERE user_id = 92 -->
+		<include refid="dynamic_where" />
+		GROUP BY user_id
+	</select>
+	
+	<delete id="delete" parameterType="java.util.Map">
+		delete from
+		xd_user_learn_record_day
+		<include refid="dynamic_where" />
+	</delete>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.course.model.user.UserLearnRecordDayModel">
+		insert into xd_user_learn_record_day
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="productId != null">product_id,</if>
+			<if test="moduleId != null">module_id,</if>
+			<if test="chapterId != null">chapter_id,</if>
+			<if test="itemId != null">item_id,</if>
+			<if test="learnTime != null">learn_time,</if>
+			<if test="learnType != null">learn_type,</if>
+			<if test="recordTime != null">record_time,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="userId != null">#{userId,jdbcType=INTEGER},</if>
+			<if test="productId != null">#{productId,jdbcType=INTEGER},</if>
+			<if test="moduleId != null">#{moduleId,jdbcType=INTEGER},</if>
+			<if test="chapterId != null">#{chapterId,jdbcType=INTEGER},</if>
+			<if test="itemId != null">#{itemId,jdbcType=INTEGER},</if>
+			<if test="learnTime != null">#{learnTime,jdbcType=INTEGER},</if>
+			<if test="learnType != null">#{learnType,jdbcType=TINYINT},</if>
+			<if test="recordTime != null">#{recordTime,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.course.model.user.UserLearnRecordDayModel">
+		update xd_user_learn_record_day
+		<set>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.itemId != null">item_id = #{value.itemId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.learnTime != null">learn_time = #{value.learnTime,jdbcType=INTEGER},</if>
+			<if test="value != null and value.learnType != null">learn_type = #{value.learnType,jdbcType=TINYINT},</if>
+			<if test="value != null and value.recordTime != null">record_time = #{value.recordTime,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.course.model.user.UserLearnRecordDayModel">
+		update xd_user_learn_record_day
+		<set>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.itemId != null">item_id = #{value.itemId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.learnTime != null">learn_time = #{value.learnTime,jdbcType=INTEGER},</if>
+			<if test="value != null and value.learnType != null">learn_type = #{value.learnType,jdbcType=TINYINT},</if>
+			<if test="value != null and value.recordTime != null">record_time = #{value.recordTime,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_user_learn_record_day
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.productId != null">product_id,</if>
+			<if test="output != null and output.moduleId != null">module_id,</if>
+			<if test="output != null and output.chapterId != null">chapter_id,</if>
+			<if test="output != null and output.itemId != null">item_id,</if>
+			<if test="output != null and output.learnTime != null">learn_time,</if>
+			<if test="output != null and output.learnType != null">learn_type,</if>
+			<if test="output != null and output.recordTime != null">record_time,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.productId != null">and product_id=#{input.productId}</if>
+			<if test="input != null and input.moduleId != null">and module_id=#{input.moduleId}</if>
+			<if test="input != null and input.chapterId != null">and chapter_id=#{input.chapterId}</if>
+			<if test="input != null and input.itemId != null">and item_id=#{input.itemId}</if>
+			<if test="input != null and input.learnTime != null">and learn_time=#{input.learnTime}</if>
+			<if test="input != null and input.learnType != null">and learn_type=#{input.learnType}</if>
+			<if test="input != null and input.recordTime != null">and record_time=#{input.recordTime}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limitStart != null and limitCount != null">
+			limit ${limitStart}, ${limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.productId != null and ( sort.productId == 'ASC' or sort.productId == 'DESC' )">product_id ${sort.productId},</if>
+			<if
+				test="sort != null and sort.moduleId != null and ( sort.moduleId == 'ASC' or sort.moduleId == 'DESC' )">module_id ${sort.moduleId},</if>
+			<if
+				test="sort != null and sort.chapterId != null and ( sort.chapterId == 'ASC' or sort.chapterId == 'DESC' )">chapter_id ${sort.chapterId},</if>
+			<if
+				test="sort != null and sort.itemId != null and ( sort.itemId == 'ASC' or sort.itemId == 'DESC' )">item_id ${sort.itemId},</if>
+			<if
+				test="sort != null and sort.learnTime != null and ( sort.learnTime == 'ASC' or sort.learnTime == 'DESC' )">learn_time ${sort.learnTime},</if>
+			<if
+				test="sort != null and sort.learnType != null and ( sort.learnType == 'ASC' or sort.learnType == 'DESC' )">learn_type ${sort.learnType},</if>
+			<if
+				test="sort != null and sort.recordTime != null and ( sort.recordTime == 'ASC' or sort.recordTime == 'DESC' )">record_time ${sort.recordTime},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

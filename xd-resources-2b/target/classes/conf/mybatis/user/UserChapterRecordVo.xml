@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserChapterRecordVo">
+
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.course.vo.user.UserChapterRecordVo">
+		<result column="chapter_id" property="chapterId" />
+		<result column="product_id" property="productId" />
+		<result column="parent_id" property="parentId" />
+		<result column="resource_type" property="resourceType" />
+		<result column="chapter_name" property="chapterName" />
+		<result column="chapter_index" property="chapterIndex" />
+		<result column="star_level" property="starLevel" />
+		<result column="score" property="score" />
+		<result column="status" property="status" />
+		<result column="top_user" property="topUserList" />
+		<result column="complete_count" property="completeCount" />
+		<result column="picture_url" property="pictureUrl" />
+	</resultMap>
+
+	<select id="queryChapterRecordList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		i.id chapter_id , i.product_id, i.parent_id, i.resource_type ,
+		i.`name`
+		chapter_name
+		,i.chapter_id chapter_index,
+		IF(ISNULL(r.star_level),0,r.star_level)
+		star_level,
+		IF(ISNULL(r.score),0,r.score)
+		score,
+		i.top_user,
+		i.complete_count,
+		i.picture_url,
+		IF(ISNULL(r.status),0,r.status) status
+		FROM
+		xd_course_product_item i
+		LEFT JOIN xd_user_course_chapter_record r
+		ON
+		i.product_id=r.course_id
+		AND i.id = r.item_id AND r.user_id =
+		#{userId}
+		<where>
+			and i.resource_type = 1
+			<if test="courseId != null">
+				and i.product_id= #{courseId}
+			</if>
+			<if test="chapterId != null">
+				and i.id= #{chapterId}
+			</if>
+		</where>
+		order by list_order asc;
+	</select>
+
+	<select id="queryItemRecordList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		i.id chapter_id, i.product_id, i.parent_id, i.resource_type ,
+		i.`name`
+		chapter_name
+		,i.chapter_id chapter_index,
+		IF(ISNULL(r.star_level),0,r.star_level)
+		star_level,
+		IF(ISNULL(r.score),0,r.score)
+		score,
+		i.top_user,
+		i.complete_count,
+		i.picture_url,
+		IF(ISNULL(r.status),0,r.status) status
+		FROM
+		xd_course_product_item i
+		LEFT JOIN xd_user_course_chapter_record r
+		ON
+		i.product_id=r.course_id AND i.id = r.item_id AND r.user_id =
+		#{userId}
+		<where>
+			and i.resource_type = 1
+			<if test="courseId != null">
+				and i.product_id= #{courseId}
+			</if>
+			<if test="chapterId != null">
+				and i.parent_id= #{chapterId}
+			</if>
+		</where>
+		order by list_order asc;
+	</select>
+
+</mapper>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ResourcesColumnist">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.resources.model.forum.ResourcesColumnist">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="cover" property="cover" jdbcType="VARCHAR" />
+		<result column="info" property="info" jdbcType="VARCHAR" />
+		<result column="opus_num" property="opusNum" jdbcType="INTEGER" />
+		<result column="follower_num" property="followerNum" jdbcType="INTEGER" />
+		<result column="columnist_heat" property="columnistHeat"
+			jdbcType="INTEGER" />
+		<result column="lasted_forum" property="lastedForum" jdbcType="VARCHAR" />
+		<result column="lasted_forum_time" property="lastedForumTime" jdbcType="TIMESTAMP" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="is_follower" property="isFollower" jdbcType="VARCHAR" />
+		<result column="last_visit" property="lastVisit" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">xd_resources_columnist.id, xd_resources_columnist.module,
+		xd_resources_columnist.type,
+		xd_resources_columnist.user_id,
+		xd_resources_columnist.title,
+		xd_resources_columnist.cover,
+		xd_resources_columnist.info,
+		xd_resources_columnist.opus_num,
+		xd_resources_columnist.follower_num,
+		xd_resources_columnist.columnist_heat,
+		xd_resources_columnist.lasted_forum,
+		xd_resources_columnist.lasted_forum_time,
+		xd_resources_columnist.create_time
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.resources.model.forum.ResourcesColumnist">
+		select
+		xd_resources_follower.id is_follower,
+		<include refid="base_column" />
+		from xd_resources_columnist left join xd_resources_follower on
+		xd_resources_columnist.id = xd_resources_follower.columnist_id
+		and
+		xd_resources_follower.user_id = #{userId,jdbcType=VARCHAR}
+		where
+		xd_resources_columnist.id =
+		#{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		xd_resources_follower.id is_follower,
+		xd_resources_columnist_visit.last_visit_time last_visit,
+		<include refid="dynamic_output" />
+		from xd_resources_columnist left join xd_resources_follower on
+		xd_resources_columnist.id = xd_resources_follower.columnist_id
+		and
+		xd_resources_follower.user_id = #{input.followerId,jdbcType=VARCHAR}
+		left join xd_resources_columnist_visit on xd_resources_columnist.id = xd_resources_columnist_visit.columnist_id
+		<choose>
+		<when test="join != null and join.userId != null">and xd_resources_columnist_visit.user_id = #{join.userId}</when>
+		<otherwise>and xd_resources_columnist_visit.user_id = -1</otherwise>
+		</choose>
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<select id="findEntityCountByCond" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		select count(id)
+		from xd_resources_columnist
+		<include refid="dynamic_where" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.resources.model.forum.ResourcesColumnist">
+		insert into xd_resources_columnist
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="module != null">module,</if>
+			<if test="type != null">type,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="title != null">title,</if>
+			<if test="cover != null">cover,</if>
+			<if test="info != null">info,</if>
+			<if test="opusNum != null">opus_num,</if>
+			<if test="followerNum != null">follower_num,</if>
+			<if test="columnistHeat != null">columnist_heat,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+			<if test="type != null">#{type,jdbcType=INTEGER},</if>
+			<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+			<if test="title != null">#{title,jdbcType=VARCHAR},</if>
+			<if test="cover != null">#{cover,jdbcType=VARCHAR},</if>
+			<if test="info != null">#{info,jdbcType=VARCHAR},</if>
+			<if test="opusNum != null">#{opusNum,jdbcType=INTEGER},</if>
+			<if test="followerNum != null">#{followerNum,jdbcType=INTEGER},</if>
+			<if test="columnistHeat != null">#{columnistHeat,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.resources.model.forum.ResourcesColumnist">
+		update xd_resources_columnist
+		<set>
+			<if test="value != null and value.title != null">title = #{value.title,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.cover != null">cover = #{value.cover,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.info != null">info = #{value.info,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.opusNum != null">opus_num = #{value.opusNum,jdbcType=INTEGER},</if>
+			<if test="value != null and value.followerNum != null">follower_num = #{value.followerNum,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.columnistHeat != null">columnist_heat = #{value.columnistHeat,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.lastedForum != null">lasted_forum = #{value.lastedForum,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.lastedForumTime != null">lasted_forum_time = #{value.lastedForumTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.resources.model.forum.ResourcesColumnist">
+		update xd_resources_columnist
+		<set>
+			<if test="value != null and value.title != null">title = #{value.title,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.cover != null">cover = #{value.cover,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.info != null">info = #{value.info,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.opusNum != null">opus_num = #{value.opusNum,jdbcType=INTEGER},</if>
+			<if test="value != null and value.followerNum != null">follower_num = #{value.followerNum,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.columnistHeat != null">columnist_heat = #{value.columnistHeat,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.lastedForum != null">lasted_forum = #{value.lastedForum,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.lastedForumTime != null">lasted_forum_time = #{value.lastedForumTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.resources.model.forum.ResourcesColumnist">
+		delete from
+		xd_resources_columnist
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_resources_columnist
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_resources_columnist.id,</if>
+			<if test="output != null and output.module != null">xd_resources_columnist.module,</if>
+			<if test="output != null and output.type != null">xd_resources_columnist.type,</if>
+			<if test="output != null and output.userId != null">xd_resources_columnist.user_id,</if>
+			<if test="output != null and output.title != null">xd_resources_columnist.title,</if>
+			<if test="output != null and output.cover != null">xd_resources_columnist.cover,</if>
+			<if test="output != null and output.info != null">xd_resources_columnist.info,</if>
+			<if test="output != null and output.opusNum != null">xd_resources_columnist.opus_num,</if>
+			<if test="output != null and output.followerNum != null">xd_resources_columnist.follower_num,</if>
+			<if test="output != null and output.columnistHeat != null">xd_resources_columnist.columnist_heat,</if>
+			<if test="output != null and output.lastedForum != null">xd_resources_columnist.lasted_forum,</if>
+			<if test="output != null and output.lastedForumTime != null">xd_resources_columnist.lasted_forum_time,</if>
+			<if test="output != null and output.createTime != null">xd_resources_columnist.create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_resources_columnist.id=#{input.id}</if>
+			<if test="input != null and input.idLower != null">and xd_resources_columnist.id &gt; #{input.idLower}</if>
+			<if test="input != null and input.idUpper != null">and xd_resources_columnist.id &lt; #{input.idUpper}</if>
+			<if test="input != null and input.idList != null">
+				and xd_resources_columnist.id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.exceptIdList != null">
+				and xd_resources_columnist.id not in
+				<foreach collection="input.exceptIdList" open="(" close=")"
+					separator="," item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.module != null">and xd_resources_columnist.module=#{input.module}</if>
+			<if test="input != null and input.type != null">and xd_resources_columnist.type=#{input.type}</if>
+			<if test="input != null and input.userId != null">and xd_resources_columnist.user_id=#{input.userId}</if>
+			<if test="input != null and input.exceptUserId != null">and xd_resources_columnist.user_id!=#{input.exceptUserId}
+			</if>
+			<if test="input != null and input.title != null">and xd_resources_columnist.title=#{input.title}</if>
+			<if test="input != null and input.titleLike != null">and xd_resources_columnist.title like
+				CONCAT('%','${input.titleLike}','%' )</if>
+			<if test="input != null and input.cover != null">and xd_resources_columnist.cover=#{input.cover}</if>
+			<if test="input != null and input.info != null">and xd_resources_columnist.info=#{input.info}</if>
+			<if test="input != null and input.opusNum != null">and xd_resources_columnist.opus_num=#{input.opusNum}</if>
+			<if test="input != null and input.followerNum != null">and
+				xd_resources_columnist.follower_num=#{input.followerNum}
+			</if>
+			<if test="input != null and input.createTimeLower != null">and xd_resources_columnist.create_time &gt;
+				#{input.createTimeLower}
+			</if>
+			<if test="input != null and input.createTimeUpper != null">and xd_resources_columnist.create_time &lt;
+				#{input.createTimeLower}
+			</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.module != null and ( sort.module == 'ASC' or sort.module == 'DESC' )">module ${sort.module},</if>
+			<if
+				test="sort != null and sort.type != null and ( sort.type == 'ASC' or sort.type == 'DESC' )">type ${sort.type},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.title != null and ( sort.title == 'ASC' or sort.title == 'DESC' )">title ${sort.title},</if>
+			<if
+				test="sort != null and sort.cover != null and ( sort.cover == 'ASC' or sort.cover == 'DESC' )">cover ${sort.cover},</if>
+			<if
+				test="sort != null and sort.info != null and ( sort.info == 'ASC' or sort.info == 'DESC' )">info ${sort.info},</if>
+			<if
+				test="sort != null and sort.opusNum != null and ( sort.opusNum == 'ASC' or sort.opusNum == 'DESC' )">opus_num ${sort.opusNum},</if>
+			<if
+				test="sort != null and sort.followerNum != null and ( sort.followerNum == 'ASC' or sort.followerNum == 'DESC' )">follower_num ${sort.followerNum},</if>
+			<if
+				test="sort != null and sort.columnistHeat != null and ( sort.columnistHeat == 'ASC' or sort.columnistHeat == 'DESC' )">columnist_heat ${sort.columnistHeat},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.isFollower != null and ( sort.isFollower == 'ASC' or sort.isFollower == 'DESC' )">is_follower ${sort.isFollower},</if>
+		</trim>
+	</sql>
+</mapper>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CascadeMissionRecordModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.mission.domain.CascadeMissionRecordModel">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="major_id" property="majorId" jdbcType="VARCHAR" />
+		<result column="course_id" property="courseId" jdbcType="VARCHAR" />
+		<result column="chapter_id" property="chapterId" jdbcType="VARCHAR" />
+		<result column="mission_type" property="missionType" jdbcType="VARCHAR" />
+		<result column="precond_list" property="preCondList" jdbcType="VARCHAR" />
+		<result column="cond_type" property="condType" jdbcType="VARCHAR" />
+		<result column="mission_cond" property="condition" jdbcType="VARCHAR" />
+		<result column="scope" property="scope" jdbcType="VARCHAR" />
+		<result column="threshold" property="threshold" jdbcType="VARCHAR" />
+		<result column="mission_name" property="missionName" jdbcType="VARCHAR" />
+		<result column="mission_desc" property="missionDesc" jdbcType="VARCHAR" />
+		<result column="mission_picurl" property="missionPicUrl"
+			jdbcType="VARCHAR" />
+		<result column="jump_type" property="jumpType" jdbcType="VARCHAR" />
+		<result column="task_type" property="taskType" jdbcType="VARCHAR" />
+		<result column="mission_state" property="missionState"
+			jdbcType="TINYINT" />
+		<result column="mission_order" property="missionOrder"
+			jdbcType="VARCHAR" />
+		<result column="credit_upper" property="creditUpper" jdbcType="INTEGER" />
+		<result column="red_bonus_type" property="redBonusType"
+			jdbcType="VARCHAR" />
+		<result column="expiry_date" property="expiryDate" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="record_id" property="recordId" jdbcType="BIGINT" />
+		<result column="current_num" property="currentNum" jdbcType="VARCHAR" />
+		<result column="is_reached" property="isReached" jdbcType="INTEGER" />
+		<result column="record_status" property="recordStatus"
+			jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" />
+		<result column="finish_time" property="finishTime" />
+		<result column="dead_line" property="deadLine" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		m.id, m.module, IFNULL(pr.product_category_id,'-1')
+		major_id,
+		m.course_id, m.chapter_id,
+		m.mission_type,
+		m.precond_list,
+		m.cond_type,
+		m.mission_cond,
+		m.scope,
+		m.threshold,
+		m.mission_name,
+		m.mission_desc,
+		m.mission_picurl,
+		m.jump_type,
+		m.task_type,
+		m.mission_state,
+		m.mission_order,
+		m.credit_upper,
+		m.red_bonus_type,
+		m.expiry_date,
+		r.id
+		record_id,
+		r.user_id,
+		r.current_num,
+		r.is_reached,
+		r.record_status,
+		r.create_time,
+		r.finish_time,
+		r.dead_line
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.mission.domain.CascadeMissionRecordModel">
+		select
+		<include refid="Base_Column_List" />
+		from xd_mission_model m left join xd_mission_product_relation pr on
+		pr.product_id = m.course_id
+		left join xd_user_mission_record r
+		on m.id
+		=
+		r.mission_id and r.user_id = #{join.userId,jdbcType=BIGINT}
+		and
+		r.record_status in
+		<foreach collection="join.recordStatusList" open="(" close=")"
+			separator="," item="recordStatus">
+			#{recordStatus}
+		</foreach>
+		where
+		m.id =
+		#{input.id,jdbcType=VARCHAR}
+		order by
+		<if
+			test="sort != null and sort.finishTime != null and ( sort.finishTime == 'ASC' or sort.finishTime == 'DESC' )">date_format(r.finish_time,'%Y-%m-%d') ${sort.finishTime},</if>
+		m.mission_order asc
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_mission_product_relation pr left join xd_mission_model m on
+		pr.product_id = m.course_id
+		left join xd_user_mission_record r
+		on m.id
+		=
+		r.mission_id and r.user_id =
+		#{join.userId,jdbcType=BIGINT}
+		and
+		r.record_status in
+		<foreach collection="join.recordStatusList" open="(" close=")"
+			separator="," item="recordStatus">
+			#{recordStatus}
+		</foreach>
+		<include refid="dynamic_where" />
+		order by
+		<if
+			test="sort != null and sort.finishTime != null and ( sort.finishTime == 'ASC' or sort.finishTime == 'DESC' )">date_format(r.finish_time,'%Y-%m-%d') ${sort.finishTime},</if>
+		m.mission_order asc
+	</select>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.missionId != null">
+				and m.id = #{input.missionId,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.module != null">
+				and m.module = #{input.module,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.moduleList != null">
+				and m.module in
+				<foreach collection="input.moduleList" item="item" open="("
+					close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.majorId != null">
+				and pr.product_category_id =
+				#{input.majorId,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.majorIdList != null">
+				and pr.product_category_id in
+				<foreach collection="input.majorIdList" item="item" open="("
+					close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.courseId != null">
+				and m.course_id = #{input.courseId,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.courseIdList != null">
+				and m.course_id in
+				<foreach collection="input.courseIdList" item="item" open="("
+					close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.chapterId != null">
+				and m.chapter_id = #{input.chapterId,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.missionType != null">
+				and m.mission_type =
+				#{input.missionType,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.preCondList != null">
+				and m.precond_list =
+				#{input.preCondList,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.condType != null">
+				and m.cond_type = #{input.condType,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.condition != null">
+				and m.mission_cond = #{input.condition,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.scope != null">
+				and m.scope = #{input.scope,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.threshold != null">
+				and m.threshold = #{input.threshold,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.missionName != null">
+				and m.mission_name =
+				#{input.missionName,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.missionDesc != null">
+				and m.mission_desc =
+				#{input.missionDesc,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.missionPicUrl != null">
+				and m.mission_picurl =
+				#{input.missionPicUrl,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.jumpType != null">
+				and m.jump_type =
+				#{input.jumpType,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.taskType != null">
+				and m.task_type =
+				#{input.taskType,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.missionState != null">
+				and m.mission_state =
+				#{input.missionState,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.missionStateList != null">
+				and m.mission_state in
+				<foreach collection="input.missionStateList" item="item"
+					open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.missionOrder != null">
+				and m.mission_order =
+				#{input.missionOrder,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.creditUpper != null">
+				and m.credit_upper =
+				#{input.creditUpper,jdbcType=INTEGER}
+			</if>
+			<if test="input != null and input.expiryDate != null">
+				and m.expiry_date =
+				#{input.expiryDate,jdbcType=INTEGER}
+			</if>
+			<if test="input != null and input.recordId != null">
+				and r.id =
+				#{input.recordId,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.userId != null">
+				and r.user_id = #{input.userId,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.recordStatus != null">
+				and r.record_status =
+				#{input.recordStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.recordStatusList != null">
+				and r.record_status in
+				<foreach collection="input.recordStatusList" open="(" close=")"
+					separator="," item="recordStatus">
+					#{recordStatus}
+				</foreach>
+			</if>
+			<if test="input != null and input.currentNum != null">
+				and r.current_num = #{input.currentNum,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.isReached != null">
+				and r.is_reached = #{input.isReached,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.createTimeLower != null">and
+				r.create_time &gt; #{input.createTimeLower}
+			</if>
+			<if test="input != null and input.createTimeUpper != null">and
+				r.create_time &lt; #{input.createTimeUpper}
+			</if>
+			<if test="input != null and input.finishTimeLower != null">and
+				r.finish_time &gt; #{input.finishTimeLower}
+			</if>
+			<if test="input != null and input.finishTimeUpper != null">and
+				r.finish_time &lt; #{input.finishTimeUpper}
+			</if>
+			<if test="input != null and input.deadLineLower != null">and
+				r.dead_line &gt; #{input.deadLineLower}
+			</if>
+			<if test="input != null and input.deadLineUpper != null">and
+				r.dead_line &lt; #{input.deadLineUpper}
+			</if>
+		</where>
+	</sql>
+</mapper>

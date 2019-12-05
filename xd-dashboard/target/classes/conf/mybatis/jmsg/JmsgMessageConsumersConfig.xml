@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="JmsgMessageConsumersConfig">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.dashboard.model.jsmg.JmsgMessageConsumersConfig">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="message_name" property="messageName" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="time_out" property="timeOut" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, message_name, url, time_out</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.dashboard.model.jsmg.JmsgMessageConsumersConfig">
+		select
+		<include refid="base_column" />
+		from message_consumers_config
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from message_consumers_config
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<!-- 查询 -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="base_column" />
+		FROM message_consumers_config
+		<include refid="dynamic_where" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.dashboard.model.jsmg.JmsgMessageConsumersConfig">
+		insert into message_consumers_config
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="messageName != null">message_name,</if>
+			<if test="url != null">url,</if>
+			<if test="timeOut != null">time_out,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="messageName != null">#{messageName,jdbcType=VARCHAR},</if>
+			<if test="url != null">#{url,jdbcType=VARCHAR},</if>
+			<if test="timeOut != null">#{timeOut,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.dashboard.model.jsmg.JmsgMessageConsumersConfig">
+		update message_consumers_config
+		<set>
+			<if test="value != null and value.messageName != null">message_name = #{value.messageName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.url != null">url = #{value.url,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.timeOut != null">time_out = #{value.timeOut,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.dashboard.model.jsmg.JmsgMessageConsumersConfig">
+		update message_consumers_config
+		<set>
+			<if test="value != null and value.messageName != null">message_name = #{value.messageName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.url != null">url = #{value.url,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.timeOut != null">time_out = #{value.timeOut,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById"
+		parameterType="com.xiaodou.dashboard.model.jsmg.JmsgMessageConsumersConfig">
+		delete from message_consumers_config
+		where id =
+		#{id,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from message_consumers_config
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.messageName != null">message_name,</if>
+			<if test="output != null and output.url != null">url,</if>
+			<if test="output != null and output.timeOut != null">time_out,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.messageName != null">and message_name=#{input.messageName}</if>
+			<if test="input != null and input.url != null">and url=#{input.url}</if>
+			<if test="input != null and input.timeOut != null">and time_out=#{input.timeOut}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+		</trim>
+	</sql>
+</mapper>

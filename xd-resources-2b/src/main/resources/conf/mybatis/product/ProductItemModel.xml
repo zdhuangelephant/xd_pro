@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ProductItemModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.resources.model.product.ProductItemModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="product_id" property="productId" jdbcType="INTEGER" />
+		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+		<result column="resource_id" property="resourceId" jdbcType="VARCHAR" />
+		<result column="resource_type" property="resourceType"
+			jdbcType="INTEGER" />
+		<result column="level" property="level" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="show_status" property="showStatus" jdbcType="INTEGER" />
+		<result column="detail" property="detail" jdbcType="VARCHAR" />
+		<result column="misc" property="misc" jdbcType="VARCHAR" />
+		<result column="all_parent_id" property="allParentId" jdbcType="VARCHAR" />
+		<result column="child_id" property="childId" jdbcType="VARCHAR" />
+		<result column="all_child_id" property="allChildId" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="is_free" property="isFree" jdbcType="INTEGER" />
+		<result column="is_leaf" property="isLeaf" jdbcType="INTEGER" />
+		<result column="chapter_id" property="chapterId" jdbcType="VARCHAR" />
+		<result column="list_order" property="listOrder" jdbcType="INTEGER" />
+		<result column="resource" property="resource" jdbcType="VARCHAR" />
+		<result column="task_ratio" property="taskRatio" jdbcType="INTEGER" />
+		<result column="relation_item" property="relationItem"
+			jdbcType="INTEGER" />
+		<result column="relation_item_name" property="relationItemName"
+			jdbcType="VARCHAR" />
+		<result column="comment_count" property="commentCount"
+			jdbcType="INTEGER" />
+		<result column="top_user" property="topUserList" jdbcType="VARCHAR" />
+		<result column="complete_count" property="completeCount"
+			jdbcType="INTEGER" />
+		<result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+		<result column="deadline" property="deadline" jdbcType="TIMESTAMP" />
+		<result column="exam_time" property="examTime" jdbcType="INTEGER" />
+		<result column="frequency" property="frequency" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="base_column">id, product_id, parent_id, resource_id, resource_type,
+		level, name, show_status, detail, misc, all_parent_id, child_id,
+		all_child_id, create_time, update_time, is_free, is_leaf, chapter_id,
+		list_order, resource, task_ratio, relation_item, relation_item_name,
+		comment_count, top_user, complete_count, picture_url, deadline,
+		exam_time, frequency
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.resources.model.product.ProductItemModel">
+		select
+		<include refid="base_column" />
+		from xd_course_product_item
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_product_item
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.productId != null">product_id,</if>
+			<if test="output != null and output.parentId != null">parent_id,</if>
+			<if test="output != null and output.resourceId != null">resource_id,</if>
+			<if test="output != null and output.resourceType != null">resource_type,</if>
+			<if test="output != null and output.level != null">level,</if>
+			<if test="output != null and output.name != null">name,</if>
+			<if test="output != null and output.showStatus != null">show_status,</if>
+			<if test="output != null and output.detail != null">detail,</if>
+			<if test="output != null and output.misc != null">misc,</if>
+			<if test="output != null and output.allParentId != null">all_parent_id,</if>
+			<if test="output != null and output.childId != null">child_id,</if>
+			<if test="output != null and output.allChildId != null">all_child_id,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.updateTime != null">update_time,</if>
+			<if test="output != null and output.isFree != null">is_free,</if>
+			<if test="output != null and output.isLeaf != null">is_leaf,</if>
+			<if test="output != null and output.chapterId != null">chapter_id,</if>
+			<if test="output != null and output.listOrder != null">list_order,</if>
+			<if test="output != null and output.resource != null">resource,</if>
+			<if test="output != null and output.taskRatio != null">task_ratio,</if>
+			<if test="output != null and output.relationItem != null">relation_item,</if>
+			<if test="output != null and output.relationItemName != null">relation_item_name,</if>
+			<if test="output != null and output.commentCount != null">comment_count,</if>
+			<if test="output != null and output.topUserList != null">top_user,</if>
+			<if test="output != null and output.completeCount != null">complete_count,</if>
+			<if test="output != null and output.pictureUrl != null">picture_url,</if>
+			<if test="output != null and output.deadline != null">deadline,</if>
+			<if test="output != null and output.examTime != null">exam_time,</if>
+			<if test="output != null and output.frequency != null">frequency,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.productId != null">and product_id=#{input.productId}</if>
+			<if test="input != null and input.parentId != null">and parent_id=#{input.parentId}</if>
+			<if test="input != null and input.isChapter != null">and parent_id=0</if>
+			<if test="input != null and input.isItem != null">and parent_id &gt; 0</if>
+			<if test="input != null and input.resourceId != null">and resource_id=#{input.resourceId}</if>
+			<if test="input != null and input.resourceType != null">and resource_type=#{input.resourceType}</if>
+			<if test="input != null and input.resourceTypeList != null">
+				and resource_type in
+				<foreach collection="input.resourceTypeList" separator=","
+					open="(" close=")" item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.level != null">and level=#{input.level}</if>
+			<if test="input != null and input.name != null">and name=#{input.name}</if>
+			<if test="input != null and input.showStatus != null">and show_status=#{input.showStatus}</if>
+			<if test="input != null and input.detail != null">and detail=#{input.detail}</if>
+			<if test="input != null and input.misc != null">and misc=#{input.misc}</if>
+			<if test="input != null and input.allParentId != null">and all_parent_id=#{input.allParentId}</if>
+			<if test="input != null and input.childId != null">and child_id=#{input.childId}</if>
+			<if test="input != null and input.allChildId != null">and all_child_id=#{input.allChildId}</if>
+			<if test="input != null and input.createTimeLower != null">and create_time &gt; #{input.createTimeLower}</if>
+			<if test="input != null and input.createTimeUpper != null">and create_time &lt; #{input.createTimeLower}</if>
+			<if test="input != null and input.updateTimeLower != null">and update_time &gt; #{input.updateTimeLower}</if>
+			<if test="input != null and input.updateTimeUpper != null">and update_time &lt; #{input.updateTimeLower}</if>
+			<if test="input != null and input.isFree != null">and is_free=#{input.isFree}</if>
+			<if test="input != null and input.isLeaf != null">and is_leaf=#{input.isLeaf}</if>
+			<if test="input != null and input.chapterId != null">and chapter_id=#{input.chapterId}</if>
+			<if test="input != null and input.listOrder != null">and list_order=#{input.listOrder}</if>
+			<if test="input != null and input.resource != null">and resource=#{input.resource}</if>
+			<if test="input != null and input.taskRatio != null">and task_ratio=#{input.taskRatio}</if>
+			<if test="input != null and input.relationItem != null">and relation_item=#{input.relationItem}</if>
+			<if test="input != null and input.relationItemName != null">and relation_item_name=#{input.relationItemName}</if>
+			<if test="input != null and input.commentCount != null">and comment_count=#{input.commentCount}</if>
+			<if test="input != null and input.topUserList != null">and top_user=#{input.topUserList}</if>
+			<if test="input != null and input.completeCount != null">and complete_count=#{input.completeCount}</if>
+			<if test="input != null and input.pictureUrl != null">and picture_url=#{input.pictureUrl}</if>
+			<if test="input != null and input.deadline != null">and deadline=#{input.deadline}</if>
+			<if test="input != null and input.examTime != null">and exam_time=#{input.examTime}</if>
+			<if test="input != null and input.frequency != null">and frequency=#{input.frequency}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limitStart != null and limitCount != null">
+			limit ${limitStart}, ${limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.productId != null and ( sort.productId == 'ASC' or sort.productId == 'DESC' )">product_id ${sort.productId},</if>
+			<if
+				test="sort != null and sort.parentId != null and ( sort.parentId == 'ASC' or sort.parentId == 'DESC' )">parent_id ${sort.parentId},</if>
+			<if
+				test="sort != null and sort.resourceId != null and ( sort.resourceId == 'ASC' or sort.resourceId == 'DESC' )">resource_id ${sort.resourceId},</if>
+			<if
+				test="sort != null and sort.resourceType != null and ( sort.resourceType == 'ASC' or sort.resourceType == 'DESC' )">resource_type ${sort.resourceType},</if>
+			<if
+				test="sort != null and sort.level != null and ( sort.level == 'ASC' or sort.level == 'DESC' )">level ${sort.level},</if>
+			<if
+				test="sort != null and sort.name != null and ( sort.name == 'ASC' or sort.name == 'DESC' )">name ${sort.name},</if>
+			<if
+				test="sort != null and sort.showStatus != null and ( sort.showStatus == 'ASC' or sort.showStatus == 'DESC' )">show_status ${sort.showStatus},</if>
+			<if
+				test="sort != null and sort.detail != null and ( sort.detail == 'ASC' or sort.detail == 'DESC' )">detail ${sort.detail},</if>
+			<if
+				test="sort != null and sort.misc != null and ( sort.misc == 'ASC' or sort.misc == 'DESC' )">misc ${sort.misc},</if>
+			<if
+				test="sort != null and sort.allParentId != null and ( sort.allParentId == 'ASC' or sort.allParentId == 'DESC' )">all_parent_id ${sort.allParentId},</if>
+			<if
+				test="sort != null and sort.childId != null and ( sort.childId == 'ASC' or sort.childId == 'DESC' )">child_id ${sort.childId},</if>
+			<if
+				test="sort != null and sort.allChildId != null and ( sort.allChildId == 'ASC' or sort.allChildId == 'DESC' )">all_child_id ${sort.allChildId},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">update_time ${sort.updateTime},</if>
+			<if
+				test="sort != null and sort.isFree != null and ( sort.isFree == 'ASC' or sort.isFree == 'DESC' )">is_free ${sort.isFree},</if>
+			<if
+				test="sort != null and sort.isLeaf != null and ( sort.isLeaf == 'ASC' or sort.isLeaf == 'DESC' )">is_leaf ${sort.isLeaf},</if>
+			<if
+				test="sort != null and sort.chapterId != null and ( sort.chapterId == 'ASC' or sort.chapterId == 'DESC' )">chapter_id ${sort.chapterId},</if>
+			<if
+				test="sort != null and sort.listOrder != null and ( sort.listOrder == 'ASC' or sort.listOrder == 'DESC' )">list_order ${sort.listOrder},</if>
+			<if
+				test="sort != null and sort.resource != null and ( sort.resource == 'ASC' or sort.resource == 'DESC' )">resource ${sort.resource},</if>
+			<if
+				test="sort != null and sort.taskRatio != null and ( sort.taskRatio == 'ASC' or sort.taskRatio == 'DESC' )">task_ratio ${sort.taskRatio},</if>
+			<if
+				test="sort != null and sort.relationItem != null and ( sort.relationItem == 'ASC' or sort.relationItem == 'DESC' )">relation_item ${sort.relationItem},</if>
+			<if
+				test="sort != null and sort.relationItemName != null and ( sort.relationItemName == 'ASC' or sort.relationItemName == 'DESC' )">relation_item_name ${sort.relationItemName},</if>
+			<if
+				test="sort != null and sort.commentCount != null and ( sort.commentCount == 'ASC' or sort.commentCount == 'DESC' )">comment_count ${sort.commentCount},</if>
+			<if
+				test="sort != null and sort.topUserList != null and ( sort.topUserList == 'ASC' or sort.topUserList == 'DESC' )">top_user ${sort.topUserList},</if>
+			<if
+				test="sort != null and sort.completeCount != null and ( sort.completeCount == 'ASC' or sort.completeCount == 'DESC' )">complete_count ${sort.completeCount},</if>
+			<if
+				test="sort != null and sort.pictureUrl != null and ( sort.pictureUrl == 'ASC' or sort.pictureUrl == 'DESC' )">picture_url ${sort.pictureUrl},</if>
+			<if
+				test="sort != null and sort.deadline != null and ( sort.deadline == 'ASC' or sort.deadline == 'DESC' )">deadline ${sort.deadline},</if>
+			<if
+				test="sort != null and sort.examTime != null and ( sort.examTime == 'ASC' or sort.examTime == 'DESC' )">exam_time ${sort.examTime},</if>
+			<if
+				test="sort != null and sort.frequency != null and ( sort.frequency == 'ASC' or sort.frequency == 'DESC' )">frequency ${sort.frequency},</if>
+		</trim>
+	</sql>
+</mapper>

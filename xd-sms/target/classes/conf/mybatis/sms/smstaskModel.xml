@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SmsTaskModel">
+
+	<!-- 1. 根据条件 查询 文档列表(不分页) -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		xd_sms_task
+		<include refid="dynamic_where" />
+	</select>
+
+	<!-- 2. 根据条件 修改 文档 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_sms_task
+		<set>
+			<if test="value != null and value.message != null">message = #{value.message},</if>
+			<if test="value != null and value.channelId != null">channel_id = #{value.channelId},</if>
+			<if test="value != null and value.templateId != null">template_id = #{value.templateId},</if>
+			<if test="value != null and value.mobile != null">mobile = #{value.mobile},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+			<if test="value != null and value.canRetryTime != null">can_retry_time = #{value.canRetryTime},</if>
+			<if test="value != null and value.templateTypeId != null">template_type_id = #{value.templateTypeId},</if>
+			<if test="value != null and value.status != null">status = #{value.status},</if>
+			<if test="value != null and value.msg != null">msg = #{value.msg},</if>
+			<if test="value != null and value.productLine != null"> product_line =#{value.productLine},</if>
+			<if test="value != null and value.appMessageId != null"> app_message_id =#{value.appMessageId},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 3.文档 插入 方法 -->
+	<insert id="addEntity" parameterType="SmsTaskModel" useGeneratedKeys="true" keyProperty="id" >
+		insert into xd_sms_task
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- 4.文档 删除 方法 -->
+	<delete id="deleteList" parameterType="java.util.Map">
+		delete from xd_sms_task
+		<include refid="dynamic_where" />
+	</delete>
+	<!-- ******************************** 上面是DAO层方法实现, 下面是各个动态语句的拼写 ******************************************* -->
+
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseResultMap" type="SmsTaskModel">
+		<id column="id" property="id" />
+		<result column="message" property="message" />
+		<result column="channel_id" property="channelId" />
+		<result column="template_id" property="templateId" />
+		<result column="mobile" property="mobile" />
+		<result column="create_time" property="createTime" />
+		<result column="_timestamp" property="timestamp" />
+		<result column="can_retry_time" property="canRetryTime" />
+		<result column="template_type_id" property="templateTypeId" />
+		<result column="status" property="status" />
+		<result column="msg" property="msg" />
+		<result column="product_line" property="productLine" />
+		<result column="app_message_id" property="appMessageId" />
+		
+		<association column="channel_id" property="smsChannelModel"
+			select="getMerchantById" />
+	</resultMap>
+	<select id="getMerchantById" resultType="smsChannelModel"
+		parameterType="java.lang.Integer">
+		select merchant_id from xd_sms_channel where id =
+		#{input.channelId}
+	</select>
+
+	<sql id="Base_Column_List">
+		id, message, channel_id, template_id, mobile, create_time,
+		can_retry_time, template_type_id, status ,msg, product_line,app_message_id
+	</sql>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id =#{input.id}</if>
+			<if test="input != null and input.idList != null">
+				<foreach collection="input.idList" item="item" open="("
+					close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.message != null">and message =#{input.message}</if>
+			<if test="input != null and input.channelId != null">and channel_id =#{input.channelId}</if>
+			<if test="input != null and input.templateId != null">and template_id =#{input.templateId}</if>
+			<if test="input != null and input.mobile != null">and mobile =#{input.mobile}</if>
+			<if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+			<if test="input != null and input.canRetryTime != null">and can_retry_time =#{input.canRetryTime}</if>
+			<if test="input != null and input.templateTypeId != null">and template_type_id =#{input.templateTypeId}</if>
+			<if test="input != null and input.status != null">and status =#{input.status}</if>
+			<if test="input != null and input.msg != null">and msg =#{input.msg}</if>
+			<if test="value != null and value.productLine != null"> product_line =#{value.productLine},</if>
+			<if test="value != null and value.appMessageId != null"> app_message_id =#{value.appMessageId},</if>
+		</where>
+	</sql>
+
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="message != null">message,</if>
+			<if test="channelId != null">channel_id,</if>
+			<if test="templateId != null">template_id,</if>
+			<if test="mobile != null">mobile,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="canRetryTime != null">can_retry_time,</if>
+			<if test="templateTypeId != null">template_type_id,</if>
+			<if test="status != null">status,</if>
+			<if test="msg != null">msg,</if>
+			<if test="productLine != null">product_line,</if>
+			<if test="appMessageId != null">app_message_id,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="message != null">#{message},</if>
+			<if test="channelId != null">#{channelId},</if>
+			<if test="templateId != null">#{templateId},</if>
+			<if test="mobile != null">#{mobile},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="canRetryTime != null">#{canRetryTime},</if>
+			<if test="templateTypeId != null">#{templateTypeId},</if>
+			<if test="status != null">#{status},</if>
+			<if test="msg != null">#{msg},</if>
+			<if test="productLine != null">#{productLine},</if>
+			<if test="appMessageId != null">#{appMessageId},</if>
+		</trim>
+	</sql>
+
+</mapper>

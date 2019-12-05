@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MonitorApi">
+	<resultMap id="BaseResultMap" type="com.xiaodou.crontmonitor.model.MonitorApi">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="protocol" property="protocol" jdbcType="VARCHAR" />
+		<result column="format" property="format" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="method" property="method" jdbcType="VARCHAR" />
+		<result column="params" property="params" jdbcType="VARCHAR" />
+		<result column="time_out" property="timeOut" jdbcType="INTEGER" />
+		<result column="retry_time" property="retryTime" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, name, protocol, format, url, method, params, time_out,
+		retry_time, create_time, update_time
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.crontmonitor.model.MonitorApi">
+		select
+		<include refid="base_column" />
+		from xd_cront_monitor_api where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_cront_monitor_api
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.crontmonitor.model.MonitorApi">
+		insert into xd_cront_monitor_api
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="name != null">name,</if>
+			<if test="protocol != null">protocol,</if>
+			<if test="format != null">format,</if>
+			<if test="url != null">url,</if>
+			<if test="method != null">method,</if>
+			<if test="params != null">params,</if>
+			<if test="timeOut != null">time_out,</if>
+			<if test="retryTime != null">retry_time,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="updateTime != null">update_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+			<if test="protocol != null">#{protocol,jdbcType=VARCHAR},</if>
+			<if test="format != null">#{format,jdbcType=VARCHAR},</if>
+			<if test="url != null">#{url,jdbcType=VARCHAR},</if>
+			<if test="method != null">#{method,jdbcType=VARCHAR},</if>
+			<if test="params != null">#{params,jdbcType=VARCHAR},</if>
+			<if test="timeOut != null">#{timeOut,jdbcType=INTEGER},</if>
+			<if test="retryTime != null">#{retryTime,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.crontmonitor.model.MonitorApi">
+		update xd_cront_monitor_api
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.protocol != null">protocol = #{value.protocol,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.format != null">format = #{value.format,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.url != null">url = #{value.url,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.method != null">method = #{value.method,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.params != null">params = #{value.params,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.timeOut != null">time_out = #{value.timeOut,jdbcType=INTEGER},</if>
+			<if test="value != null and value.retryTime != null">retry_time = #{value.retryTime,jdbcType=INTEGER},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.crontmonitor.model.MonitorApi">
+		update xd_cront_monitor_api
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.protocol != null">protocol = #{value.protocol,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.format != null">format = #{value.format,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.url != null">url = #{value.url,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.method != null">method = #{value.method,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.params != null">params = #{value.params,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.timeOut != null">time_out = #{value.timeOut,jdbcType=INTEGER},</if>
+			<if test="value != null and value.retryTime != null">retry_time = #{value.retryTime,jdbcType=INTEGER},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.crontmonitor.model.MonitorApi"> delete from
+		xd_cront_monitor_api where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_cront_monitor_api
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.name != null">name,</if>
+			<if test="output != null and output.protocol != null">protocol,</if>
+			<if test="output != null and output.format != null">format,</if>
+			<if test="output != null and output.url != null">url,</if>
+			<if test="output != null and output.method != null">method,</if>
+			<if test="output != null and output.params != null">params,</if>
+			<if test="output != null and output.timeOut != null">time_out,</if>
+			<if test="output != null and output.retryTime != null">retry_time,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.updateTime != null">update_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.name != null">and name=#{input.name}</if>
+			<if test="input != null and input.protocol != null">and protocol=#{input.protocol}</if>
+			<if test="input != null and input.format != null">and format=#{input.format}</if>
+			<if test="input != null and input.url != null">and url=#{input.url}</if>
+			<if test="input != null and input.method != null">and method=#{input.method}</if>
+			<if test="input != null and input.params != null">and params=#{input.params}</if>
+			<if test="input != null and input.timeOut != null">and time_out=#{input.timeOut}</if>
+			<if test="input != null and input.retryTime != null">and retry_time=#{input.retryTime}</if>
+			<if test="input != null and input.createTimeLower != null">and create_time &gt; #{input.createTimeLower}</if>
+			<if test="input != null and input.createTimeUpper != null">and create_time &lt; #{input.createTimeUpper}</if>
+			<if test="input != null and input.updateTimeLower != null">and update_time &gt; #{input.updateTimeLower}</if>
+			<if test="input != null and input.updateTimeUpper != null">and update_time &lt; #{input.updateTimeUpper}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.name != null and ( sort.name == 'ASC' or sort.name == 'DESC' )">name ${sort.name},</if>
+			<if
+				test="sort != null and sort.protocol != null and ( sort.protocol == 'ASC' or sort.protocol == 'DESC' )">protocol ${sort.protocol},</if>
+			<if
+				test="sort != null and sort.format != null and ( sort.format == 'ASC' or sort.format == 'DESC' )">format ${sort.format},</if>
+			<if
+				test="sort != null and sort.url != null and ( sort.url == 'ASC' or sort.url == 'DESC' )">url ${sort.url},</if>
+			<if
+				test="sort != null and sort.method != null and ( sort.method == 'ASC' or sort.method == 'DESC' )">method ${sort.method},</if>
+			<if
+				test="sort != null and sort.params != null and ( sort.params == 'ASC' or sort.params == 'DESC' )">params ${sort.params},</if>
+			<if
+				test="sort != null and sort.timeOut != null and ( sort.timeOut == 'ASC' or sort.timeOut == 'DESC' )">time_out ${sort.timeOut},</if>
+			<if
+				test="sort != null and sort.retryTime != null and ( sort.retryTime == 'ASC' or sort.retryTime == 'DESC' )">retry_time ${sort.retryTime},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">update_time ${sort.updateTime},</if>
+		</trim>
+	</sql>
+</mapper>

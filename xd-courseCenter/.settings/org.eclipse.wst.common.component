@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="xd-courseCenter">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="xiaodou-jredis-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xiaodou-jredis/xiaodou-jredis">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-ucenter-agent-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-ucenter-agent/xd-ucenter-agent">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-ucenter-model-1.1.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-ucenter-model/xd-ucenter-model">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-share-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-share/xd-share">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="xiaodou-course"/>
+        <property name="java-output-path" value="/xd-courseCenter/target/classes"/>
+        <property name="component.exclusion.patterns" value="WEB-INF/classes/conf/custom/env/rabbit.properties"/>
+    </wb-module>
+</project-modules>

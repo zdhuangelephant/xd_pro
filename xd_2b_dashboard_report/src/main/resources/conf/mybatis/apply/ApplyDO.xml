@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ApplyDO">
+	<resultMap id="BaseResultMap" type="com.xiaodou.st.dashboard.domain.apply.ApplyDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="pilot_unit_id" property="pilotUnitId" jdbcType="BIGINT" />
+		<result column="pilot_unit_name" property="pilotUnitName"
+			jdbcType="VARCHAR" />
+		<result column="class_id" property="classId" jdbcType="BIGINT" />
+		<result column="class_name" property="className" jdbcType="VARCHAR" />
+		<result column="admin_id" property="adminId" jdbcType="INTEGER" />
+		<result column="admin_name" property="adminName" jdbcType="VARCHAR" />
+		<result column="student_id" property="studentId" jdbcType="INTEGER" />
+		<result column="student_name" property="studentName" jdbcType="VARCHAR" />
+		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
+		<result column="admission_card_code" property="admissionCardCode"
+			jdbcType="VARCHAR" />
+		<result column="cat_id" property="catId" jdbcType="INTEGER" />
+		<result column="cat_name" property="catName" jdbcType="VARCHAR" />
+		<result column="product_id" property="productId" jdbcType="INTEGER" />
+		<result column="product_code" property="productCode" jdbcType="VARCHAR" />
+		<result column="product_name" property="productName" jdbcType="VARCHAR" />
+		<result column="exam_date" property="examDate" jdbcType="VARCHAR" />
+		<result column="order_number" property="orderNumber" jdbcType="BIGINT" />
+		<result column="order_status" property="orderStatus" jdbcType="TINYINT" />
+		<result column="apply_status" property="applyStatus" jdbcType="TINYINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="user_id" property="userId" />
+		<result column="original_amount" property="originalAmount" />
+	</resultMap>
+	<sql id="base_column">id, pilot_unit_id, pilot_unit_name, class_id, class_name,
+		admin_id, admin_name, student_id, student_name, telephone,
+		admission_card_code, cat_id, cat_name, product_id, product_code,
+		product_name, exam_date, order_number, order_status, apply_status,
+		create_time,original_amount
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.apply.ApplyDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_apply
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_apply
+		<include refid="dynamic_where" />
+		<include refid="dynamic_group" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+
+	<select id="listApplyAndStudent" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<if test="output != null and output.userId != null">xd_dashboard_student.user_id,</if>
+		<include refid="dynamic_output" />
+		from xd_dashboard_apply
+		left join xd_dashboard_student
+		on
+		xd_dashboard_apply.student_id = xd_dashboard_student.id
+		<include refid="dynamic_where" />
+	</select>
+
+	<insert id="addEntity" parameterType="com.xiaodou.st.dashboard.domain.apply.ApplyDO">
+		insert into xd_dashboard_apply
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="pilotUnitId != null">pilot_unit_id,</if>
+			<if test="pilotUnitName != null">pilot_unit_name,</if>
+			<if test="classId != null">class_id,</if>
+			<if test="className != null">class_name,</if>
+			<if test="adminId != null">admin_id,</if>
+			<if test="adminName != null">admin_name,</if>
+			<if test="studentId != null">student_id,</if>
+			<if test="studentName != null">student_name,</if>
+			<if test="telephone != null">telephone,</if>
+			<if test="admissionCardCode != null">admission_card_code,</if>
+			<if test="catId != null">cat_id,</if>
+			<if test="catName != null">cat_name,</if>
+			<if test="productId != null">product_id,</if>
+			<if test="productCode != null">product_code,</if>
+			<if test="productName != null">product_name,</if>
+			<if test="examDate != null">exam_date,</if>
+			<if test="orderNumber != null">order_number,</if>
+			<if test="orderStatus != null">order_status,</if>
+			<if test="applyStatus != null">apply_status,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="originalAmount !=null">original_amount,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="pilotUnitId != null">#{pilotUnitId,jdbcType=BIGINT},</if>
+			<if test="pilotUnitName != null">#{pilotUnitName,jdbcType=VARCHAR},</if>
+			<if test="classId != null">#{classId,jdbcType=BIGINT},</if>
+			<if test="className != null">#{className,jdbcType=VARCHAR},</if>
+			<if test="adminId != null">#{adminId,jdbcType=INTEGER},</if>
+			<if test="adminName != null">#{adminName,jdbcType=VARCHAR},</if>
+			<if test="studentId != null">#{studentId,jdbcType=INTEGER},</if>
+			<if test="studentName != null">#{studentName,jdbcType=VARCHAR},</if>
+			<if test="telephone != null">#{telephone,jdbcType=VARCHAR},</if>
+			<if test="admissionCardCode != null">#{admissionCardCode,jdbcType=VARCHAR},</if>
+			<if test="catId != null">#{catId,jdbcType=INTEGER},</if>
+			<if test="catName != null">#{catName,jdbcType=VARCHAR},</if>
+			<if test="productId != null">#{productId,jdbcType=INTEGER},</if>
+			<if test="productCode != null">#{productCode,jdbcType=VARCHAR},</if>
+			<if test="productName != null">#{productName,jdbcType=VARCHAR},</if>
+			<if test="examDate != null">#{examDate,jdbcType=VARCHAR},</if>
+			<if test="orderNumber != null">#{orderNumber,jdbcType=BIGINT},</if>
+			<if test="orderStatus != null">#{orderStatus,jdbcType=TINYINT},</if>
+			<if test="applyStatus != null">#{applyStatus,jdbcType=TINYINT},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="originalAmount!=null">#{originalAmount},</if>
+		</trim>
+	</insert>
+
+	<insert id="addEntityList" parameterType="java.util.Map">
+		insert into xd_dashboard_apply
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="column != null and column.pilotUnitId != null">pilot_unit_id,</if>
+			<if test="column != null and column.pilotUnitName != null">pilot_unit_name,</if>
+			<if test="column != null and column.classId != null">class_id,</if>
+			<if test="column != null and column.className != null">class_name,</if>
+			<if test="column != null and column.adminId != null">admin_id,</if>
+			<if test="column != null and column.adminName != null">admin_name,</if>
+			<if test="column != null and column.studentId != null">student_id,</if>
+			<if test="column != null and column.studentName != null">student_name,</if>
+			<if test="column != null and column.telephone != null">telephone,</if>
+			<if test="column != null and column.admissionCardCode != null">admission_card_code,</if>
+			<if test="column != null and column.catId != null">cat_id,</if>
+			<if test="column != null and column.catName != null">cat_name,</if>
+			<if test="column != null and column.productId != null">product_id,</if>
+			<if test="column != null and column.productCode != null">product_code,</if>
+			<if test="column != null and column.productName != null">product_name,</if>
+			<if test="column != null and column.examDate != null">exam_date,</if>
+			<if test="column != null and column.createTime != null">create_time,</if>
+			<if test="column != null and column.originalAmount !=null">original_amount,</if>
+		</trim>
+		values
+		<foreach collection="value" item="item" separator=",">
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<if test="item != null and item.pilotUnitId != null">#{item.pilotUnitId,jdbcType=BIGINT},</if>
+				<if test="item != null and item.pilotUnitName != null">#{item.pilotUnitName,jdbcType=VARCHAR},</if>
+				<if test="item != null and item.classId != null">#{item.classId,jdbcType=BIGINT},</if>
+				<if test="item != null and item.className != null">#{item.className,jdbcType=VARCHAR},</if>
+				<if test="item != null and item.adminId != null">#{item.adminId,jdbcType=INTEGER},</if>
+				<if test="item != null and item.adminName != null">#{item.adminName,jdbcType=VARCHAR},</if>
+				<if test="item != null and item.studentId != null">#{item.studentId,jdbcType=INTEGER},</if>
+				<if test="item != null and item.studentName != null">#{item.studentName,jdbcType=VARCHAR},</if>
+				<if test="item != null and item.telephone != null">#{item.telephone,jdbcType=VARCHAR},</if>
+				<if test="item != null and item.admissionCardCode != null">#{item.admissionCardCode,jdbcType=VARCHAR},</if>
+				<if test="item != null and item.catId != null">#{item.catId,jdbcType=INTEGER},</if>
+				<if test="item != null and item.catName != null">#{item.catName,jdbcType=VARCHAR},</if>
+				<if test="item != null and item.productId != null">#{item.productId,jdbcType=INTEGER},</if>
+				<if test="item != null and item.productCode != null">#{item.productCode,jdbcType=VARCHAR},</if>
+				<if test="item != null and item.productName != null">#{item.productName,jdbcType=VARCHAR},</if>
+				<if test="item != null and item.examDate != null">#{item.examDate,jdbcType=VARCHAR},</if>
+				<if test="item != null and item.createTime != null">#{item.createTime,jdbcType=TIMESTAMP},</if>
+				<if test="item != null and item.originalAmount!=null">#{item.originalAmount},</if>
+			</trim>
+		</foreach>
+	</insert>
+
+	<update id="updateEntityById" parameterType="com.xiaodou.st.dashboard.domain.apply.ApplyDO">
+		update xd_dashboard_apply
+		<set>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=BIGINT},
+			</if>
+			<if test="value != null and value.pilotUnitName != null">pilot_unit_name =
+				#{value.pilotUnitName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.classId != null">class_id = #{value.classId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.className != null">class_name = #{value.className,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.adminId != null">admin_id = #{value.adminId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.adminName != null">admin_name = #{value.adminName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentName != null">student_name = #{value.studentName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.telephone != null">telephone = #{value.telephone,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.admissionCardCode != null">admission_card_code =
+				#{value.admissionCardCode,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.orderNumber != null">order_number = #{value.orderNumber,jdbcType=BIGINT},</if>
+			<if test="value != null and value.orderStatus != null">order_status = #{value.orderStatus,jdbcType=TINYINT},
+			</if>
+			<if test="value != null and value.applyStatus != null">apply_status = #{value.applyStatus,jdbcType=TINYINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.st.dashboard.domain.apply.ApplyDO">
+		update xd_dashboard_apply
+		<set>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=BIGINT},
+			</if>
+			<if test="value != null and value.pilotUnitName != null">pilot_unit_name =
+				#{value.pilotUnitName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.classId != null">class_id = #{value.classId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.className != null">class_name = #{value.className,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.adminId != null">admin_id = #{value.adminId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.adminName != null">admin_name = #{value.adminName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentName != null">student_name = #{value.studentName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.telephone != null">telephone = #{value.telephone,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.admissionCardCode != null">admission_card_code =
+				#{value.admissionCardCode,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.orderNumber != null">order_number = #{value.orderNumber,jdbcType=BIGINT},</if>
+			<if test="value != null and value.orderStatus != null">order_status = #{value.orderStatus,jdbcType=TINYINT},
+			</if>
+			<if test="value != null and value.applyStatus != null">apply_status = #{value.applyStatus,jdbcType=TINYINT},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.st.dashboard.domain.apply.ApplyDO">
+		delete from
+		xd_dashboard_apply
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_apply
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_dashboard_apply.id,</if>
+			<if test="output != null and output.pilotUnitId != null">xd_dashboard_apply.pilot_unit_id,</if>
+			<if test="output != null and output.pilotUnitName != null">xd_dashboard_apply.pilot_unit_name,</if>
+			<if test="output != null and output.classId != null">xd_dashboard_apply.class_id,</if>
+			<if test="output != null and output.className != null">xd_dashboard_apply.class_name,</if>
+			<if test="output != null and output.adminId != null">xd_dashboard_apply.admin_id,</if>
+			<if test="output != null and output.adminName != null">xd_dashboard_apply.admin_name,</if>
+			<if test="output != null and output.studentId != null">xd_dashboard_apply.student_id,</if>
+			<if test="output != null and output.studentName != null">xd_dashboard_apply.student_name,</if>
+			<if test="output != null and output.telephone != null">xd_dashboard_apply.telephone,</if>
+			<if test="output != null and output.admissionCardCode != null">xd_dashboard_apply.admission_card_code,</if>
+			<if test="output != null and output.catId != null">xd_dashboard_apply.cat_id,</if>
+			<if test="output != null and output.catName != null">xd_dashboard_apply.cat_name,</if>
+			<if test="output != null and output.productId != null">xd_dashboard_apply.product_id,</if>
+			<if test="output != null and output.productCode != null">xd_dashboard_apply.product_code,</if>
+			<if test="output != null and output.productName != null">xd_dashboard_apply.product_name,</if>
+			<if test="output != null and output.examDate != null">xd_dashboard_apply.exam_date,</if>
+			<if test="output != null and output.orderNumber != null">xd_dashboard_apply.order_number,</if>
+			<if test="output != null and output.orderStatus != null">xd_dashboard_apply.order_status,</if>
+			<if test="output != null and output.applyStatus != null">xd_dashboard_apply.apply_status,</if>
+			<if test="output != null and output.createTime != null">xd_dashboard_apply.create_time,</if>
+			<if test="output != null and output.originalAmount != null">xd_dashboard_apply.original_amount,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_dashboard_apply.id=#{input.id}</if>
+			<if test="input != null and input.idList != null">
+				and xd_dashboard_apply.id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.pilotUnitId != null">and xd_dashboard_apply.pilot_unit_id=#{input.pilotUnitId}
+			</if>
+			<if test="input != null and input.pilotUnitName != null">and
+				xd_dashboard_apply.pilot_unit_name=#{input.pilotUnitName}
+			</if>
+			<if test="input != null and input.classId != null">and xd_dashboard_apply.class_id=#{input.classId}</if>
+			<if test="input != null and input.classIdList != null">
+				and xd_dashboard_apply.class_id in
+				<foreach collection="input.classIdList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.className != null">and xd_dashboard_apply.class_name=#{input.className}</if>
+			<if test="input != null and input.adminId != null">and xd_dashboard_apply.admin_id=#{input.adminId}</if>
+			<if test="input != null and input.adminName != null">and xd_dashboard_apply.admin_name=#{input.adminName}</if>
+			<if test="input != null and input.studentId != null">and xd_dashboard_apply.student_id=#{input.studentId}</if>
+			<if test="input != null and input.studentIdList != null">
+				and xd_dashboard_apply.student_id in
+				<foreach collection="input.studentIdList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.studentName != null">and
+				xd_dashboard_student.student_name=#{input.studentName}
+			</if>
+			<if test="input != null and input.studentNameLike != null">and xd_dashboard_apply.student_name like
+				concat('%',#{input.studentNameLike},'%')</if>
+			<if test="input != null and input.telephone != null">and xd_dashboard_apply.telephone=#{input.telephone}</if>
+			<if test="input != null and input.telephoneLike != null">and xd_dashboard_apply.telephone like
+				concat('%',#{input.telephoneLike},'%')</if>
+			<if test="input != null and input.admissionCardCode != null">and
+				xd_dashboard_apply.admission_card_code=#{input.admissionCardCode}
+			</if>
+			<if test="input != null and input.admissionCardCodeLike != null">and xd_dashboard_apply.admission_card_code like
+				concat('%',#{input.admissionCardCodeLike},'%')</if>
+			<if test="input != null and input.catId != null">and xd_dashboard_apply.cat_id=#{input.catId}</if>
+			<if test="input != null and input.catName != null">and xd_dashboard_apply.cat_name=#{input.catName}</if>
+			<if test="input != null and input.productId != null">and xd_dashboard_apply.product_id=#{input.productId}</if>
+			<if test="input != null and input.productCode != null">and xd_dashboard_apply.product_code=#{input.productCode}
+			</if>
+			<if test="input != null and input.productName != null">and xd_dashboard_apply.product_name=#{input.productName}
+			</if>
+			<if test="input != null and input.examDate != null">and xd_dashboard_apply.exam_date=#{input.examDate}</if>
+			<if test="input != null and input.orderNumber != null">and xd_dashboard_apply.order_number=#{input.orderNumber}
+			</if>
+			<if test="input != null and input.orderStatus != null">and xd_dashboard_apply.order_status=#{input.orderStatus}
+			</if>
+			<if test="input != null and input.orderStatusList != null">
+				and xd_dashboard_apply.order_status in
+				<foreach collection="input.orderStatusList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.applyStatus != null">and xd_dashboard_apply.apply_status=#{input.applyStatus}
+			</if>
+			<if test="input != null and input.createTime != null">and xd_dashboard_apply.create_time=#{input.createTime}
+			</if>
+			<if test="input != null and input.originalAmount != null">and
+				xd_dashboard_apply.original_amount=#{input.originalAmount}
+			</if>
+		</where>
+	</sql>
+
+	<sql id="dynamic_group">
+		<if test="input != null and input.group!= null">
+			GROUP BY #{input.group}
+		</if>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">xd_dashboard_apply.id ${sort.id},</if>
+			<if
+				test="sort != null and sort.pilotUnitId != null and ( sort.pilotUnitId == 'ASC' or sort.pilotUnitId == 'DESC' )">xd_dashboard_apply.pilot_unit_id ${sort.pilotUnitId},</if>
+			<if
+				test="sort != null and sort.pilotUnitName != null and ( sort.pilotUnitName == 'ASC' or sort.pilotUnitName == 'DESC' )">xd_dashboard_apply.pilot_unit_name ${sort.pilotUnitName},</if>
+			<if
+				test="sort != null and sort.classId != null and ( sort.classId == 'ASC' or sort.classId == 'DESC' )">xd_dashboard_apply.class_id ${sort.classId},</if>
+			<if
+				test="sort != null and sort.className != null and ( sort.className == 'ASC' or sort.className == 'DESC' )">xd_dashboard_apply.class_name ${sort.className},</if>
+			<if
+				test="sort != null and sort.adminId != null and ( sort.adminId == 'ASC' or sort.adminId == 'DESC' )">xd_dashboard_apply.admin_id ${sort.adminId},</if>
+			<if
+				test="sort != null and sort.adminName != null and ( sort.adminName == 'ASC' or sort.adminName == 'DESC' )">xd_dashboard_apply.admin_name ${sort.adminName},</if>
+			<if
+				test="sort != null and sort.studentId != null and ( sort.studentId == 'ASC' or sort.studentId == 'DESC' )">xd_dashboard_apply.student_id ${sort.studentId},</if>
+			<if
+				test="sort != null and sort.studentName != null and ( sort.studentName == 'ASC' or sort.studentName == 'DESC' )">xd_dashboard_apply.student_name ${sort.studentName},</if>
+			<if
+				test="sort != null and sort.telephone != null and ( sort.telephone == 'ASC' or sort.telephone == 'DESC' )">xd_dashboard_apply.telephone ${sort.telephone},</if>
+			<if
+				test="sort != null and sort.admissionCardCode != null and ( sort.admissionCardCode == 'ASC' or sort.admissionCardCode == 'DESC' )">xd_dashboard_apply.admission_card_code
+				${sort.admissionCardCode},
+			</if>
+			<if
+				test="sort != null and sort.catId != null and ( sort.catId == 'ASC' or sort.catId == 'DESC' )">xd_dashboard_apply.cat_id ${sort.catId},</if>
+			<if
+				test="sort != null and sort.catName != null and ( sort.catName == 'ASC' or sort.catName == 'DESC' )">xd_dashboard_apply.cat_name ${sort.catName},</if>
+			<if
+				test="sort != null and sort.productId != null and ( sort.productId == 'ASC' or sort.productId == 'DESC' )">xd_dashboard_apply.product_id ${sort.productId},</if>
+			<if
+				test="sort != null and sort.productCode != null and ( sort.productCode == 'ASC' or sort.productCode == 'DESC' )">xd_dashboard_apply.product_code ${sort.productCode},</if>
+			<if
+				test="sort != null and sort.productName != null and ( sort.productName == 'ASC' or sort.productName == 'DESC' )">xd_dashboard_apply.product_name ${sort.productName},</if>
+			<if
+				test="sort != null and sort.examDate != null and ( sort.examDate == 'ASC' or sort.examDate == 'DESC' )">xd_dashboard_apply.exam_date ${sort.examDate},</if>
+			<if
+				test="sort != null and sort.orderNumber != null and ( sort.orderNumber == 'ASC' or sort.orderNumber == 'DESC' )">xd_dashboard_apply.order_number ${sort.orderNumber},</if>
+			<if
+				test="sort != null and sort.orderStatus != null and ( sort.orderStatus == 'ASC' or sort.orderStatus == 'DESC' )">xd_dashboard_apply.order_status ${sort.orderStatus},</if>
+			<if
+				test="sort != null and sort.applyStatus != null and ( sort.applyStatus == 'ASC' or sort.applyStatus == 'DESC' )">xd_dashboard_apply.apply_status ${sort.applyStatus},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">xd_dashboard_apply.create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CasecadeProduct">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.resources.model.product.ProductModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="brief_info" property="briefInfo" jdbcType="VARCHAR" />
+		<result column="detail" property="detail" jdbcType="VARCHAR" />
+		<result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+		<result column="curr_apply_count" property="currApplyCount"
+			jdbcType="INTEGER" />
+		<result column="total_apply_count" property="totalApplyCount"
+			jdbcType="INTEGER" />
+		<result column="begin_apply_time" property="beginApplyTime"
+			jdbcType="TIMESTAMP" />
+		<result column="end_apply_time" property="endApplyTime"
+			jdbcType="TIMESTAMP" />
+		<result column="original_amount" property="originalAmount"
+			jdbcType="VARCHAR" />
+		<result column="pay_amount" property="payAmount" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="misc" property="misc" jdbcType="VARCHAR" />
+		<result column="show_status" property="showStatus" jdbcType="INTEGER" />
+		<result column="praise_count" property="praiseCount" jdbcType="INTEGER" />
+		<result column="question_bank_setting" property="questionBankSetting"
+			jdbcType="VARCHAR" />
+		<result column="resource_subject" property="resourceSubject"
+			jdbcType="INTEGER" />
+		<result column="share_url" property="shareUrl" jdbcType="VARCHAR" />
+		<result column="score" property="score" />
+		<result column="type_code" property="typeCode" />
+		<result column="bg_img_url" property="bgImgUrl" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="talk_weight" property="talkWeight" jdbcType="INTEGER" />
+		<result column="task_weight" property="taskWeight" jdbcType="INTEGER" />
+		<result column="exam_weight" property="examWeight" jdbcType="INTEGER" />
+		<result column="final_weight" property="finalWeight" jdbcType="INTEGER" />
+	</resultMap>
+	<select id="casecadeQueryByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_product
+		left join xd_course_product_relation on
+		xd_course_product.id = xd_course_product_relation.product_id
+		left join
+		xd_course_product_category on
+		xd_course_product_relation.product_category_id =
+		xd_course_product_category.id
+		left join
+		xd_user_exam_total on
+		xd_course_product.id = xd_user_exam_total.course_id
+		<choose>
+			<when test="join != null and join.userId != null">and xd_user_exam_total.user_id = #{join.userId}
+			</when>
+			<otherwise>and xd_user_exam_total.user_id = -1</otherwise>
+		</choose>
+		left join
+		xd_user_product_order on
+		xd_course_product.id = xd_user_product_order.course_id
+		<choose>
+			<when test="join != null and join.userId != null">and xd_user_product_order.user_id = #{join.userId}
+			</when>
+			<otherwise>and xd_user_product_order.user_id = -1</otherwise>
+		</choose>
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	
+	
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_course_product.id,</if>
+			<if test="output != null and output.name != null">xd_course_product.name,</if>
+			<if test="output != null and output.briefInfo != null">xd_course_product.brief_info,</if>
+			<if test="output != null and output.detail != null">xd_course_product.detail,</if>
+			<if test="output != null and output.imageUrl != null">xd_course_product.image_url,</if>
+			<if test="output != null and output.currApplyCount != null">xd_course_product.curr_apply_count,</if>
+			<if test="output != null and output.totalApplyCount != null">xd_course_product.total_apply_count,</if>
+			<if test="output != null and output.beginApplyTime != null">xd_course_product.begin_apply_time,</if>
+			<if test="output != null and output.endApplyTime != null">xd_course_product.end_apply_time,</if>
+			<if test="output != null and output.originalAmount != null">xd_course_product.original_amount,</if>
+			<if test="output != null and output.payAmount != null">xd_course_product.pay_amount,</if>
+			<if test="output != null and output.createTime != null">xd_course_product.create_time,</if>
+			<if test="output != null and output.updateTime != null">xd_course_product.update_time,</if>
+			<if test="output != null and output.misc != null">xd_course_product.misc,</if>
+			<if test="output != null and output.showStatus != null">xd_course_product.show_status,</if>
+			<if test="output != null and output.praiseCount != null">xd_course_product.praise_count,</if>
+			<if test="output != null and output.questionBankSetting != null">xd_course_product.question_bank_setting,</if>
+			<if test="output != null and output.resourceSubject != null">xd_course_product.resource_subject,</if>
+			<if test="output != null and output.shareUrl != null">xd_course_product.share_url,</if>
+			<if test="output != null and output.bgImgUrl != null">xd_course_product.bg_img_url,</if>
+			<if test="output != null and output.userId != null">xd_course_product.user_id,</if>
+			<if test="output != null and output.score != null">xd_user_exam_total.score,</if>
+			<if test="output != null and output.typeCode != null">xd_course_product_category.type_code,</if>
+			<if test="output != null and output.talkWeight != null">xd_course_product.talk_weight,</if>
+			<if test="output != null and output.taskWeight != null">xd_course_product.task_weight,</if>
+			<if test="output != null and output.examWeight != null">xd_course_product.exam_weight,</if>
+			<if test="output != null and output.finalWeight != null">xd_course_product.final_weight,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_course_product.id=#{input.id}</if>
+			<if test="input != null and input.name != null">and xd_course_product.name=#{input.name}</if>
+			<if test="input != null and input.briefInfo != null">and xd_course_product.brief_info=#{input.briefInfo}</if>
+			<if test="input != null and input.detail != null">and xd_course_product.detail=#{input.detail}</if>
+			<if test="input != null and input.imageUrl != null">and xd_course_product.image_url=#{input.imageUrl}</if>
+			<if test="input != null and input.currApplyCount != null">and xd_course_product.curr_apply_count=#{input.currApplyCount}</if>
+			<if test="input != null and input.totalApplyCount != null">and xd_course_product.total_apply_count=#{input.totalApplyCount}</if>
+			<if test="input != null and input.beginApplyTimeLower != null">and xd_course_product.begin_apply_time &gt; #{input.beginApplyTimeLower}
+			</if>
+			<if test="input != null and input.beginApplyTimeUpper != null">and xd_course_product.begin_apply_time &lt; #{input.beginApplyTimeLower}
+			</if>
+			<if test="input != null and input.endApplyTimeLower != null">and xd_course_product.end_apply_time &gt; #{input.endApplyTimeLower}</if>
+			<if test="input != null and input.endApplyTimeUpper != null">and xd_course_product.end_apply_time &lt; #{input.endApplyTimeLower}</if>
+			<if test="input != null and input.originalAmount != null">and xd_course_product.original_amount=#{input.originalAmount}</if>
+			<if test="input != null and input.payAmount != null">and xd_course_product.pay_amount=#{input.payAmount}</if>
+			<if test="input != null and input.createTimeLower != null">and xd_course_product.create_time &gt; #{input.createTimeLower}</if>
+			<if test="input != null and input.createTimeUpper != null">and xd_course_product.create_time &lt; #{input.createTimeLower}</if>
+			<if test="input != null and input.updateTimeLower != null">and xd_course_product.update_time &gt; #{input.updateTimeLower}</if>
+			<if test="input != null and input.updateTimeUpper != null">and xd_course_product.update_time &lt; #{input.updateTimeLower}</if>
+			<if test="input != null and input.misc != null">and xd_course_product.misc=#{input.misc}</if>
+			<if test="input != null and input.showStatus != null">and xd_course_product.show_status=#{input.showStatus}</if>
+			<if test="input != null and input.praiseCount != null">and xd_course_product.praise_count=#{input.praiseCount}</if>
+			<if test="input != null and input.questionBankSetting != null">and xd_course_product.question_bank_setting=#{input.questionBankSetting}
+			</if>
+			<if test="input != null and input.resourceSubject != null">and xd_course_product.resource_subject=#{input.resourceSubject}</if>
+			<if test="input != null and input.shareUrl != null">and xd_course_product.share_url=#{input.shareUrl}</if>
+			<if test="input != null and input.bgImgUrl != null">and xd_course_product.bg_img_url=#{input.bgImgUrl}</if>
+			<if test="input != null and input.talkWeight != null">and xd_course_product.talk_weight=#{input.talkWeight}</if>
+			<if test="input != null and input.taskWeight != null">and xd_course_product.task_weight=#{input.taskWeight}</if>
+			<if test="input != null and input.examWeight != null">and xd_course_product.exam_weight=#{input.examWeight}</if>
+			<if test="input != null and input.finalWeight != null">and xd_course_product.final_weight=#{input.finalWeight}</if>
+			
+			<if test="input != null and input.typeCode != null">and xd_course_product_category.type_code=#{input.typeCode}</if>
+			<if test="input != null and input.productCategoryId != null">and xd_course_product_category.id=#{input.productCategoryId}</if>
+			<if test="input != null and input.searchCourseName != null">
+				and xd_course_product.name like CONCAT('%',CONCAT(#{input.searchCourseName},'%'))
+			</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limitStart != null and limitCount != null">
+			limit ${limitStart}, ${limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">xd_course_product.id ${sort.id},</if>
+			<if
+				test="sort != null and sort.name != null and ( sort.name == 'ASC' or sort.name == 'DESC' )">xd_course_product.name ${sort.name},</if>
+			<if
+				test="sort != null and sort.briefInfo != null and ( sort.briefInfo == 'ASC' or sort.briefInfo == 'DESC' )">xd_course_product.brief_info ${sort.briefInfo},</if>
+			<if
+				test="sort != null and sort.detail != null and ( sort.detail == 'ASC' or sort.detail == 'DESC' )">xd_course_product.detail ${sort.detail},</if>
+			<if
+				test="sort != null and sort.imageUrl != null and ( sort.imageUrl == 'ASC' or sort.imageUrl == 'DESC' )">xd_course_product.image_url ${sort.imageUrl},</if>
+			<if
+				test="sort != null and sort.currApplyCount != null and ( sort.currApplyCount == 'ASC' or sort.currApplyCount == 'DESC' )">xd_course_product.curr_apply_count ${sort.currApplyCount},</if>
+			<if
+				test="sort != null and sort.totalApplyCount != null and ( sort.totalApplyCount == 'ASC' or sort.totalApplyCount == 'DESC' )">xd_course_product.total_apply_count ${sort.totalApplyCount},</if>
+			<if
+				test="sort != null and sort.beginApplyTime != null and ( sort.beginApplyTime == 'ASC' or sort.beginApplyTime == 'DESC' )">xd_course_product.begin_apply_time ${sort.beginApplyTime},</if>
+			<if
+				test="sort != null and sort.endApplyTime != null and ( sort.endApplyTime == 'ASC' or sort.endApplyTime == 'DESC' )">xd_course_product.end_apply_time ${sort.endApplyTime},</if>
+			<if
+				test="sort != null and sort.originalAmount != null and ( sort.originalAmount == 'ASC' or sort.originalAmount == 'DESC' )">xd_course_product.original_amount ${sort.originalAmount},</if>
+			<if
+				test="sort != null and sort.payAmount != null and ( sort.payAmount == 'ASC' or sort.payAmount == 'DESC' )">xd_course_product.pay_amount ${sort.payAmount},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">xd_course_product.create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">xd_course_product.update_time ${sort.updateTime},</if>
+			<if
+				test="sort != null and sort.misc != null and ( sort.misc == 'ASC' or sort.misc == 'DESC' )">xd_course_product.misc ${sort.misc},</if>
+			<if
+				test="sort != null and sort.showStatus != null and ( sort.showStatus == 'ASC' or sort.showStatus == 'DESC' )">xd_course_product.show_status ${sort.showStatus},</if>
+			<if
+				test="sort != null and sort.praiseCount != null and ( sort.praiseCount == 'ASC' or sort.praiseCount == 'DESC' )">xd_course_product.praise_count ${sort.praiseCount},</if>
+			<if
+				test="sort != null and sort.questionBankSetting != null and ( sort.questionBankSetting == 'ASC' or sort.questionBankSetting == 'DESC' )">xd_course_product.question_bank_setting ${sort.questionBankSetting},</if>
+			<if
+				test="sort != null and sort.resourceSubject != null and ( sort.resourceSubject == 'ASC' or sort.resourceSubject == 'DESC' )">xd_course_product.resource_subject ${sort.resourceSubject},</if>
+			<if
+				test="sort != null and sort.shareUrl != null and ( sort.shareUrl == 'ASC' or sort.shareUrl == 'DESC' )">xd_course_product.share_url ${sort.shareUrl},</if>
+			<if
+				test="sort != null and sort.bgImgUrl != null and ( sort.bgImgUrl == 'ASC' or sort.bgImgUrl == 'DESC' )">xd_course_product.bg_img_url ${sort.bgImgUrl},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">xd_user_product_order.user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.talkWeight != null and ( sort.talkWeight == 'ASC' or sort.talkWeight == 'DESC' )">xd_course_product.talk_weight ${sort.talkWeight},</if>
+			<if
+				test="sort != null and sort.taskWeight != null and ( sort.taskWeight == 'ASC' or sort.taskWeight == 'DESC' )">xd_course_product.task_weight ${sort.taskWeight},</if>
+			<if
+				test="sort != null and sort.examWeight != null and ( sort.examWeight == 'ASC' or sort.examWeight == 'DESC' )">xd_course_product.exam_weight ${sort.examWeight},</if>
+			<if
+				test="sort != null and sort.finalWeight != null and ( sort.finalWeight == 'ASC' or sort.finalWeight == 'DESC' )">xd_course_product.final_weight ${sort.finalWeight},</if>
+		</trim>
+	</sql>
+</mapper>

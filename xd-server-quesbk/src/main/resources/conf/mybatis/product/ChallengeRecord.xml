@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ChallengeRecord">
+	<resultMap id="BaseResultMap" type="com.xiaodou.domain.product.ChallengeRecord">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="course_id" property="courseId" jdbcType="VARCHAR" />
+		<result column="course_name" property="courseName" jdbcType="VARCHAR" />
+		<result column="challenger_uid" property="challengerUid"
+			jdbcType="VARCHAR" />
+		<result column="challenger_score" property="challengerScore"
+			jdbcType="DOUBLE" />
+		<result column="challenger_detail" property="challengerDetail"
+			jdbcType="VARCHAR" />
+		<result column="be_challenger_uid" property="beChallengerUid"
+			jdbcType="VARCHAR" />
+		<result column="be_challenger_score" property="beChallengerScore"
+			jdbcType="DOUBLE" />
+		<result column="be_challenger_detail" property="beChallengerDetail"
+			jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="TINYINT" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="winner" property="winner" jdbcType="VARCHAR" />
+		<result column="result" property="result" jdbcType="TINYINT" />
+		<result column="paper_id" property="paperId" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id,  course_id, course_name, challenger_uid,
+		challenger_score, challenger_detail, be_challenger_uid,
+		be_challenger_score, be_challenger_detail, type, status, winner,
+		result, paper_id, create_time, update_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.domain.product.ChallengeRecord">
+		select
+		<include refid="base_column" />
+		from xd_quesbk_challenge_record where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_quesbk_challenge_record
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.domain.product.ChallengeRecord"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_quesbk_challenge_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="courseId != null">course_id,</if>
+			<if test="courseName != null">course_name,</if>
+			<if test="challengerUid != null">challenger_uid,</if>
+			<if test="challengerScore != null">challenger_score,</if>
+			<if test="challengerDetail != null">challenger_detail,</if>
+			<if test="beChallengerUid != null">be_challenger_uid,</if>
+			<if test="beChallengerScore != null">be_challenger_score,</if>
+			<if test="beChallengerDetail != null">be_challenger_detail,</if>
+			<if test="type != null">type,</if>
+			<if test="status != null">status,</if>
+			<if test="winner != null">winner,</if>
+			<if test="result != null">result,</if>
+			<if test="paperId != null">paper_id,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="updateTime != null">update_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="courseId != null">#{courseId,jdbcType=VARCHAR},</if>
+			<if test="courseName != null">#{courseName,jdbcType=VARCHAR},</if>
+			<if test="challengerUid != null">#{challengerUid,jdbcType=VARCHAR},</if>
+			<if test="challengerScore != null">#{challengerScore,jdbcType=DOUBLE},</if>
+			<if test="challengerDetail != null">#{challengerDetail,jdbcType=VARCHAR},</if>
+			<if test="beChallengerUid != null">#{beChallengerUid,jdbcType=VARCHAR},</if>
+			<if test="beChallengerScore != null">#{beChallengerScore,jdbcType=DOUBLE},</if>
+			<if test="beChallengerDetail != null">#{beChallengerDetail,jdbcType=VARCHAR},</if>
+			<if test="type != null">#{type,jdbcType=TINYINT},</if>
+			<if test="status != null">#{status,jdbcType=TINYINT},</if>
+			<if test="winner != null">#{winner,jdbcType=VARCHAR},</if>
+			<if test="result != null">#{result,jdbcType=TINYINT},</if>
+			<if test="paperId != null">#{paperId,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.domain.product.ChallengeRecord">
+		update xd_quesbk_challenge_record
+		<set>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.courseName != null">course_name = #{value.courseName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.challengerUid != null">challenger_uid = #{value.challengerUid,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.challengerScore != null">challenger_score =
+				#{value.challengerScore,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.challengerDetail != null">challenger_detail =
+				#{value.challengerDetail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.beChallengerUid != null">be_challenger_uid =
+				#{value.beChallengerUid,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.beChallengerScore != null">be_challenger_score =
+				#{value.beChallengerScore,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.beChallengerDetail != null">be_challenger_detail =
+				#{value.beChallengerDetail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.type != null">type = #{value.type,jdbcType=TINYINT},</if>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=TINYINT},</if>
+			<if test="value != null and value.winner != null">winner = #{value.winner,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.result != null">result = #{value.result,jdbcType=TINYINT},</if>
+			<if test="value != null and value.paperId != null">paper_id = #{value.paperId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.domain.product.ChallengeRecord">
+		update xd_quesbk_challenge_record
+		<set>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.courseName != null">course_name = #{value.courseName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.challengerUid != null">challenger_uid = #{value.challengerUid,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.challengerScore != null">challenger_score =
+				#{value.challengerScore,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.challengerDetail != null">challenger_detail =
+				#{value.challengerDetail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.beChallengerUid != null">be_challenger_uid =
+				#{value.beChallengerUid,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.beChallengerScore != null">be_challenger_score =
+				#{value.beChallengerScore,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.beChallengerDetail != null">be_challenger_detail =
+				#{value.beChallengerDetail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.type != null">type = #{value.type,jdbcType=TINYINT},</if>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=TINYINT},</if>
+			<if test="value != null and value.winner != null">winner = #{value.winner,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.result != null">result = #{value.result,jdbcType=TINYINT},</if>
+			<if test="value != null and value.paperId != null">paper_id = #{value.paperId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.domain.product.ChallengeRecord"> delete from
+		xd_quesbk_challenge_record where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_quesbk_challenge_record
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.courseId != null">course_id,</if>
+			<if test="output != null and output.courseName != null">course_name,</if>
+			<if test="output != null and output.challengerUid != null">challenger_uid,</if>
+			<if test="output != null and output.challengerScore != null">challenger_score,</if>
+			<if test="output != null and output.challengerDetail != null">challenger_detail,</if>
+			<if test="output != null and output.beChallengerUid != null">be_challenger_uid,</if>
+			<if test="output != null and output.beChallengerScore != null">be_challenger_score,</if>
+			<if test="output != null and output.beChallengerDetail != null">be_challenger_detail,</if>
+			<if test="output != null and output.type != null">type,</if>
+			<if test="output != null and output.status != null">status,</if>
+			<if test="output != null and output.winner != null">winner,</if>
+			<if test="output != null and output.result != null">result,</if>
+			<if test="output != null and output.paperId != null">paper_id,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.updateTime != null">update_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.courseId != null">and course_id=#{input.courseId}</if>
+			<if test="input != null and input.courseName != null">and course_name=#{input.courseName}</if>
+			<if test="input != null and input.challengerUid != null">and challenger_uid=#{input.challengerUid}</if>
+			<if test="input != null and input.challengerScore != null">and challenger_score=#{input.challengerScore}</if>
+			<if test="input != null and input.challengerDetail != null">and challenger_detail=#{input.challengerDetail}</if>
+			<if test="input != null and input.beChallengerUid != null">and be_challenger_uid=#{input.beChallengerUid}</if>
+			<if test="input != null and input.beChallengerScore != null">and be_challenger_score=#{input.beChallengerScore}</if>
+			<if test="input != null and input.beChallengerDetail != null">and be_challenger_detail=#{input.beChallengerDetail}</if>
+			<if test="input != null and input.type != null">and type=#{input.type}</if>
+			<if test="input != null and input.status != null">and status=#{input.status}</if>
+			<if test="input != null and input.winner != null">and winner=#{input.winner}</if>
+			<if test="input != null and input.result != null">and result=#{input.result}</if>
+			<if test="input != null and input.paperId != null">and paper_id=#{input.paperId}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+			<if test="input != null and input.updateTime != null">and update_time=#{input.updateTime}</if>
+			<if test="input != null and input.statusList != null">
+				and status in
+				<foreach collection="input.statusList" item="item" open="("
+					close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.createTimeLower != null">
+				and create_time &gt;= #{input.createTimeLower}
+			</if>
+			<if test="input != null and input.createTimeUpper != null">
+				and create_time &lt; #{input.createTimeUpper}
+			</if>
+			<if test="input != null and input.updateTimeLower != null">
+				and update_time &gt;= #{input.updateTimeLower}
+			</if>
+			<if test="input != null and input.updateTimeUpper != null">
+				and update_time &lt; #{input.updateTimeUpper}
+			</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.courseId != null and ( sort.courseId == 'ASC' or sort.courseId == 'DESC' )">course_id ${sort.courseId},</if>
+			<if
+				test="sort != null and sort.courseName != null and ( sort.courseName == 'ASC' or sort.courseName == 'DESC' )">course_name ${sort.courseName},</if>
+			<if
+				test="sort != null and sort.challengerUid != null and ( sort.challengerUid == 'ASC' or sort.challengerUid == 'DESC' )">challenger_uid ${sort.challengerUid},</if>
+			<if
+				test="sort != null and sort.challengerScore != null and ( sort.challengerScore == 'ASC' or sort.challengerScore == 'DESC' )">challenger_score ${sort.challengerScore},</if>
+			<if
+				test="sort != null and sort.challengerDetail != null and ( sort.challengerDetail == 'ASC' or sort.challengerDetail == 'DESC' )">challenger_detail ${sort.challengerDetail},</if>
+			<if
+				test="sort != null and sort.beChallengerUid != null and ( sort.beChallengerUid == 'ASC' or sort.beChallengerUid == 'DESC' )">be_challenger_uid ${sort.beChallengerUid},</if>
+			<if
+				test="sort != null and sort.beChallengerScore != null and ( sort.beChallengerScore == 'ASC' or sort.beChallengerScore == 'DESC' )">be_challenger_score ${sort.beChallengerScore},</if>
+			<if
+				test="sort != null and sort.beChallengerDetail != null and ( sort.beChallengerDetail == 'ASC' or sort.beChallengerDetail == 'DESC' )">be_challenger_detail ${sort.beChallengerDetail},</if>
+			<if
+				test="sort != null and sort.type != null and ( sort.type == 'ASC' or sort.type == 'DESC' )">type ${sort.type},</if>
+			<if
+				test="sort != null and sort.status != null and ( sort.status == 'ASC' or sort.status == 'DESC' )">status ${sort.status},</if>
+			<if
+				test="sort != null and sort.winner != null and ( sort.winner == 'ASC' or sort.winner == 'DESC' )">winner ${sort.winner},</if>
+			<if
+				test="sort != null and sort.result != null and ( sort.result == 'ASC' or sort.result == 'DESC' )">result ${sort.result},</if>
+			<if
+				test="sort != null and sort.paperId != null and ( sort.paperId == 'ASC' or sort.paperId == 'DESC' )">paper_id ${sort.paperId},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">update_time ${sort.updateTime},</if>
+		</trim>
+	</sql>
+	
+</mapper>

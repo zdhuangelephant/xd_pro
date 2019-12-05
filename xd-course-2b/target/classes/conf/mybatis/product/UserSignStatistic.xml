@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserSignStatistic">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.course.model.user.UserSignStatistic">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="total_sign" property="totalSign" jdbcType="BIGINT" />
+		<result column="contin_sign" property="continSign" jdbcType="BIGINT" />
+		<result column="create_time" property="createTime" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, user_id, module, total_sign, contin_sign, create_time,
+		update_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.course.model.user.UserSignStatistic">
+		select
+		<include refid="base_column" />
+		from xd_user_sign_statistic
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_user_sign_statistic
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.course.model.user.UserSignStatistic">
+		insert into xd_user_sign_statistic
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="module != null">module,</if>
+			<if test="totalSign != null">total_sign,</if>
+			<if test="continSign != null">contin_sign,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="updateTime != null">update_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+			<if test="totalSign != null">#{totalSign,jdbcType=BIGINT},</if>
+			<if test="continSign != null">#{continSign,jdbcType=BIGINT},</if>
+			<if test="createTime != null">#{createTime,jdbcType=VARCHAR},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.course.model.user.UserSignStatistic">
+		update xd_user_sign_statistic
+		<set>
+			<if test="value != null and value.totalSign != null">total_sign = #{value.totalSign,jdbcType=BIGINT},</if>
+			<if test="value != null and value.continSign != null">contin_sign = #{value.continSign,jdbcType=BIGINT},</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.course.model.user.UserSignStatistic">
+		update xd_user_sign_statistic
+		<set>
+			<if test="value != null and value.totalSign != null">total_sign = #{value.totalSign,jdbcType=BIGINT},</if>
+			<if test="value != null and value.continSign != null">contin_sign = #{value.continSign,jdbcType=BIGINT},</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.course.model.user.UserSignStatistic">
+		delete from
+		xd_user_sign_statistic
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_user_sign_statistic
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.module != null">module,</if>
+			<if test="output != null and output.totalSign != null">total_sign,</if>
+			<if test="output != null and output.continSign != null">contin_sign,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.updateTime != null">update_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.module != null">and module=#{input.module}</if>
+			<if test="input != null and input.totalSign != null">and total_sign=#{input.totalSign}</if>
+			<if test="input != null and input.continSign != null">and contin_sign=#{input.continSign}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+			<if test="input != null and input.updateTime != null">and update_time=#{input.updateTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.module != null and ( sort.module == 'ASC' or sort.module == 'DESC' )">module ${sort.module},</if>
+			<if
+				test="sort != null and sort.totalSign != null and ( sort.totalSign == 'ASC' or sort.totalSign == 'DESC' )">total_sign ${sort.totalSign},</if>
+			<if
+				test="sort != null and sort.continSign != null and ( sort.continSign == 'ASC' or sort.continSign == 'DESC' )">contin_sign ${sort.continSign},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">update_time ${sort.updateTime},</if>
+		</trim>
+	</sql>
+</mapper>

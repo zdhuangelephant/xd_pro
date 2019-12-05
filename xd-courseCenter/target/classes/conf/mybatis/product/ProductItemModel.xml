@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ProductItemModel">
+
+    <resultMap id="BaseResultMap" type="ProductItemModel">
+        <id column="id" property="id"/>
+        <result column="parent_id" property="parentId" />
+        <result column="product_id" property="productId"/>
+        <result column="resource_id" property="resourceId"/>
+        <result column="resource_type" property="resourceType"/>
+        <result column="level" property="level"/>
+        <result column="name" property="name"/>
+        <result column="show_status" property="showStatus"/>
+        <result column="detail" property="detail"/>
+        <result column="misc" property="misc"/>
+        <result column="all_parent_id" property="allParentId"/>
+        <result column="child_id" property="childId"/>
+        <result column="all_child_id" property="allChildId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_free" property="isFree"/>
+        <result column="is_leaf" property="isLeaf"/>
+        <result column="chapter_id" property="chapterId" />
+        <result column="importance_level" property="importanceLevel" />
+        <result column="list_order" property="listOrder" />
+        <result column="ques_num" property="quesNum" />
+        <result column="resource" property="resource" />
+        <result column="task_ratio" property="taskRatio" />
+        <result column="relation_item" property="relationItem" />
+        <result column="relation_item_name" property="relationItemName" />
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">parent_id,product_id,resource_id,resource_type,level,name,show_status,detail,misc,all_parent_id,child_id,
+        all_child_id,create_time,update_time,is_free,is_leaf,chapter_id,importance_level,list_order,ques_num,resource,task_ratio,relation_item,relation_item_name</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="parentId != null">parent_id,</if>
+            <if test="productId != null">product_id,</if>
+            <if test="resourceId != null">resource_id,</if>
+            <if test="resourceType != null">resource_type,</if>
+            <if test="level != null">level,</if>
+            <if test="name != null">name,</if>
+            <if test="showStatus != null">show_status,</if>
+            <if test="detail != null">detail,</if>
+            <if test="misc != null">misc,</if>
+            <if test="allParentId != null">all_parent_id,</if>
+            <if test="childId != null">child_id,</if>
+            <if test="allChildId != null">all_child_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="isFree != null">is_free,</if>
+            <if test="isLeaf != null">is_leaf,</if>
+            <if test="chapterId != null">chapter_id,</if>
+            <if test="importanceLevel != null">importance_level,</if>
+            <if test="listOrder != null">list_order,</if>
+            <if test="quesNum != null">ques_num,</if>
+            <if test="resource != null">resource,</if>
+            <if test="taskRatio != null">task_ratio,</if>
+            <if test="relationItem != null">relation_item,</if>
+            <if test="relationItemName != null">relation_item_name,</if>
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="parentId != null">#{parentId},</if>
+            <if test="productId != null">#{productId},</if>
+            <if test="resourceId != null">#{resourceId},</if>
+            <if test="resourceType != null">#{resourceType},</if>
+            <if test="level != null">#{level},</if>
+            <if test="name != null">#{name},</if>
+            <if test="showStatus != null">#{showStatus},</if>
+            <if test="detail != null">#{detail},</if>
+            <if test="misc != null">#{misc},</if>
+            <if test="allParentId != null">#{allParentId},</if>
+            <if test="childId != null">#{childId},</if>
+            <if test="allChildId != null">#{allChildId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="isFree != null">#{isFree},</if>
+            <if test="isLeaf != null">#{isLeaf},</if>
+            <if test="chapterId != null">#{chapterId},</if>
+            <if test="importanceLevel != null">#{importanceLevel},</if>
+            <if test="listOrder != null">#{listOrder},</if>
+            <if test="quesNum != null">#{quesNum},</if>
+            <if test="resource != null">#{resource},</if>
+            <if test="taskRatio != null">#{taskRatio},</if>
+            <if test="relationItem != null">#{relationItem},</if>
+            <if test="relationItemName != null">#{relationItemName},</if>
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="ProductItemModel">
+        insert into xd_course_product_item
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update xd_course_product_item
+        <set>
+            <if test="value != null and value.parentId != null">parent_id = #{value.parentId},</if>
+            <if test="value != null and value.productId != null">product_id = #{value.productId},</if>
+            <if test="value != null and value.resourceId != null">resource_id = #{value.resourceId},</if>
+            <if test="value != null and value.resourceType != null">resource_type = #{value.resourceType},</if>
+            <if test="value != null and value.level != null">level = #{value.level},</if>
+            <if test="value != null and value.name != null">name = #{value.name},</if>
+            <if test="value != null and value.showStatus != null">show_status = #{value.showStatus},</if>
+            <if test="value != null and value.detail != null">detail = #{value.detail},</if>
+            <if test="value != null and value.misc != null">misc = #{value.misc},</if>
+            <if test="value != null and value.allParentId != null">all_parent_id = #{value.allParentId},</if>
+            <if test="value != null and value.childId != null">child_id = #{value.childId},</if>
+            <if test="value != null and value.allChildId != null">all_child_id = #{value.allChildId},</if>
+            <if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+            <if test="value != null and value.updateTime != null">update_time = #{value.updateTime},</if>
+            <if test="value != null and value.isFree != null">is_free = #{value.isFree},</if>
+            <if test="value != null and value.isLeaf != null">is_leaf = #{value.isLeaf},</if>
+            <if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId},</if>
+            <if test="value != null and value.importanceLevel != null">importance_level = #{value.importanceLevel},</if>
+            <if test="value != null and value.listOrder != null">list_order = #{value.listOrder},</if>
+            <if test="value != null and value.quesNum != null">ques_num = #{value.quesNum},</if>
+            <if test="value != null and value.resource != null">resource = #{value.resource},</if>
+            <if test="value != null and value.taskRatio != null">task_ratio = #{value.taskRatio},</if>
+            <if test="value != null and value.relationItem != null">relation_item = #{value.relationItem},</if>
+            <if test="value != null and value.relationItemName != null">relation_item_name = #{value.relationItemName},</if>
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_course_product_item
+        <include refid="dynamic_where"/>
+        order by list_order asc;
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="ProductItemModel" resultMap="BaseResultMap">
+        select * from xd_course_product_item where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from xd_course_product_item
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and id =#{input.id}</if>
+            <if test="input != null and input.ids != null">and id in
+                <foreach collection="input.ids" index="index" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="input != null and input.parentId != null">and parent_id =#{input.parentId}</if>
+            <if test="input != null and input.productId != null">and product_id =#{input.productId}</if>
+            <if test="input != null and input.resourceId != null">and resource_id =#{input.resourceId}</if>
+            <if test="input != null and input.resourceType != null">and resource_type =#{input.resourceType}</if>
+            <if test="input != null and input.level != null">and level =#{input.level}</if>
+            <if test="input != null and input.name != null">and name =#{input.name}</if>
+            <if test="input != null and input.showStatus != null">and show_status =#{input.showStatus}</if>
+            <if test="input != null and input.detail != null">and detail =#{input.detail}</if>
+            <if test="input != null and input.misc != null">and misc =#{input.misc}</if>
+            <if test="input != null and input.allParentId != null">and all_parent_id =#{input.allParentId}</if>
+            <if test="input != null and input.childId != null">and child_id =#{input.childId}</if>
+            <if test="input != null and input.allChildId != null">and all_child_id =#{input.allChildId}</if>
+            <if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+            <if test="input != null and input.updateTime != null">and update_time =#{input.updateTime}</if>
+            <if test="input != null and input.isFree != null">and is_free =#{input.isFree}</if>
+            <if test="input != null and input.isLeaf != null">and is_leaf =#{input.isLeaf}</if>
+            <if test="input != null and input.chapterId != null">and chapter_id =#{input.chapterId}</if>
+            <if test="input != null and input.importanceLevel != null">and importance_level =#{input.importanceLevel}</if>
+            <if test="input != null and input.listOrder != null">and list_order =#{input.listOrder}</if>
+            <if test="input != null and input.quesNum != null">and ques_num =#{input.quesNum}</if>
+            <if test="input != null and input.resource != null">and resource =#{input.resource}</if>
+            <if test="input != null and input.taskRatio != null">and task_ratio =#{input.taskRatio}</if>
+            <if test="input != null and input.relationItem != null">and relation_item =#{input.relationItem}</if>
+            <if test="input != null and input.relationItemName != null">and relation_item_name =#{input.relationItemName}</if>
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">id,</if>
+            <if test="output != null and output.parentId != null">parent_id,</if>
+            <if test="output != null and output.productId != null">product_id,</if>
+            <if test="output != null and output.resourceId != null">resource_id,</if>
+            <if test="output != null and output.resourceType != null">resource_type,</if>
+            <if test="output != null and output.level != null">level,</if>
+            <if test="output != null and output.name != null">name,</if>
+            <if test="output != null and output.showStatus != null">show_status,</if>
+            <if test="output != null and output.detail != null">detail,</if>
+            <if test="output != null and output.misc != null">misc,</if>
+            <if test="output != null and output.allParentId != null">all_parent_id,</if>
+            <if test="output != null and output.childId != null">child_id,</if>
+            <if test="output != null and output.allChildId != null">all_child_id,</if>
+            <if test="output != null and output.createTime != null">create_time,</if>
+            <if test="output != null and output.updateTime != null">update_time,</if>
+            <if test="output != null and output.isFree != null">is_Free,</if>
+            <if test="output != null and output.isLeaf != null">is_leaf,</if>
+            <if test="output != null and output.chapterId != null">chapter_id,</if>
+            <if test="output != null and output.importanceLevel != null">importance_level,</if>
+            <if test="output != null and output.listOrder != null">list_order,</if>
+            <if test="output != null and output.quesNum != null">ques_num,</if>
+            <if test="output != null and output.resource != null">resource,</if>
+            <if test="output != null and output.taskRatio != null">task_ratio,</if>
+            <if test="output != null and output.relationItem != null">relation_item,</if>
+            <if test="output != null and output.relationItemName != null">relation_item_name,</if>
+        </trim>
+    </sql>
+
+
+</mapper>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserScanRecordModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.course.model.forum.UserScanRecordModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="type_code" property="typeCode" jdbcType="VARCHAR" />
+		<result column="record_date" property="recordDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, user_id, module, type_code, record_date</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.course.model.forum.UserScanRecordModel">
+		select
+		<include refid="base_column" />
+		from xd_user_resource_scan_record
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_user_resource_scan_record
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.course.model.forum.UserScanRecordModel"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_user_resource_scan_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="module != null">module,</if>
+			<if test="typeCode != null">type_code,</if>
+			<if test="recordDate != null">record_date,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+			<if test="typeCode != null">#{typeCode,jdbcType=VARCHAR},</if>
+			<if test="recordDate != null">#{recordDate,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.course.model.forum.UserScanRecordModel">
+		update xd_user_resource_scan_record
+		<set>
+
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.course.model.forum.UserScanRecordModel">
+		update xd_user_resource_scan_record
+		<set>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.course.model.forum.UserScanRecordModel">
+		delete from
+		xd_user_resource_scan_record
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_user_resource_scan_record
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.module != null">module,</if>
+			<if test="output != null and output.typeCode != null">type_code,</if>
+			<if test="output != null and output.recordDate != null">record_date,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.module != null">and module=#{input.module}</if>
+			<if test="input != null and input.typeCode != null">and type_code=#{input.typeCode}</if>
+			<if test="input != null and input.recordDateLower != null">and record_date &gt; #{input.recordDateLower}</if>
+			<if test="input != null and input.recordDateUpper != null">and record_date &lt; #{input.recordDateUpper}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.module != null and ( sort.module == 'ASC' or sort.module == 'DESC' )">module ${sort.module},</if>
+			<if
+				test="sort != null and sort.typeCode != null and ( sort.typeCode == 'ASC' or sort.typeCode == 'DESC' )">type_code ${sort.typeCode},</if>
+			<if
+				test="sort != null and sort.recordDate != null and ( sort.recordDate == 'ASC' or sort.recordDate == 'DESC' )">record_date ${sort.recordDate},</if>
+		</trim>
+	</sql>
+</mapper>

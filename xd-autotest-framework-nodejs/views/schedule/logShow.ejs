@@ -1,0 +1,13 @@
+<html>
+<body>
+
+<script type="text/javascript">
+    <% if (data) {
+    data.forEach(function(record,index){%>
+    document.write(<%-record.log_html%>);
+    <% })
+    } %>
+</script>
+
+</body>
+</html>

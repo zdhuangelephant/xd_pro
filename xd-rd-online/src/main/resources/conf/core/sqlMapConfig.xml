@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<!-- 瑞德门户 -->
+		<typeAlias type="com.xiaodou.rdonline.domain.activity.ActivityModel"
+			alias="ActivityModel" />
+		<typeAlias type="com.xiaodou.rdonline.domain.student.StudentModel"
+			alias="StudentModel" />
+		<typeAlias type="com.xiaodou.rdonline.domain.tutormajor.TutorMajorModel"
+			alias="TutorMajorModel" />
+		<typeAlias
+			type="com.xiaodou.rdonline.domain.majorCategory.MajorCategoryModel"
+			alias="MajorCategoryModel" />
+	</typeAliases>
+
+	<mappers>
+		<!-- 瑞德门户 -->
+		<mapper resource="conf/mybatis/activity/ActivityModel.xml" />
+		<mapper resource="conf/mybatis/student/StudentModel.xml" />
+		<mapper resource="conf/mybatis/tutormajor/TutorMajorModel.xml" />
+		<mapper resource="conf/mybatis/majorCategory/MajorCategoryModel.xml" />
+	</mappers>
+</configuration>

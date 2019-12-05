@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<!--分析后model -->
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.dashboard.lastweek.LastWeekLearnTimeModel"
+			alias="LastWeekLearnTimeModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.dashboard.lastweek.LastWeekMissionPercentModel"
+			alias="LastWeekMissionPercentModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.dashboard.learnpercent.CategroyUnitSessionLearnPercentModel"
+			alias="CategroyUnitSessionLearnPercentModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.dashboard.learnpercent.SessionLearnPercentModel"
+			alias="SessionLearnPercentModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.dashboard.sessionpercent.CategorySessionPercentModel"
+			alias="CategorySessionPercentModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.dashboard.sessionpercent.CategoryUnitSessionPercentModel"
+			alias="CategoryUnitSessionPercentModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.dashboard.alarm.AlarmRecordModel"
+			alias="AlarmRecordModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.dashboard.ApplyModel"
+			alias="ApplyModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.dashboard.CateGoryUnitProductAvgScoreModel"
+			alias="CateGoryUnitProductAvgScoreModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.dashboard.ChiefUnitRelationModel"
+			alias="ChiefUnitRelationModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.dashboard.DaysLearnTimeModel"
+			alias="DaysLearnTimeModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.dashboard.StudentModel"
+			alias="StudentModel" />
+		<typeAlias type="com.xiaodou.st.dataclean.model.domain.dashboard.Unit"
+			alias="Unit" />
+		<!--rawmodel -->
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.raw.RawDataExamTotalModel"
+			alias="RawDataExamTotalModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.raw.RawDataFaceRecognitionModel"
+			alias="RawDataFaceRecognitionModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.raw.RawDataLearnRecordModel"
+			alias="RawDataLearnRecordModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.raw.RawDataFinishMissionModel"
+			alias="RawDataFinishMissionModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.raw.RawDataFinishAllMissionModel"
+			alias="RawDataFinishAllMissionModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.raw.RawDataProductCategoryModel"
+			alias="RawDataProductCategoryModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.raw.RawDataProductModel"
+			alias="RawDataProductModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.raw.RawDataProductRelationModel"
+			alias="RawDataProductRelationModel" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.raw.RawDataProductScorePointRule"
+			alias="RawDataProductScorePointRule" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.raw.RawDataUserScorePointRecord"
+			alias="RawDataUserScorePointRecord" />
+
+		<!-- score -->
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.dashboard.score.LearnRecordDO"
+			alias="LearnRecordDO" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.dashboard.score.ScoreDO"
+			alias="ScoreDO" />
+
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.staticinfo.StaticInfoDO"
+			alias="StaticInfoDO" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.dashboard.everyday.EverydaySummaryDetailVO"
+			alias="EverydaySummaryDetailVO" />
+		<typeAlias
+			type="com.xiaodou.st.dataclean.model.domain.dashboard.everyday.EverydaySummaryVO"
+			alias="EverydaySummaryVO" />
+
+
+
+	</typeAliases>
+	<mappers>
+		<mapper resource="conf/mybatis/dashboard/lastweek/LastWeekLearnTimeModel.xml" />
+		<mapper
+			resource="conf/mybatis/dashboard/lastweek/LastWeekMissionPercentModel.xml" />
+		<mapper
+			resource="conf/mybatis/dashboard/learnpercent/CategroyUnitSessionLearnPercentModel.xml" />
+		<mapper
+			resource="conf/mybatis/dashboard/learnpercent/SessionLearnPercentModel.xml" />
+		<mapper
+			resource="conf/mybatis/dashboard/sessionpercent/CategorySessionPercentModel.xml" />
+		<mapper
+			resource="conf/mybatis/dashboard/sessionpercent/CategoryUnitSessionPercentModel.xml" />
+		<mapper resource="conf/mybatis/dashboard/alarm/AlarmRecordModel.xml" />
+		<mapper resource="conf/mybatis/dashboard/ApplyModel.xml" />
+		<mapper resource="conf/mybatis/dashboard/CateGoryUnitProductAvgScoreModel.xml" />
+		<mapper resource="conf/mybatis/dashboard/ChiefUnitRelationModel.xml" />
+		<mapper resource="conf/mybatis/dashboard/DaysLearnTimeModel.xml" />
+		<mapper resource="conf/mybatis/dashboard/StudentModel.xml" />
+		<mapper resource="conf/mybatis/dashboard/Unit.xml" />
+		<!--raw -->
+		<mapper resource="conf/mybatis/raw/RawDataExamTotalModel.xml" />
+		<mapper resource="conf/mybatis/raw/RawDataFaceRecognitionModel.xml" />
+		<mapper resource="conf/mybatis/raw/RawDataLearnRecordModel.xml" />
+		<mapper resource="conf/mybatis/raw/RawDataFinishMissionModel.xml" />
+		<mapper resource="conf/mybatis/raw/RawDataFinishAllMissionModel.xml" />
+		<mapper resource="conf/mybatis/raw/RawDataProductCategoryModel.xml" />
+		<mapper resource="conf/mybatis/raw/RawDataProductModel.xml" />
+		<mapper resource="conf/mybatis/raw/RawDataProductRelationModel.xml" />
+		<mapper resource="conf/mybatis/raw/RawDataProductScorePointRule.xml" />
+		<mapper resource="conf/mybatis/raw/RawDataUserScorePointRecord.xml" />
+
+		<mapper resource="conf/mybatis/dashboard/score/LearnRecordDO.xml" />
+		<mapper resource="conf/mybatis/dashboard/score/ScoreDO.xml" />
+		<mapper resource="conf/mybatis/staticinfo/StaticInfoDO.xml" />
+
+		<mapper resource="conf/mybatis/dashboard/everyday/EverydaySummaryDetailVO.xml" />
+		<mapper resource="conf/mybatis/dashboard/everyday/EverydaySummaryVO.xml" />
+
+
+	</mappers>
+</configuration>

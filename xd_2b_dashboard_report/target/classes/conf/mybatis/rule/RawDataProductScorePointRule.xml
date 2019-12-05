@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RawDataProductScorePointRule">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dashboard.domain.rule.RawDataProductScorePointRule">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="rule_name" property="ruleName" jdbcType="VARCHAR" />
+		<result column="rule_detail" property="ruleDetail" jdbcType="VARCHAR" />
+		<result column="rule_desc" property="ruleDesc" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+		<result column="scope" property="scope" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="base_column">id, rule_name, rule_detail, rule_desc, create_time,
+		modify_time, scope</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.rule.RawDataProductScorePointRule">
+		select
+		<include refid="base_column" />
+		from xd_raw_data_product_score_point_rule
+		where id =
+		#{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_raw_data_product_score_point_rule
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.st.dashboard.domain.rule.RawDataProductScorePointRule">
+		insert into xd_raw_data_product_score_point_rule
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="ruleName != null">rule_name,</if>
+			<if test="ruleDetail != null">rule_detail,</if>
+			<if test="ruleDesc != null">rule_desc,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="modifyTime != null">modify_time,</if>
+			<if test="scope != null">scope,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="ruleName != null">#{ruleName,jdbcType=VARCHAR},</if>
+			<if test="ruleDetail != null">#{ruleDetail,jdbcType=VARCHAR},</if>
+			<if test="ruleDesc != null">#{ruleDesc,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="modifyTime != null">#{modifyTime,jdbcType=TIMESTAMP},</if>
+			<if test="scope != null">#{scope,jdbcType=INTEGER},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="java.util.Map">
+		update xd_raw_data_product_score_point_rule
+		<set>
+			<if test="value != null and value.ruleName != null">rule_name = #{value.ruleName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.ruleDetail != null">rule_detail = #{value.ruleDetail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.ruleDesc != null">rule_desc = #{value.ruleDesc,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.modifyTime != null">modify_time = #{value.modifyTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.scope != null">scope = #{value.scope,jdbcType=INTEGER},</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_raw_data_product_score_point_rule
+		<set>
+			<if test="value != null and value.ruleName != null">rule_name = #{value.ruleName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.ruleDetail != null">rule_detail = #{value.ruleDetail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.ruleDesc != null">rule_desc = #{value.ruleDesc,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.modifyTime != null">modify_time = #{value.modifyTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.scope != null">scope = #{value.scope,jdbcType=INTEGER},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById"
+		parameterType="com.xiaodou.st.dashboard.domain.rule.RawDataProductScorePointRule">
+		delete from xd_raw_data_product_score_point_rule
+		where id
+		= #{id,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_raw_data_product_score_point_rule
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.ruleName != null">rule_name,</if>
+			<if test="output != null and output.ruleDetail != null">rule_detail,</if>
+			<if test="output != null and output.ruleDesc != null">rule_desc,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.modifyTime != null">modify_time,</if>
+			<if test="output != null and output.scope != null">scope,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.ruleName != null">and rule_name=#{input.ruleName}</if>
+			<if test="input != null and input.ruleDetail != null">and rule_detail=#{input.ruleDetail}</if>
+			<if test="input != null and input.ruleDesc != null">and rule_desc=#{input.ruleDesc}</if>
+			<if test="input != null and input.createTimeLower != null">and create_time &gt; #{input.createTimeLower}</if>
+			<if test="input != null and input.createTimeUpper != null">and create_time &lt; #{input.createTimeUpper}</if>
+			<if test="input != null and input.modifyTimeLower != null">and modify_time &gt; #{input.modifyTimeLower}</if>
+			<if test="input != null and input.modifyTimeUpper != null">and modify_time &lt; #{input.modifyTimeUpper}</if>
+			<if test="input != null and input.scope != null">and scope=#{input.scope}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.ruleName != null and ( sort.ruleName == 'ASC' or sort.ruleName == 'DESC' )">rule_name ${sort.ruleName},</if>
+			<if
+				test="sort != null and sort.ruleDetail != null and ( sort.ruleDetail == 'ASC' or sort.ruleDetail == 'DESC' )">rule_detail ${sort.ruleDetail},</if>
+			<if
+				test="sort != null and sort.ruleDesc != null and ( sort.ruleDesc == 'ASC' or sort.ruleDesc == 'DESC' )">rule_desc ${sort.ruleDesc},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.modifyTime != null and ( sort.modifyTime == 'ASC' or sort.modifyTime == 'DESC' )">modify_time ${sort.modifyTime},</if>
+			<if
+				test="sort != null and sort.scope != null and ( sort.scope == 'ASC' or sort.scope == 'DESC' )">scope ${sort.scope},</if>
+		</trim>
+	</sql>
+</mapper>

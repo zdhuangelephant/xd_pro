@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RedBonus">
+	<resultMap id="BaseResultMap" type="com.xiaodou.domain.product.RedBonus">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="red_bonus_type" property="redBonusType"
+			jdbcType="VARCHAR" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="mission_id" property="missionId" jdbcType="VARCHAR" />
+		<result column="course_id" property="courseId" jdbcType="VARCHAR" />
+		<result column="chapter_id" property="chapterId" jdbcType="VARCHAR" />
+		<result column="item_id" property="itemId" jdbcType="VARCHAR" />
+		<result column="bonus_detail" property="bonusDetail" jdbcType="VARCHAR" />
+		<result column="statue" property="statue" jdbcType="TINYINT" />
+	</resultMap>
+	<sql id="base_column">id, red_bonus_type, module, user_id, mission_id, course_id,
+		chapter_id, item_id, bonus_detail, statue
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.domain.product.RedBonus">
+		select
+		<include refid="base_column" />
+		from xd_quesbk_red_bonus
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_quesbk_red_bonus
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<delete id="delete" parameterType="java.util.Map">
+		delete from
+		xd_quesbk_red_bonus
+		<include refid="dynamic_where" />
+	</delete>
+	<insert id="addEntity" parameterType="com.xiaodou.domain.product.RedBonus">
+		insert into xd_quesbk_red_bonus
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="redBonusType != null">red_bonus_type,</if>
+			<if test="module != null">module,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="missionId != null">mission_id,</if>
+			<if test="courseId != null">course_id,</if>
+			<if test="chapterId != null">chapter_id,</if>
+			<if test="itemId != null">item_id,</if>
+			<if test="bonusDetail != null">bonus_detail,</if>
+			<if test="statue != null">statue,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="redBonusType != null">#{redBonusType,jdbcType=VARCHAR},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+			<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+			<if test="missionId != null">#{missionId,jdbcType=VARCHAR},</if>
+			<if test="courseId != null">#{courseId,jdbcType=VARCHAR},</if>
+			<if test="chapterId != null">#{chapterId,jdbcType=VARCHAR},</if>
+			<if test="itemId != null">#{itemId,jdbcType=VARCHAR},</if>
+			<if test="bonusDetail != null">#{bonusDetail,jdbcType=VARCHAR},</if>
+			<if test="statue != null">#{statue,jdbcType=TINYINT},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.domain.product.RedBonus">
+		update xd_quesbk_red_bonus
+		<set>
+			<if test="value != null and value.bonusDetail != null">bonus_detail = #{value.bonusDetail,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.statue != null">statue = #{value.statue,jdbcType=TINYINT},</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.domain.product.RedBonus">
+		update xd_quesbk_red_bonus
+		<set>
+			<if test="value != null and value.redBonusType != null">red_bonus_type = #{value.redBonusType,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.module != null">module = #{value.module,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.missionId != null">mission_id = #{value.missionId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.itemId != null">item_id = #{value.itemId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.bonusDetail != null">bonus_detail = #{value.bonusDetail,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.statue != null">statue = #{value.statue,jdbcType=TINYINT},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_quesbk_red_bonus
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.redBonusType != null">red_bonus_type,</if>
+			<if test="output != null and output.module != null">module,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.missionId != null">mission_id,</if>
+			<if test="output != null and output.courseId != null">course_id,</if>
+			<if test="output != null and output.chapterId != null">chapter_id,</if>
+			<if test="output != null and output.itemId != null">item_id,</if>
+			<if test="output != null and output.bonusDetail != null">bonus_detail,</if>
+			<if test="output != null and output.statue != null">statue,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.redBonusType != null">and red_bonus_type=#{input.redBonusType}</if>
+			<if test="input != null and input.module != null">and module=#{input.module}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.missionId != null">and mission_id=#{input.missionId}</if>
+			<if test="input != null and input.courseId != null">and course_id=#{input.courseId}</if>
+			<if test="input != null and input.chapterId != null">and chapter_id=#{input.chapterId}</if>
+			<if test="input != null and input.itemId != null">and item_id=#{input.itemId}</if>
+			<if test="input != null and input.bonusDetail != null">and bonus_detail=#{input.bonusDetail}</if>
+			<if test="input != null and input.statue != null">and statue=#{input.statue}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limitStart != null and limitCount != null">
+			limit ${limitStart}, ${limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.redBonusType != null and ( sort.redBonusType == 'ASC' or sort.redBonusType == 'DESC' )">red_bonus_type ${sort.redBonusType},</if>
+			<if
+				test="sort != null and sort.module != null and ( sort.module == 'ASC' or sort.module == 'DESC' )">module ${sort.module},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.missionId != null and ( sort.missionId == 'ASC' or sort.missionId == 'DESC' )">mission_id ${sort.missionId},</if>
+			<if
+				test="sort != null and sort.courseId != null and ( sort.courseId == 'ASC' or sort.courseId == 'DESC' )">course_id ${sort.courseId},</if>
+			<if
+				test="sort != null and sort.chapterId != null and ( sort.chapterId == 'ASC' or sort.chapterId == 'DESC' )">chapter_id ${sort.chapterId},</if>
+			<if
+				test="sort != null and sort.itemId != null and ( sort.itemId == 'ASC' or sort.itemId == 'DESC' )">item_id ${sort.itemId},</if>
+			<if
+				test="sort != null and sort.bonusDetail != null and ( sort.bonusDetail == 'ASC' or sort.bonusDetail == 'DESC' )">bonus_detail ${sort.bonusDetail},</if>
+			<if
+				test="sort != null and sort.statue != null and ( sort.statue == 'ASC' or sort.statue == 'DESC' )">statue ${sort.statue},</if>
+		</trim>
+	</sql>
+</mapper>

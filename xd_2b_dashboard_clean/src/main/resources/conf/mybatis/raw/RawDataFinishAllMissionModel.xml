@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RawDataFinishAllMissionModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dataclean.model.domain.raw.RawDataFinishAllMissionModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="module_id" property="moduleId" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="product_category_id" property="productCategoryId"
+			jdbcType="VARCHAR" />
+		<result column="product_id" property="productId" jdbcType="VARCHAR" />
+		<result column="student_id" property="studentId" jdbcType="INTEGER" />
+		<result column="taught_unit_id" property="taughtUnitId"
+			jdbcType="INTEGER" />
+		<result column="chief_unit_id" property="chiefUnitId" jdbcType="INTEGER" />
+		<result column="pilot_unit_id" property="pilotUnitId" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, module_id, user_id, product_category_id, product_id,
+		student_id, taught_unit_id, chief_unit_id, pilot_unit_id, create_time
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataFinishAllMissionModel">
+		select
+		<include refid="base_column" />
+		from xd_raw_data_finish_all_mission
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_raw_data_finish_all_mission
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<select id="getFinishMissionStudentCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(DISTINCT(student_id))
+		FROM
+		xd_raw_data_finish_all_mission
+		<include refid="dynamic_where" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataFinishAllMissionModel">
+		insert into xd_raw_data_finish_all_mission
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="moduleId != null">module_id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="productCategoryId != null">product_category_id,</if>
+			<if test="productId != null">product_id,</if>
+			<if test="studentId != null">student_id,</if>
+			<if test="taughtUnitId != null">taught_unit_id,</if>
+			<if test="chiefUnitId != null">chief_unit_id,</if>
+			<if test="pilotUnitId != null">pilot_unit_id,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="moduleId != null">#{moduleId,jdbcType=VARCHAR},</if>
+			<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+			<if test="productCategoryId != null">#{productCategoryId,jdbcType=VARCHAR},</if>
+			<if test="productId != null">#{productId,jdbcType=VARCHAR},</if>
+			<if test="studentId != null">#{studentId,jdbcType=INTEGER},</if>
+			<if test="taughtUnitId != null">#{taughtUnitId,jdbcType=INTEGER},</if>
+			<if test="chiefUnitId != null">#{chiefUnitId,jdbcType=INTEGER},</if>
+			<if test="pilotUnitId != null">#{pilotUnitId,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataFinishAllMissionModel">
+		update xd_raw_data_finish_all_mission
+		<set>
+			<if test="value != null and value.moduleId != null">module_id = #{value.moduleId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.productCategoryId != null">product_category_id =
+				#{value.productCategoryId,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentId != null">student_id = #{value.studentId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.taughtUnitId != null">taught_unit_id = #{value.taughtUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.chiefUnitId != null">chief_unit_id = #{value.chiefUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataFinishAllMissionModel">
+		update xd_raw_data_finish_all_mission
+		<set>
+			<if test="value != null and value.moduleId != null">module_id = #{value.moduleId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.productCategoryId != null">product_category_id =
+				#{value.productCategoryId,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentId != null">student_id = #{value.studentId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.taughtUnitId != null">taught_unit_id = #{value.taughtUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.chiefUnitId != null">chief_unit_id = #{value.chiefUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataFinishAllMissionModel">
+		delete from xd_raw_data_finish_all_mission
+		where id =
+		#{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_raw_data_finish_all_mission
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.moduleId != null">module_id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.productCategoryId != null">product_category_id,</if>
+			<if test="output != null and output.productId != null">product_id,</if>
+			<if test="output != null and output.studentId != null">student_id,</if>
+			<if test="output != null and output.taughtUnitId != null">taught_unit_id,</if>
+			<if test="output != null and output.chiefUnitId != null">chief_unit_id,</if>
+			<if test="output != null and output.pilotUnitId != null">pilot_unit_id,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.moduleId != null">and module_id=#{input.moduleId}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.productCategoryId != null">and product_category_id=#{input.productCategoryId}</if>
+			<if test="input != null and input.productCategoryIdList != null">
+				and product_category_id in
+				<foreach collection="input.productCategoryIdList" open="("
+					close=")" separator="," item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.productId != null">and product_id=#{input.productId}</if>
+			<if test="input != null and input.studentId != null">and student_id=#{input.studentId}</if>
+			<if test="input != null and input.taughtUnitId != null">and taught_unit_id=#{input.taughtUnitId}</if>
+			<if test="input != null and input.chiefUnitId != null">and chief_unit_id=#{input.chiefUnitId}</if>
+			<if test="input != null and input.pilotUnitId != null">and pilot_unit_id=#{input.pilotUnitId}</if>
+			<if test="input != null and input.createTimeLower != null">and create_time &gt; #{input.createTimeLower}</if>
+			<if test="input != null and input.createTimeUpper != null">and create_time &lt; #{input.createTimeUpper}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

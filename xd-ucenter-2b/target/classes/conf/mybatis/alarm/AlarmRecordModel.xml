@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AlarmRecordModel">
+	<resultMap id="BaseResultMap" type="com.xiaodou.userCenter.model.alarm.AlarmRecordModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+<result column="user_id" property="userId" jdbcType="BIGINT" />
+<result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+<result column="login_info_id" property="loginInfoId" jdbcType="BIGINT" />
+<result column="alarm_level" property="alarmLevel" jdbcType="VARCHAR" />
+<result column="alarm_type" property="alarmType" jdbcType="VARCHAR" />
+<result column="status" property="status" jdbcType="VARCHAR" />
+<result column="pretreatment" property="pretreatment" jdbcType="VARCHAR" />
+<result column="alarm_time" property="alarmTime" jdbcType="TIMESTAMP" />
+<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+	</resultMap>
+	<sql id="base_column"></sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.userCenter.model.alarm.AlarmRecordModel">
+		select
+		<include refid="base_column" />
+		from xd_user_login_alarm_record
+		where id = #{id,jdbcType=BIGINT}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_user_login_alarm_record
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.userCenter.model.alarm.AlarmRecordModel"  >
+		insert into xd_user_login_alarm_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+<if test="userId != null">user_id,</if>
+<if test="deviceId != null">device_id,</if>
+<if test="loginInfoId != null">login_info_id,</if>
+<if test="alarmLevel != null">alarm_level,</if>
+<if test="alarmType != null">alarm_type,</if>
+<if test="status != null">status,</if>
+<if test="pretreatment != null">pretreatment,</if>
+<if test="alarmTime != null">alarm_time,</if>
+<if test="createTime != null">create_time,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+<if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+<if test="deviceId != null">#{deviceId,jdbcType=VARCHAR},</if>
+<if test="loginInfoId != null">#{loginInfoId,jdbcType=BIGINT},</if>
+<if test="alarmLevel != null">#{alarmLevel,jdbcType=VARCHAR},</if>
+<if test="alarmType != null">#{alarmType,jdbcType=VARCHAR},</if>
+<if test="status != null">#{status,jdbcType=VARCHAR},</if>
+<if test="pretreatment != null">#{pretreatment,jdbcType=VARCHAR},</if>
+<if test="alarmTime != null">#{alarmTime,jdbcType=TIMESTAMP},</if>
+<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.userCenter.model.alarm.AlarmRecordModel">
+		update xd_user_login_alarm_record
+		<set>
+			<if test="value != null and value.loginInfoId != null">login_info_id = #{value.loginInfoId,jdbcType=BIGINT},</if>
+<if test="value != null and value.status != null">status = #{value.status,jdbcType=VARCHAR},</if>
+
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.userCenter.model.alarm.AlarmRecordModel">
+		update xd_user_login_alarm_record
+		<set>
+			<if test="value != null and value.loginInfoId != null">login_info_id = #{value.loginInfoId,jdbcType=BIGINT},</if>
+<if test="value != null and value.status != null">status = #{value.status,jdbcType=VARCHAR},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.userCenter.model.alarm.AlarmRecordModel">
+		delete from xd_user_login_alarm_record
+		where id = #{id,jdbcType=BIGINT}
+
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_user_login_alarm_record
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+<if test="output != null and output.userId != null">user_id,</if>
+<if test="output != null and output.deviceId != null">device_id,</if>
+<if test="output != null and output.loginInfoId != null">login_info_id,</if>
+<if test="output != null and output.alarmLevel != null">alarm_level,</if>
+<if test="output != null and output.alarmType != null">alarm_type,</if>
+<if test="output != null and output.status != null">status,</if>
+<if test="output != null and output.pretreatment != null">pretreatment,</if>
+<if test="output != null and output.alarmTime != null">alarm_time,</if>
+<if test="output != null and output.createTime != null">create_time,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+<if test="input != null and input.deviceId != null">and device_id=#{input.deviceId}</if>
+<if test="input != null and input.loginInfoId != null">and login_info_id=#{input.loginInfoId}</if>
+<if test="input != null and input.alarmLevel != null">and alarm_level=#{input.alarmLevel}</if>
+<if test="input != null and input.alarmType != null">and alarm_type=#{input.alarmType}</if>
+<if test="input != null and input.status != null">and status=#{input.status}</if>
+<if test="input != null and input.pretreatment != null">and pretreatment=#{input.pretreatment}</if>
+<if test="input != null and input.alarmTime != null">and alarm_time=#{input.alarmTime}</if>
+<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+<if test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+<if test="sort != null and sort.deviceId != null and ( sort.deviceId == 'ASC' or sort.deviceId == 'DESC' )">device_id ${sort.deviceId},</if>
+<if test="sort != null and sort.loginInfoId != null and ( sort.loginInfoId == 'ASC' or sort.loginInfoId == 'DESC' )">login_info_id ${sort.loginInfoId},</if>
+<if test="sort != null and sort.alarmLevel != null and ( sort.alarmLevel == 'ASC' or sort.alarmLevel == 'DESC' )">alarm_level ${sort.alarmLevel},</if>
+<if test="sort != null and sort.alarmType != null and ( sort.alarmType == 'ASC' or sort.alarmType == 'DESC' )">alarm_type ${sort.alarmType},</if>
+<if test="sort != null and sort.status != null and ( sort.status == 'ASC' or sort.status == 'DESC' )">status ${sort.status},</if>
+<if test="sort != null and sort.pretreatment != null and ( sort.pretreatment == 'ASC' or sort.pretreatment == 'DESC' )">pretreatment ${sort.pretreatment},</if>
+<if test="sort != null and sort.alarmTime != null and ( sort.alarmTime == 'ASC' or sort.alarmTime == 'DESC' )">alarm_time ${sort.alarmTime},</if>
+<if test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+
+		</trim>
+	</sql>
+</mapper>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="FeedBackModel">
+
+	<!-- 1. 根据条件 查询 文档列表(不分页) -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.content != null">content,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+		FROM
+		xd_user_feedback
+		<include refid="dynamic_where" />
+	</select>
+
+	<!-- 2. 根据条件 修改 文档 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_user_feedback
+		<set>
+			<if test="value != null and value.content != null">content = #{value.content},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 3.文档 插入 方法 -->
+	<insert id="addEntity" parameterType="FeedBackModel">
+		insert into xd_user_feedback
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- ******************************** 上面是DAO层方法实现, 下面是各个动态语句的拼写 ******************************************* -->
+
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseResultMap" type="FeedBackModel">
+		<id column="id" property="id" />
+		<result column="content" property="content" />
+		<result column="create_time" property="createTime" />
+	</resultMap>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">id =#{input.id}</if>
+			<if test="input != null and input.content != null">content =#{input.content}</if>
+			<if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+		</where>
+	</sql>
+
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="content != null">content,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="content != null">#{content},</if>
+			<if test="createTime != null">#{createTime},</if>
+		</trim>
+	</sql>
+
+</mapper>

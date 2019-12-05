@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserFinalExamRecord">
+	<resultMap id="BaseResultMap" type="com.xiaodou.domain.behavior.UserFinalExamRecord">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="paper_no" property="paperNo" jdbcType="VARCHAR" />
+		<result column="final_exam_id" property="finalExamId" jdbcType="VARCHAR" />	
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, paper_no, final_exam_id
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_final_exam 
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="selectByUidAndExamId" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select 
+		<include refid="Base_Column_List" />
+		from xd_user_final_exam 
+		where final_exam_id = #{input.finalExamId} 
+		and user_id = #{input.uid}
+	</select>
+	
+	<insert id="insert" parameterType="com.xiaodou.domain.behavior.UserFinalExamRecord">
+		insert into
+		xd_user_final_exam (id, user_id, paper_no,final_exam_id)
+		values
+		(#{id,jdbcType=VARCHAR}, 
+		#{userId,jdbcType=VARCHAR},
+		#{paperNo,jdbcType=VARCHAR},
+		#{finalExamId,jdbcType=VARCHAR})
+	</insert>
+	
+	 <delete id="deleteUserFinalExamRecord" parameterType="com.xiaodou.domain.behavior.UserFinalExamRecord" >
+	    delete from xd_user_final_exam
+	    where id = #{id,jdbcType=VARCHAR}
+	 </delete>
+</mapper>

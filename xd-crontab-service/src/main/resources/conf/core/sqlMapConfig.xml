@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.xiaodou.crontab.domain.CrontabConfig"
+			alias="CrontabConfig" />
+		<typeAlias type="com.xiaodou.crontab.domain.CrontabJobLog"
+			alias="CrontabJobLog" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="conf/mybatis/CrontabConfig.xml" />
+		<mapper resource="conf/mybatis/CrontabJobLog.xml" />
+	</mappers>
+</configuration>

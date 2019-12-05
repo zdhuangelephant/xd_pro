@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ServerModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.dashboard.model.log.ServerModel">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="mac" property="mac" jdbcType="VARCHAR" />
+		<result column="ip" property="ip" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, mac, ip</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.dashboard.model.log.ServerModel">
+		select
+		<include refid="base_column" />
+		from xd_server
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+    <!-- 查询 -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="base_column"/>
+		FROM xd_server 
+		<include refid="dynamic_where"/>
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_server
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.dashboard.model.log.ServerModel">
+		insert into xd_server
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="mac != null">mac,</if>
+			<if test="ip != null">ip,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="mac != null">#{mac,jdbcType=VARCHAR},</if>
+			<if test="ip != null">#{ip,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.dashboard.model.log.ServerModel">
+		update xd_server
+		<set>
+			<if test="value != null and value.mac != null">mac = #{value.mac,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.ip != null">ip = #{value.ip,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.dashboard.model.log.ServerModel">
+		update xd_server
+		<set>
+			<if test="value != null and value.mac != null">mac = #{value.mac,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.ip != null">ip = #{value.ip,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.dashboard.model.log.ServerModel">
+		delete from
+		xd_server
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_server
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.mac != null">mac,</if>
+			<if test="output != null and output.ip != null">ip,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.mac != null">and mac=#{input.mac}</if>
+			<if test="input != null and input.ip != null">and ip=#{input.ip}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+		</trim>
+	</sql>
+</mapper>

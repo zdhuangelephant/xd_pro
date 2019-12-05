@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<typeAliases>
+		<typeAlias alias="SmsChannelModel" type="com.xiaodou.sms.model.SmsChannelModel" />
+		<typeAlias alias="SmsLogModel" type="com.xiaodou.sms.model.SmsLogModel" />
+		<typeAlias alias="SmsMerchantModel" type="com.xiaodou.sms.model.SmsMerchantModel" />
+		<typeAlias alias="SmsTaskModel" type="com.xiaodou.sms.model.SmsTaskModel" />
+		<typeAlias alias="SmsTemplateTypeModel"
+			type="com.xiaodou.sms.model.SmsTemplateTypeModel" />
+		<typeAlias alias="SmsTemplateModel" type="com.xiaodou.sms.model.SmsTemplateModel" />
+		<typeAlias alias="SmsTemplateCategoryModel"
+			type="com.xiaodou.sms.model.SmsTemplateCategoryModel" />
+
+		<typeAlias alias="MessageDeviceModel"
+			type="com.xiaodou.message.model.MessageDeviceModel" />
+		<typeAlias alias="MessageDeviceTagModel"
+			type="com.xiaodou.message.model.MessageDeviceTagModel" />
+		<typeAlias alias="MessageTagModel" type="com.xiaodou.message.model.MessageTagModel" />
+		<typeAlias alias="MessageModel" type="com.xiaodou.message.model.MessageModel" />
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="conf/mybatis/sms/smsChannelModel.xml" />
+		<mapper resource="conf/mybatis/sms/smsLogModel.xml" />
+		<mapper resource="conf/mybatis/sms/smsmerchantModel.xml" />
+		<mapper resource="conf/mybatis/sms/smstaskModel.xml" />
+		<mapper resource="conf/mybatis/sms/smstemplatetypeModel.xml" />
+		<mapper resource="conf/mybatis/sms/smstemplateModel.xml" />
+		<mapper resource="conf/mybatis/sms/cascadeSmstemplateModel.xml" />
+		<mapper resource="conf/mybatis/ms/messageDeviceModel.xml" />
+		<mapper resource="conf/mybatis/ms/messageDeviceTagModel.xml" />
+		<mapper resource="conf/mybatis/ms/messageTagModel.xml" />
+		<mapper resource="conf/mybatis/ms/messageModel.xml" />
+	</mappers>
+
+</configuration>

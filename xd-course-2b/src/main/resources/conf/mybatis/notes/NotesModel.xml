@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="NotesModel">
+	<resultMap id="BaseResultMap" type="com.xiaodou.course.model.notes.NotesModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="course_id" property="courseId" jdbcType="VARCHAR" />
+		<result column="chapter_id" property="chapterId" jdbcType="VARCHAR" />
+		<result column="item_id" property="itemId" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="source" property="source" jdbcType="VARCHAR" />
+		<result column="resources_name" property="resourcesName"
+			jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="type_code" property="typeCode"/>
+		<result column="product_category_name" property="productCategoryName"/>
+	</resultMap>
+	<sql id="base_column">id, course_id, chapter_id, item_id, content, source,
+		resources_name, create_time, user_id,type_code
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.course.model.notes.NotesModel">
+		select
+		<include refid="base_column" />
+		from xd_user_notes
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_user_notes
+		LEFT JOIN xd_course_product 
+		ON xd_course_product.id = xd_user_notes.course_id 
+		LEFT JOIN xd_major_data
+		ON xd_user_notes.type_code = xd_major_data.id
+		<include refid="sp_where" />
+		order by id DESC limit 0,20
+	</select>
+	<delete id="delete" parameterType="java.util.Map">
+		delete from
+		xd_user_notes
+		<include refid="dynamic_where" />
+	</delete>
+	<insert id="addEntity" parameterType="com.xiaodou.course.model.notes.NotesModel">
+		insert into xd_user_notes
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="courseId != null">course_id,</if>
+			<if test="chapterId != null">chapter_id,</if>
+			<if test="itemId != null">item_id,</if>
+			<if test="content != null">content,</if>
+			<if test="source != null">source,</if>
+			<if test="resourcesName != null">resources_name,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="typeCode != null">type_code,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="courseId != null">#{courseId,jdbcType=VARCHAR},</if>
+			<if test="chapterId != null">#{chapterId,jdbcType=VARCHAR},</if>
+			<if test="itemId != null">#{itemId,jdbcType=VARCHAR},</if>
+			<if test="content != null">#{content,jdbcType=VARCHAR},</if>
+			<if test="source != null">#{source,jdbcType=VARCHAR},</if>
+			<if test="resourcesName != null">#{resourcesName,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+			<if test="typeCode != null">#{typeCode},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.course.model.notes.NotesModel">
+		update xd_user_notes
+		<set>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.itemId != null">item_id = #{value.itemId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.content != null">content = #{value.content,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.source != null">source = #{value.source,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.resourcesName != null">resources_name = #{value.resourcesName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.typeCode != null">type_code = #{value.typeCode},</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.course.model.notes.NotesModel">
+		update xd_user_notes
+		<set>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.itemId != null">item_id = #{value.itemId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.content != null">content = #{value.content,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.source != null">source = #{value.source,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.resourcesName != null">resources_name = #{value.resourcesName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.typeCode != null">type_code = #{value.typeCode},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.course.model.notes.NotesModel">
+		delete from
+		xd_user_notes
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_user_notes
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_user_notes.id,</if>
+			<if test="output != null and output.courseId != null">xd_user_notes.course_id,</if>
+			<if test="output != null and output.chapterId != null">xd_user_notes.chapter_id,</if>
+			<if test="output != null and output.itemId != null">xd_user_notes.item_id,</if>
+			<if test="output != null and output.content != null">xd_user_notes.content,</if>
+			<if test="output != null and output.source != null">xd_user_notes.source,</if>
+			<if test="output != null and output.resourcesName != null">xd_user_notes.resources_name,</if>
+			<if test="output != null and output.createTime != null">xd_user_notes.create_time,</if>
+			<if test="output != null and output.userId != null">xd_user_notes.user_id,</if>
+			<if test="output != null and output.typeCode != null">xd_user_notes.type_code,</if>
+			<if test="output != null and output.productCategoryName != null">xd_major_data.name product_category_name,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.courseId != null">and course_id=#{input.courseId}</if>
+			<if test="input != null and input.chapterId != null">and chapter_id=#{input.chapterId}</if>
+			<if test="input != null and input.itemId != null">and item_id=#{input.itemId}</if>
+			<if test="input != null and input.content != null">and content=#{input.content}</if>
+			<if test="input != null and input.source != null">and source=#{input.source}</if>
+			<if test="input != null and input.resourcesName != null">and resources_name=#{input.resourcesName}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+		</where>
+	</sql>
+	<sql id="sp_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_user_notes.id=#{input.id}</if>
+			<if test="input != null and input.idUpper != null">and xd_user_notes.id &lt; #{input.idUpper}</if>
+			<if test="input != null and input.courseId != null">and course_id=#{input.courseId}</if>
+			<if test="input != null and input.chapterId != null">and chapter_id=#{input.chapterId}</if>
+			<if test="input != null and input.itemId != null">and item_id=#{input.itemId}</if>
+			<if test="input != null and input.content != null">and content=#{input.content}</if>
+			<if test="input != null and input.source != null">and source=#{input.source}</if>
+			<if test="input != null and input.resourcesName != null">and resources_name=#{input.resourcesName}</if>
+			<if test="input != null and input.createTime != null">and xd_user_notes.create_time=#{input.createTime}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.createTimeLower != null">and xd_user_notes.create_time &lt;#{input.createTimeLower}</if>
+			<if test="input != null and input.applyTime != null"> and xd_course_product.begin_apply_time &lt;
+				NOW()
+				and
+				xd_course_product.end_apply_time &gt; NOW()
+			</if>
+			<if test="input != null and input.noApplyTime != null">and !(xd_course_product.begin_apply_time &lt;
+				NOW()
+				and
+				xd_course_product.end_apply_time &gt; NOW())
+			</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limitStart != null and limitCount != null">
+			limit ${limitStart}, ${limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

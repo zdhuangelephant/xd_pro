@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaodou.resources.dao.quesbk.QuesbkQuesMapper">
+	<resultMap id="BaseResultMap" type="com.xiaodou.resources.model.quesbk.QuesbkQues">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="question_type" property="questionType"
+			jdbcType="BIGINT" />
+		<result column="question_src" property="questionSrc" jdbcType="VARCHAR" />
+		<result column="chapter_id" property="chapterId" jdbcType="BIGINT" />
+		<result column="course_id" property="courseId" jdbcType="BIGINT" />
+		<result column="ques_img_url" property="quesImgUrl" jdbcType="VARCHAR" />
+		<result column="key_point" property="keyPoint" jdbcType="VARCHAR" />
+		<result column="cognition_level" property="cognitionLevel"
+			jdbcType="DECIMAL" />
+		<result column="diffcult_level" property="diffcultLevel"
+			jdbcType="DECIMAL" />
+		<result column="answer_ids" property="answerIds" jdbcType="VARCHAR" />
+		<result column="mdesc" property="mdesc" jdbcType="VARCHAR" />
+		<result column="manalyze" property="manalyze" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="misc" property="misc" jdbcType="VARCHAR" />
+		<result column="answer_list" property="answerList" jdbcType="VARCHAR" />
+		<result column="ques_time" property="quesTime" jdbcType="TIMESTAMP" />
+		<result column="zhenti" property="zhenti" jdbcType="TINYINT" />
+		<result column="store_id" property="storeId" jdbcType="VARCHAR" />
+		<result column="store_status" property="storeStatus" jdbcType="TINYINT" />
+		<result column="wrong_status" property="wrongStatus" jdbcType="TINYINT" />
+		<result column="parent_id" property="parentChapter" jdbcType="VARCHAR" />
+		<result column="my_right_times" property="myRightTimes"
+			jdbcType="INTEGER" />
+		<result column="my_wrong_answer" property="myAnswerIds"
+			jdbcType="VARCHAR" />
+		<result column="my_exam_times" property="statistic.myExamTimes"
+			jdbcType="BIGINT" />
+		<result column="my_wrong_times" property="statistic.myWrongTimes"
+			jdbcType="BIGINT" />
+		<result column="total_exam_times" property="statistic.totalExamTimes"
+			jdbcType="BIGINT" />
+		<result column="total_wrong_times" property="statistic.totalWrongTimes"
+			jdbcType="BIGINT" />
+		<result column="total_right_percent" property="statistic.totalRightPercent"
+			jdbcType="VARCHAR" />
+		
+	</resultMap>
+
+	<sql id="Abstract_Column_List">
+		q.id,
+		pq.question_type,
+		pq.product_id course_id,
+		pq.chapter_id,
+		q.answer_ids,
+		q.key_point,
+		pq.cognition_level,
+		pq.diffcult_level,
+		q.ques_img_url
+	</sql>
+
+	<sql id="Base_Column_List">
+		q.id, pq.question_type, pq.chapter_id, c.parent_id,
+		resource.name
+		question_src,
+		pq.product_id course_id, q.key_point,
+		pq.cognition_level,
+		pq.diffcult_level,
+		q.ques_img_url,
+		q.answer_ids,
+		q.mdesc,
+		q.manalyze,
+		q.status, q.misc,
+		q.answer_list,
+		q.ques_time,
+		q.zhenti,
+		s.exam_times total_exam_times,
+		s.wrong_times
+		total_wrong_times,
+		s.right_percent
+		total_right_percent,
+		m.right_times
+		my_right_times,
+		m.wrong_answer
+		my_wrong_answer,
+		m.total_times
+		my_exam_times,
+		m.wrong_times
+		my_wrong_times,
+		m.wrong_status,
+		r.store_status,
+		r.id store_id
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Abstract_Column_List" />
+		from xd_course_product_question pq
+		left join xd_quesbk_ques q on
+		pq.question_id = q.id
+		where pq.question_id = #{0}
+		and pq.product_id = #{1}
+		and q.status = 99
+	</select>
+
+	<select id="selectAbstractByRule" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.resources.service.quesbk.rule.model.Rule">
+		select
+		q.id, pq.question_type, m.right_times my_right_times,
+		m.total_times my_exam_times,
+		m.wrong_times my_wrong_times
+		from
+		xd_quesbk_ques q
+		left join
+		xd_user_wrong_record m on q.id =
+		m.question_id
+		and m.user_id =
+		#{userId,jdbcType=VARCHAR}
+		left join
+		xd_user_store_record r on
+		r.course_id = q.course_id and
+		r.chapter_id =
+		q.chapter_id and r.user_id
+		=
+		#{userId,jdbcType=VARCHAR}
+		<include refid="dynamic_where" />
+		order by my_right_times asc, my_wrong_times desc, my_exam_times asc
+	</select>
+
+	<select id="selectByRule" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.resources.service.quesbk.rule.model.Rule">
+		select
+		<include refid="Base_Column_List" />
+		from xd_course_product_question pq
+		left join xd_quesbk_ques q on
+		pq.question_id = q.id
+		left join xd_course_product_item c on
+		pq.chapter_id = c.id
+		left join xd_quesbk_ques_statistics s on
+		pq.question_id = s.question_id
+		left join xd_user_wrong_record m on
+		pq.question_id = m.question_id and m.user_id = #{userId}
+		left join
+		xd_user_store_record r on r.question_id = pq.id and r.user_id =
+		#{userId}
+		left join xd_quesbk_ques_resource resource on q.resource_id =
+		resource.id
+		<include refid="dynamic_where" />
+		order by my_right_times asc, my_wrong_times desc, my_exam_times asc
+	</select>
+
+	<sql id="dynamic_where">
+		<where>
+			q.status = '99'
+			<if test="productChapterId != null"> and
+				pq.chapter_id = #{productChapterId,jdbcType=BIGINT}
+			</if>
+			<if test="itemList != null">
+				and
+				pq.chapter_id in
+				<foreach collection="itemList" item="item" close=")" open="("
+					separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="questionType != null"> and
+				pq.question_type = #{questionType,jdbcType=VARCHAR}
+			</if>
+			<if test="easyLevel != null and easyLevel > 0"> and
+				pq.diffcult_level = #{easyLevel,jdbcType=DECIMAL}
+			</if>
+			<if test="cognitionLevel != null and cognitionLevel > 0"> and
+				pq.cognition_level =
+				#{cognitionLevel,jdbcType=DECIMAL}
+			</if>
+		</where>
+	</sql>
+
+	<select id="selectByPrimaryKeyList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_course_product_question pq
+		left join xd_quesbk_ques q on
+		pq.question_id = q.id
+		left join xd_course_product_item c on
+		pq.chapter_id = c.id
+		left join xd_quesbk_ques_statistics s on
+		pq.question_id = s.question_id
+		left join xd_user_wrong_record m on
+		pq.question_id = m.question_id and m.user_id = #{userId}
+		left join
+		xd_user_store_record r on r.question_id = pq.question_id and
+		r.user_id
+		= #{userId}
+		left join xd_quesbk_ques_resource resource on q.resource_id
+		= resource.id
+		where pq.question_id
+		in
+		<foreach collection="list" open="(" close=")" separator=","
+			item="item">
+			#{item}
+		</foreach>
+		<if test="courseId != null">
+			and pq.product_id = #{courseId}
+		</if>
+		and q.status = 99
+	</select>
+
+	<select id="selectAbstractByPrimaryKeyList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Abstract_Column_List" />
+		from xd_course_product_question pq
+		left join xd_quesbk_ques q on
+		pq.question_id = q.id
+		where pq.question_id in
+		<foreach collection="list" open="(" close=")" separator=","
+			item="item">
+			#{item}
+		</foreach>
+		and q.status = 99 
+		AND pq.product_id = #{courseId}
+	</select>
+</mapper>

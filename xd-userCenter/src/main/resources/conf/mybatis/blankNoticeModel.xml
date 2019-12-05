@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BlankNoticeModel" >
+  <!-- 1. 根据条件 查询 文档列表(不分页) -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.type != null">type,</if>
+			<if test="output != null and output.showUrl != null">show_url,</if>
+			<if test="output != null and output.jumpUrl != null">jump_url,</if>
+			<if test="output != null and output.module !=null">module</if>
+		</trim>
+		FROM
+		xd_user_blank_notice
+		<include refid="dynamic_where" />
+	</select>
+
+	<!-- 2. 根据条件 修改 文档 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_user_blank_notice
+		<set>
+			<if test="value != null and value.type != null">type = #{value.type},</if>
+			<if test="value != null and value.showUrl != null">show_url = #{value.showUrl},</if>
+			<if test="value != null and value.jumpUrl != null">jump_url = #{value.jumpUrl},</if>
+			<if test="value != null and value.module != null">module = #{value.module}</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 3.文档 插入 方法 -->
+	<insert id="addEntity" parameterType="com.xiaodou.userCenter.model.BlankNoticeModel">
+		insert into xd_user_blank_notice
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+ 	<!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="BlankNoticeModel" resultMap="BaseResultMap">
+        select * from xd_user_blank_notice where id = #{id};
+    </select>
+	<!-- ******************************** 上面是DAO层方法实现, 下面是各个动态语句的拼写 ******************************************* -->
+
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseResultMap" type="com.xiaodou.userCenter.model.BlankNoticeModel">
+		<id column="id" property="id" />
+		<result column="type" property="type" />
+		<result column="show_url" property="showUrl" />
+		<result column="jump_url" property="jumpUrl"/>
+		<result column="module" property="module"/>
+	</resultMap>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id =#{input.id}</if>
+			<if test="input != null and input.type != null">and type =#{input.type}</if>
+			<if test="input != null and input.showUrl != null">and show_url =#{input.showUrl}</if>
+			<if test="input != null and input.jumpUrl != null">and jump_url =#{input.jumpUrl}</if>
+			<if test="input != null and input.module != null">and module =#{input.module}</if>
+		</where>
+	</sql>
+
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="type != null">type,</if>
+			<if test="showUrl != null">show_url,</if>
+			<if test="jumpUrl != null">jump_url,</if>
+			<if test="module != null">module</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="type != null">#{type},</if>
+			<if test="showUrl != null">#{showUrl},</if>
+			<if test="jumpUrl != null">#{jumpUrl},</if>
+			<if test="module != null">#{module}</if>
+		</trim>
+	</sql>
+</mapper>

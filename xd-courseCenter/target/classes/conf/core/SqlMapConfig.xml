@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+        <typeAlias type="com.xiaodou.course.model.product.ProductCategoryModel" alias="ProductCategoryModel"/>
+        <typeAlias type="com.xiaodou.course.model.product.ProductItemModel" alias="ProductItemModel"/>
+        <typeAlias type="com.xiaodou.course.model.product.ProductModel" alias="ProductModel" />
+        <typeAlias type="com.xiaodou.course.model.product.ProductModuleModel" alias="ProductModuleModel" />
+        <typeAlias type="com.xiaodou.course.model.user.UserLearnProcessModel" alias="UserLearnProcessModel" />
+        <typeAlias type="com.xiaodou.course.model.user.UserLearnRecordModel" alias="UserLearnRecordModel" />
+        <typeAlias type="com.xiaodou.course.model.product.ModuleSlideModel" alias="ModuleSlideModel" />
+        <typeAlias type="com.xiaodou.course.model.user.UserLearnStaticsModel" alias="UserLearnStaticsModel" />
+        <typeAlias type="com.xiaodou.course.model.user.UserLearnTaskModel" alias="UserLearnTaskModel" />
+	</typeAliases>
+
+	<mappers>
+        <mapper resource="conf/mybatis/product/ProductModuleModel.xml" />
+        <mapper resource="conf/mybatis/product/ProductCategoryModel.xml" />
+        <mapper resource="conf/mybatis/product/ProductItemModel.xml" />
+        <mapper resource="conf/mybatis/product/ProductModel.xml" />
+        <mapper resource="conf/mybatis/product/UserLearnProcessModel.xml" />
+        <mapper resource="conf/mybatis/product/UserLearnRecordModel.xml" />
+        <mapper resource="conf/mybatis/product/ModuleSlideModel.xml" />
+        <mapper resource="conf/mybatis/product/UserLearnStaticsModel.xml" />
+        <mapper resource="conf/mybatis/product/UserLearnTaskModel.xml" />
+	</mappers>
+</configuration>

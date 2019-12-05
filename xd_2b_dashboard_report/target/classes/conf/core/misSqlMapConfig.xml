@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+  <typeAliases>
+    <typeAlias type="com.xiaodou.st.dashboard.domain.student.StudentMisDO"
+      alias="StudentMisDO" />
+  </typeAliases>
+
+  <mappers>
+    <!--短信 -->
+    <mapper resource="conf/mybatis/student/StudentMisDO.xml" />
+  </mappers>
+</configuration>

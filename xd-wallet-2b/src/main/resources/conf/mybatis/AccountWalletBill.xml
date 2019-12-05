@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AccountWalletBill">
+	<resultMap id="BaseResultMap" type="com.xiaodou.wallet.model.AccountWalletBill">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="wallet_id" property="walletId" jdbcType="BIGINT" />
+		<result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
+		<result column="operate_type" property="operateType" jdbcType="INTEGER" />
+		<result column="operate_desc" property="operateDesc" jdbcType="VARCHAR" />
+		<result column="operate_tag" property="operateTag" jdbcType="VARCHAR" />
+		<result column="operate_amount" property="operateAmount"
+			jdbcType="DOUBLE" />
+		<result column="operate_count" property="operateCount"
+			jdbcType="DOUBLE" />
+		<result column="operate_time" property="operateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, wallet_id, trade_no, operate_type, operate_desc,
+		operate_tag, operate_amount, operate_count, operate_time
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.wallet.model.AccountWalletBill">
+		select
+		<include refid="base_column" />
+		from xd_account_wallet_bill
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityById4Update" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.wallet.model.AccountWalletBill">
+		select
+		<include refid="base_column" />
+		from xd_account_wallet_bill
+		where id = #{id,jdbcType=BIGINT}
+		for update
+	</select>
+	<select id="findEntityByTradeNo4Update" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.wallet.model.AccountWalletBill">
+		select
+		<include refid="base_column" />
+		from xd_account_wallet_bill
+		where trade_no =
+		#{tradeNo,jdbcType=VARCHAR}
+		for update
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_account_wallet_bill
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.wallet.model.AccountWalletBill"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_account_wallet_bill
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="walletId != null">wallet_id,</if>
+			<if test="tradeNo != null">trade_no,</if>
+			<if test="operateType != null">operate_type,</if>
+			<if test="operateDesc != null">operate_desc,</if>
+			<if test="operateTag != null">operate_tag,</if>
+			<if test="operateAmount != null">operate_amount,</if>
+			<if test="operateCount != null">operate_count,</if>
+			<if test="operateTime != null">operate_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="walletId != null">#{walletId,jdbcType=BIGINT},</if>
+			<if test="tradeNo != null">#{tradeNo,jdbcType=VARCHAR},</if>
+			<if test="operateType != null">#{operateType,jdbcType=INTEGER},</if>
+			<if test="operateDesc != null">#{operateDesc,jdbcType=VARCHAR},</if>
+			<if test="operateTag != null">#{operateTag,jdbcType=VARCHAR},</if>
+			<if test="operateAmount != null">#{operateAmount,jdbcType=DOUBLE},</if>
+			<if test="operateCount != null">#{operateCount,jdbcType=DOUBLE},</if>
+			<if test="operateTime != null">#{operateTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.wallet.model.AccountWalletBill">
+		update xd_account_wallet_bill
+		<set>
+			<if test="value != null and value.operateType != null">operate_type = #{value.operateType,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.operateDesc != null">operate_desc = #{value.operateDesc,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.wallet.model.AccountWalletBill">
+		update xd_account_wallet_bill
+		<set>
+			<if test="value != null and value.operateType != null">operate_type = #{value.operateType,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.operateDesc != null">operate_desc = #{value.operateDesc,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.wallet.model.AccountWalletBill">
+		delete from
+		xd_account_wallet_bill
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_account_wallet_bill
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.walletId != null">wallet_id,</if>
+			<if test="output != null and output.tradeNo != null">trade_no,</if>
+			<if test="output != null and output.operateType != null">operate_type,</if>
+			<if test="output != null and output.operateDesc != null">operate_desc,</if>
+			<if test="output != null and output.operateTag != null">operate_tag,</if>
+			<if test="output != null and output.operateAmount != null">operate_amount,</if>
+			<if test="output != null and output.operateCount != null">operate_count,</if>
+			<if test="output != null and output.operateTime != null">operate_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.walletId != null">and wallet_id=#{input.walletId}</if>
+			<if test="input != null and input.tradeNo != null">and trade_no=#{input.tradeNo}</if>
+			<if test="input != null and input.operateType != null">and operate_type=#{input.operateType}</if>
+			<if test="input != null and input.operateTypeList != null">
+				and operate_type in
+				<foreach collection="input.operateTypeList" open="(" close=")"
+					separator="," item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.operateDesc != null">and operate_desc=#{input.operateDesc}</if>
+			<if test="input != null and input.operateTag != null">and operate_tag=#{input.operateTag}</if>
+			<if test="input != null and input.operateAmount != null">and operate_amount=#{input.operateAmount}</if>
+			<if test="input != null and input.operateCount != null">and operate_count=#{input.operateCount}</if>
+			<if test="input != null and input.operateTimeLower != null">and operate_time &gt; #{input.operateTimeLower}</if>
+			<if test="input != null and input.operateTimeUpper != null">and operate_time &lt; #{input.operateTimeLower}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.walletId != null and ( sort.walletId == 'ASC' or sort.walletId == 'DESC' )">wallet_id ${sort.walletId},</if>
+			<if
+				test="sort != null and sort.tradeNo != null and ( sort.tradeNo == 'ASC' or sort.tradeNo == 'DESC' )">trade_no ${sort.tradeNo},</if>
+			<if
+				test="sort != null and sort.operateType != null and ( sort.operateType == 'ASC' or sort.operateType == 'DESC' )">operate_type ${sort.operateType},</if>
+			<if
+				test="sort != null and sort.operateDesc != null and ( sort.operateDesc == 'ASC' or sort.operateDesc == 'DESC' )">operate_desc ${sort.operateDesc},</if>
+			<if
+				test="sort != null and sort.operateTag != null and ( sort.operateTag == 'ASC' or sort.operateTag == 'DESC' )">operate_tag ${sort.operateTag},</if>
+			<if
+				test="sort != null and sort.operateAmount != null and ( sort.operateAmount == 'ASC' or sort.operateAmount == 'DESC' )">operate_amount ${sort.operateAmount},</if>
+			<if
+				test="sort != null and sort.operateCount != null and ( sort.operateCount == 'ASC' or sort.operateCount == 'DESC' )">operate_count ${sort.operateCount},</if>
+			<if
+				test="sort != null and sort.operateTime != null and ( sort.operateTime == 'ASC' or sort.operateTime == 'DESC' )">operate_time ${sort.operateTime},</if>
+		</trim>
+	</sql>
+</mapper>

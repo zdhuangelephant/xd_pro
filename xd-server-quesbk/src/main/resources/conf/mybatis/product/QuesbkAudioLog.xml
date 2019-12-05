@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="QuesbkAudioLog">
+	<resultMap id="BaseResultMap" type="com.xiaodou.domain.product.QuesbkAudioLog">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="category_id" property="categoryId" jdbcType="INTEGER" />
+		<result column="product_id" property="productId" jdbcType="VARCHAR" />
+		<result column="product_name" property="productName" jdbcType="VARCHAR" />
+		<result column="product_image_url" property="productImageUrl"
+			jdbcType="VARCHAR" />
+		<result column="ques_id" property="quesId" jdbcType="VARCHAR" />
+		<result column="ques_detail" property="quesDetail" jdbcType="VARCHAR" />
+		<result column="ques_answer" property="quesAnswer" jdbcType="VARCHAR" />
+		<result column="ques_type" property="quesType" jdbcType="VARCHAR" />
+		<result column="ques_audio_url" property="quesAudioUrl"
+			jdbcType="VARCHAR" />
+		<result column="exam_point" property="examPoint" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="submit_time" property="submitTime" jdbcType="TIMESTAMP" />
+		<result column="trace_id" property="traceId" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, category_id, product_id, product_name,
+		product_image_url, ques_id, ques_detail, ques_answer, ques_type,
+		ques_audio_url, exam_point, user_id, submit_time, trace_id
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.domain.product.QuesbkAudioLog">
+		select
+		<include refid="base_column" />
+		from xd_quesbk_audio_log where id = #{id,jdbcType=VARCHAR} and
+		user_id=#{userId}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_quesbk_audio_log
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.domain.product.QuesbkAudioLog"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_quesbk_audio_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="categoryId != null">category_id,</if>
+			<if test="productId != null">product_id,</if>
+			<if test="productName != null">product_name,</if>
+			<if test="productImageUrl != null">product_image_url,</if>
+			<if test="quesId != null">ques_id,</if>
+			<if test="quesDetail != null">ques_detail,</if>
+			<if test="quesAnswer != null">ques_answer,</if>
+			<if test="quesType != null">ques_type,</if>
+			<if test="quesAudioUrl != null">ques_audio_url,</if>
+			<if test="examPoint != null">exam_point,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="submitTime != null">submit_time,</if>
+			<if test="traceId != null">trace_id,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="categoryId != null">#{categoryId,jdbcType=INTEGER},</if>
+			<if test="productId != null">#{productId,jdbcType=VARCHAR},</if>
+			<if test="productName != null">#{productName,jdbcType=VARCHAR},</if>
+			<if test="productImageUrl != null">#{productImageUrl,jdbcType=VARCHAR},</if>
+			<if test="quesId != null">#{quesId,jdbcType=VARCHAR},</if>
+			<if test="quesDetail != null">#{quesDetail,jdbcType=VARCHAR},</if>
+			<if test="quesAnswer != null">#{quesAnswer,jdbcType=VARCHAR},</if>
+			<if test="quesType != null">#{quesType,jdbcType=VARCHAR},</if>
+			<if test="quesAudioUrl != null">#{quesAudioUrl,jdbcType=VARCHAR},</if>
+			<if test="examPoint != null">#{examPoint,jdbcType=VARCHAR},</if>
+			<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+			<if test="submitTime != null">#{submitTime,jdbcType=TIMESTAMP},</if>
+			<if test="traceId != null">#{traceId,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.domain.product.QuesbkAudioLog">
+		update xd_quesbk_audio_log
+		<set>
+			<if test="value != null and value.categoryId != null">category_id = #{value.categoryId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.productName != null">product_name = #{value.productName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.productImageUrl != null">product_image_url =
+				#{value.productImageUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.quesId != null">ques_id = #{value.quesId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.quesDetail != null">ques_detail = #{value.quesDetail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.quesAnswer != null">ques_answer = #{value.quesAnswer,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.quesType != null">ques_type = #{value.quesType,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.quesAudioUrl != null">ques_audio_url = #{value.quesAudioUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.examPoint != null">exam_point = #{value.examPoint,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.submitTime != null">submit_time = #{value.submitTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.traceId != null">trace_id = #{value.traceId,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.domain.product.QuesbkAudioLog">
+		update xd_quesbk_audio_log
+		<set>
+			<if test="value != null and value.categoryId != null">category_id = #{value.categoryId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.productName != null">product_name = #{value.productName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.productImageUrl != null">product_image_url =
+				#{value.productImageUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.quesId != null">ques_id = #{value.quesId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.quesDetail != null">ques_detail = #{value.quesDetail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.quesAnswer != null">ques_answer = #{value.quesAnswer,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.quesType != null">ques_type = #{value.quesType,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.quesAudioUrl != null">ques_audio_url = #{value.quesAudioUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.examPoint != null">exam_point = #{value.examPoint,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.submitTime != null">submit_time = #{value.submitTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.traceId != null">trace_id = #{value.traceId,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.domain.product.QuesbkAudioLog"> delete from
+		xd_quesbk_audio_log where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_quesbk_audio_log
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.categoryId != null">category_id,</if>
+			<if test="output != null and output.productId != null">product_id,</if>
+			<if test="output != null and output.productName != null">product_name,</if>
+			<if test="output != null and output.productImageUrl != null">product_image_url,</if>
+			<if test="output != null and output.quesId != null">ques_id,</if>
+			<if test="output != null and output.quesDetail != null">ques_detail,</if>
+			<if test="output != null and output.quesAnswer != null">ques_answer,</if>
+			<if test="output != null and output.quesType != null">ques_type,</if>
+			<if test="output != null and output.quesAudioUrl != null">ques_audio_url,</if>
+			<if test="output != null and output.examPoint != null">exam_point,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.submitTime != null">submit_time,</if>
+			<if test="output != null and output.traceId != null">trace_id,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.idLower != null">and id &gt; #{input.idLower}</if>
+			<if test="input != null and input.idUpper != null">and id &lt; #{input.idUpper}</if>
+			<if test="input != null and input.categoryId != null">and category_id=#{input.categoryId}</if>
+			<if test="input != null and input.productId != null">and product_id=#{input.productId}</if>
+			<if test="input != null and input.productName != null">and product_name=#{input.productName}</if>
+			<if test="input != null and input.productImageUrl != null">and product_image_url=#{input.productImageUrl}</if>
+			<if test="input != null and input.quesId != null">and ques_id=#{input.quesId}</if>
+			<if test="input != null and input.quesDetail != null">and ques_detail=#{input.quesDetail}</if>
+			<if test="input != null and input.quesAnswer != null">and ques_answer=#{input.quesAnswer}</if>
+			<if test="input != null and input.quesType != null">and ques_type=#{input.quesType}</if>
+			<if test="input != null and input.quesAudioUrl != null">and ques_audio_url=#{input.quesAudioUrl}</if>
+			<if test="input != null and input.examPoint != null">and exam_point=#{input.examPoint}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.submitTime != null">and submit_time=#{input.submitTime}</if>
+			<if test="input != null and input.traceId != null">and trace_id=#{input.traceId}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.submitTime != null and ( sort.submitTime == 'ASC' or sort.submitTime == 'DESC' )">submit_time ${sort.submitTime},</if>
+		</trim>
+	</sql>
+</mapper>

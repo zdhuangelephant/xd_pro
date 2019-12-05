@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaodou.resources.dao.quesbk.UserStoreRecordCollectMapper">
+	<resultMap id="BaseResultMap" type="com.xiaodou.resources.model.quesbk.UserStoreRecordCollect">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="course_id" property="courseId" jdbcType="BIGINT" />
+		<result column="chapter_id" property="chapterId" jdbcType="BIGINT" />
+		<result column="question_number" property="questionNumber" jdbcType="BIGINT" />
+		<result column="good_ques_count" property="goodQuesCount" jdbcType="BIGINT" />
+		<result column="unknown_ques_count" property="unknownQuesCount" jdbcType="BIGINT" />
+		<result column="need_memery_ques_count" property="needMemeryQuesCount" jdbcType="BIGINT" />
+
+		<result column="name" property="chapterName" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentChapter" jdbcType="VARCHAR" />
+		<result column="parent_name" property="parentChapterName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, course_id, chapter_id, question_number,good_ques_count,unknown_ques_count,need_memery_ques_count
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_store_record_collect
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByUidAndSubjectId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select 
+		s.id, s.user_id, s.course_id, s.chapter_id,
+		s.question_number,s.good_ques_count,s.unknown_ques_count,s.need_memery_ques_count,
+		c.parent_id,c.name, ci.name parent_name 
+		from 
+		xd_user_store_record_collect s 
+		left join xd_course_product_item c 
+		on s.chapter_id = c.id and c.resource_type = 1 
+		LEFT JOIN xd_course_product_item ci 
+		ON c.parent_id = ci.id 
+		where s.user_id = #{0} 
+		and s.course_id = #{1} 
+		and s.course_id = c.product_id <!-- 保证记录的数据课程id和章节id是一致的 -->
+	</select>
+	<select id="selectByUSI" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from
+		xd_user_store_record_collect
+		where user_id = #{0}
+		and course_id =
+		#{1}
+		and
+		chapter_id = #{2}
+	</select>
+	<insert id="insert" parameterType="com.xiaodou.resources.model.quesbk.UserStoreRecordCollect">
+		insert into
+		xd_user_store_record_collect (id, user_id, course_id,
+		chapter_id,
+		question_number,good_ques_count,unknown_ques_count,need_memery_ques_count)
+		values
+		(#{id,jdbcType=VARCHAR},
+		#{userId,jdbcType=VARCHAR},
+		#{courseId,jdbcType=BIGINT},
+		#{chapterId,jdbcType=BIGINT},
+		#{questionNumber,jdbcType=BIGINT},
+		#{goodQuesCount,jdbcType=BIGINT},
+		#{unknownQuesCount,jdbcType=BIGINT},
+		#{needMemeryQuesCount,jdbcType=BIGINT}
+		)
+	</insert>
+	<update id="updateByUSISelective" parameterType="com.xiaodou.resources.model.quesbk.UserStoreRecordCollect">
+		update xd_user_store_record_collect
+		<set>
+			<if test="questionNumber != null">
+				question_number = #{questionNumber,jdbcType=BIGINT},
+			</if>
+			<if test="goodQuesCount != null">
+				good_ques_count = #{goodQuesCount,jdbcType=BIGINT},
+			</if>
+			<if test="unknownQuesCount != null">
+				unknown_ques_count = #{unknownQuesCount,jdbcType=BIGINT},
+			</if>
+			<if test="needMemeryQuesCount != null">
+				need_memery_ques_count = #{needMemeryQuesCount,jdbcType=BIGINT},
+			</if>
+		</set>
+		where user_id = #{userId,jdbcType=VARCHAR}
+		and course_id = #{courseId,jdbcType=VARCHAR}
+		and chapter_id = #{chapterId,jdbcType=VARCHAR}
+	</update>
+</mapper>

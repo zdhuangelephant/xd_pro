@@ -1,0 +1,101 @@
+<ProductLine code="02" name="stProduct">
+	<StateMachineInstance>com.xiaodou.oms.statemachine.instance.selftaught.product.StProductStateMachine</StateMachineInstance>
+	<StateInstance>com.xiaodou.oms.statemachine.instance.selftaught.product.StProductState</StateInstance>
+	<EventInstance>com.xiaodou.oms.statemachine.instance.selftaught.product.StProductEvent</EventInstance>
+	<TransitionList>
+		<Transition name="fromInitToPaySuccessOnPaySuccess" id="1">
+			<Do>
+				<Api type="local" name="gorderPayCallback">
+					<InputParam name="payStatus" type="java.lang.Integer"
+						value="1" />
+					<InputParam name="coreParams.gorderId" type="java.lang.String" />
+					<InputParam name="coreParams.ip" type="java.lang.String" />
+				</Api>
+				<Api type="local" name="updatePayRecord">
+					<InputParam name="coreParams.payParam.payNo" type="java.lang.String" />
+					<InputParam name="payRecordStatus" type="java.lang.Integer"
+						value="2" />
+					<InputParam name="coreParams.payParam.failureReason"
+						type="java.lang.String" />
+				</Api>
+			</Do>
+			<Message>
+				<Api type="local" name="message">
+					<InputParam name="context" type="com.xiaodou.oms.statemachine.Context" />
+					<InputParam name="tempType" type="java.lang.String"
+						value="1" />
+					<InputParam name="messageName" type="java.lang.String"
+						value="from0To1OnPaySuccess" />
+				</Api>
+			</Message>
+		</Transition>
+
+		<Transition name="fromInitToClosedOnPayFailure" id="2">
+			<Do>
+				<Api type="local" name="gorderPayCallback">
+					<InputParam name="payStatus" type="java.lang.Integer"
+						value="-1" />
+					<InputParam name="coreParams.gorderId" type="java.lang.String" />
+					<InputParam name="coreParams.ip" type="java.lang.String" />
+				</Api>
+				<Api type="local" name="updatePayRecord">
+					<InputParam name="coreParams.payParam.payNo" type="java.lang.String" />
+					<InputParam name="payRecordStatus" type="java.lang.Integer"
+						value="-1" />
+					<InputParam name="coreParams.payParam.failureReason"
+						type="java.lang.String" />
+				</Api>
+			</Do>
+			<Message>
+				<Api type="local" name="message">
+					<InputParam name="context" type="com.xiaodou.oms.statemachine.Context" />
+					<InputParam name="tempType" type="java.lang.String"
+						value="1" />
+					<InputParam name="messageName" type="java.lang.String"
+						value="from0Tom1OnPayFailure" />
+				</Api>
+			</Message>
+		</Transition>
+
+		<Transition name="fromInitToClosedOnPayTimeout" id="3">
+			<Do>
+				<Api type="local" name="closeGorder">
+					<InputParam name="coreParams.gorderId" type="java.lang.String" />
+					<InputParam name="coreParams.ip" type="java.lang.String" />
+					<InputParam name="coreParams.closedReason" type="java.lang.String"
+						value="10#支付超时" />
+					<InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean" />
+					<InputParam name="shares.dbOrder" type="com.xiaodou.oms.entity.order.Order" />
+					<InputParam name="coreParams.payParam"
+						type="com.xiaodou.oms.statemachine.param.PayParam" />
+				</Api>
+			</Do>
+		</Transition>
+
+		<Transition name="fromPaySuccessToDeliveredOnDeliveredSuccess"
+			id="4">
+			<Do>
+				<Api type="local" name="updateOrderStatusAndMerchantOrderId">
+					<InputParam name="coreParams.orderId" type="java.lang.String" />
+					<InputParam name="coreParams.ip" type="java.lang.String" />
+					<InputParam name="coreParams.merchantOrderId" type="java.lang.String" />
+					<InputParam name="shares.toState" type="java.lang.Integer" />
+				</Api>
+				<Api type="local" name="updateOrderSuccessTime">
+					<InputParam name="coreParams.orderId" type="java.lang.String" />
+					<InputParam name="coreParams.ip" type="java.lang.String" />
+					<InputParam name="coreParams.orderUpdateInfo" type="com.xiaodou.oms.entity.order.Order" />
+				</Api>
+				<Api type="local" name="updateOrderMisc">
+					<InputParam name="coreParams.orderId" type="java.lang.String" />
+					<InputParam name="coreParams.ip" type="java.lang.String" />
+					<InputParam name="coreParams.orderUpdateInfo" type="com.xiaodou.oms.entity.order.Order" />
+				</Api>
+				<Api type="local" name="updateOrderItemStatusAndMerchantInfo">
+					<InputParam name="coreParams.orderId" type="java.lang.String" />
+					<InputParam name="coreParams.orderItemUpdateInfo" type="java.util.List" />
+				</Api>
+			</Do>
+		</Transition>
+	</TransitionList>
+</ProductLine>

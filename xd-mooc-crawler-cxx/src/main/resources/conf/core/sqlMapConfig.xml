@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.xiaodou.mooccrawler.domain.course.CourseCategoryModel"
+			alias="CourseCategoryModel" />
+		<typeAlias type="com.xiaodou.mooccrawler.domain.course.CourseChapterModel"
+			alias="CourseChapterModel" />
+		<typeAlias type="com.xiaodou.mooccrawler.domain.course.CourseKeywordModel"
+			alias="CourseKeywordModel" />
+		<typeAlias type="com.xiaodou.mooccrawler.domain.course.CourseKeywordResourceModel"
+			alias="CourseKeywordResourceModel" />
+		<typeAlias type="com.xiaodou.mooccrawler.domain.course.CourseResourceDocModel"
+			alias="CourseResourceDocModel" />
+		<typeAlias type="com.xiaodou.mooccrawler.domain.course.CourseResourceVideoModel"
+			alias="CourseResourceVideoModel" />
+		<typeAlias type="com.xiaodou.mooccrawler.domain.course.CourseResourceAudioModel"
+			alias="CourseResourceAudioModel" />
+		<typeAlias type="com.xiaodou.mooccrawler.domain.course.CourseResourceHtml5Model"
+			alias="CourseResourceHtml5Model" />
+		<typeAlias type="com.xiaodou.mooccrawler.domain.course.CourseSubjectModel"
+			alias="CourseSubjectModel" />
+	</typeAliases>
+	<mappers>
+		<!--课程 -->
+		<mapper resource="conf/mybatis/CourseCategoryModel.xml" />
+		<mapper resource="conf/mybatis/CourseChapterModel.xml" />
+		<mapper resource="conf/mybatis/CourseKeywordModel.xml" />
+		<mapper resource="conf/mybatis/CourseKeywordResourceModel.xml" />
+		<mapper resource="conf/mybatis/CourseResourceVideoModel.xml" />
+		<mapper resource="conf/mybatis/CourseResourceAudioModel.xml" />
+		<mapper resource="conf/mybatis/CourseResourceDocModel.xml" />
+		<mapper resource="conf/mybatis/CourseResourceHtml5Model.xml" />
+		<mapper resource="conf/mybatis/CourseSubjectModel.xml" />
+	</mappers>
+</configuration>

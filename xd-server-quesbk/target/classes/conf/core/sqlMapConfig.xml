@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<!-- 课程产品 -->
+		<typeAlias type="com.xiaodou.domain.product.CourseProduct"
+			alias="CourseProduct" />
+		<!-- <typeAlias type="com.xiaodou.domain.product.CourseProductDO" alias="CourseProductDO"/> -->
+		<!-- 课程产品条目 -->
+		<typeAlias type="com.xiaodou.domain.product.CourseProductItem"
+			alias="CourseProductItem" />
+		<!-- 题库练习试卷 -->
+		<typeAlias type="com.xiaodou.domain.product.QuesbkExamPaper"
+			alias="QuesbkExamPaper" />
+		<!-- 题库练习规则 -->
+		<typeAlias type="com.xiaodou.domain.product.QuesbkExamRule"
+			alias="QuesbkExamRule" />
+		<!-- 题库练习类型 -->
+		<!-- <typeAlias type="com.xiaodou.domain.product.QuesbkExamType" alias="QuesbkExamType" 
+			/> -->
+		<!-- 题库题目 -->
+		<typeAlias type="com.xiaodou.domain.product.QuesbkQues"
+			alias="QuesbkQues" />
+		<!-- 题库题目分析统计 -->
+		<typeAlias type="com.xiaodou.domain.product.QuesbkQuesStatistics"
+			alias="QuesbkQuesStatistics" />
+		<!-- 题库题目类型 -->
+		<typeAlias type="com.xiaodou.domain.product.QuesbkQuesType"
+			alias="QuesbkQuesType" />
+		<!-- 题库用户个人练习记录 -->
+		<typeAlias type="com.xiaodou.domain.behavior.UserExamRecord"
+			alias="UserExamRecord" />
+		<!-- 题库用户个人练习情况统计 -->
+		<typeAlias type="com.xiaodou.domain.behavior.UserExamTotal"
+			alias="UserExamTotal" />
+		<!-- 题库用户错题记录 -->
+		<typeAlias type="com.xiaodou.domain.behavior.UserWrongRecord"
+			alias="UserWrongRecord" />
+		<!-- 题库用户错题統計记录 -->
+		<typeAlias type="com.xiaodou.domain.behavior.UserWrongRecordCollect"
+			alias="UserWrongRecordCollect" />
+		<!-- 用户举报错题 -->
+		<typeAlias type="com.xiaodou.domain.product.RaiseWrongQues"
+			alias="RaiseWrongQues" />
+		<!-- 用户订单 -->
+		<typeAlias type="com.xiaodou.domain.behavior.UserOrderModel"
+			alias="UserOrderModel" />
+		<!-- 挑战记录 -->
+		<typeAlias type="com.xiaodou.domain.product.ChallengeRecord"
+			alias="ChallengeRecord" />
+		<typeAlias type="com.xiaodou.domain.behavior.UserChapterRecord"
+			alias="UserChapterRecord" />
+		<typeAlias type="com.xiaodou.domain.product.ChallengeRobot"
+			alias="ChallengeRobot" />
+		<typeAlias type="com.xiaodou.domain.behavior.UserCourseStatisticDayModel"
+			alias="UserCourseStatisticDayModel"></typeAlias>
+		<typeAlias type="com.xiaodou.domain.product.RedBonus" alias="RedBonus" />
+		<typeAlias type="com.xiaodou.domain.product.FinalExamModel"
+			alias="FinalExamModel" />
+		<typeAlias type="com.xiaodou.domain.behavior.UserFinalExamRecord"
+			alias="UserFinalExamRecord" />
+		<typeAlias type="com.xiaodou.domain.product.QuesbkAudioLog"
+			alias="QuesbkAudioLog" />
+		<typeAlias type="com.xiaodou.domain.behavior.UserScorePointRecord"
+			alias="UserScorePointRecord" />
+		<typeAlias type="com.xiaodou.domain.product.ProductScorePointRule"
+			alias="ProductScorePointRule" />
+		<typeAlias type="com.xiaodou.domain.product.RegionModel"
+			alias="RegionModel" />
+	</typeAliases>
+
+	<!-- <plugins> 这里interceptor可以是一个别名，通过上面的typeAlias配合完成真正的类寻址 <plugin interceptor="com.xiaodou.summer.source.jdbc.plugin.ExecutorInterceptor"> 
+		</plugin> <plugin interceptor="com.xiaodou.summer.source.jdbc.plugin.StatementHandlerInterceptor"> 
+		</plugin> </plugins> -->
+
+	<mappers>
+		<!-- 课程产品 -->
+		<!-- <mapper resource="conf/mybatis/CourseProductMapper.xml" /> -->
+		<mapper resource="conf/mybatis/product/CourseProduct.xml" />
+		<!-- 课程产品条目 -->
+		<mapper resource="conf/mybatis/product/CourseProductItem.xml" />
+		<!-- 题库练习试卷 -->
+		<mapper resource="conf/mybatis/product/QuesbkExamPaper.xml" />
+		<!-- 题库练习规则 -->
+		<mapper resource="conf/mybatis/product/QuesbkExamRule.xml" />
+		<!-- 题库练习类型 -->
+		<!-- <mapper resource="conf/mybatis/product/QuesbkExamType.xml" /> -->
+		<!-- 题库题目 -->
+		<mapper resource="conf/mybatis/product/QuesbkQues.xml" />
+		<!-- 题库题目分析统计 -->
+		<mapper resource="conf/mybatis/product/QuesbkQuesStatistics.xml" />
+		<!-- 题库题目类型 -->
+		<mapper resource="conf/mybatis/product/QuesbkQuesType.xml" />
+		<!-- 题库用户个人练习记录 -->
+		<mapper resource="conf/mybatis/behavior/UserExamRecordMapper.xml" />
+		<!-- 题库用户个人练习情况统计 -->
+		<mapper resource="conf/mybatis/behavior/UserExamTotalMapper.xml" />
+		<!-- 题库用户错题統計记录 -->
+		<mapper resource="conf/mybatis/behavior/UserWrongRecordCollectMapper.xml" />
+		<!-- 题库用户错题记录 -->
+		<mapper resource="conf/mybatis/behavior/UserWrongRecordMapper.xml" />
+		<!-- 用户举报错题 -->
+		<mapper resource="conf/mybatis/product/RaiseWrongQues.xml" />
+		<!-- 用户订单 -->
+		<mapper resource="conf/mybatis/behavior/UserOrderModel.xml" />
+		<!-- 挑战记录 -->
+		<mapper resource="conf/mybatis/behavior/UserChapterRecordMapper.xml" />
+		<mapper resource="conf/mybatis/behavior/UserCourseStatisticDayModel.xml" />
+		<mapper resource="conf/mybatis/product/RedBonus.xml" />
+		<mapper resource="conf/mybatis/product/ChallengeRecord.xml" />
+		<mapper resource="conf/mybatis/product/ChallengeRobot.xml" />
+		<mapper resource="conf/mybatis/product/FinalExamModel.xml" />
+		<mapper resource="conf/mybatis/behavior/UserFinalExamRecordMapper.xml" />
+		<mapper resource="conf/mybatis/product/QuesbkAudioLog.xml" />
+		<mapper resource="conf/mybatis/behavior/UserScorePointRecord.xml" />
+		<mapper resource="conf/mybatis/product/ProductScorePointRule.xml" />
+		<mapper resource="conf/mybatis/product/RegionModel.xml" />
+	</mappers>
+</configuration>

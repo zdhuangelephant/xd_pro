@@ -1,0 +1,175 @@
+<ApiLib>
+  <Import location="/conf/custom/env/apiLib.properties"/>
+  <ProductLine code="05" name="train">
+    <Apis>
+      <RemoteAPI name="trainValidateTicketStatus" protocol="json"
+                 parameterTemplate="default_complete" url="${trainValidateTicketStatusUrl}"/>
+    </Apis>
+  </ProductLine>
+  <ProductLine code="06" name="insurance">
+    <Apis>
+      <RemoteAPI name="trainValidateInsuranceStatus" protocol="json"
+                 parameterTemplate="default_complete" url="${trainValidateInsuranceStatusUrl}"/>
+    </Apis>
+  </ProductLine>
+  <ProductLine code="09" name="train12306">
+    <Apis>
+    </Apis>
+  </ProductLine>
+  <ProductLine code="10" name="bus">
+    <Apis>
+    </Apis>
+  </ProductLine>
+  <ProductLine code="12" name="trainSelfPay">
+    <Apis>
+      <RemoteAPI name="trainValidateTicketStatus" protocol="json"
+                 parameterTemplate="default_complete" url="${trainValidateTicketStatusUrl}"/>
+      <!-- <RemoteAPI name="trainAutopayValidateRefundAmount" protocol="json"
+                 parameterTemplate="default_simple" url="${trainAutopayValidateRefundAmountUrl}" /> -->
+    </Apis>
+  </ProductLine>
+  <OmsOrder>
+    <Apis>
+      <LocalAPI name="gorderPayCallback" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="gorderPayCallback" returnValueName="gorderUpdated">
+      </LocalAPI>
+
+      <LocalAPI name="closeGorder" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="closeGorder">
+      </LocalAPI>
+
+      <LocalAPI name="closeGorderWithOutRefund" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="closeGorderWithOutRefund">
+      </LocalAPI>
+
+      <LocalAPI name="updatePayRecord" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="updatePayRecord">
+      </LocalAPI>
+
+      <LocalAPI name="updatePayRecordAmount" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="updatePayRecordAmount">
+      </LocalAPI>
+
+      <LocalAPI name="createPayRequest" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="createPayRequest">
+      </LocalAPI>
+
+      <LocalAPI name="updateOrderStatus" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="updateOrderStatus">
+      </LocalAPI>
+
+      <LocalAPI name="updateGorderPrice" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="updateGorderPrice">
+      </LocalAPI>
+
+      <LocalAPI name="updateOrderPrice" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="updateOrderPrice">
+      </LocalAPI>
+
+      <LocalAPI name="updateOrderItemUnitPrice" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="updateOrderItemUnitPrice">
+      </LocalAPI>
+
+      <LocalAPI name="updateOrderStatusAndMerchantOrderId"
+                className="com.xiaodou.oms.statemachine.ServiceAdapter" beanId="serviceAdapter"
+                method="updateOrderStatusAndMerchantOrderId">
+      </LocalAPI>
+
+      <LocalAPI name="updateOrderItemStatusAndMisc" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="updateOrderItemStatusAndMisc">
+      </LocalAPI>
+
+      <LocalAPI name="updateOrderItemStatusAndMerchantInfo"
+                className="com.xiaodou.oms.statemachine.ServiceAdapter" beanId="serviceAdapter"
+                method="updateOrderItemStatusAndMerchantInfo">
+      </LocalAPI>
+
+      <LocalAPI name="updateOrderItemMisc"
+                className="com.xiaodou.oms.statemachine.ServiceAdapter" beanId="serviceAdapter"
+                method="updateOrderItemMisc">
+      </LocalAPI>
+
+      <LocalAPI name="updateOrderClosedReason"
+                className="com.xiaodou.oms.statemachine.ServiceAdapter" beanId="serviceAdapter"
+                method="updateOrderClosedReason">
+      </LocalAPI>
+
+      <LocalAPI name="updateOrderItemMerchantPrctId"
+                className="com.xiaodou.oms.statemachine.ServiceAdapter" beanId="serviceAdapter"
+                method="updateOrderItemMerchantPrctId">
+      </LocalAPI>
+
+      <LocalAPI name="updateOrderItemStatus" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="updateOrderItemStatus">
+      </LocalAPI>
+
+      <LocalAPI name="updateOrderMisc" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="updateOrderMisc">
+      </LocalAPI>
+
+      <LocalAPI name="updateOrderStatusAndMerchantInfo" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="updateOrderStatusAndMerchantInfo">
+      </LocalAPI>
+
+      <LocalAPI name="addOrderNote" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="addOrderNote">
+      </LocalAPI>
+
+      <LocalAPI name="createPayRequestFromOrder" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="createPayRequestFromOrder">
+      </LocalAPI>
+
+      <LocalAPI name="updateOrderSuccessTime" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="updateOrderSuccessTime">
+      </LocalAPI>
+
+      <LocalAPI name="updateOrderItemRefundAmount" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="updateOrderItemRefundAmount">
+      </LocalAPI>
+      
+      <LocalAPI name="updateOrderRefundAmount" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="updateOrderRefundAmount">
+      </LocalAPI>
+      
+      <LocalAPI name="startOperation" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="startOperation">
+      </LocalAPI>
+      
+      <LocalAPI name="finishOperation" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="finishOperation">
+      </LocalAPI>
+      
+      <LocalAPI name="updateGorderOrderStatusAndMerchantOrderId" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="updateGorderOrderStatusAndMerchantOrderId">
+      </LocalAPI>
+
+      <LocalAPI name="updateGorderPreCloseTime" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="updateGorderPreCloseTime">
+      </LocalAPI>
+
+      <LocalAPI name="updateFraudRequestPreCloseTime" className="com.xiaodou.oms.statemachine.ServiceAdapter"
+                beanId="serviceAdapter" method="updateFraudRequestPreCloseTime">
+      </LocalAPI>
+
+      <LocalAPI name="recordMessage"
+                className="com.xiaodou.oms.service.message.MessageManager" beanId="messageManager"
+                method="recordMessage" returnValueName="messageLogReturnValue">
+      </LocalAPI>
+
+      <LocalAPI name="message"
+                className="com.xiaodou.oms.service.message.MessageManager" beanId="messageManager"
+                method="send" returnValueName="messageReturnValue">
+      </LocalAPI>
+
+
+    </Apis>
+  </OmsOrder>
+
+  <ParameterTemplate basePath="/conf/custom/notenv/vm/api">
+    <Template name="default_simple" file="default_simple.vm"
+              pojo="SimpleTemp"/>
+    <Template name="default_complete" file="default_complete.vm"
+              pojo="CompleteTemp"/>
+  </ParameterTemplate>
+
+</ApiLib>

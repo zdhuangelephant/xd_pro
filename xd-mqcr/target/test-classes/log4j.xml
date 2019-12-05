@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+    <!-- 控制台输出 -->
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %p [%c] - %m%n"/>
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="DEBUG" />
+		</filter>
+	</appender>
+	
+    <!-- 系统启动日志输出文件 -->
+    <appender name="fileAppender" class="com.elong.common.util.log.ElongDailyRollingFileAppender">
+		<param name="File" value="logs/system.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %p [%c] - %m%n"/>
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+	
+	<!-- 异常日志 -->
+	<appender name="errorAppender" class="com.elong.common.util.log.ElongDailyRollingFileAppender">
+		<param name="File" value="logs/error.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout  class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d][%X{clientIP}] - %m%n"/>
+	    </layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="ERROR" />
+			<param name="LevelMax" value="ERROR" />
+		</filter>
+	</appender>
+	
+	<!-- debug日志输出文件 -->
+	<appender name="debugAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="logs/debug.log"/>
+		<param name="MaxFileSize" value="50MB"/>
+		<param name="MaxBackupIndex" value="0"/>
+		<layout  class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d][%X{clientIP}] - %m%n"/>
+	    </layout>
+	    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+          <param name="LevelMin" value="INFO" />
+          <param name="LevelMax" value="INFO" />
+        </filter>
+	</appender>
+	
+	<!--通信协议模块的appender（记录外系统对本系统的调用情况） -->
+	<appender name="outInAppender" class="com.elong.common.util.log.ElongDailyRollingFileAppender">
+		<param name="File" value="logs/out_in.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout  class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d][%X{clientIP}] - %m%n"/>
+	    </layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+	
+	<!--通信协议模块的appender（记录本系统对外系统接口的调用情况） -->
+	<appender name="inOutAppender" class="com.elong.common.util.log.ElongDailyRollingFileAppender">
+		<param name="File" value="logs/in_out.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout  class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d][%X{clientIP}] - %m%n"/>
+	    </layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+	
+	<!--支付 appender -->
+	<appender name="epayAppender" class="com.elong.common.util.log.ElongDailyRollingFileAppender">
+		<param name="File" value="logs/epay.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout  class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d][%X{clientIP}] - %m%n"/>
+	    </layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+	
+	<!--订单管理模块 appender -->
+	<appender name="orderAppender" class="com.elong.common.util.log.ElongDailyRollingFileAppender">
+		<param name="File" value="logs/order.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout  class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d][%X{clientIP}] - %m%n"/>
+	    </layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+	
+	<!--短信模块 appender -->
+	<appender name="smAppender" class="com.elong.common.util.log.ElongDailyRollingFileAppender">
+		<param name="File" value="logs/sm.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout  class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d][%X{clientIP}] - %m%n"/>
+	    </layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+	
+	<!--批处理模块 appender -->
+	<appender name="batchProcessAppender" class="com.elong.common.util.log.ElongDailyRollingFileAppender">
+		<param name="File" value="logs/batch_process.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout  class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d][%X{clientIP}] - %m%n"/>
+	    </layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+	
+	<!--报警日志 appender -->
+	<appender name="alarmAppender" class="com.elong.common.util.log.ElongDailyRollingFileAppender">
+		<param name="File" value="logs/alarm.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout  class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d][%X{clientIP}] - %m%n"/>
+	    </layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+	
+	<!--订单报警日志 appender -->
+	<appender name="orderAlarmAppender" class="com.elong.common.util.log.ElongDailyRollingFileAppender">
+		<param name="File" value="logs/order_alarm.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout  class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d][%X{clientIP}] - %m%n"/>
+	    </layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+	
+	<!--缓存日志 appender -->
+	<appender name="cacheAppender" class="com.elong.common.util.log.ElongDailyRollingFileAppender">
+		<param name="File" value="logs/cache.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout  class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d][%X{clientIP}] - %m%n"/>
+	    </layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+	
+	<!--FlowExcutor appender -->
+	<appender name="flowExcutorAppender" class="com.elong.common.util.log.ElongDailyRollingFileAppender">
+		<param name="File" value="logs/flowExcutor.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout  class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d][%X{clientIP}] - %m%n"/>
+	    </layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>	
+	
+	<!--actionLogEntity appender -->
+	<appender name="actionLogEntityAppender" class="com.elong.common.util.log.ElongDailyRollingFileAppender">
+		<param name="File" value="logs/elongorder_logentity.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd-HH-mm"/>
+		<layout  class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m%n"/>
+	    </layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+	
+	<!-- errorLogger -->
+	<category name="errorLogger" additivity="false">  
+		<level value="ERROR"/>
+		<appender-ref ref="stdout"/>
+		<appender-ref ref="errorAppender" />  
+	</category>
+	
+	<!-- debugLogger -->
+	<category name="debugLogger" additivity="false">  
+	    <!--开发环境、测试环境下，可以将value设为DEBUG -->
+	    <level value="INFO"/>
+		<appender-ref ref="debugAppender"/>  
+	</category>
+
+	<!-- outInLogger -->
+    <category name="outInLogger" additivity="false">  
+		<level value="INFO"/>
+		<appender-ref ref="outInAppender" />  
+	</category>
+	
+	<!-- inOutLogger -->
+    <category name="inOutLogger" additivity="false">  
+		<level value="INFO"/>
+		<appender-ref ref="inOutAppender" />  
+	</category>
+	
+	<!-- epayLogger -->
+    <category name="epayLogger" additivity="false">  
+		<level value="INFO"/>
+		<appender-ref ref="epayAppender" />  
+	</category>
+	
+	<!-- orderLogger -->
+    <category name="orderLogger" additivity="false">  
+		<level value="INFO"/>
+		<appender-ref ref="orderAppender" />  
+	</category>
+	
+	<!-- smLogger -->
+    <category name="smLogger" additivity="false">  
+		<level value="INFO"/>
+		<appender-ref ref="smAppender" />  
+	</category>
+	
+	<!-- batchProcessLogger -->
+    <category name="batchProcessLogger" additivity="false">  
+		<level value="INFO"/>
+		<appender-ref ref="batchProcessAppender" />  
+	</category>
+	
+	<!-- cacheLogger -->
+    <category name="cacheLogger" additivity="false">  
+		<level value="INFO"/>
+		<appender-ref ref="cacheAppender" />  
+	</category>
+	
+	<!-- flowExcutorLogger -->
+	<category name="flowExcutorLogger" additivity="false">  
+		<level value="INFO"/>
+		<appender-ref ref="flowExcutorAppender" />  
+	</category>
+	
+	<!-- 订单报警 Logger -->
+    <category name="alarmLogger" additivity="false">  
+		<level value="INFO"/>
+		<appender-ref ref="alarmAppender" />  
+	</category>
+	 <category name="orderAlarmLogger" additivity="false">  
+		<level value="INFO"/>
+		<appender-ref ref="orderAlarmAppender" />  
+	</category>
+
+    <logger name="java.sql" additivity="true">
+   		 <level value="DEBUG"/>
+         <appender-ref ref="stdout" />
+	</logger>	
+	<logger name="com.apache.ibatis" additivity="true">
+   		 <level value="DEBUG"/>
+	     <appender-ref ref="stdout" />
+	</logger>
+	
+	<logger name="org.mybatis" additivity="true">
+   		 <level value="DEBUG"/>
+	     <appender-ref ref="stdout" />
+	</logger>
+	
+    <logger name="java.sql.Connection" additivity="true">
+	    <level value="DEBUG"/>
+	    <appender-ref ref="stdout" />
+	</logger>
+
+	<logger name="java.sql.Statement" additivity="true">
+	   <level value="DEBUG"/>
+	   <appender-ref ref="stdout" />
+	</logger>
+	
+	<logger name="java.sql.PreparedStatement" additivity="true">
+	   <level value="DEBUG"/>
+	   <appender-ref ref="stdout" />
+	</logger>
+	<category name="actionLogEntityLogger" additivity="true">
+		<level value="DEBUG"/>
+		<appender-ref ref="stdout" />
+	</category>
+	
+	<root>
+	  <level value="DEBUG"/>
+	  <appender-ref ref="stdout"/>
+	  <appender-ref ref="fileAppender"/>
+	</root>
+	
+</log4j:configuration>

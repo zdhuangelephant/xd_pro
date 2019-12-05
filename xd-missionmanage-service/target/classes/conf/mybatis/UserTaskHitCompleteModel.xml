@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserTaskHitCompleteModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.mission.domain.UserTaskHitCompleteModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+<!-- 		<result column="major_id" property="majorId" jdbcType="VARCHAR" /> -->
+		<result column="course_id" property="courseId" jdbcType="VARCHAR" />
+		<result column="uid" property="uid" jdbcType="VARCHAR" />
+		<result column="is_complete" property="isComplete" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, module<!-- , major_id -->, course_id, uid, is_complete,
+		create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.mission.domain.UserTaskHitCompleteModel">
+		select
+		<include refid="base_column" />
+		from xd_mission_user_task_hit_complete where id =
+		#{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_mission_user_task_hit_complete
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.mission.domain.UserTaskHitCompleteModel">
+		insert into xd_mission_user_task_hit_complete
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="module != null">module,</if>
+<!-- 			<if test="majorId != null">major_id,</if> -->
+			<if test="courseId != null">course_id,</if>
+			<if test="uid != null">uid,</if>
+			<if test="isComplete != null">is_complete,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+<!-- 			<if test="majorId != null">#{majorId,jdbcType=VARCHAR},</if> -->
+			<if test="courseId != null">#{courseId,jdbcType=VARCHAR},</if>
+			<if test="uid != null">#{uid,jdbcType=VARCHAR},</if>
+			<if test="isComplete != null">#{isComplete,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.mission.domain.UserTaskHitCompleteModel">
+		update xd_mission_user_task_hit_complete
+		<set>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.mission.domain.UserTaskHitCompleteModel">
+		update xd_mission_user_task_hit_complete
+		<set>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.mission.domain.UserTaskHitCompleteModel"> delete from
+		xd_mission_user_task_hit_complete where id = #{id,jdbcType=BIGINT}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_mission_user_task_hit_complete
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.module != null">module,</if>
+<!-- 			<if test="output != null and output.majorId != null">major_id,</if> -->
+			<if test="output != null and output.courseId != null">course_id,</if>
+			<if test="output != null and output.uid != null">uid,</if>
+			<if test="output != null and output.isComplete != null">is_complete,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.module != null">and module=#{input.module}</if>
+<!-- 			<if test="input != null and input.majorId != null">and major_id=#{input.majorId}</if> -->
+			<if test="input != null and input.courseId != null">and course_id=#{input.courseId}</if>
+			<if test="input != null and input.courseIdList != null">
+				and course_id in
+				<foreach collection="input.courseIdList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.uid != null">and uid=#{input.uid}</if>
+			<if test="input != null and input.isComplete != null">and is_complete=#{input.isComplete}</if>
+			<if test="input != null and input.createTimeLower != null">and create_time &gt; #{input.createTimeLower}</if>
+			<if test="input != null and input.createTimeUpper != null">and create_time &lt; #{input.createTimeUpper}</if>
+			<if test="input != null and input.createTimeBetween != null">and create_time BETWEEN #{input.createTimeBetween}</if>
+			<if test="input != null and input.createTimeAnd != null">and create_time AND #{input.createTimeAnd}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.module != null and ( sort.module == 'ASC' or sort.module == 'DESC' )">module ${sort.module},</if>
+<!-- 			<if -->
+<!-- 				test="sort != null and sort.majorId != null and ( sort.majorId == 'ASC' or sort.majorId == 'DESC' )">major_id ${sort.majorId},</if> -->
+			<if
+				test="sort != null and sort.courseId != null and ( sort.courseId == 'ASC' or sort.courseId == 'DESC' )">course_id ${sort.courseId},</if>
+			<if
+				test="sort != null and sort.uid != null and ( sort.uid == 'ASC' or sort.uid == 'DESC' )">uid ${sort.uid},</if>
+			<if
+				test="sort != null and sort.isComplete != null and ( sort.isComplete == 'ASC' or sort.isComplete == 'DESC' )">is_complete ${sort.isComplete},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

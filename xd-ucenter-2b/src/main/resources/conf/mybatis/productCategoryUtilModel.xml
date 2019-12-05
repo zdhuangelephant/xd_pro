@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ProductCategoryUtilModel">
+
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.userCenter.model.ProductCategoryUtilModel">
+		<id column="id" property="id" />
+		<result column="show_status" property="showStatus" />
+		<result column="name" property="name" />
+		<result column="module" property="module" />
+		<result column="module_name" property="moduleName"/>
+		<result column="type_code" property="typeCode" />
+		<result column="major_level" property="majorLevel" />
+		<result column="picture_url" property="pictureUrl" />
+		<result column="major_info" property="majorInfo" />
+		<result column="chief_academy" property="chiefAcademy"/>
+		<result column="course_count" property="courseCount"/>
+	</resultMap>
+
+	<!-- 查询 -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<if test="output != null and output.majorInfo != null">xd_major_data.major_info,</if>
+		<include refid="dynamic_output" />
+		from xd_course_product_category
+		left join xd_module_info ON xd_module_info.module = xd_course_product_category.module 
+		left join xd_major_data on xd_course_product_category.type_code = xd_major_data.id
+		<include refid="dynamic_where" />
+	</select>
+	
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_product_category 
+		<include refid="dynamic_join" />
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_course_product_category.id = #{input.id}</if>
+			<if test="input != null and input.showStatus != null">and xd_course_product_category.show_status=#{input.showStatus}</if>			
+			<if test="input != null and input.name != null">and xd_course_product_category.name = #{input.name}</if>
+			<if test="input != null and input.module != null">and xd_module_info.module=#{input.module}</if>
+			<if test="input != null and input.moduleName != null">and xd_module_info.module_name=#{input.moduleName}</if>
+			<if test="input != null and input.typeCode != null">and xd_course_product_category.type_code=#{input.typeCode}</if>
+			<if test="input != null and input.chiefAcademy != null">and xd_course_product_category.chief_academy=#{input.chiefAcademy}</if>
+		</where>
+	</sql>
+	<!--动态语句:输出 -->
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_course_product_category.id,</if>
+			<if test="output != null and output.showStatus != null">xd_course_product_category.show_status,</if>
+			<if test="output != null and output.name != null">xd_course_product_category.name,</if>
+			<if test="output != null and output.module != null">xd_course_product_category.module,</if>
+			<if test="output != null and output.moduleName != null">xd_module_info.module_name,</if>
+			<if test="output != null and output.typeCode != null">xd_course_product_category.type_code,</if>
+			<if test="output != null and output.majorLevel != null">xd_course_product_category.major_level,</if>
+			<if test="output != null and output.pictureUrl != null">xd_course_product_category.picture_url,</if>
+			<if test="output != null and output.chiefAcademy !=null">xd_course_product_category.chief_academy,</if>
+			<if test="output != null and output.courseCount != null">xd_course_product_category.course_count,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		ORDER BY xd_module_info.list_order ASC;
+	</sql>
+	
+	<sql id="dynamic_join">
+		JOIN xd_module_info ON xd_module_info.module = xd_course_product_category.module 
+	</sql>
+
+</mapper>

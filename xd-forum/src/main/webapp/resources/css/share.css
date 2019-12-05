@@ -1,0 +1,402 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html{
+    width: 100%;
+    /*height: 100%;*/
+    font-size: 14px;
+    position: relative;
+    overflow-x: hidden;
+}
+body {
+    font-family: "微软雅黑";
+    width: 100%;
+   /*height: 100%;*/
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    background: #f0f0f0;
+}
+li{
+    list-style: none;
+}
+.main{
+    width: 100%;
+    min-height: 100%;
+    background: #f0f0f0;
+}
+.main .top{
+    height:50px;
+    line-height: 50px;
+    color:#ffffff;
+    font-size: 18px;
+    background:#5f9efd;
+    border-bottom:1px solid #4092ee;
+    text-align: center;
+    position: relative;
+}
+.main .top .close{
+    float:left;
+    width: 12px;
+    height: 20px;
+    margin-top: 4px;
+    margin-left:15px;
+}
+.main .top .close img{
+    width: 100%;
+}
+.main .top .title{
+    position: absolute;
+    left:0;
+    right: 0;
+    margin:0 auto;
+}
+
+.download{
+	postion:reletive;
+	bottom: 0px;
+    height: 80px;
+    border-top:1px solid #cdcdcd;
+    border-bottom:1px solid #cdcdcd;
+    background: #ffffff;
+    margin-top: 9px;
+    margin-bottom: 15px;
+}
+.download .picture{
+    float:left;
+}
+.download .text{
+    float:left;
+    position:reletive;
+    margin-left: 10px;
+    margin-top: 8px;;
+    width:75%;
+ 
+}
+.download .text .p1{
+    color:#5e9ef8;
+    font-size: 18px;
+   
+}
+.download .text .p2{
+    color:#a0a0a0;
+    margin-top: 17px;
+}
+.download .btn{
+	position: absolute;
+    bottom: 50px;
+    right:35px;
+    float:right;
+    width: 75px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    color:#ffffff;
+    background: #fd6131;
+    border-radius: 8px;
+    margin-top: 22px;
+    margin-right: -20px;
+}
+.download .front{
+	width: 75px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    color:#ffffff;
+    background: #fd6131;
+    border-radius: 8px;
+    font-size:14px;
+    margin-right: 10px;
+	float:right;
+}
+.download .picture{
+    width: 54px;
+    height: 54px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.download .picture img{
+    width: 100%;
+}
+.xd{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    background: #efefef;
+    z-index: 1000;
+    display: none;
+}
+.xd img{
+    display: block;
+    width: 90%;
+    margin:0 auto;
+    padding-top: 10px;
+
+}
+/*-----------------------------------------------以下回复框*/
+.replyBox{
+    width: 100%;
+    height: 54px;
+    background:#dcdcdc ;
+    /*background:#434343;*/
+    position: fixed;
+    bottom: 0;
+}
+.replyBox .box{
+    width: 80%;
+    height: 35px;
+    border:1px solid #bdbdbd;
+    border-radius: 5px;
+    background: #ffffff;
+    float: left;
+    margin-top: 9px;
+    margin-left: 10px;
+}
+.replyBox .box input{
+    width: 93%;
+    height: 100%;
+    border-radius: 5px;
+    border:none;
+    padding-left: 5px;
+}
+.replyBox .send{
+    width: 56px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    background: #609efc;
+    letter-spacing: 2px;
+    color:#ffffff;
+    font-size: 16px;
+    border-radius: 5px;
+    float: right;
+    margin-right: 10px;
+    margin-top: 9px;
+}
+/*-----------------------------------------------以下真题和评论*/
+.subject{
+    width: 100%;
+    margin-top: 10px;
+    background: #ffffff;
+    padding-top: 15px;
+    padding-bottom: 30px;
+    overflow: auto;
+}
+.subjectDetail{
+    width: 94%;
+    margin:0 auto;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dfdfdf;
+    margin-bottom: 10px;
+}
+.subject .subjectTitle{
+    width: 100%;
+    /*overflow: auto;*/
+    margin-bottom: 7px;
+    height: 25px;
+    line-height: 25px;
+}
+.subject .subjectTitle .tu{
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin-right: 10px;
+}
+.subject .subjectTitle .tu img{
+    width: 100%;
+}
+.subject .subjectTitle .title{
+    float: left;
+    color:#4b4b4b;
+    width: 89%;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.subject .text{
+    width: 100%;
+    color:#a0a0a0;
+    line-height: 20px;
+}
+.subject .picture{
+    overflow: auto;
+    margin-top: 10px;
+}
+.subject .picture .pictureBox{
+    float:left;
+    width: 29%;
+    height: 90px;
+    margin-right: 10px;
+    overflow: hidden;
+    border:1px solid #dddddd;
+    line-height: 90px;
+    display: table-cell;
+    vertical-align:middle;
+    text-align: center;
+}
+.subject .picture img{
+    /*display: block;*/
+    max-width: 100%;
+    max-height: 90px;
+    margin:0 auto;
+    line-height: 90px;
+    vertical-align: middle;
+}
+
+.clear{
+    clear: both;
+}
+/*---------------------------------------------------------评论部分*/
+.discuss{
+  border-top:1px solid #dfdfdf;
+    margin-top: 20px;
+    padding-top: 15px;
+}
+.discuss .hot{
+    font-size: 16px;
+    color:#4c4b4b;
+}
+.discuss .people{
+    line-height: 25px;
+    color:#bdbdbd;
+    margin-top: 15px;
+}
+.discuss .people .headImg{
+    float:left;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.discuss .people .name{
+    float:left;
+}
+.discuss .people .date{
+    float:right;
+}
+.discuss .reply1{
+    margin-left: 35px;
+    color:#787878;
+    line-height: 22px;
+    margin-top: 5px;
+    border-bottom:1px solid #dfdfdf;
+    padding-bottom: 5px;
+}
+.discuss .reply2{
+    margin-left: 35px;
+    color:#a0a0a0;
+    line-height: 22px;
+    margin-top: 5px;
+    border-bottom:1px solid #dfdfdf;
+    padding-bottom: 5px;
+}
+.discuss .reply2 span{
+    margin-left: 10px;
+    margin-right: 6px;
+}
+.discuss .box:last-child .reply1{
+    border-bottom: none;
+}
+.discuss .box:last-child .reply2{
+    border-bottom: none;
+}
+/*--------------------------------------------------------/显示大图*/
+.pictureBig{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    bottom:0;
+    z-index: 200;
+    background: #434343;
+    display: none;
+}
+.pictureBig .bigBox{
+    width: 100%;
+    height: 500px;
+    display: table-cell;
+    vertical-align:middle;
+    text-align: center;
+}
+.pictureBig img{
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    margin:0 auto;
+    vertical-align:middle;
+}
+.subject .picture .pictureBox{
+    float:left;
+    width: 29%;
+    height: 90px;
+    margin-right: 10px;
+    overflow: hidden;
+    border:1px solid #dddddd;
+    line-height: 90px;
+    display: table-cell;
+    vertical-align:middle;
+    text-align: center;
+}
+.subject .picture img{
+    /*display: block;*/
+    max-width: 100%;
+    max-height: 90px;
+    margin:0 auto;
+    line-height: 90px;
+    vertical-align: middle;
+}
+
+.checkAll{
+    width: 80px;
+    height: 30px;
+    border-radius: 3px;
+    background: #3784f9;
+    color:#ffffff;
+    text-align: center;
+    line-height: 30px;
+    float: right;
+    margin-right: 12px;
+}
+.xd{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    background: #efefef;
+    z-index: 1000;
+    display: none;
+}
+.xd img{
+    display: block;
+    width: 90%;
+    margin:0 auto;
+    padding-top: 10px;
+
+}
+@media screen and (max-width: 414px) {
+    .replyBox .box{
+        width: 78.5%;
+    }
+}
+@media screen and (max-width: 375px) {
+    .replyBox .box{
+        width: 75.5%;
+    }
+}
+@media screen and (max-width: 320px) {
+    .replyBox .box{
+        width: 72%;
+    }
+    .download .btn{
+        margin-right: 10px;
+    }
+    .download .picture{
+        margin-left: 10px;
+    }
+    .download .text{
+        margin-left: 8px;
+    }
+}

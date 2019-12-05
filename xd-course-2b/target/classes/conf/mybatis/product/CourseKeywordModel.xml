@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CourseKeywordModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.course.model.product.CourseKeywordModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="chapter_id" property="chapterId" jdbcType="BIGINT" />
+		<result column="detail" property="detail" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="importance_level" property="importanceLevel"
+			jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="base_column">id, chapter_id, detail, name, create_time, importance_level</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.course.model.product.CourseKeywordModel">
+		select
+		<include refid="base_column" />
+		from xd_course_keyword where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_keyword
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.course.model.product.CourseKeywordModel">
+		insert into xd_course_keyword
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="chapterId != null">chapter_id,</if>
+			<if test="detail != null">detail,</if>
+			<if test="name != null">name,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="importanceLevel != null">importance_level,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="chapterId != null">#{chapterId,jdbcType=BIGINT},</if>
+			<if test="detail != null">#{detail,jdbcType=VARCHAR},</if>
+			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="importanceLevel != null">#{importanceLevel,jdbcType=INTEGER},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.course.model.product.CourseKeywordModel">
+		update xd_course_keyword
+		<set>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.detail != null">detail = #{value.detail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.importanceLevel != null">importance_level =
+				#{value.importanceLevel,jdbcType=INTEGER},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.course.model.product.CourseKeywordModel">
+		update xd_course_keyword
+		<set>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.detail != null">detail = #{value.detail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.importanceLevel != null">importance_level =
+				#{value.importanceLevel,jdbcType=INTEGER},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.course.model.product.CourseKeywordModel"> delete from
+		xd_course_keyword where id = #{id,jdbcType=BIGINT}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_course_keyword
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.chapterId != null">chapter_id,</if>
+			<if test="output != null and output.detail != null">detail,</if>
+			<if test="output != null and output.name != null">name,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.importanceLevel != null">importance_level,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.chapterId != null">and chapter_id=#{input.chapterId}</if>
+			<if test="input != null and input.detail != null">and detail=#{input.detail}</if>
+			<if test="input != null and input.name != null">and name=#{input.name}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+			<if test="input != null and input.importanceLevel != null">and importance_level=#{input.importanceLevel}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+		</trim>
+	</sql>
+</mapper>

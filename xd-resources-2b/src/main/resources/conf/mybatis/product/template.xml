@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CourseProductModel">
+
+    <resultMap id="BaseResultMap" type="CourseProductModel">
+        <id column="id" property="id"/>
+        <result column="column1+" property="property1+"/>
+        <result column="column2+" property="property2+"/>
+        <result column="column3+" property="property3+"/>
+        <result column="column4+" property="property4+"/>
+        <result column="column5+" property="property5+"/>
+        <result column="column6+" property="property6+"/>
+        <result column="column7+" property="property7+"/>
+        <result column="column8+" property="property8+"/>
+        <result column="column9+" property="property9+"/>
+        <result column="column10+" property="property10+"/>
+        <result column="column11+" property="property11+"/>
+        <result column="column12+" property="property12+"/>
+        <result column="column13+" property="property13+"/>
+        <result column="column14+" property="property14+"/>
+        <result column="column15+" property="property15+"/>
+        <result column="column16+" property="property16+"/>
+        <result column="column17+" property="property17+"/>
+        <result column="column18+" property="property18+"/>
+        <result column="column19+" property="property19+"/>
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">column1+,column2+,column3+,column4+,column5+,column6+,column7+,column8+,column9+,column10+,
+        column11+,column12+,column13+,column14+,column15+,column16+,column17+,column18+,column19+</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="property1+ != null">column1+,</if>
+            <if test="property2+ != null">column2+,</if>
+            <if test="property3+ != null">column3+,</if>
+            <if test="property4+ != null">column4+,</if>
+            <if test="property5+ != null">column5+,</if>
+            <if test="property6+ != null">column6+,</if>
+            <if test="property7+ != null">column7+,</if>
+            <if test="property8+ != null">column8+,</if>
+            <if test="property9+ != null">column9+,</if>
+            <if test="property10+ != null">column10+,</if>
+            <if test="property11+ != null">column11+,</if>
+            <if test="property12+ != null">column12+,</if>
+            <if test="property13+ != null">column13+,</if>
+            <if test="property14+ != null">column14+,</if>
+            <if test="property15+ != null">column15+,</if>
+            <if test="property16+ != null">column16+,</if>
+            <if test="property17+ != null">column17+,</if>
+            <if test="property18+ != null">column18+,</if>
+            <if test="property19+ != null">column19+,</if>
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="property1+ != null">#{property1+},</if>
+            <if test="property2+ != null">#{property2+},</if>
+            <if test="property3+ != null">#{property3+},</if>
+            <if test="property4+ != null">#{property4+},</if>
+            <if test="property5+ != null">#{property5+},</if>
+            <if test="property6+ != null">#{property6+},</if>
+            <if test="property7+ != null">#{property7+},</if>
+            <if test="property8+ != null">#{property8+},</if>
+            <if test="property9+ != null">#{property9+},</if>
+            <if test="property10+ != null">#{property10+},</if>
+            <if test="property11+ != null">#{property11+},</if>
+            <if test="property12+ != null">#{property12+},</if>
+            <if test="property13+ != null">#{property13+},</if>
+            <if test="property14+ != null">#{property14+},</if>
+            <if test="property15+ != null">#{property15+},</if>
+            <if test="property16+ != null">#{property16+},</if>
+            <if test="property17+ != null">#{property17+},</if>
+            <if test="property18+ != null">#{property18+},</if>
+            <if test="property19+ != null">#{property19+},</if>
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="CourseProductModel">
+        insert into course_product
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update course_product
+        <set>
+            <if test="value != null and value.property1+ != null">column1+ = #{value.property1+},</if>
+            <if test="value != null and value.property2+ != null">column2+ = #{value.property2+},</if>
+            <if test="value != null and value.property3+ != null">column3+ = #{value.property3+},</if>
+            <if test="value != null and value.property4+ != null">column4+ = #{value.property4+},</if>
+            <if test="value != null and value.property5+ != null">column5+ = #{value.property5+},</if>
+            <if test="value != null and value.property6+ != null">column6+ = #{value.property6+},</if>
+            <if test="value != null and value.property7+ != null">column7+ = #{value.property7+},</if>
+            <if test="value != null and value.property8+ != null">column8+ = #{value.property8+},</if>
+            <if test="value != null and value.property9+ != null">column9+ = #{value.property9+},</if>
+            <if test="value != null and value.property10+ != null">column10+ = #{value.property10+},</if>
+            <if test="value != null and value.property11+ != null">column11+ = #{value.property11+},</if>
+            <if test="value != null and value.property12+ != null">column12+ = #{value.property12+},</if>
+            <if test="value != null and value.property13+ != null">column13+ = #{value.property13+},</if>
+            <if test="value != null and value.property14+ != null">column14+ = #{value.property14+},</if>
+            <if test="value != null and value.property15+ != null">column15+ = #{value.property15+},</if>
+            <if test="value != null and value.property16+ != null">column16+ = #{value.property16+},</if>
+            <if test="value != null and value.property17+ != null">column17+ = #{value.property17+},</if>
+            <if test="value != null and value.property18+ != null">column18+ = #{value.property18+},</if>
+            <if test="value != null and value.property19+ != null">column19+ = #{value.property19+},</if>
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from course_product
+        <include refid="dynamic_where"/>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="CourseProductModel" resultMap="BaseResultMap">
+        select * from course_product where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from course_product
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and id =#{input.id}</if>
+            <if test="input != null and input.property1+ != null">and column1+ =#{input.property1+}</if>
+            <if test="input != null and input.property2+ != null">and column2+ =#{input.property2+}</if>
+            <if test="input != null and input.property3+ != null">and column3+ =#{input.property3+}</if>
+            <if test="input != null and input.property4+ != null">and column4+ =#{input.property4+}</if>
+            <if test="input != null and input.property5+ != null">and column5+ =#{input.property5+}</if>
+            <if test="input != null and input.property6+ != null">and column6+ =#{input.property6+}</if>
+            <if test="input != null and input.property7+ != null">and column7+ =#{input.property7+}</if>
+            <if test="input != null and input.property8+ != null">and column8+ =#{input.property8+}</if>
+            <if test="input != null and input.property9+ != null">and column9+ =#{input.property9+}</if>
+            <if test="input != null and input.property10+ != null">and column10+ =#{input.property10+}</if>
+            <if test="input != null and input.property11+ != null">and column11+ =#{input.property11+}</if>
+            <if test="input != null and input.property12+ != null">and column12+ =#{input.property12+}</if>
+            <if test="input != null and input.property13+ != null">and column13+ =#{input.property13+}</if>
+            <if test="input != null and input.property14+ != null">and column14+ =#{input.property14+}</if>
+            <if test="input != null and input.property15+ != null">and column15+ =#{input.property15+}</if>
+            <if test="input != null and input.property16+ != null">and column16+ =#{input.property16+}</if>
+            <if test="input != null and input.property17+ != null">and column17+ =#{input.property17+}</if>
+            <if test="input != null and input.property18+ != null">and column18+ =#{input.property18+}</if>
+            <if test="input != null and input.property19+ != null">and column19+ =#{input.property19+}</if>
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">id,</if>
+            <if test="output != null and output.property1+ != null">column1+,</if>
+            <if test="output != null and output.property2+ != null">column2+,</if>
+            <if test="output != null and output.property3+ != null">column3+,</if>
+            <if test="output != null and output.property4+ != null">column4+,</if>
+            <if test="output != null and output.property5+ != null">column5+,</if>
+            <if test="output != null and output.property6+ != null">column6+,</if>
+            <if test="output != null and output.property7+ != null">column7+,</if>
+            <if test="output != null and output.property8+ != null">column8+,</if>
+            <if test="output != null and output.property9+ != null">column9+,</if>
+            <if test="output != null and output.property10+ != null">column10+,</if>
+            <if test="output != null and output.property11+ != null">column11+,</if>
+            <if test="output != null and output.property12+ != null">column12+,</if>
+            <if test="output != null and output.property13+ != null">column13+,</if>
+            <if test="output != null and output.property14+ != null">column14+,</if>
+            <if test="output != null and output.property15+ != null">column15+,</if>
+            <if test="output != null and output.property16+ != null">column16+,</if>
+            <if test="output != null and output.property17+ != null">column17+,</if>
+            <if test="output != null and output.property18+ != null">column18+,</if>
+            <if test="output != null and output.property19+ != null">column19+,</if>
+        </trim>
+    </sql>
+
+
+</mapper>

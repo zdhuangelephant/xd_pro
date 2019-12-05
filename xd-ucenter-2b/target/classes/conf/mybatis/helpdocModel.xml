@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="HelpDocModel">
+
+	<!-- 1. 根据条件 查询 文档列表(不分页) -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.type != null">type,</if>
+			<if test="output != null and output.title != null">title,</if>
+			<if test="output != null and output.content != null">content,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.module != null">module,</if>
+		</trim>
+		FROM
+		xd_user_help
+		<include refid="dynamic_where" />
+		order by id asc limit ${help.limit}
+	</select>
+
+	<!-- 2. 根据条件 修改 文档 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_user_help
+		<set>
+			<if test="value != null and value.type != null">type = #{value.type},</if>
+			<if test="value != null and value.title != null">title = #{value.title},</if>
+			<if test="value != null and value.content != null">content = #{value.content},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+			<if test="value != null and value.module != null">module = #{value.module},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 3.文档 插入 方法 -->
+	<insert id="addEntity" parameterType="com.xiaodou.userCenter.model.HelpDocModel">
+		insert into xd_user_help
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+	<!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="HelpDocModel" resultMap="BaseResultMap">
+       	SELECT * 
+       	FROM  
+		xd_user_help
+		WHERE id = #{id} 
+    </select>
+	<!-- ******************************** 上面是DAO层方法实现, 下面是各个动态语句的拼写 ******************************************* -->
+
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseResultMap" type="com.xiaodou.userCenter.model.HelpDocModel">
+		<id column="id" property="id" />
+		<result column="type" property="type" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="create_time" property="createTime" />
+		<result column="module" property="module" />
+	</resultMap>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id =#{input.id}</if>
+			<if test="input != null and input.type != null">and type =#{input.type}</if>
+			<if test="input != null and input.title != null">and title =#{input.title}</if>
+			<if test="input != null and input.content != null">and content =#{input.content}</if>
+			<if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+			<if test="input != null and input.module != null">and module =#{input.module}</if>
+		</where>
+	</sql>
+
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="type != null">type,</if>
+			<if test="title != null">title,</if>
+			<if test="content != null">content,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="module != null">module,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="type != null">#{type},</if>
+			<if test="title != null">#{title},</if>
+			<if test="content != null">#{content},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="module != null">#{module},</if>
+		</trim>
+	</sql>
+
+</mapper>

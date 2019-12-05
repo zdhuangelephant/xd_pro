@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CourseKeywordResourceModel">
+
+    <resultMap id="BaseResultMap" type="CourseKeywordResourceModel">
+        <id column="id" property="id"/>
+        <result column="resource_id" property="resourceId"/>
+        <result column="resource_type" property="resourceType"/>
+        <result column="keyword_id" property="keywordId"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">resource_id,resource_type,keyword_id,create_time </sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="resourceId != null">resource_id,</if>
+            <if test="resourceType != null">resource_type,</if>
+            <if test="keywordId != null">keyword_id,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="resourceId != null">#{resourceId},</if>
+            <if test="resourceType != null">#{resourceType},</if>
+            <if test="keywordId != null">#{keywordId},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="CourseKeywordResourceModel">
+        insert into xd_course_keyword_resource
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update xd_course_keyword_resource
+        <set>
+            <if test="value != null and value.resourceId != null">resource_id = #{value.resourceId},</if>
+            <if test="value != null and value.resourceType != null">resource_type = #{value.resourceType},</if>
+            <if test="value != null and value.keywordId != null">keyword_id = #{value.keywordId},</if>
+            <if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_course_keyword_resource
+        <include refid="dynamic_where"/>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="CourseKeywordResourceModel" resultMap="BaseResultMap">
+        select * from xd_course_keyword_resource where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from xd_course_keyword_resource
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and id =#{input.id}</if>
+            <if test="input != null and input.resourceId != null">and resource_id =#{input.resourceId}
+            </if>
+            <if test="input != null and input.resourceType != null">and resource_type =#{input.resourceType}</if>
+            <if test="input != null and input.keywordId != null">and keyword_id =#{input.keywordId}</if>
+            <if test="input != null and input.createTime != null">and create_time
+                =#{input.createTime}
+            </if>
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">id,</if>
+            <if test="output != null and output.resourceId != null">resource_id,</if>
+            <if test="output != null and output.resourceType != null">resource_type,</if>
+            <if test="output != null and output.keywordId != null">keyword_id,</if>
+            <if test="output != null and output.createTime != null">create_time,</if>
+        </trim>
+    </sql>
+
+
+</mapper>

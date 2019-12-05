@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.xiaodou.live.domain.LiveInfo" alias="LiveInfo"/>
+		<typeAlias type="com.xiaodou.live.domain.LiveSerie" alias="LiveSerie"/>
+		<typeAlias type="com.xiaodou.live.domain.LiveOperationLog" alias="LiveOperationLog"/>
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="conf/mybatis/LiveInfo.xml" />
+		<mapper resource="conf/mybatis/LiveSerie.xml" />
+		<mapper resource="conf/mybatis/LiveOperationLog.xml" />
+	</mappers>
+</configuration>

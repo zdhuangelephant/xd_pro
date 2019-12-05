@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<!--springsecurity不拦截的地址 -->
+	<security:http pattern="/resources/**" security="none" />
+	<security:http pattern="/admin/login" security="none" />
+	<security:http pattern="/request/timingSend" security="none" />
+	<security:http pattern="/request/aosSend" security="none" />
+	<security:http pattern="/mock/**" security="none" />
+	<!--安全核心配置 -->
+	<security:http use-expressions="true">
+		<!--登陆配置 -->
+		<security:form-login password-parameter="password"
+			username-parameter="userName" default-target-url="/"
+			authentication-failure-url="/admin/login?fail=true"
+			always-use-default-target="true" login-page="/admin/login" />
+
+		<!--退出配置 -->
+		<security:logout logout-success-url="/admin/login"
+			logout-url="/admin/loginOut" invalidate-session="true"
+			delete-cookies="true" />
+		<!--session管理 -->
+		<security:session-management
+			invalid-session-url="/public/invalidate">
+			<security:concurrency-control
+				max-sessions="1" error-if-maximum-exceeded="false" />
+		</security:session-management>
+		<!--过滤器链 -->
+		<security:custom-filter ref="mySecurityFilter"
+			before="FILTER_SECURITY_INTERCEPTOR" />
+		<!--记住我 -->
+	</security:http>
+	<!--数据库配置 -->
+	<import resource="classpath:conf/core/database-login.xml" />
+	<bean id="adminDao"  class="com.xiaodou.login.dao.AdminDao" >
+		<property name="summerSqlSessionFactory" ref="loginSummerSqlSessionFactory" />
+	</bean>
+	<!--验证类 -->
+	<bean id="daoAuthenticationProvider"
+		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="myUserDetailsService" />
+		<property name="passwordEncoder" ref="md5PasswordEncoder" />
+		<property name="saltSource" ref="reflectionSaltSource" />
+		<property name="hideUserNotFoundExceptions" value="false" />
+	</bean>
+	<bean id="adminService" class="com.xiaodou.login.service.AdminService">
+		<property name="adminDao" ref="adminDao" />
+	</bean>
+	<!--用户信息获取 -->
+	<bean id="myUserDetailsService"
+		class="com.xiaodou.login.service.AdminUserDetailsService">
+		<property name="adminService" ref="adminService" />
+	</bean>
+	<!--权限验证机构 -->
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider
+			ref="daoAuthenticationProvider">
+		</security:authentication-provider>
+	</security:authentication-manager>
+	<bean id="myAccessDecisionManager"
+		class="com.xiaodou.login.service.AdminAccessDecisionManager" />
+
+	<!--过滤器链 -->
+	<bean id="mySecurityFilter"
+		class="com.xiaodou.login.service.AdminSecurityFilterInterceptor">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="accessDecisionManager" ref="myAccessDecisionManager" />
+		<property name="mySecurityMetadataSource" ref="mySecurityMetadataSource" />
+	</bean>
+	<!--权限元数据获得器 -->
+	<bean id="mySecurityMetadataSource"
+		class="com.xiaodou.login.service.AdminSecurityMetadataSource">
+	</bean>
+	<!--md5加密类 -->
+	<bean id="md5PasswordEncoder"
+		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+
+	<!--salt获取 -->
+	<bean id="reflectionSaltSource"
+		class="org.springframework.security.authentication.dao.ReflectionSaltSource">
+		<property name="userPropertyToUse" value="salt" />
+	</bean>
+	<!--remeberMe service -->
+	<bean id="ipTokenBasedRemeberMeServices"
+		class="com.xiaodou.login.service.IpTokenBasedRememberMeServices">
+		<property name="key" value="wangxiaoAdmin"></property>
+		<property name="userDetailsService" ref="myUserDetailsService"></property>
+		<property name="cookieName" value="REMEMBER_ME" />
+		<property name="parameter" value="remember_me" />
+	</bean>
+</beans>

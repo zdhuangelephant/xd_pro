@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserCourseHourProgress">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.course.model.user.UserCourseHourProgress">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="course_id" property="courseId" jdbcType="VARCHAR" />
+		<result column="chapter_id" property="chapterId" jdbcType="VARCHAR" />
+		<result column="item_id" property="itemId" jdbcType="VARCHAR" />
+		<result column="key_point_id" property="keyPointId" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="resource_type" property="resourceType"
+			jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="duration" property="duration" jdbcType="BIGINT" />
+		<result column="learn_time" property="learnTime" jdbcType="BIGINT" />
+	</resultMap>
+	<sql id="base_column">id, module, course_id, chapter_id, item_id,
+		key_point_id, user_id, resource_type, status, duration, learn_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.course.model.user.UserCourseHourProgress">
+		select
+		<include refid="base_column" />
+		from xd_user_course_hour_progress where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_user_course_hour_progress
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.course.model.user.UserCourseHourProgress">
+		insert into xd_user_course_hour_progress
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="module != null">module,</if>
+			<if test="courseId != null">course_id,</if>
+			<if test="chapterId != null">chapter_id,</if>
+			<if test="itemId != null">item_id,</if>
+			<if test="keyPointId != null">key_point_id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="resourceType != null">resource_type,</if>
+			<if test="status != null">status,</if>
+			<if test="duration != null">duration,</if>
+			<if test="learnTime != null">learn_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+			<if test="courseId != null">#{courseId,jdbcType=VARCHAR},</if>
+			<if test="chapterId != null">#{chapterId,jdbcType=VARCHAR},</if>
+			<if test="itemId != null">#{itemId,jdbcType=VARCHAR},</if>
+			<if test="keyPointId != null">#{keyPointId,jdbcType=VARCHAR},</if>
+			<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+			<if test="resourceType != null">#{resourceType,jdbcType=INTEGER},</if>
+			<if test="status != null">#{status,jdbcType=INTEGER},</if>
+			<if test="duration != null">#{duration,jdbcType=BIGINT},</if>
+			<if test="learnTime != null">#{learnTime,jdbcType=BIGINT},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.course.model.user.UserCourseHourProgress">
+		update xd_user_course_hour_progress
+		<set>
+			<if test="value != null and value.module != null">module = #{value.module,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.itemId != null">item_id = #{value.itemId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.keyPointId != null">key_point_id = #{value.keyPointId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.resourceType != null">resource_type = #{value.resourceType,jdbcType=INTEGER},</if>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=INTEGER},</if>
+			<if test="value != null and value.duration != null">duration = #{value.duration,jdbcType=BIGINT},</if>
+			<if test="value != null and value.learnTime != null">learn_time = #{value.learnTime,jdbcType=BIGINT},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.course.model.user.UserCourseHourProgress">
+		update xd_user_course_hour_progress
+		<set>
+			<if test="value != null and value.module != null">module = #{value.module,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.itemId != null">item_id = #{value.itemId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.keyPointId != null">key_point_id = #{value.keyPointId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.resourceType != null">resource_type = #{value.resourceType,jdbcType=INTEGER},</if>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=INTEGER},</if>
+			<if test="value != null and value.duration != null">duration = #{value.duration,jdbcType=BIGINT},</if>
+			<if test="value != null and value.learnTime != null">learn_time = #{value.learnTime,jdbcType=BIGINT},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById"
+		parameterType="com.xiaodou.course.model.user.UserCourseHourProgress"> delete from xd_user_course_hour_progress where id =
+		#{id,jdbcType=BIGINT}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_user_course_hour_progress
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.module != null">module,</if>
+			<if test="output != null and output.courseId != null">course_id,</if>
+			<if test="output != null and output.chapterId != null">chapter_id,</if>
+			<if test="output != null and output.itemId != null">item_id,</if>
+			<if test="output != null and output.keyPointId != null">key_point_id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.resourceType != null">resource_type,</if>
+			<if test="output != null and output.status != null">status,</if>
+			<if test="output != null and output.duration != null">duration,</if>
+			<if test="output != null and output.learnTime != null">learn_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.module != null">and module=#{input.module}</if>
+			<if test="input != null and input.courseId != null">and course_id=#{input.courseId}</if>
+			<if test="input != null and input.chapterId != null">and chapter_id=#{input.chapterId}</if>
+			<if test="input != null and input.itemId != null">and item_id=#{input.itemId}</if>
+			<if test="input != null and input.keyPointId != null">and key_point_id=#{input.keyPointId}</if>
+			<if test="input != null and input.keyPointIdList != null">
+				and key_point_id in
+				<foreach collection="input.keyPointIdList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.userIdList != null">
+				and user_id in
+				<foreach collection="input.userIdList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.resourceType != null">and resource_type=#{input.resourceType}</if>
+			<if test="input != null and input.resourceTypeList != null">
+				and resource_type in
+				<foreach collection="input.resourceTypeList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.status != null">and status=#{input.status}</if>
+			<if test="input != null and input.duration != null">and duration=#{input.duration}</if>
+			<if test="input != null and input.learnTime != null">and learn_time=#{input.learnTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.module != null and ( sort.module == 'ASC' or sort.module == 'DESC' )">module ${sort.module},</if>
+			<if
+				test="sort != null and sort.courseId != null and ( sort.courseId == 'ASC' or sort.courseId == 'DESC' )">course_id ${sort.courseId},</if>
+			<if
+				test="sort != null and sort.chapterId != null and ( sort.chapterId == 'ASC' or sort.chapterId == 'DESC' )">chapter_id ${sort.chapterId},</if>
+			<if
+				test="sort != null and sort.itemId != null and ( sort.itemId == 'ASC' or sort.itemId == 'DESC' )">item_id ${sort.itemId},</if>
+			<if
+				test="sort != null and sort.keyPointId != null and ( sort.keyPointId == 'ASC' or sort.keyPointId == 'DESC' )">key_point_id ${sort.keyPointId},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.resourceType != null and ( sort.resourceType == 'ASC' or sort.resourceType == 'DESC' )">resource_type ${sort.resourceType},</if>
+			<if
+				test="sort != null and sort.status != null and ( sort.status == 'ASC' or sort.status == 'DESC' )">status ${sort.status},</if>
+			<if
+				test="sort != null and sort.duration != null and ( sort.duration == 'ASC' or sort.duration == 'DESC' )">duration ${sort.duration},</if>
+			<if
+				test="sort != null and sort.learnTime != null and ( sort.learnTime == 'ASC' or sort.learnTime == 'DESC' )">learn_time ${sort.learnTime},</if>
+		</trim>
+	</sql>
+</mapper>

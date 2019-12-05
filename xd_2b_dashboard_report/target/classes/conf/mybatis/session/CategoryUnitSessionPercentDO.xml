@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CategoryUnitSessionPercentDO">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dashboard.domain.session.CategoryUnitSessionPercentDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="cat_id" property="catId" jdbcType="BIGINT" />
+		<result column="pilot_unit_id" property="pilotUnitId" jdbcType="BIGINT" />
+		<result column="student_count" property="studentCount"
+			jdbcType="INTEGER" />
+		<result column="right_percent" property="rightPercent"
+			jdbcType="VARCHAR" />
+		<result column="learn_percent" property="learnPercent"
+			jdbcType="VARCHAR" />
+		<result column="mission_percent" property="missionPercent"
+			jdbcType="VARCHAR" />
+		<result column="learn_time_percent" property="learnTimePercent"
+			jdbcType="BIGINT" />
+		<result column="alarm_count" property="alarmCount" jdbcType="INTEGER" />
+		<result column="role_type" property="roleType" jdbcType="VARCHAR" />
+		<result column="unit_id" property="unitId" jdbcType="BIGINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+		<result column="pilot_unit_name" property="pilotUnitName" />
+	</resultMap>
+	<sql id="base_column">id, cat_id, pilot_unit_id, student_count, right_percent,
+		learn_percent, mission_percent, learn_time_percent, alarm_count,
+		role_type, unit_id, create_time
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.session.CategoryUnitSessionPercentDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_category_unit_session_percent
+		where id =
+		#{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		FROM xd_dashboard_apply
+		LEFT JOIN 
+		(
+		SELECT 
+		* 
+		FROM xd_dashboard_category_unit_session_percent
+		<include refid="dynamic_where" />
+		) xd_dashboard_category_unit_session_percent
+		ON xd_dashboard_category_unit_session_percent.pilot_unit_id =xd_dashboard_apply.pilot_unit_id 
+		LEFT JOIN xd_dashboard_unit
+		ON xd_dashboard_unit.id = xd_dashboard_apply.pilot_unit_id
+		WHERE xd_dashboard_apply.cat_id =#{input.catId}
+		AND xd_dashboard_apply.order_status=#{input.orderStatus}
+		AND xd_dashboard_apply.apply_status=#{input.applyStatus}
+		GROUP BY xd_dashboard_apply.pilot_unit_id
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.st.dashboard.domain.session.CategoryUnitSessionPercentDO">
+		update xd_dashboard_category_unit_session_percent
+		<set>
+			<if test="value != null and value.studentCount != null">student_count = #{value.studentCount,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.alarmCount != null">alarm_count = #{value.alarmCount,jdbcType=INTEGER},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.st.dashboard.domain.session.CategoryUnitSessionPercentDO">
+		update xd_dashboard_category_unit_session_percent
+		<set>
+			<if test="value != null and value.studentCount != null">student_count = #{value.studentCount,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.alarmCount != null">alarm_count = #{value.alarmCount,jdbcType=INTEGER},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_dashboard_category_unit_session_percent.id,</if>
+			<if test="output != null and output.catId != null">xd_dashboard_apply.cat_id,</if>
+			<if test="output != null and output.pilotUnitId != null">xd_dashboard_unit.id pilot_unit_id,</if>
+			<if test="output != null and output.studentCount != null">xd_dashboard_category_unit_session_percent.student_count,</if>
+			<if test="output != null and output.rightPercent != null">xd_dashboard_category_unit_session_percent.right_percent,</if>
+			<if test="output != null and output.learnPercent != null">xd_dashboard_category_unit_session_percent.learn_percent,</if>
+			<if test="output != null and output.missionPercent != null">xd_dashboard_category_unit_session_percent.mission_percent,</if>
+			<if test="output != null and output.learnTimePercent != null">xd_dashboard_category_unit_session_percent.learn_time_percent,</if>
+			<if test="output != null and output.alarmCount != null">xd_dashboard_category_unit_session_percent.alarm_count,</if>
+			<if test="output != null and output.roleType != null">xd_dashboard_category_unit_session_percent.role_type,</if>
+			<if test="output != null and output.unitId != null">xd_dashboard_category_unit_session_percent.unit_id,</if>
+			<if test="output != null and output.createTime != null">xd_dashboard_category_unit_session_percent.create_time,
+			</if>
+			<if test="output != null and output.pilotUnitName != null">xd_dashboard_unit.unit_name pilot_unit_name,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_dashboard_category_unit_session_percent.id=#{input.id}</if>
+			<if test="input != null and input.catId != null">and xd_dashboard_category_unit_session_percent.cat_id=#{input.catId}</if>
+			<if test="input != null and input.pilotUnitId != null">and xd_dashboard_category_unit_session_percent.pilot_unit_id=#{input.pilotUnitId}</if>
+			<if test="input != null and input.studentCount != null">and xd_dashboard_category_unit_session_percent.student_count=#{input.studentCount}</if>
+			<if test="input != null and input.rightPercent != null">and xd_dashboard_category_unit_session_percent.right_percent=#{input.rightPercent}</if>
+			<if test="input != null and input.learnPercent != null">and xd_dashboard_category_unit_session_percent.learn_percent=#{input.learnPercent}</if>
+			<if test="input != null and input.missionPercent != null">and xd_dashboard_category_unit_session_percent.mission_percent=#{input.missionPercent}</if>
+			<if test="input != null and input.learnTimePercent != null">and xd_dashboard_category_unit_session_percent.learn_time_percent=#{input.learnTimePercent}</if>
+			<if test="input != null and input.alarmCount != null">and xd_dashboard_category_unit_session_percent.alarm_count=#{input.alarmCount}</if>
+			<if test="input != null and input.roleType != null">and xd_dashboard_category_unit_session_percent.role_type=#{input.roleType}</if>
+			<if test="input != null and input.unitId != null">and xd_dashboard_category_unit_session_percent.unit_id=#{input.unitId}</if>
+			<if test="input != null and input.createTime != null">and xd_dashboard_category_unit_session_percent.create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">xd_dashboard_category_unit_session_percent.create_time
+				${sort.createTime},
+			</if>
+		</trim>
+	</sql>
+</mapper>

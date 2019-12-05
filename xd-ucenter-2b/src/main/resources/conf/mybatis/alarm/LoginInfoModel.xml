@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LoginInfoModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.userCenter.model.alarm.LoginInfoModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="system_type" property="systemType" jdbcType="VARCHAR" />
+		<result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+		<result column="login_time" property="loginTime" jdbcType="TIMESTAMP" />
+		<result column="area" property="area" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="lat" property="lat" jdbcType="VARCHAR" />
+		<result column="lng" property="lng" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column"></sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.userCenter.model.alarm.LoginInfoModel">
+		select
+		<include refid="base_column" />
+		from xd_user_login_info
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_user_login_info
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.userCenter.model.alarm.LoginInfoModel"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_user_login_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="systemType != null">system_type,</if>
+			<if test="deviceId != null">device_id,</if>
+			<if test="loginTime != null">login_time,</if>
+			<if test="area != null">area,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="lat != null">lat,</if>
+			<if test="lng != null">lng,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+			<if test="systemType != null">#{systemType,jdbcType=VARCHAR},</if>
+			<if test="deviceId != null">#{deviceId,jdbcType=VARCHAR},</if>
+			<if test="loginTime != null">#{loginTime,jdbcType=TIMESTAMP},</if>
+			<if test="area != null">#{area,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="lat != null">#{lat,jdbcType=VARCHAR},</if>
+			<if test="lng != null">#{lng,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.userCenter.model.alarm.LoginInfoModel">
+		update xd_user_login_info
+		<set>
+			<if test="value != null and value.area != null">area = #{value.area,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.userCenter.model.alarm.LoginInfoModel">
+		update xd_user_login_info
+		<set>
+			<if test="value != null and value.area != null">area = #{value.area,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.userCenter.model.alarm.LoginInfoModel">
+		delete from
+		xd_user_login_info
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_user_login_info
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.systemType != null">system_type,</if>
+			<if test="output != null and output.deviceId != null">device_id,</if>
+			<if test="output != null and output.loginTime != null">login_time,</if>
+			<if test="output != null and output.area != null">area,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.lat != null">lat,</if>
+			<if test="output != null and output.lng != null">lng,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.idLower != null">and id &gt; #{input.idLower}</if>
+			<if test="input != null and input.idUpper != null">and id &lt; #{input.idUpper}</if>
+
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.systemType != null">and system_type=#{input.systemType}</if>
+			<if test="input != null and input.deviceId != null">and device_id=#{input.deviceId}</if>
+			<if test="input != null and input.loginTimeLower != null">and login_time &gt; #{input.loginTimeLower}</if>
+			<if test="input != null and input.loginTimeUpper != null">and login_time <![CDATA[   <=  ]]> #{input.loginTimeUpper}</if>
+			<if test="input != null and input.area != null">and area=#{input.area}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+			<if test="input != null and input.lat != null">and lat=#{input.lat}</if>
+			<if test="input != null and input.lng != null">and lng=#{input.lng}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.systemType != null and ( sort.systemType == 'ASC' or sort.systemType == 'DESC' )">system_type ${sort.systemType},</if>
+			<if
+				test="sort != null and sort.deviceId != null and ( sort.deviceId == 'ASC' or sort.deviceId == 'DESC' )">device_id ${sort.deviceId},</if>
+			<if
+				test="sort != null and sort.loginTime != null and ( sort.loginTime == 'ASC' or sort.loginTime == 'DESC' )">login_time ${sort.loginTime},</if>
+			<if
+				test="sort != null and sort.area != null and ( sort.area == 'ASC' or sort.area == 'DESC' )">area ${sort.area},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.lat != null and ( sort.lat == 'ASC' or sort.lat == 'DESC' )">lat ${sort.lat},</if>
+			<if
+				test="sort != null and sort.lng != null and ( sort.lng == 'ASC' or sort.lng == 'DESC' )">lng ${sort.lng},</if>
+		</trim>
+	</sql>
+</mapper>

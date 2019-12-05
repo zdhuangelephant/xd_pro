@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RawDataLearnRecordModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dataclean.model.domain.raw.RawDataLearnRecordModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="src_record_id" property="srcRecordId" jdbcType="VARCHAR" />
+		<result column="module_id" property="moduleId" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="type_code" property="typeCode" jdbcType="VARCHAR" />
+		<result column="product_category_id" property="productCategoryId"
+			jdbcType="VARCHAR" />
+		<result column="product_id" property="productId" jdbcType="VARCHAR" />
+		<result column="student_id" property="studentId" jdbcType="INTEGER" />
+		<result column="taught_unit_id" property="taughtUnitId"
+			jdbcType="INTEGER" />
+		<result column="chief_unit_id" property="chiefUnitId" jdbcType="INTEGER" />
+		<result column="pilot_unit_id" property="pilotUnitId" jdbcType="INTEGER" />
+		<result column="record_time" property="recordTime" jdbcType="VARCHAR" />
+		<result column="learn_time" property="learnTime" jdbcType="INTEGER" />
+		<result column="learn_type" property="learnType" jdbcType="TINYINT" />
+		<result column="learn_content" property="learnContent"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, src_record_id, module_id, user_id, type_code,
+		product_category_id, product_id, student_id, taught_unit_id,
+		chief_unit_id, pilot_unit_id, record_time, learn_time, learn_type,
+		learn_content
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataLearnRecordModel">
+		select
+		<include refid="base_column" />
+		from xd_raw_data_learn_record
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="queryLearnTimeCountByCond" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select SUM(learn_time)
+		FROM xd_raw_data_learn_record
+		<include refid="dynamic_where" />
+	</select>
+	<select id="queryStudentCountByCond" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(DISTINCT student_id)
+		FROM xd_raw_data_learn_record
+		<include refid="dynamic_where" />
+	</select>
+	<select id="getLaskWeekLearnTimeRank" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataLearnRecordModel">
+		select sum(learn_time) as
+		learn_time,module_id, user_id, student_id,
+		taught_unit_id,
+		<include refid="dynamic_output" />
+		pilot_unit_id
+		from
+		xd_raw_data_learn_record
+		<include refid="dynamic_where" />
+		group by module_id, user_id,
+		student_id,
+		taught_unit_id,
+		<include refid="dynamic_output" />
+		pilot_unit_id order
+		by sum(learn_time)
+		Desc limit 0,3
+	</select>
+	<!-- 获取总的科次(stuId、productId为一组) -->
+	<select id="querySubjectsByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+			SELECT
+				xd_raw_data_learn_record.taught_unit_id,
+				xd_raw_data_learn_record.chief_unit_id,
+				xd_raw_data_learn_record.pilot_unit_id,
+				xd_raw_data_learn_record.product_category_id,
+				xd_raw_data_learn_record.student_id,
+				xd_raw_data_learn_record.product_id
+			FROM
+				xd_raw_data_learn_record
+			INNER JOIN xd_raw_data_product ON xd_raw_data_product.id = xd_raw_data_learn_record.product_id
+			<include refid="dynamic_where" />
+			AND now() &gt; xd_raw_data_product.begin_apply_time AND now() &lt; xd_raw_data_product.end_apply_time
+			GROUP BY
+				xd_raw_data_learn_record.student_id,
+				xd_raw_data_learn_record.product_id
+	</select>
+	
+	
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_raw_data_learn_record
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	
+	<insert id="addEntity"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataLearnRecordModel">
+		insert into xd_raw_data_learn_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="srcRecordId != null">src_record_id,</if>
+			<if test="moduleId != null">module_id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="typeCode != null">type_code,</if>
+			<if test="productCategoryId != null">product_category_id,</if>
+			<if test="productId != null">product_id,</if>
+			<if test="studentId != null">student_id,</if>
+			<if test="taughtUnitId != null">taught_unit_id,</if>
+			<if test="chiefUnitId != null">chief_unit_id,</if>
+			<if test="pilotUnitId != null">pilot_unit_id,</if>
+			<if test="recordTime != null">record_time,</if>
+			<if test="learnTime != null">learn_time,</if>
+			<if test="learnType != null">learn_type,</if>
+			<if test="learnContent != null">learn_content,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="srcRecordId != null">#{srcRecordId,jdbcType=VARCHAR},</if>
+			<if test="moduleId != null">#{moduleId,jdbcType=VARCHAR},</if>
+			<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+			<if test="typeCode != null">#{typeCode,jdbcType=VARCHAR},</if>
+			<if test="productCategoryId != null">#{productCategoryId,jdbcType=VARCHAR},</if>
+			<if test="productId != null">#{productId,jdbcType=VARCHAR},</if>
+			<if test="studentId != null">#{studentId,jdbcType=INTEGER},</if>
+			<if test="taughtUnitId != null">#{taughtUnitId,jdbcType=INTEGER},</if>
+			<if test="chiefUnitId != null">#{chiefUnitId,jdbcType=INTEGER},</if>
+			<if test="pilotUnitId != null">#{pilotUnitId,jdbcType=INTEGER},</if>
+			<if test="recordTime != null">#{recordTime,jdbcType=VARCHAR},</if>
+			<if test="learnTime != null">#{learnTime,jdbcType=INTEGER},</if>
+			<if test="learnType != null">#{learnType,jdbcType=TINYINT},</if>
+			<if test="learnContent != null">#{learnContent,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="java.util.Map">
+		update xd_raw_data_learn_record
+		<set>
+			<if test="value != null and value.srcRecordId != null">src_record_id = #{value.srcRecordId,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.moduleId != null">module_id = #{value.moduleId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.typeCode != null">type_code = #{value.typeCode,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.productCategoryId != null">product_category_id =
+				#{value.productCategoryId,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentId != null">student_id = #{value.studentId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.taughtUnitId != null">taught_unit_id = #{value.taughtUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.chiefUnitId != null">chief_unit_id = #{value.chiefUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.recordTime != null">record_time = #{value.recordTime,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.learnTime != null">learn_time = #{value.learnTime,jdbcType=INTEGER},</if>
+			<if test="value != null and value.learnType != null">learn_type = #{value.learnType,jdbcType=TINYINT},</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_raw_data_learn_record
+		<set>
+			<if test="value != null and value.srcRecordId != null">src_record_id = #{value.srcRecordId,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.moduleId != null">module_id = #{value.moduleId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.typeCode != null">type_code = #{value.typeCode,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.productCategoryId != null">product_category_id =
+				#{value.productCategoryId,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.studentId != null">student_id = #{value.studentId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.taughtUnitId != null">taught_unit_id = #{value.taughtUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.chiefUnitId != null">chief_unit_id = #{value.chiefUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.recordTime != null">record_time = #{value.recordTime,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.learnTime != null">learn_time = #{value.learnTime,jdbcType=INTEGER},</if>
+			<if test="value != null and value.learnType != null">learn_type = #{value.learnType,jdbcType=TINYINT},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById"
+		parameterType="com.xiaodou.st.dataclean.model.domain.raw.RawDataLearnRecordModel">
+		delete from xd_raw_data_learn_record
+		where id =
+		#{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_raw_data_learn_record
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.srcRecordId != null">src_record_id,</if>
+			<if test="output != null and output.moduleId != null">module_id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.typeCode != null">type_code,</if>
+			<if test="output != null and output.productCategoryId != null">product_category_id,</if>
+			<if test="output != null and output.productId != null">product_id,</if>
+			<if test="output != null and output.studentId != null">student_id,</if>
+			<if test="output != null and output.taughtUnitId != null">taught_unit_id,</if>
+			<if test="output != null and output.chiefUnitId != null">chief_unit_id,</if>
+			<if test="output != null and output.pilotUnitId != null">pilot_unit_id,</if>
+			<if test="output != null and output.recordTime != null">record_time,</if>
+			<if test="output != null and output.learnTime != null">learn_time,</if>
+			<if test="output != null and output.learnType != null">learn_type,</if>
+			<if test="output != null and output.learnContent != null">learn_content,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.srcRecordId != null">and src_record_id=#{input.srcRecordId}</if>
+			<if test="input != null and input.moduleId != null">and module_id=#{input.moduleId}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.typeCode != null">and type_code=#{input.typeCode}</if>
+			<if test="input != null and input.productCategoryId != null">and product_category_id=#{input.productCategoryId}</if>
+			<if test="input != null and input.productId != null">and product_id=#{input.productId}</if>
+			<if test="input != null and input.studentId != null">and student_id=#{input.studentId}</if>
+			<if test="input != null and input.taughtUnitId != null">and xd_raw_data_learn_record.taught_unit_id=#{input.taughtUnitId}</if>
+			<if test="input != null and input.chiefUnitId != null">and xd_raw_data_learn_record.chief_unit_id=#{input.chiefUnitId}</if>
+			<if test="input != null and input.pilotUnitId != null">and xd_raw_data_learn_record.pilot_unit_id=#{input.pilotUnitId}</if>
+			<if test="input != null and input.recordTime != null">and record_time=#{input.recordTime}</if>
+			<if test="input != null and input.learnTime != null">and learn_time=#{input.learnTime}</if>
+			<if test="input != null and input.learnType != null">and learn_type=#{input.learnType}</if>
+			<if test="input != null and input.learnContent != null">and learn_content=#{input.learnContent}</if>
+			<if test="input != null and input.recordTimeLower != null">and record_time &lt;= #{input.recordTimeLower}</if>
+			<if test="input != null and input.recordTimeUpper != null">and record_time &gt;= #{input.recordTimeUpper}</if>
+			<if test="input != null and input.dateTimeLower != null">and record_time &lt;= #{input.dateTimeLower}</if>
+			<if test="input != null and input.dateTimeUpper != null">and record_time &gt;= #{input.dateTimeUpper}</if>
+			<if test="input != null and input.dateTimes != null ">
+				and record_time in
+				<foreach collection="input.dateTimes" item="item" separator=","
+					open="(" close=")">
+					#{item}
+				</foreach>
+			</if>
+			
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.recordTime != null and ( sort.recordTime == 'ASC' or sort.recordTime == 'DESC' )">record_time ${sort.recordTime},</if>
+		</trim>
+	</sql>
+</mapper>

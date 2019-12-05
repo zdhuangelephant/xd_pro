@@ -1,0 +1,191 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html{
+    width: 100%;
+    min-height: 100%;
+    font-size: 14px;
+    position: relative;
+    overflow-x: hidden;
+}
+body {
+    font-family: "微软雅黑";
+    width: 100%;
+    min-height: 100%;
+    margin: 0 auto;
+    overflow-x: hidden;
+}
+li{
+    list-style: none;
+}
+header{
+    width: 100%;
+    height: 50px;
+    background: #609efc;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color:#ffffff;
+    text-align: center;
+    line-height: 50px;
+}
+.main{
+    width: 90%;
+    margin:0 auto;
+}
+.main .top{
+    width: 100%;
+    height: 110px;
+    margin-bottom: 5px;
+    border-bottom: 1px dashed #cdcdcd;
+}
+.main .top .center{
+    width: 145px;
+    height: 40px;
+    margin:0 auto;
+    padding-top: 35px;
+}
+.main .top .center img{
+    display: block;
+    width: 40px;
+    float: left;
+    margin-right: 12px;
+}
+.main .top .center .text{
+    float: left;
+}
+.main .top .center .text p:first-child{
+    font-size: 16px;
+    color:#4b4b4b;
+    letter-spacing: 2px;
+}
+.main .top .center .text p:last-child{
+    font-size: 12px;
+    color:#4b4b4b;
+}
+
+.main .box{
+    margin-top: 30px;
+    overflow: auto;
+    position: relative;
+}
+.main .box .name span{
+    /*letter-spacing: 6px;*/
+    margin-right: 10px;
+}
+.main .box p{
+    float: left;
+    line-height: 30px;
+    color:#4b4b4b;
+    font-size: 16px;
+}
+.main .box .inputBox{
+    float: right;
+    height: 30px;
+    width: 78%;
+    margin-right: 1%;
+    background: #f5f5f5;
+    border:1px solid #cdcdcd;
+    border-radius: 5px;
+}
+.main .box .inputBox input{
+    width: 97%;
+    border-radius: 5px;
+    height: 100%;
+    line-height: 28px;
+    border:none;
+    background: #f5f5f5;
+    padding-left: 3%;
+    /*margin-left: 5px;*/
+    /*background: #e5e5e5;*/
+}
+.main .box .code{
+   position: absolute;
+   right:17px;
+    top:5px;
+    width: 70px;
+    height: 20px;
+}
+.info{
+  float:left;
+  color:#E2332B;
+  margin-left: 5%;
+  margin-top: 5px;
+}
+.renovate{
+  float:right;
+  color:#787878;
+  margin-right: 5%;
+  margin-top: 5px;
+}
+.renovate span{
+    margin-right: 3px;
+}
+.main .box .code img{
+    width: 100%;
+}
+.main .btns{
+    width: 100%;
+    margin-top: 50px;
+}
+.main .btns .btn{
+    width: 45.5%;
+    height: 30px;
+    text-align: center;
+    color:#ffffff;
+    line-height: 30px;
+    background: #e23350;
+    border-radius: 5px;
+}
+.main .btns .btn span{
+    margin-right: 8px;
+}
+.main .btns .login{
+    float: left;
+}
+.main .btns .reset{
+    float: right;
+}
+/*错误提示框*/
+.notice{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+}
+.notice .noticeBox{
+    position: absolute;
+    width:220px;
+    height: 80px;
+    background: #ffffff;
+    border-radius: 5px;
+    left: 0;
+    right:0;
+    margin:0 auto;
+    text-align: center;
+    line-height: 80px;
+    font-size: 16px;
+    color:#666666;
+    top:40%;
+}
+.notice .noticeBox .text{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.notice .noticeBox .text img{
+    position: absolute;
+    right:-8px;
+    top:-8px;
+    width: 25px;
+    height: 25px;
+
+}
+@media screen and (max-width: 360px) {
+    .main .box .inputBox{
+        width: 73%;
+    }
+}

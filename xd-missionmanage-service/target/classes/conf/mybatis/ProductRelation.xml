@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ProductRelation">
+	<resultMap id="BaseResultMap" type="com.xiaodou.mission.domain.ProductRelation">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="product_category_id" property="productCategoryId"
+			jdbcType="INTEGER" />
+		<result column="product_id" property="productId" jdbcType="INTEGER" />
+		<result column="relation_state" property="relationState"
+			jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, product_category_id, product_id, relation_state,
+		create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.mission.domain.ProductRelation">
+		select
+		<include refid="base_column" />
+		from xd_mission_product_relation where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_mission_product_relation
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.mission.domain.ProductRelation">
+		insert into xd_mission_product_relation
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="productCategoryId != null">product_category_id,</if>
+			<if test="productId != null">product_id,</if>
+			<if test="relationState != null">relation_state,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="productCategoryId != null">#{productCategoryId,jdbcType=INTEGER},</if>
+			<if test="productId != null">#{productId,jdbcType=INTEGER},</if>
+			<if test="relationState != null">#{relationState,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.mission.domain.ProductRelation">
+		update xd_mission_product_relation
+		<set>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.mission.domain.ProductRelation">
+		update xd_mission_product_relation
+		<set>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.mission.domain.ProductRelation"> delete from
+		xd_mission_product_relation where id = #{id,jdbcType=INTEGER}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_mission_product_relation
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.productCategoryId != null">product_category_id,</if>
+			<if test="output != null and output.productId != null">product_id,</if>
+			<if test="output != null and output.relationState != null">relation_state,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.productCategoryId != null">and product_category_id=#{input.productCategoryId}</if>
+			<if test="input != null and input.productId != null">and product_id=#{input.productId}</if>
+			<if test="input != null and input.relationState != null">and relation_state=#{input.relationState}</if>
+			<if test="input != null and input.createTimeLower != null">and create_time &gt; #{input.createTimeLower}</if>
+			<if test="input != null and input.createTimeUpper != null">and create_time &lt; #{input.createTimeUpper}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.productCategoryId != null and ( sort.productCategoryId == 'ASC' or sort.productCategoryId == 'DESC' )">product_category_id ${sort.productCategoryId},</if>
+			<if
+				test="sort != null and sort.productId != null and ( sort.productId == 'ASC' or sort.productId == 'DESC' )">product_id ${sort.productId},</if>
+			<if
+				test="sort != null and sort.relationState != null and ( sort.relationState == 'ASC' or sort.relationState == 'DESC' )">relation_state ${sort.relationState},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

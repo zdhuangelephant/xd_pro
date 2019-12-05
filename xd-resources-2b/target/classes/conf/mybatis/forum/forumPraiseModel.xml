@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ForumPraiseModel">
+	<!-- ====================================各种具体业务sql====================================================== -->
+	<!-- 增加 -->
+	<insert id="addEntity" parameterType="ForumPraiseModel">
+		insert into xd_forum_praise
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- 删除 -->
+	<delete id="deleteList">
+		delete from xd_forum_praise
+		<include refid="dynamic_where" />
+	</delete>
+
+	<!-- 更新 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_forum_praise
+		<set>
+			<if test="value != null and value.id != null"> id =#{value.id},</if>
+			<if test="value != null and value.resourcesId != null"> forum_id =#{value.resourcesId},</if>
+			<if test="value != null and value.commentId != null"> comment_id =#{value.commentId},</if>
+			<if test="value != null and value.replyId != null"> reply_id =#{value.replyId},</if>
+			<if test="value != null and value.tag != null"> tag =#{value.tag},</if>
+			<if test="value != null and value.operator != null"> operator =#{value.operator},</if>
+			<if test="value != null and value.operatorip != null|"> operatorip =#{value.operatorip},</if>
+			<if test="value != null and value.itemId != null|"> item_id =#{value.itemId},</if>
+			<if test="value != null and value.productId != null|"> product_id =#{value.productId},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 基础查询 -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM xd_forum_praise
+		<include refid="dynamic_where" />
+	</select>
+	
+	<select id="queryUsersPraiseNumber" parameterType="java.util.Map" resultMap="CommonCountMap">
+		select release_user as userId,COUNT(id) as count from xd_forum_praise 
+		<include refid="dynamic_where"/>
+		group by userId 
+	</select>
+
+	<!-- ====================================基础属性配置========================================================= -->
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseResultMap" type="ForumPraiseModel">
+		<id column="id" property="id" />
+		<result column="forum_id" property="resourcesId" />
+		<result column="comment_id" property="commentId" />
+		<result column="reply_id" property="replyId" />
+		<result column="tag" property="tag" />
+		<result column="operator" property="operator" />
+		<result column="operatorip" property="operatorip" />
+		<result column="create_time" property="createTime" />
+		<result column="release_user" property="releaseUser" />
+		<result column="item_id" property="itemId" />
+		<result column="product_id" property="productId" />
+	</resultMap>
+    <resultMap id="CommonCountMap" type="com.xiaodou.resources.vo.forum.CommonCount">
+		<result column="userId" property="userId" jdbcType="TINYINT" />
+		<result column="count" property="count" jdbcType="TINYINT" />
+	</resultMap>
+	
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null"> id =#{input.id}</if>
+			<if test="input != null and input.resourcesId != null">and forum_id =#{input.resourcesId}</if>
+			<if test="input != null and input.commentId != null">and comment_id =#{input.commentId}</if>
+			<if test="input != null and input.replyId != null">and reply_id =#{input.replyId}</if>
+			<if test="input != null and input.tag != null">and tag =#{input.tag}</if>
+			<if test="input != null and input.operator != null">and operator =#{input.operator}</if>
+			<if test="input != null and input.operatorip != null">and operatorip =#{input.operatorip}</if>
+			<if test="input != null and input.releaseUser != null">and release_user =#{input.releaseUser}</if>
+			<if test="input != null and input.itemId != null">and item_id =#{input.itemId}</if>
+			<if test="input != null and input.productId != null">and product_id =#{input.productId}</if>
+			<if test="input != null and input.ids != null ">
+				  and release_user in
+				<foreach collection="input.ids" item="item" separator=","
+					open="(" close=")">
+					#{item}
+				</foreach>
+
+			</if>
+		</where>
+	</sql>
+
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="resourcesId != null">forum_id,</if>
+			<if test="commentId != null">comment_id,</if>
+			<if test="replyId != null">reply_id,</if>
+			<if test="tag != null">tag,</if>
+			<if test="operator != null">operator,</if>
+			<if test="operatorip != null">operatorip,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="releaseUser != null">release_user,</if>
+			<if test="itemId != null">item_id,</if>
+			<if test="productId != null">product_id,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="resourcesId != null">#{resourcesId},</if>
+			<if test="commentId != null">#{commentId},</if>
+			<if test="replyId != null">#{replyId},</if>
+			<if test="tag != null">#{tag},</if>
+			<if test="operator != null">#{operator},</if>
+			<if test="operatorip != null">#{operatorip},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="releaseUser != null">#{releaseUser},</if>
+			<if test="itemId != null">#{itemId},</if>
+			<if test="productId != null">#{productId},</if>
+		</trim>
+	</sql>
+
+	<select id="queryPraiseNumber" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(id)
+		FROM xd_forum_praise
+		<include refid="dynamic_praise_where" />
+	</select>
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_praise_where">
+		<where>
+			<if test="input != null and input.resourcesId != null">and forum_id =#{input.resourcesId}</if>
+			<if test="input != null and input.commentId != null">and comment_id =#{input.commentId}</if>
+			<if test="input != null and input.releaseUser != null">and release_user =#{input.releaseUser}</if>
+			<if test="input != null and input.itemId != null">and item_id =#{input.itemId}</if>
+			<if test="input != null and input.productId != null">and product_id =#{input.productId}</if>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, forum_id, comment_id, reply_id, tag, operator,
+		operatorip,create_time,release_user,item_id,product_id
+	</sql>
+
+
+</mapper>

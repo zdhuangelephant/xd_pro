@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LastWeekMissionPercentDO">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dashboard.domain.dashboard.LastWeekMissionPercentDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="rank" property="rank" jdbcType="INTEGER" />
+		<result column="tendency" property="tendency" jdbcType="BIGINT" />
+		<result column="pilot_unit_id" property="pilotUnitId" jdbcType="BIGINT" />
+		<result column="mission_percent" property="missionPercent" />
+		<result column="role_type" property="roleType" jdbcType="VARCHAR" />
+		<result column="unit_id" property="unitId" jdbcType="BIGINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="unit_name" property="pilotUnitName"/>
+		<result column="unit_portrait" property="pilotUnitPortrait"/>
+	</resultMap>
+	<sql id="base_column">id, rank, tendency, pilot_unit_id, mission_percent,
+		role_type, unit_id, create_time
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.dashboard.LastWeekMissionPercentDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_last_week_mission_percent
+		where id =
+		#{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_last_week_mission_percent 
+		left join xd_dashboard_unit
+		on xd_dashboard_last_week_mission_percent.pilot_unit_id = xd_dashboard_unit.id
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_dashboard_last_week_mission_percent.id,</if>
+			<if test="output != null and output.rank != null">rank,</if>
+			<if test="output != null and output.tendency != null">tendency,</if>
+			<if test="output != null and output.pilotUnitId != null">pilot_unit_id,</if>
+			<if test="output != null and output.missionPercent != null">mission_percent,</if>
+			<if test="output != null and output.roleType != null">role_type,</if>
+			<if test="output != null and output.unitId != null">unit_id,</if>
+			<if test="output != null and output.createTime != null">xd_dashboard_last_week_mission_percent.create_time,</if>
+			
+			<if test="output != null and output.pilotUnitName != null">xd_dashboard_unit.unit_name,</if>
+			<if test="output != null and output.pilotUnitPortrait != null">xd_dashboard_unit.unit_portrait,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.rank != null">and rank=#{input.rank}</if>
+			<if test="input != null and input.tendency != null">and tendency=#{input.tendency}</if>
+			<if test="input != null and input.pilotUnitId != null">and pilot_unit_id=#{input.pilotUnitId}</if>
+			<if test="input != null and input.missionPercent != null">and mission_percent=#{input.missionPercent}</if>
+			<if test="input != null and input.roleType != null">and role_type=#{input.roleType}</if>
+			<if test="input != null and input.unitId != null">and unit_id=#{input.unitId}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.rank != null and ( sort.rank == 'ASC' or sort.rank == 'DESC' )">xd_dashboard_last_week_mission_percent.rank ${sort.rank},</if>
+			<if
+				test="sort != null and sort.tendency != null and ( sort.tendency == 'ASC' or sort.tendency == 'DESC' )">tendency ${sort.tendency},</if>
+			<if
+				test="sort != null and sort.pilotUnitId != null and ( sort.pilotUnitId == 'ASC' or sort.pilotUnitId == 'DESC' )">pilot_unit_id ${sort.pilotUnitId},</if>
+			<if
+				test="sort != null and sort.missionPercent != null and ( sort.missionPercent == 'ASC' or sort.missionPercent == 'DESC' )">mission_percent ${sort.missionPercent},</if>
+			<if
+				test="sort != null and sort.roleType != null and ( sort.roleType == 'ASC' or sort.roleType == 'DESC' )">role_type ${sort.roleType},</if>
+			<if
+				test="sort != null and sort.unitId != null and ( sort.unitId == 'ASC' or sort.unitId == 'DESC' )">unit_id ${sort.unitId},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">xd_dashboard_last_week_mission_percent.create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

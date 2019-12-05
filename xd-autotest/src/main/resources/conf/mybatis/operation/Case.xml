@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Case">
+	<resultMap id="BaseResultMap" type="com.xiaodou.autotest.web.model.operation.Case">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+<result column="name" property="name" jdbcType="VARCHAR" />
+<result column="case_desc" property="caseDesc" jdbcType="VARCHAR" />
+<result column="count" property="count" jdbcType="BIGINT" />
+<result column="user_id" property="userId" jdbcType="VARCHAR" />
+<result column="results" property="results" jdbcType="VARCHAR" />
+<result column="version" property="version" jdbcType="VARCHAR" />
+<result column="business_line" property="businessLine" jdbcType="VARCHAR" />
+<result column="timing_task_desc" property="timingTaskDesc" jdbcType="VARCHAR" />
+<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+<result column="fail_count" property="failCount" jdbcType="INTEGER" />
+<result column="share" property="share" jdbcType="VARCHAR" />
+<result column="case_fail_count" property="caseFailCount" jdbcType="INTEGER" />
+<result column="case_success_count" property="caseSuccessCount" jdbcType="INTEGER" />
+<result column="record" property="record" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, name, case_desc, count, user_id, results, version, business_line, timing_task_desc, create_time, update_time,fail_count,share,case_fail_count,case_success_count,record</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.autotest.web.model.operation.Case">
+		select
+		<include refid="base_column" />
+		from user_case
+		where id = #{id,jdbcType=VARCHAR}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from user_case
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.autotest.web.model.operation.Case"  >
+		insert into user_case
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+<if test="name != null">name,</if>
+<if test="caseDesc != null">case_desc,</if>
+<if test="count != null">count,</if>
+<if test="userId != null">user_id,</if>
+<if test="results != null">results,</if>
+<if test="version != null">version,</if>
+<if test="businessLine != null">business_line,</if>
+<if test="timingTaskDesc != null">timing_task_desc,</if>
+<if test="createTime != null">create_time,</if>
+<if test="updateTime != null">update_time,</if>
+<if test="failCount != null">fail_count,</if>
+<if test="share != null">share,</if>
+<if test="caseFailCount != null">case_fail_count,</if>
+<if test="caseSuccessCount != null">case_success_count,</if>
+<if test="record != null">record,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+<if test="caseDesc != null">#{caseDesc,jdbcType=VARCHAR},</if>
+<if test="count != null">#{count,jdbcType=BIGINT},</if>
+<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+<if test="results != null">#{results,jdbcType=VARCHAR},</if>
+<if test="version != null">#{version,jdbcType=VARCHAR},</if>
+<if test="businessLine != null">#{businessLine,jdbcType=VARCHAR},</if>
+<if test="timingTaskDesc != null">#{timingTaskDesc,jdbcType=VARCHAR},</if>
+<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+<if test="failCount != null">#{failCount,jdbcType=INTEGER},</if>
+<if test="share != null">#{share,jdbcType=VARCHAR},</if>
+<if test="caseFailCount != null">#{caseFailCount,jdbcType=INTEGER},</if>
+<if test="caseSuccessCount != null">#{caseSuccessCount,jdbcType=INTEGER},</if>
+<if test="record != null">#{record,jdbcType=VARCHAR},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.autotest.web.model.operation.Case">
+		update user_case
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+<if test="value != null and value.caseDesc != null">case_desc = #{value.caseDesc,jdbcType=VARCHAR},</if>
+<if test="value != null and value.count != null">count = #{value.count,jdbcType=BIGINT},</if>
+<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+<if test="value != null and value.results != null">results = #{value.results,jdbcType=VARCHAR},</if>
+<if test="value != null and value.version != null">version = #{value.version,jdbcType=VARCHAR},</if>
+<if test="value != null and value.businessLine != null">business_line = #{value.businessLine,jdbcType=VARCHAR},</if>
+<if test="value != null and value.timingTaskDesc != null">timing_task_desc = #{value.timingTaskDesc,jdbcType=VARCHAR},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.failCount != null">fail_count = #{value.failCount,jdbcType=INTEGER},</if>
+<if test="value != null and value.share!= null">share = #{value.share,jdbcType=VARCHAR},</if>
+<if test="value != null and value.caseFailCount != null">case_fail_count = #{value.caseFailCount,jdbcType=INTEGER},</if>
+<if test="value != null and value.caseSuccessCount != null">case_success_count = #{value.caseSuccessCount,jdbcType=INTEGER},</if>
+<if test="value != null and value.record!= null">record = #{value.record,jdbcType=VARCHAR},</if>
+
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.autotest.web.model.operation.Case">
+		update user_case
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+<if test="value != null and value.caseDesc != null">case_desc = #{value.caseDesc,jdbcType=VARCHAR},</if>
+<if test="value != null and value.count != null">count = #{value.count,jdbcType=BIGINT},</if>
+<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+<if test="value != null and value.results != null">results = #{value.results,jdbcType=VARCHAR},</if>
+<if test="value != null and value.version != null">version = #{value.version,jdbcType=VARCHAR},</if>
+<if test="value != null and value.businessLine != null">business_line = #{value.businessLine,jdbcType=VARCHAR},</if>
+<if test="value != null and value.timingTaskDesc != null">timing_task_desc = #{value.timingTaskDesc,jdbcType=VARCHAR},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.failCount != null">fail_count = #{value.failCount,jdbcType=INTEGER},</if>
+<if test="value != null and value.share != null">share = #{value.share,jdbcType=INTEGER},</if>
+<if test="value != null and value.caseFailCount != null">case_fail_count = #{value.caseFailCount,jdbcType=INTEGER},</if>
+<if test="value != null and value.caseSuccessCount != null">case_success_count = #{value.caseSuccessCount,jdbcType=INTEGER},</if>
+<if test="value != null and value.record != null">record = #{value.record,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.autotest.web.model.operation.Case">
+		delete from user_case
+		where id = #{id,jdbcType=VARCHAR}
+
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from user_case
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.name != null">name,</if>
+			<if test="output != null and output.caseDesc != null">case_desc,</if>
+			<if test="output != null and output.count != null">count,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.results != null">results,</if>
+			<if test="output != null and output.version != null">version,</if>
+			<if test="output != null and output.businessLine != null">business_line,</if>
+			<if test="output != null and output.timingTaskDesc != null">timing_task_desc,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.updateTime != null">update_time,</if>
+			<if test="output != null and output.failCount != null">fail_count,</if>
+			<if test="output != null and output.share != null">share,</if>
+			<if test="output != null and output.caseFailCount != null">case_fail_count,</if>
+			<if test="output != null and output.caseSuccessCount != null">case_success_count,</if>
+			<if test="output != null and output.record != null">record,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.name != null">and name=#{input.name}</if>
+			<if test="input != null and input.caseDesc != null">and case_desc=#{input.caseDesc}</if>
+			<if test="input != null and input.count != null">and count=#{input.count}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.results != null">and results=#{input.results}</if>
+			<if test="input != null and input.version != null">and version=#{input.version}</if>
+			<if test="input != null and input.businessLine != null">and business_line=#{input.businessLine}</if>
+			<if test="input != null and input.timingTaskDesc != null">and timing_task_desc=#{input.timingTaskDesc}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+			<if test="input != null and input.updateTime != null">and update_time=#{input.updateTime}</if>
+			<if test="input != null and input.share != null">and share=#{input.share}</if>
+			<if test="input != null and input.caseFailCount != null">and case_fail_count=#{input.caseFailCount}</if>
+			<if test="input != null and input.caseSuccessCount != null">and case_success_count=#{input.caseSuccessCount}</if>
+			<if test="input != null and input.record != null">and record=#{input.record}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+<if test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">update_time ${sort.updateTime},</if>
+
+		</trim>
+	</sql>
+</mapper>

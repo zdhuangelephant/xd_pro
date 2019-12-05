@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:oscache="http://www.springmodules.org/schema/oscache"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+           http://www.springmodules.org/schema/oscache http://www.springmodules.org/schema/cache/springmodules-oscache.xsd
+           http://code.alibabatech.com/schema/dubbo
+       	   http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<description>MQCR配置</description>
+	<context:component-scan base-package="com.xiaodou.async" />
+
+	<context:property-placeholder
+		location="classpath:conf/custom/env/jdbc_asyncmessage.properties"
+		ignore-unresolvable="true" />
+
+
+	<bean id="asyncMessageDataSourceConfig"
+		class="com.xiaodou.summer.source.jdbc.datasource.DataSourceConfig">
+		<property name="urls" value="${jdbc_asyncmessage.urls}" />
+		<property name="username" value="${jdbc_asyncmessage.username}" />
+		<property name="password" value="${jdbc_asyncmessage.password}" />
+		<property name="useGlobalDataSourceStat" value="${jdbc_asyncmessage.useGlobalDataSourceStat}" />
+		<property name="removeAbandoned" value="${jdbc_asyncmessage.removeAbandoned}" /> <!-- 打开removeAbandoned功能 -->
+		<property name="removeAbandonedTimeout" value="1800" /> <!-- 1800秒，也就是30分钟 -->
+		<property name="logAbandoned" value="true" /> <!-- 关闭abanded连接时输出错误日志 -->
+		<property name="initialSize" value="${jdbc_asyncmessage.initialSize}" />
+		<property name="minIdle" value="${jdbc_asyncmessage.minIdle}" />
+		<property name="maxActive" value="${jdbc_asyncmessage.maxActive}" />
+		<property name="maxWait" value="${jdbc_asyncmessage.maxWait}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${jdbc_asyncmessage.timeBetweenEvictionRunsMillis}" />
+		<property name="minEvictableIdleTimeMillis" value="${jdbc_asyncmessage.minEvictableIdleTimeMillis}" />
+		<property name="testWhileIdle" value="${jdbc_asyncmessage.testWhileIdle}" />
+		<property name="testOnBorrow" value="${jdbc_asyncmessage.testOnBorrow}" />
+		<property name="testOnReturn" value="${jdbc_asyncmessage.testOnReturn}" />
+		<property name="poolPreparedStatements" value="${jdbc_asyncmessage.poolPreparedStatements}" />
+		<property name="validationQuery" value="${jdbc_asyncmessage.validationQuery}" />
+		<property name="filters" value="${jdbc_asyncmessage.filters}" />
+		<property name="init" value="true" />
+	</bean>
+	<!--数据源 -->
+	<bean id="asyncMessageDataSource"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerDataSourceManager">
+		<property name="defaultDataSourceConfig" ref="asyncMessageDataSourceConfig" />
+	</bean>
+	
+	<!--mybatis与Spring整合 开始 -->
+	<bean id="paginationInterceptor" class="com.xiaodou.summer.dao.pagination.PaginationInterceptor">
+		<property name="dialect">
+			<bean class="com.xiaodou.summer.dao.pagination.dialect.MySQLDialect" />
+		</property>
+		<property name="paginationSqlRegEx" value=".*ByCond"></property>
+	</bean>
+	<bean id="asyncMessageSqlSessionFactory" name="asyncMessageSqlSessionFactory"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerSqlSessionFactory">
+		<property name="configLocation" value="classpath:conf/core/async_sqlMapConfig.xml" />
+		<property name="dataSourceManager" ref="asyncMessageDataSource" />
+		<property name="plugins">
+			<array>
+				<ref bean="paginationInterceptor" />
+				<bean
+					class="com.xiaodou.summer.source.jdbc.plugin.SqlStatementInterceptor" />
+			</array>
+		</property>
+	</bean>
+	<!--mybatis与Spring整合 结束 -->
+	
+
+
+
+	<!-- <bean id="asyncMessageDataSource" class="com.xiaodou.summer.dao.datasource.SummerDataSourceManager"> 
+		<property name="alias" value="${jdbc_asyncmessage.alias}"></property> <property 
+		name="user" value="${jdbc_asyncmessage.username}" /> <property name="password" 
+		value="${jdbc_asyncmessage.password}" /> <property name="driver" value="${jdbc_asyncmessage.driverClassName}" 
+		/> <property name="driverUrl" value="${jdbc_asyncmessage.url}" /> <property 
+		name="maximumConnectionCount" value="${jdbc_asyncmessage.maximumConnectionCount}"></property> 
+		<property name="maximumActiveTime" value="${jdbc_asyncmessage.maximumActiveTime}"></property> 
+		<property name="maximumConnectionLifetime" value="${jdbc_asyncmessage.maximumConnectionLifetime}"></property> 
+		<property name="prototypeCount" value="${jdbc_asyncmessage.prototypeCount}"></property> 
+		<property name="houseKeepingSleepTime" value="${jdbc_asyncmessage.houseKeepingSleepTime}"></property> 
+		<property name="simultaneousBuildThrottle" value="${jdbc_asyncmessage.simultaneousBuildThrottle}"></property> 
+		<property name="houseKeepingTestSql" value="${jdbc_asyncmessage.houseKeepingTestSql}"></property> 
+		<property name="verbose" value="${jdbc_asyncmessage.verbose}"></property> 
+		<property name="statistics" value="${jdbc_asyncmessage.statistics}"></property> 
+		<property name="statisticsLogLevel" value="${jdbc_asyncmessage.statisticsLogLevel}"></property> 
+		</bean> <bean id="asyncMessageSqlSessionFactory" class="com.xiaodou.summer.dao.datasource.SummerSqlSessionFactory"> 
+		<property name="configLocation" value="classpath:conf/core/async_sqlMapConfig.xml" 
+		/> <property name="dataSourceManager" ref="asyncMessageDataSource" /> </bean> -->
+
+</beans>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SmsLogDO">
+
+    <resultMap id="BaseResultMap" type="com.xiaodou.st.dashboard.domain.sms.SmsLogDO">
+        <id column="id" property="id"/>
+        <result column="message" property="message"/>
+        <result column="send_status" property="sendStatus"/>
+        <result column="channel_id" property="channelId"/>
+        <result column="template_id" property="templateId"/>
+        <result column="channel_send_result" property="channelSendResult"/>
+        <result column="mobile" property="mobile"/>
+        <result column="create_time" property="createTime"/>
+        <result column="type_id" property="typeId"/>
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">message,send_status,channel_id,template_id,channel_send_result,mobile,create_time,type_id</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 根据条件查询短信发送记录 -->
+     <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_sms_log
+        <include refid="dynamic_where"/>
+        order by create_time desc
+    </select>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.mobile != null">and xd_sms_log.mobile =#{input.mobile}</if>
+            <if test="input != null and input.beginDate != null and input.beginDate != ''">and to_days(xd_sms_log.create_time) &gt; to_days(#{input.beginDate})-1</if>
+            <if test="input != null and input.endDate != null and input.endDate != ''">and to_days(xd_sms_log.create_time) &lt; to_days(#{input.endDate})+1</if>
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">xd_sms_log.id,</if>
+            <if test="output != null and output.message != null">xd_sms_log.message,</if>
+            <if test="output != null and output.sendStatus != null">xd_sms_log.send_status,</if>
+            <if test="output != null and output.channelId != null">xd_sms_log.channel_id,</if>
+            <if test="output != null and output.templateId != null">xd_sms_log.template_id,</if>
+            <if test="output != null and output.channelSendResult != null">xd_sms_log.channel_send_result,</if>
+            <if test="output != null and output.mobile != null">xd_sms_log.mobile,</if>
+            <if test="output != null and output.createTime != null">xd_sms_log.create_time,</if>
+            <if test="output != null and output.typeId != null">xd_sms_log.type_id,</if>
+        </trim>
+    </sql>
+   <!--  动态分页 -->
+    <sql id="dynamic_limit">
+        <if
+            test="limit != null and limit.limitStart != null and limit.limitCount != null">
+            limit ${limit.limitStart}, ${limit.limitCount}
+        </if>
+    </sql>
+</mapper>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Converted at: Mon Aug 20 17:02:07 CST 2012 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MessageEntity">
+
+	<resultMap id="BaseResultMap" type="MessageEntity">
+		<id column="mq_tag" jdbcType="VARCHAR" property="tag" />
+		<result column="mq_status" jdbcType="DECIMAL" property="status" />
+		<result column="insert_time" jdbcType="TIMESTAMP" property="inserTime" />
+	</resultMap>
+
+	<insert id="insertMessageEntity" parameterType="MessageEntity">
+		insert into xd_mq_check_repeat
+		(
+		<include refid="orderInsertColumns" />
+		)
+		values
+		(
+		<include refid="orderInsertValues" />
+		)
+	</insert>
+
+	<sql id="orderInsertColumns">
+		<trim suffixOverrides=",">
+			<if test="tag != null">mq_tag,</if>
+			<if test="status != null">mq_status,</if>
+			<if test="inserTime != null">insert_time,</if>
+		</trim>
+	</sql>
+
+	<sql id="orderInsertValues">
+		<trim suffixOverrides=",">
+			<if test="tag != null">#{tag,jdbcType=VARCHAR},</if>
+			<if test="status != null">#{status,jdbcType=VARCHAR},</if>
+			<if test="inserTime != null">#{inserTime, jdbcType=TIMESTAMP},</if>
+		</trim>
+	</sql>
+
+	<sql id="Dynamic_Where">
+		<where>
+			<if test="input != null and input.tag != null">
+				mq_tag=#{input.tag}
+			</if>
+			<if test="input != null and input.listTag != null">
+				and
+				mq_tag in
+				<foreach collection="#{input.listTag}" item="tag" separator=","
+					open="(" close=")">#{tag}</foreach>
+			</if>
+			<if test="input != null and input.status != null"> and
+				mq_status=#{input.status}
+			</if>
+			<if test="input != null and input.unStatus != null"> and
+				mq_status!=#{input.status}
+			</if>
+			<if test="input != null and input.listStatus != null">
+				and
+				mq_status in
+				<foreach collection="#{input.listStatus}" item="status"
+					separator="," open="(" close=")">#{status}</foreach>
+			</if>
+			<if test="input != null and input.insertTimeLower != null ">and
+				insert_time &gt;= #{input.insertTimeLower}
+			</if>
+			<if test="input != null and input.insertTimeUpper != null ">and
+				insert_time &lt;= #{input.insertTimeUpper}
+			</if>
+		</where>
+	</sql>
+
+	<select id="queryMessageEntity" parameterType="java.util.Map"
+		resultType="MessageEntity">
+		select
+		<if test="output != null and output.tag != null">
+			mq_tag tag
+		</if>
+		<if test="output != null and output.status != null">,
+			mq_status status
+		</if>
+		<if test="output != null and output.inserTime != null">,
+			insert_time inserTime
+		</if>
+		from xd_mq_check_repeat
+		<include refid="Dynamic_Where" />
+		<if test="input != null and input.tagDescend != null">
+			order by tag desc
+		</if>
+		<if test="input != null and input.tagAscend != null">
+			order by tag asc
+		</if>
+		<if
+			test="input !=null and input.limitLower !=null and input.limitUpper != null">
+			limit #{input.limitLower},#{input.limitUpper}
+		</if>
+		<if test="input != null and input.forUpdate != null">
+			for update
+		</if>
+	</select>
+
+	<update id="updateMessageEntity" parameterType="java.util.Map">
+		<if test="tag != null">
+			update xd_mq_check_repeat set mq_status =
+			#{toStatus,jdbcType=NUMERIC}
+			where mq_tag = #{tag,jdbcType=VARCHAR}
+			and mq_status =
+			#{fromStatus,jdbcType=NUMERIC}
+		</if>
+	</update>
+
+	<update id="updateMessageEntityList" parameterType="java.util.Map">
+		<if test="tagLst != null">
+			update xd_mq_check_repeat set mq_status =
+			#{toStatus,jdbcType=NUMERIC}
+			where mq_tag in
+			<foreach collection="tagLst" item="item" separator="," close=")"
+				open="(">#{item,jdbcType=VARCHAR}</foreach>
+			and order_status = #{fromStatus,jdbcType=NUMERIC}
+		</if>
+	</update>
+
+	<delete id="truncateMessage">
+		truncate xd_mq_check_repeat
+	</delete>
+
+	<delete id="deleteMessage" parameterType="java.util.Map">
+		delete from xd_mq_check_repeat
+		<include refid="Dynamic_Where" />
+		<if test="input != null and input.limit != null">
+			limit #{input.limit}
+		</if>
+	</delete>
+</mapper>

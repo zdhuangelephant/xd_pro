@@ -1,0 +1,970 @@
+<ProductLine code="12" name="trainSelfPay">
+
+  <StateMachineInstance>com.elong.oms.statemachine.instance.trainSelfPay.TrainSelfPayStateMachine</StateMachineInstance>
+  <StateInstance>com.elong.oms.statemachine.instance.trainSelfPay.TrainSelfPayState</StateInstance>
+  <EventInstance>com.elong.oms.statemachine.instance.trainSelfPay.TrainSelfPayEvent</EventInstance>
+  <TransitionList>
+
+    <!--新单to队列中-->
+    <Transition name="fromInitToInQueueOnEnterQueueSuccess" id="1">
+      <Do>
+        <!--修改订单状态-->
+        <Api type="local" name="updateOrderStatus">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="shares.toState" type="java.lang.Integer"/>
+        </Api>
+        <!--修改order的userToken orderRepeatToken-->
+        <Api type="local" name="updateOrderMisc">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--新单到取消-->
+    <Transition name="fromInitToClosedOnEnterQueueFailure" id="2">
+      <Do>
+        <!--关单-->
+        <Api type="local" name="closeGorderWithOutRefund">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.closedReason" type="java.lang.String"
+                      value="36#占座失败"/>
+          <InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean"/>
+          <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <!--记录占座失败原因-->
+        <Api type="local" name="updateOrderMisc">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+      </Do>
+    </Transition>
+
+
+    <!--队列中到占座成功-->
+    <Transition name="fromInQueueToHoldingSeatOnHoldingSeatSuccess" id="3">
+      <Do>
+        <!--更改订单状态与12306订单号-->
+        <Api type="local" name="updateOrderStatusAndMerchantOrderId">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.merchantOrderId" type="java.lang.String"/>
+          <InputParam name="shares.toState" type="java.lang.Integer"/>
+        </Api>
+        <!--更新gorder价格信息-->
+        <Api type="local" name="updateGorderPrice">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.gorderUpdateInfo" type="com.elong.oms.entity.order.Gorder"/>
+        </Api>
+        <!--更新payRecord价格信息-->
+        <Api type="local" name="updatePayRecordAmount">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.gorderUpdateInfo.gpayAmount" type="java.math.BigDecimal"/>
+        </Api>
+        <!--更新订单占座成功时间到misc-->
+        <Api type="local" name="updateOrderMisc">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <!--更新order价格信息-->
+        <Api type="local" name="updateOrderPrice">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <!--更新票状态以及票信息-->
+        <Api type="local" name="updateOrderItemMisc">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderItemUpdateInfo" type="java.util.List"/>
+        </Api>
+        <!--更新merchantPrId-->
+        <Api type="local" name="updateOrderItemMerchantPrctId">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderItemUpdateInfo" type="java.util.List"/>
+        </Api>
+        <!--更新item票价信息-->
+        <Api type="local" name="updateOrderItemUnitPrice">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderItemUpdateInfo" type="java.util.List"/>
+        </Api>
+        <!--更新gorder preCloseTime-->
+        <Api type="local" name="updateGorderPreCloseTime">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.gorderUpdateInfo" type="com.elong.oms.entity.order.Gorder"/>
+        </Api>
+        <!--tb_shop_fraud_request preCloseTime-->
+        <Api type="local" name="updateFraudRequestPreCloseTime">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.gorderUpdateInfo" type="com.elong.oms.entity.order.Gorder"/>
+        </Api>
+      </Do>
+    </Transition>
+
+
+    <Transition name="fromInQueueToClosedOnHoldingSeatFailure" id="4">
+      <Do>
+        <!--关单-->
+        <Api type="local" name="closeGorderWithOutRefund">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.closedReason" type="java.lang.String"
+                      value="36#占座失败"/>
+          <InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean"/>
+          <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <!--记录占座失败原因-->
+        <Api type="local" name="updateOrderMisc">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--占座成功到支付成功-->
+    <Transition name="fromHoldingSeatToPaySuccessOnPaySuccess" id="5">
+      <Do>
+        <!--回调处理-->
+        <Api type="local" name="gorderPayCallback">
+          <InputParam name="payStatus" type="java.lang.Integer"
+                      value="1"/>
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+        </Api>
+        <!--修改payRecord-->
+        <Api type="local" name="updatePayRecord">
+          <InputParam name="coreParams.payParam.payNo" type="java.lang.String"/>
+          <InputParam name="payRecordStatus" type="java.lang.Integer"
+                      value="2"/>
+          <InputParam name="coreParams.payParam.failureReason"
+                      type="java.lang.String"/>
+        </Api>
+      </Do>
+      <RecordMessage>
+        <Api type="local" name="recordMessage">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from7To1OnPaySuccess"/>
+        </Api>
+      </RecordMessage>
+      <!--异步消息发给train
+        7.记应收实收报表
+        12.插入12306支付请求表(tb_train_payinfo)-->
+      <Message>
+        <Api type="local" name="message">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from7To1OnPaySuccess"/>
+        </Api>
+      </Message>
+    </Transition>
+
+    <!--占座成功到支付失败-->
+    <Transition name="fromHoldingSeatToPayFailureOnPayFailure" id="6">
+      <Do>
+        <!--支付回调处理-->
+        <Api type="local" name="gorderPayCallback">
+          <InputParam name="payStatus" type="java.lang.Integer"
+                      value="-1"/>
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+        </Api>
+        <!--修改支付记录-->
+        <Api type="local" name="updatePayRecord">
+          <InputParam name="coreParams.payParam.payNo" type="java.lang.String"/>
+          <InputParam name="payRecordStatus" type="java.lang.Integer"
+                      value="-1"/>
+          <InputParam name="coreParams.payParam.failureReason"
+                      type="java.lang.String"/>
+        </Api>
+      </Do>
+      <RecordMessage>
+        <Api type="local" name="recordMessage">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from7Tom1OnPayFailure"/>
+        </Api>
+      </RecordMessage>
+      <!--异步消息发给train 发支付失败短信-->
+      <Message>
+        <Api type="local" name="message">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from7Tom1OnPayFailure"/>
+        </Api>
+      </Message>
+    </Transition>
+
+    <!--占座成功到关单 用户取消-->
+    <Transition name="fromHoldingSeatToClosedOnCancelByUser" id="7">
+      <Do>
+        <!--占座成功后的取消，都是需要给pmt发退款请求-->
+        <Api type="local" name="closeGorder">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.closedReason" type="java.lang.String"
+                      value="4#用户取消"/>
+          <InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean"/>
+          <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+          <InputParam name="coreParams.payParam"
+                      type="com.elong.oms.statemachine.param.PayParam"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--占座成功到关单 12306超时-->
+    <Transition name="fromHoldingSeatToClosedOnPay12306Timeout" id="8">
+      <Do>
+        <!--占座成功后的取消，都是需要给pmt发退款请求-->
+        <Api type="local" name="closeGorder">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.closedReason" type="java.lang.String"
+                      value="8#12306支付超时"/>
+          <InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean"/>
+          <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+          <InputParam name="coreParams.payParam"
+                      type="com.elong.oms.statemachine.param.PayParam"/>
+        </Api>
+      </Do>
+    </Transition>
+
+
+    <!--支付成功到出票中 支付成功后的异步消息发给train，train写payinfo表
+      然后自动支付系统从payinfo读取记录后触发,12306支付队列中的状态改为支付中
+    -->
+    <Transition name="fromPaySuccessToDeliveringOnEnterDeliveringQueue" id="9">
+      <!--修改订单状态为出票中-->
+      <Do>
+        <Api type="local" name="updateOrderStatus">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="shares.toState" type="java.lang.Integer"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--出票中到出票成功-->
+    <Transition name="fromDeliveringToPay12306SuccessOnPay12306Success" id="10">
+      <Do>
+        <!--修改订单状态 -->
+        <Api type="local" name="updateOrderStatus">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="shares.toState" type="java.lang.Integer"/>
+        </Api>
+      </Do>
+      <RecordMessage>
+        <Api type="local" name="recordMessage">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from6To8OnPay12306Success"/>
+        </Api>
+      </RecordMessage>
+      <!--异步消息记录12306出票明细表-->
+      <Message>
+        <Api type="local" name="message">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from6To8OnPay12306Success"/>
+        </Api>
+      </Message>
+    </Transition>
+
+    <!--支付失败到支付成功-->
+    <Transition name="fromPayFailureToPaySuccessOnPaySuccess" id="11">
+      <Do>
+        <Api type="local" name="gorderPayCallback">
+          <InputParam name="payStatus" type="java.lang.Integer"
+                      value="1"/>
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+        </Api>
+        <Api type="local" name="updatePayRecord">
+          <InputParam name="coreParams.payParam.payNo" type="java.lang.String"/>
+          <InputParam name="payRecordStatus" type="java.lang.Integer"
+                      value="2"/>
+          <InputParam name="coreParams.payParam.failureReason"
+                      type="java.lang.String"/>
+        </Api>
+      </Do>
+      <RecordMessage>
+        <Api type="local" name="recordMessage">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_fromm1To1OnPaySuccess"/>
+        </Api>
+      </RecordMessage>
+      <!--写异步消息
+        7记应收实收报表
+        12 插入12306支付请求表 payinfo-->
+      <Message>
+        <Api type="local" name="message">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_fromm1To1OnPaySuccess"/>
+        </Api>
+      </Message>
+    </Transition>
+
+    <!--支付失败-用户取消-->
+    <Transition name="fromPayFailureToClosedOnCancelByUser" id="12">
+      <Do>
+        <Api type="local" name="closeGorder">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.closedReason" type="java.lang.String"
+                      value="4#用户取消"/>
+          <InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean"/>
+          <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+          <InputParam name="coreParams.payParam"
+                      type="com.elong.oms.statemachine.param.PayParam"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--支付失败到取消 12306超时-->
+    <Transition name="fromPayFailureToClosedOnPay12306Timeout" id="13">
+      <Do>
+        <Api type="local" name="closeGorder">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.closedReason" type="java.lang.String"
+                      value="13#12306超时"/>
+          <InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean"/>
+          <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+          <InputParam name="coreParams.payParam"
+                      type="com.elong.oms.statemachine.param.PayParam"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--关单下支付成功-->
+    <Transition name="fromClosedToClosedOnPaySuccess" id="14">
+      <Do>
+        <!--修改payRecord-->
+        <Api type="local" name="updatePayRecord">
+          <InputParam name="coreParams.payParam.payNo" type="java.lang.String"/>
+          <InputParam name="payRecordStatus" type="java.lang.Integer"
+                      value="2"/>
+          <InputParam name="coreParams.payParam.failureReason"
+                      type="java.lang.String"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--关单下支付失败-->
+    <Transition name="fromClosedToClosedOnPayFailure" id="15">
+      <Do>
+        <!--修改payRecord-->
+        <Api type="local" name="updatePayRecord">
+          <InputParam name="coreParams.payParam.payNo" type="java.lang.String"/>
+          <InputParam name="payRecordStatus" type="java.lang.Integer"
+                      value="-1"/>
+          <InputParam name="coreParams.payParam.failureReason"
+                      type="java.lang.String"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--出票中到取消 12306支付失败（人工触发）-->
+    <Transition name="fromDeliveringToClosedOnPay12306Failure" id="16">
+      <Do>
+        <Api type="local" name="closeGorder">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.closedReason" type="java.lang.String"
+                      value="16#12306支付失败(人工触发)"/>
+          <InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean"/>
+          <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+          <InputParam name="coreParams.payParam"
+                      type="com.elong.oms.statemachine.param.PayParam"/>
+        </Api>
+        <!-- 修改oder misc 出票失败原因 时间-->
+        <Api type="local" name="updateOrderMisc">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <!--4.12 客服录入日志备注 -->
+        <Api type="local" name="addOrderNote">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+      </Do>
+      <RecordMessage>
+        <Api type="local" name="recordMessage">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from6To5OnPay12306Failure"/>
+        </Api>
+      </RecordMessage>
+      <!-- 1发短信
+      13 移表 数据从12306支付请求表移到12306支付记录表，
+      状态为支付失败，如果有单独的人工队列表，则从中删除。-->
+      <Message>
+        <Api type="local" name="message">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from6To5OnPay12306Failure"/>
+        </Api>
+      </Message>
+    </Transition>
+
+    <!--出票中到取消 12306超时(12306超时 以及向12306支付前对时间校验)-->
+    <Transition name="fromDeliveringToClosedOnPay12306Timeout" id="17">
+      <Do>
+        <Api type="local" name="closeGorder">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.closedReason" type="java.lang.String"
+                      value="13#12306超时"/>
+          <InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean"/>
+          <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+          <InputParam name="coreParams.payParam"
+                      type="com.elong.oms.statemachine.param.PayParam"/>
+        </Api>
+        <!--修改oder misc 出票失败原因 时间 -->
+        <Api type="local" name="updateOrderMisc">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+      </Do>
+      <RecordMessage>
+        <Api type="local" name="recordMessage">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from6To5OnPay12306Timeout"/>
+        </Api>
+      </RecordMessage>
+      <!--异步消息 * 1发短信
+   * 9 记录应退报表
+   * 13 移表 数据从12306支付请求表移到12306支付记录表，
+   * 状态为支付失败，如果有单独的人工队列表，则从中删除。-->
+      <Message>
+        <Api type="local" name="message">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from6To5OnPay12306Timeout"/>
+        </Api>
+      </Message>
+    </Transition>
+
+    <!--支付失败到支付失败on支付失败 这是毅种循环-->
+    <Transition name="fromPayFailureToPayFailureOnPayFailure" id="18">
+      <Do>
+        <Api type="local" name="updatePayRecord">
+          <InputParam name="coreParams.payParam.payNo" type="java.lang.String"/>
+          <InputParam name="payRecordStatus" type="java.lang.Integer"
+                      value="-1"/>
+          <InputParam name="coreParams.payParam.failureReason"
+                      type="java.lang.String"/>
+        </Api>
+      </Do>
+      <RecordMessage>
+        <Api type="local" name="recordMessage">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_fromm1Tom1OnPayFailure"/>
+        </Api>
+      </RecordMessage>
+      <!-- 写异步消息
+      1 发支付失败短信-->
+      <Message>
+        <Api type="local" name="message">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_fromm1Tom1OnPayFailure"/>
+        </Api>
+      </Message>
+    </Transition>
+
+    <!--关单状态下的退款成功-->
+    <Transition name="fromClosedToClosedOnRefundSuccess" id="19">
+      <Do>
+        <Api type="local" name="updatePayRecord">
+          <InputParam name="coreParams.payParam.payNo" type="java.lang.String"/>
+          <InputParam name="payRecordStatus" type="java.lang.Integer"
+                      value="2"/>
+          <InputParam name="coreParams.payParam.failureReason"
+                      type="java.lang.String"/>
+        </Api>
+      </Do>
+      <RecordMessage>
+        <Api type="local" name="recordMessage">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from5To5OnRefundSuccess"/>
+        </Api>
+      </RecordMessage>
+      <!--异步消息:
+        8 记实退报表-->
+      <Message>
+        <Api type="local" name="message">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from5To5OnRefundSuccess"/>
+        </Api>
+      </Message>
+    </Transition>
+
+    <!--关单状态下的退款失败-->
+    <Transition name="fromClosedToClosedOnRefundFailure" id="20">
+      <Do>
+        <!--4.3 修改payRecord记录-->
+        <Api type="local" name="updatePayRecord">
+          <InputParam name="coreParams.payParam.payNo" type="java.lang.String"/>
+          <InputParam name="payRecordStatus" type="java.lang.Integer"
+                      value="-1"/>
+          <InputParam name="coreParams.payParam.failureReason"
+                      type="java.lang.String"/>
+        </Api>
+      </Do>
+    </Transition>
+
+
+    <!--出票成功状态下 退票成功 -->
+    <Transition name="fromDeliveredToDeliveredOnTicketRefundSuccess" id="21">
+      <!--*****前置检查校验订单金额 校验票状态//////-->
+      <!--<PreCheck>-->
+        <!--<Api type="remote" name="trainValidateTicketStatus"/>-->
+      <!--</PreCheck>-->
+      <Do>
+        <!--修改orderItem状态 和misc-->
+        <Api type="local" name="updateOrderItemStatus">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderItemUpdateInfo" type="java.util.List"/>
+        </Api>
+        <Api type="local" name="createPayRequest">
+          <InputParam name="coreParams.payParam"
+                      type="com.elong.oms.statemachine.param.PayParam"/>
+          <!--出票成功到出票成功，供应商回调退票成功，生成退票请求记录，refund_notify -->
+          <InputParam name="payCallbackUrl" type="java.lang.String"
+                      value="refund_notify.do"/>
+          <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <!--记录refundAmount(累加)-->
+        <Api type="local" name="updateOrderItemRefundAmount">
+          <InputParam name="coreParams.orderItemUpdateInfo" type="java.util.List"/>
+        </Api>
+        <Api type="local" name="updateOrderRefundAmount">
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+      </Do>
+      <RecordMessage>
+        <Api type="local" name="recordMessage">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from2To2OnTicketRefundSuccess"/>
+        </Api>
+      </RecordMessage>
+      <!--写异步消息
+      11写退票报表 记支付宝应收
+      9 写应退报表-->
+      <Message>
+        <Api type="local" name="message">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from2To2OnTicketRefundSuccess"/>
+        </Api>
+      </Message>
+    </Transition>
+
+    <!--出票成功状态下 线上退票失败-->
+    <Transition name="fromDeliveredToDeliveredOnTicketRefundFailure" id="22">
+      <Do>
+        <!--4.10 修改orderItem状态和misc-->
+        <Api type="local" name="updateOrderItemStatus">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderItemUpdateInfo" type="java.util.List"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--出票成功下退款请求(客服操作线下退票)-->
+    <Transition name="fromDeliveredToDeliveredOnRefundRequest" id="23">
+    	<PreCheck>
+        <Api type="local" name="startOperation">
+          <InputParam name="otherParams.tag" type="java.lang.String"/>
+        </Api>
+      </PreCheck>
+      <Do>
+        <!--4.4 生成PayRequest记录（退款请求）-->
+        <Api type="local" name="createPayRequest">
+          <InputParam name="coreParams.payParam"
+                      type="com.elong.oms.statemachine.param.PayParam"/>
+          <!--退票 -->
+          <InputParam name="payCallbackUrl" type="java.lang.String"
+                      value="refund_notify.do"/>
+          <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <!--*******需要修改 需要在order加字段 -->
+        <!-- 记录refundAmount（累加）-->
+        <Api type="local" name="updateOrderRefundAmount">
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <!--4.12 客服录入日志备注 -->
+        <Api type="local" name="addOrderNote">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <Api type="local" name="finishOperation">
+          <InputParam name="otherParams.tag" type="java.lang.String"/>
+        </Api>
+      </Do>
+      <RecordMessage>
+        <Api type="local" name="recordMessage">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from2To2OnRefundRequest"/>
+        </Api>
+      </RecordMessage>
+      <!--写异步消息
+      9 修改应退报表
+      14 改线下退票操作表状态-->
+      <Message>
+        <Api type="local" name="message">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from2To2OnRefundRequest"/>
+        </Api>
+      </Message>
+    </Transition>
+
+    <!--出票成功状态下退款成功 -->
+    <Transition name="fromDeliveredToDeliveredOnRefundSuccess" id="24">
+      <Do>
+        <!--4.3 修改PayRecord记录-->
+        <Api type="local" name="updatePayRecord">
+          <InputParam name="coreParams.payParam.payNo" type="java.lang.String"/>
+          <InputParam name="payRecordStatus" type="java.lang.Integer"
+                      value="2"/>
+          <InputParam name="coreParams.payParam.failureReason"
+                      type="java.lang.String"/>
+        </Api>
+      </Do>
+      <RecordMessage>
+        <Api type="local" name="recordMessage">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from2To2OnRefundSuccess"/>
+        </Api>
+      </RecordMessage>
+      <!--写异步消息
+        8 记实退报表-->
+      <Message>
+        <Api type="local" name="message">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from2To2OnRefundSuccess"/>
+        </Api>
+      </Message>
+    </Transition>
+
+    <!--出票成功状态下退款失败-->
+    <Transition name="fromDeliveredToDeliveredOnRefundFailure" id="25">
+      <Do>
+        <!--4.3 修改PayRecord记录-->
+        <Api type="local" name="updatePayRecord">
+          <InputParam name="coreParams.payParam.payNo" type="java.lang.String"/>
+          <InputParam name="payRecordStatus" type="java.lang.Integer"
+                      value="-1"/>
+          <InputParam name="coreParams.payParam.failureReason"
+                      type="java.lang.String"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--12306支付成功 到 出票成功 by 系统出票成功-->
+    <Transition name="fromPay12306SuccessToDeliveredOnDeliveredSuccessBySystem" id="26">
+      <Do>
+        <!--修改订单状态-->
+        <Api type="local" name="updateOrderStatus">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="shares.toState" type="java.lang.Integer"/>
+        </Api>
+        <!--修改orderItem状态-->
+        <Api type="local" name="updateOrderItemStatus">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderItemUpdateInfo" type="java.util.List"/>
+        </Api>
+        <!--4.9 修改订单misc-->
+        <Api type="local" name="updateOrderMisc">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <!--更新订单成功时间-->
+        <Api type="local" name="updateOrderSuccessTime">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+      </Do>
+      <RecordMessage>
+        <Api type="local" name="recordMessage">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from8To2OnDeliveredSuccessBySystem"/>
+        </Api>
+      </RecordMessage>
+      <!--13 移表 把tb_train_payinfo移到tb_train_payinfo_record-->
+      <Message>
+        <Api type="local" name="message">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from8To2OnDeliveredSuccessBySystem"/>
+        </Api>
+      </Message>
+    </Transition>
+
+    <!--12306支付成功 到 出票成功 by 人工出票成功
+    对于出票失败队列里的订单，人工审核可以出票后，触发出票成功事件。-->
+    <Transition name="fromPay12306SuccessToDeliveredOnDeliveredSuccessByMan" id="27">
+      <Do>
+        <!--修改订单状态-->
+        <Api type="local" name="updateOrderStatus">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="shares.toState" type="java.lang.Integer"/>
+        </Api>
+        <!--修改orderItem状态 -->
+        <Api type="local" name="updateOrderItemStatus">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderItemUpdateInfo" type="java.util.List"/>
+        </Api>
+        <!--4.9 修改订单misc-->
+        <Api type="local" name="updateOrderMisc">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <!--更新订单成功时间-->
+        <Api type="local" name="updateOrderSuccessTime">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <!--4.12 客服录入日志备注 -->
+        <Api type="local" name="addOrderNote">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+      </Do>
+      <RecordMessage>
+        <Api type="local" name="recordMessage">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from8To2OnDeliveredSuccessByMan"/>
+        </Api>
+      </RecordMessage>
+      <!--13 移表 把tb_train_payinfo移到tb_train_payinfo_record-->
+      <Message>
+        <Api type="local" name="message">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from8To2OnDeliveredSuccessByMan"/>
+        </Api>
+      </Message>
+    </Transition>
+
+    <!--12306支付成功 到 取消
+    对于出票失败队列里的订单，人工审核，发现确实不可以出票后，触发出票失败事件。-->
+    <Transition name="fromPay12306SuccessToClosedOnDeliveredFailure" id="28">
+      <Do>
+        <!--关单 -->
+        <Api type="local" name="closeGorder">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.closedReason" type="java.lang.String"
+                      value="18#出票失败"/>
+          <InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean"/>
+          <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+          <InputParam name="coreParams.payParam"
+                      type="com.elong.oms.statemachine.param.PayParam"/>
+        </Api>
+        <!--修改orderMisc -->
+        <Api type="local" name="updateOrderMisc">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+        <!--4.12 客服录入日志备注 -->
+        <Api type="local" name="addOrderNote">
+          <InputParam name="coreParams.orderId" type="java.lang.String"/>
+          <InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+      </Do>
+      <RecordMessage>
+        <Api type="local" name="recordMessage">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from8To5OnDeliveredFailure"/>
+        </Api>
+      </RecordMessage>
+      <!--13 移表 把tb_train_payinfo移到tb_train_payinfo_record-->
+      <Message>
+        <Api type="local" name="message">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from8To5OnDeliveredFailure"/>
+        </Api>
+      </Message>
+    </Transition>
+
+    <!--队列中到取消 12306超时-->
+    <Transition name="fromInQueueToClosedOnPay12306Timeout" id="29">
+      <Do>
+        <!--4.11 关单WithoutRefund-->
+        <Api type="local" name="closeGorderWithOutRefund">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.closedReason" type="java.lang.String"
+                      value="13#12306超时"/>
+          <InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean"/>
+          <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+        </Api>
+      </Do>
+    </Transition>
+
+    <!--占座成功到关单 on 风控拒绝-->
+    <Transition name="fromHoldingSeatToClosedOnCancelByFraud" id="30">
+      <Do>
+        <!--占座成功后的取消，都是需要给pmt发退款请求-->
+        <Api type="local" name="closeGorder">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.closedReason" type="java.lang.String"
+                      value="33#风控拒绝"/>
+          <InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean"/>
+          <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+          <InputParam name="coreParams.payParam"
+                      type="com.elong.oms.statemachine.param.PayParam"/>
+        </Api>
+      </Do>
+      <RecordMessage>
+        <Api type="local" name="recordMessage">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from7To5OnCancelByFraud"/>
+        </Api>
+      </RecordMessage>
+      <!--
+      发送短信-->
+      <Message>
+        <Api type="local" name="message">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_from7To5OnCancelByFraud"/>
+        </Api>
+      </Message>
+    </Transition>
+
+    <!--支付失败到关单 on 风控拒绝-->
+    <Transition name="fromPayFailureToClosedOnCancelByFraud" id="30">
+      <Do>
+        <!--需要给pmt发退款请求-->
+        <Api type="local" name="closeGorder">
+          <InputParam name="coreParams.gorderId" type="java.lang.String"/>
+          <InputParam name="coreParams.ip" type="java.lang.String"/>
+          <InputParam name="coreParams.closedReason" type="java.lang.String"
+                      value="33#风控拒绝"/>
+          <InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean"/>
+          <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+          <InputParam name="coreParams.payParam"
+                      type="com.elong.oms.statemachine.param.PayParam"/>
+        </Api>
+      </Do>
+      <RecordMessage>
+        <Api type="local" name="recordMessage">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_fromm1To5OnCancelByFraud"/>
+        </Api>
+      </RecordMessage>
+      <!--
+      发送短信-->
+      <Message>
+        <Api type="local" name="message">
+          <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+          <InputParam name="tempType" type="java.lang.String"
+                      value="1"/>
+          <InputParam name="messageName" type="java.lang.String"
+                      value="12_fromm1To5OnCancelByFraud"/>
+        </Api>
+      </Message>
+    </Transition>
+
+  </TransitionList>
+</ProductLine>

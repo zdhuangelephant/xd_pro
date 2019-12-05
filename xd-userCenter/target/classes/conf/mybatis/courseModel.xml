@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CourseModel" >
+  <!-- 1. 根据条件 查询 文档列表(不分页) -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		<trim suffixOverrides=",">
+			<if test="output != null and output.courseId !=null ">course_id,</if>
+			<if test="output != null and output.courseName !=null ">course_name,</if>
+			<if test="output != null and output.courseImage !=null ">course_image,</if>
+			<if test="output != null and output.examDate !=null ">exam_date,</if>
+			<if test="output != null and output.isLatest !=null ">is_latest,</if>
+			<if test="output != null and output.majorId !=null ">major_id,</if>
+		</trim>
+		FROM 
+		xd_selftaught_course 
+		<include refid="dynamic_where" />
+	</select>
+	
+	<!-- ******************************** 上面是DAO层方法实现, 下面是各个动态语句的拼写 ******************************************* -->
+
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseResultMap" type="com.xiaodou.userCenter.model.CourseModel">
+		<id column="course_id" property="courseId" />
+		<result column="course_name" property="courseName" />
+		<result column="course_image" property="courseImage" />
+		<result column="exam_date" property="examDate"/>
+		<result column="is_latest" property="isLatest"/>
+		<result column="major_id" property="majorId"/>
+	</resultMap>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.courseId != null"> and course_id =#{input.courseId}</if>
+			<if test="input != null and input.courseName != null"> and course_name =#{input.courseName}</if>
+			<if test="input != null and input.courseImage != null"> and course_image =#{input.courseImage}</if>
+			<if test="input != null and input.examDate != null"> and exam_date =#{input.examDate}</if>
+			<if test="input != null and input.isLatest != null"> and is_latest =#{input.isLatest}</if>
+			<if test="input != null and input.majorId != null"> and major_id =#{input.majorId}</if>
+		</where>
+	</sql>
+
+</mapper>

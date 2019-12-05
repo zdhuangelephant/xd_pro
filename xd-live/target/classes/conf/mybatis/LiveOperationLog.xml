@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LiveOperationLog">
+	<resultMap id="BaseResultMap" type="com.xiaodou.live.domain.LiveOperationLog">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="live_id" property="liveId" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="user_ip" property="userIp" jdbcType="VARCHAR" />
+		<result column="operation" property="operation" jdbcType="VARCHAR" />
+		<result column="note" property="note" jdbcType="VARCHAR" />
+		<result column="operation_time" property="operationTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, live_id, user_id, user_ip, operation, note,
+		operation_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.live.domain.LiveOperationLog">
+		select
+		<include refid="base_column" />
+		from xd_live_operation_log
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="base_column" />
+		from xd_live_operation_log
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<delete id="delete" parameterType="java.util.Map">
+		delete from
+		xd_live_operation_log
+		<include refid="dynamic_where" />
+	</delete>
+	<insert id="addEntity" parameterType="com.xiaodou.live.domain.LiveOperationLog">
+		insert into xd_live_operation_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="liveId != null">live_id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="userIp != null">user_ip,</if>
+			<if test="operation != null">operation,</if>
+			<if test="note != null">note,</if>
+			<if test="operationTime != null">operation_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="liveId != null">#{liveId,jdbcType=VARCHAR},</if>
+			<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+			<if test="userIp != null">#{userIp,jdbcType=VARCHAR},</if>
+			<if test="operation != null">#{operation,jdbcType=VARCHAR},</if>
+			<if test="note != null">#{note,jdbcType=VARCHAR},</if>
+			<if test="operationTime != null">#{operationTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.live.domain.LiveOperationLog">
+		update xd_live_operation_log
+		<set>
+
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.live.domain.LiveOperationLog">
+		update xd_live_operation_log
+		<set>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_live_operation_log
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.liveId != null">live_id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.userIp != null">user_ip,</if>
+			<if test="output != null and output.operation != null">operation,</if>
+			<if test="output != null and output.note != null">note,</if>
+			<if test="output != null and output.operationTime != null">operation_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.liveId != null">and live_id=#{input.liveId}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.userIp != null">and user_ip=#{input.userIp}</if>
+			<if test="input != null and input.operation != null">and operation=#{input.operation}</if>
+			<if test="input != null and input.note != null">and note=#{input.note}</if>
+			<if test="input != null and input.operationTime != null">and operation_time=#{input.operationTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limitStart != null and limitCount != null">
+			limit ${limitStart}, ${limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.liveId != null and ( sort.liveId == 'ASC' or sort.liveId == 'DESC' )">live_id ${sort.liveId},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.userIp != null and ( sort.userIp == 'ASC' or sort.userIp == 'DESC' )">user_ip ${sort.userIp},</if>
+			<if
+				test="sort != null and sort.operation != null and ( sort.operation == 'ASC' or sort.operation == 'DESC' )">operation ${sort.operation},</if>
+			<if
+				test="sort != null and sort.note != null and ( sort.note == 'ASC' or sort.note == 'DESC' )">note ${sort.note},</if>
+			<if
+				test="sort != null and sort.operationTime != null and ( sort.operationTime == 'ASC' or sort.operationTime == 'DESC' )">operation_time ${sort.operationTime},</if>
+		</trim>
+	</sql>
+</mapper>

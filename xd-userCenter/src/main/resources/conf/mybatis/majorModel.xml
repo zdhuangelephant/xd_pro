@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MajorModel" >
+  <!-- 1. 根据条件 查询 文档列表(不分页) -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		<trim suffixOverrides=",">
+			<if test="output != null and output.majorId !=null ">major_id,</if>
+			<if test="output != null and output.majorName !=null ">major_name,</if>
+			<if test="output != null and output.majorImage !=null ">major_image,</if>
+			<if test="output != null and output.degree !=null ">degree,</if>
+			<if test="output != null and output.module !=null ">module,</if>
+		</trim>
+		FROM 
+		xd_selftaught_major 
+		<include refid="dynamic_where" />
+	</select>
+	
+	<!-- ******************************** 上面是DAO层方法实现, 下面是各个动态语句的拼写 ******************************************* -->
+
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseResultMap" type="com.xiaodou.userCenter.model.MajorModel">
+		<id column="major_id" property="majorId" />
+		<result column="major_name" property="majorName" />
+		<result column="major_image" property="majorImage" />
+		<result column="degree" property="degree"/>
+		<result column="module" property="module"/>
+	</resultMap>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.majorId != null"> and major_id =#{input.majorId}</if>
+			<if test="input != null and input.majorName != null"> and major_name =#{input.majorName}</if>
+			<if test="input != null and input.majorImage != null"> and major_image =#{input.majorImage}</if>
+			<if test="input != null and input.degree != null"> and degree =#{input.degree}</if>
+			<if test="input != null and input.module != null"> and module =#{input.module}</if>
+		</where>
+	</sql>
+
+</mapper>

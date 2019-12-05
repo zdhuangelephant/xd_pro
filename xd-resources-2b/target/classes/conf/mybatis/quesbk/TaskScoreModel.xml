@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="TaskScoreModel">
+
+	<resultMap id="BaseResultMap" type="TaskScoreModel">
+		<id column="id" property="id" />
+		<result column="task_id" property="taskId" />
+		<result column="user_id" property="userId" />
+		<result column="product_id" property="productId" />
+		<result column="score" property="score" />
+		<result column="record_num" property="recordNum" />
+		<result column="teacher_id" property="teacherId" />
+		<result column="detail" property="detail" />
+		<result column="create_time" property="createTime" />
+		<result column="teacher_name" property="teacherName" />
+	</resultMap>
+
+	<!--字段 -->
+	<sql id="base_column">task_id,user_id,product_id,score,record_num,teacher_id,detail,create_time
+	</sql>
+	<sql id="all_column">
+		id,
+		<include refid="base_column" />
+	</sql>
+
+	<!-- 1.插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="taskId != null">task_id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="productId != null">product_id,</if>
+			<if test="score != null">score,</if>
+			<if test="recordNum != null">record_num,</if>
+			<if test="teacherId != null">teacher_id,</if>
+			<if test="detail != null">detail,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="taskId != null">#{taskId},</if>
+			<if test="userId != null">#{userId},</if>
+			<if test="productId != null">#{productId},</if>
+			<if test="score != null">#{score},</if>
+			<if test="recordNum != null">#{recordNum},</if>
+			<if test="teacherId != null">#{teacherId},</if>
+			<if test="detail != null">#{detail},</if>
+			<if test="createTime != null">#{createTime},</if>
+		</trim>
+	</sql>
+
+	<insert id="addEntity" parameterType="TaskScoreModel">
+		insert into xd_user_task_score
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- 2.更新 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_user_task_score
+		<set>
+			<if test="value != null and value.id != null">id = #{value.id},</if>
+			<if test="value != null and value.taskId != null">task_id = #{value.taskId},
+			</if>
+			<if test="value != null and value.userId != null">user_id = #{value.userId},</if>
+			<if test="value != null and value.productId!= null">product_id = #{value.productId},</if>
+			<if test="value != null and value.score != null">score =
+				#{value.score},
+			</if>
+			<if test="value != null and value.recordNum != null">record_num =
+				#{value.recordNum},
+			</if>
+			<if test="value != null and value.teacherId != null">teacher_id =
+				#{value.teacherId},
+			</if>
+			<if test="value != null and value.detail != null">detail = #{value.detail},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	
+	<update id="updateEntityById" parameterType="java.util.Map">
+		update xd_user_task_score
+		<set>
+			<if test="value != null and value.score != null">score =
+				#{value.score},
+			</if>
+			<if test="value != null and value.recordNum != null">record_num =
+				#{value.recordNum},
+			</if>
+			<if test="value != null and value.detail != null">detail = #{value.detail},</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<!-- 3.查询 -->
+	<select id="findEntityListByCond" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="dynamic_output" />
+		from xd_user_task_score left join admin_admin on
+		admin_admin.id=xd_user_task_score.teacher_id
+		<include refid="dynamic_where" />
+		order by user_id asc;
+	</select>
+
+	<!-- 4.查询单个记录 -->
+	<select id="findEntityById" parameterType="TaskScoreModel"
+		resultMap="BaseResultMap">
+		select * from xd_user_task_score where id = #{id};
+	</select>
+
+	<!-- 5.根据条件删除 -->
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_user_task_score
+		<include refid="dynamic_where" />
+	</delete>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id = #{input.id}</if>
+			<if test="input != null and input.ids != null">
+				and id in
+				<foreach collection="input.ids" item="item" separator=","
+					open="(" close=")" index="index">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.taskId != null">and task_id = #{input.taskId}
+			</if>
+			<if test="input != null and input.taskIdList != null">
+				and task_id in
+				<foreach collection="input.taskIdList" item="item"
+					separator="," open="(" close=")" index="index">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.userId != null">and user_id = #{input.userId}</if>
+			<if test="input != null and input.productId != null">and product_id = #{input.productId}</if>
+			<if test="input != null and input.score != null">and score =
+				#{input.score}
+			</if>
+			<if test="input != null and input.teacherId != null">and teacher_id =
+				#{input.teacherId}
+			</if>
+			<if test="input != null and input.detail != null">and detail = #{input.detail}</if>
+			<if test="input != null and input.createTime != null">and create_time = #{input.createTime}</if>
+		</where>
+	</sql>
+	<!--动态语句:输出 -->
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_user_task_score.id,</if>
+			<if test="output != null and output.taskId != null">xd_user_task_score.task_id,</if>
+			<if test="output != null and output.userId != null">xd_user_task_score.user_id,</if>
+			<if test="output != null and output.productId != null">xd_user_task_score.product_id,</if>
+			<if test="output != null and output.score != null">xd_user_task_score.score,</if>
+			<if test="output != null and output.recordNum != null">xd_user_task_score.record_num,</if>
+			<if test="output != null and output.teacherId != null">teacher_id,</if>
+			<if test="output != null and output.detail != null">detail,</if>
+			<if test="output != null and output.createTime!= null">create_time,</if>
+			<if test="output != null and output.teacherName!= null">admin_admin.real_name as teacher_name,</if>
+		</trim>
+	</sql>
+
+</mapper>

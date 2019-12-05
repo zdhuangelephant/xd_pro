@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserCourseStatisticDayModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.domain.behavior.UserCourseStatisticDayModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="product_id" property="productId" jdbcType="INTEGER" />
+		<result column="module_id" property="moduleId" jdbcType="INTEGER" />
+		<result column="score" property="score" jdbcType="INTEGER" />
+		<result column="record_time" property="recordTime" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, user_id, product_id, module_id, score, record_time,
+		create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.domain.behavior.UserCourseStatisticDayModel">
+		select
+		<include refid="base_column" />
+		from xd_user_course_statistic_day where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_user_course_statistic_day
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.domain.behavior.UserCourseStatisticDayModel">
+		insert into xd_user_course_statistic_day
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="productId != null">product_id,</if>
+			<if test="moduleId != null">module_id,</if>
+			<if test="score != null">score,</if>
+			<if test="recordTime != null">record_time,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="userId != null">#{userId,jdbcType=INTEGER},</if>
+			<if test="productId != null">#{productId,jdbcType=INTEGER},</if>
+			<if test="moduleId != null">#{moduleId,jdbcType=INTEGER},</if>
+			<if test="score != null">#{score,jdbcType=INTEGER},</if>
+			<if test="recordTime != null">#{recordTime,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.domain.behavior.UserCourseStatisticDayModel">
+		update xd_user_course_statistic_day
+		<set>
+			<if test="value != null and value.score != null">score = #{value.score,jdbcType=INTEGER},</if>
+			<if test="value != null and value.recordTime != null">record_time = #{value.recordTime,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.domain.behavior.UserCourseStatisticDayModel">
+		update xd_user_course_statistic_day
+		<set>
+			<if test="value != null and value.score != null">score = #{value.score,jdbcType=INTEGER},</if>
+			<if test="value != null and value.recordTime != null">record_time = #{value.recordTime,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById"
+		parameterType="com.xiaodou.domain.behavior.UserCourseStatisticDayModel"> delete from xd_user_course_statistic_day where id =
+		#{id,jdbcType=INTEGER}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_user_course_statistic_day
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.productId != null">product_id,</if>
+			<if test="output != null and output.moduleId != null">module_id,</if>
+			<if test="output != null and output.score != null">score,</if>
+			<if test="output != null and output.recordTime != null">record_time,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.productId != null">and product_id=#{input.productId}</if>
+			<if test="input != null and input.moduleId != null">and module_id=#{input.moduleId}</if>
+			<if test="input != null and input.score != null">and score=#{input.score}</if>
+			<if test="input != null and input.recordTime != null">and record_time=#{input.recordTime}</if>
+			<if test="input != null and input.recordTimeUpper != null">and record_time &lt; #{input.recordTimeUpper}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.productId != null and ( sort.productId == 'ASC' or sort.productId == 'DESC' )">product_id ${sort.productId},</if>
+			<if
+				test="sort != null and sort.moduleId != null and ( sort.moduleId == 'ASC' or sort.moduleId == 'DESC' )">module_id ${sort.moduleId},</if>
+			<if
+				test="sort != null and sort.score != null and ( sort.score == 'ASC' or sort.score == 'DESC' )">score ${sort.score},</if>
+			<if
+				test="sort != null and sort.recordTime != null and ( sort.recordTime == 'ASC' or sort.recordTime == 'DESC' )">record_time ${sort.recordTime},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

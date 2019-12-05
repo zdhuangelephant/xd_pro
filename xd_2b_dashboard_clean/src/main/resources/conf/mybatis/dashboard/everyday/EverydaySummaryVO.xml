@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EverydaySummaryVO">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dataclean.model.domain.dashboard.everyday.EverydaySummaryVO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="total_students" property="totalStudents"
+			jdbcType="BIGINT" />
+		<result column="total_subjects_and_stus" property="totalSubjectsAndStus"
+			jdbcType="BIGINT" />
+		<result column="learn_percent" property="learnPercent"
+			jdbcType="DOUBLE" />
+		<result column="pass_percent" property="passPercent" jdbcType="DOUBLE" />
+		<result column="zero_percent" property="zeroPercent" jdbcType="DOUBLE" />
+		<result column="role_type" property="roleType" jdbcType="INTEGER" />
+		<result column="unit_id" property="unitId" jdbcType="INTEGER" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, total_students, total_subjects_and_stus,
+		learn_percent, pass_percent, zero_percent,
+		role_type, unit_id, update_time, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.everyday.EverydaySummaryVO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_everyday_summary_statistics
+		where id =
+		#{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_everyday_summary_statistics
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.everyday.EverydaySummaryVO">
+		insert into xd_dashboard_everyday_summary_statistics
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="totalStudents != null">total_students,</if>
+			<if test="totalSubjectsAndStus != null">total_subjects_and_stus,</if>
+			<if test="learnPercent != null">learn_percent,</if>
+			<if test="passPercent != null">pass_percent,</if>
+			<if test="zeroPercent != null">zero_percent,</if>
+			<if test="roleType != null">role_type,</if>
+			<if test="unitId != null">unit_id,</if>
+			<if test="updateTime != null">update_time,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="totalStudents != null">#{totalStudents,jdbcType=BIGINT},</if>
+			<if test="totalSubjectsAndStus != null">#{totalSubjectsAndStus,jdbcType=BIGINT},</if>
+			<if test="learnPercent != null">#{learnPercent,jdbcType=DOUBLE},</if>
+			<if test="passPercent != null">#{passPercent,jdbcType=DOUBLE},</if>
+			<if test="zeroPercent != null">#{zeroPercent,jdbcType=DOUBLE},</if>
+			<if test="roleType != null">#{roleType,jdbcType=INTEGER},</if>
+			<if test="unitId != null">#{unitId,jdbcType=INTEGER},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="java.util.Map">
+		update xd_dashboard_everyday_summary_statistics
+		<set>
+			<if test="value != null and value.totalStudents != null">total_students = #{value.totalStudents,jdbcType=BIGINT},
+			</if>
+			<if test="value != null and value.totalSubjectsAndStus != null">total_subjects_and_stus =
+				#{value.totalSubjectsAndStus,jdbcType=BIGINT},</if>
+			<if test="value != null and value.learnPercent != null">learn_percent = #{value.learnPercent,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.passPercent != null">pass_percent = #{value.passPercent,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.zeroPercent != null">zero_percent = #{value.zeroPercent,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.roleType != null">role_type = #{value.roleType,jdbcType=INTEGER},</if>
+			<if test="value != null and value.unitId != null">unit_id = #{value.unitId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_dashboard_everyday_summary_statistics
+		<set>
+			<if test="value != null and value.totalStudents != null">total_students = #{value.totalStudents,jdbcType=BIGINT},
+			</if>
+			<if test="value != null and value.totalSubjectsAndStus != null">total_subjects_and_stus =
+				#{value.totalSubjectsAndStus,jdbcType=BIGINT},</if>
+			<if test="value != null and value.learnPercent != null">learn_percent = #{value.learnPercent,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.passPercent != null">pass_percent = #{value.passPercent,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.zeroPercent != null">zero_percent = #{value.zeroPercent,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.roleType != null">role_type = #{value.roleType,jdbcType=INTEGER},</if>
+			<if test="value != null and value.unitId != null">unit_id = #{value.unitId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById"
+		parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.everyday.EverydaySummaryVO">
+		delete from xd_dashboard_everyday_summary_statistics
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_everyday_summary_statistics
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.totalStudents != null">total_students,</if>
+			<if test="output != null and output.totalSubjectsAndStus != null">total_subjects_and_stus,</if>
+			<if test="output != null and output.learnPercent != null">learn_percent,</if>
+			<if test="output != null and output.passPercent != null">pass_percent,</if>
+			<if test="output != null and output.zeroPercent != null">zero_percent,</if>
+			<if test="output != null and output.roleType != null">role_type,</if>
+			<if test="output != null and output.unitId != null">unit_id,</if>
+			<if test="output != null and output.updateTime != null">update_time,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.totalStudents != null">and total_students=#{input.totalStudents}</if>
+			<if test="input != null and input.totalSubjectsAndStus != null">and total_subjects_and_stus=#{input.totalSubjectsAndStus}
+			</if>
+			<if test="input != null and input.learnPercent != null">and learn_percent=#{input.learnPercent}</if>
+			<if test="input != null and input.passPercent != null">and pass_percent=#{input.passPercent}</if>
+			<if test="input != null and input.zeroPercent != null">and zero_percent=#{input.zeroPercent}</if>
+			<if test="input != null and input.roleType != null">and role_type=#{input.roleType}</if>
+			<if test="input != null and input.unitId != null">and unit_id=#{input.unitId}</if>
+			<if test="input != null and input.unitIdLower != null">and unit_id &gt; #{input.unitIdLower}</if>
+			<if test="input != null and input.unitIdUpper != null">and unit_id &lt; #{input.unitIdUpper}</if>
+			<if test="input != null and input.unitIdList != null">
+				and unit_id in
+				<foreach collection="input.unitIdList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.updateTimeLower != null">and update_time &gt; #{input.updateTimeLower}</if>
+			<if test="input != null and input.updateTimeUpper != null">and update_time &lt; #{input.updateTimeUpper}</if>
+			<if test="input != null and input.createTimeLower != null">and create_time &gt; #{input.createTimeLower}</if>
+			<if test="input != null and input.createTimeUpper != null">and create_time &lt; #{input.createTimeUpper}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.unitId != null and ( sort.unitId == 'ASC' or sort.unitId == 'DESC' )">unit_id ${sort.unitId},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

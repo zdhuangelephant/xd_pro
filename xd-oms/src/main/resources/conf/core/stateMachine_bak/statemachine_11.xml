@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ProductLine code="11" name="hotelfontpay">
+	<StateMachineInstance>com.elong.oms.statemachine.instance.hotelfrontpay.HotelFrontPayStateMachine</StateMachineInstance>
+	<StateInstance>com.elong.oms.statemachine.instance.hotelfrontpay.HotelFrontPayState</StateInstance>
+	<EventInstance>com.elong.oms.statemachine.instance.hotelfrontpay.HotelFrontPayEvent</EventInstance>
+	<TransitionList>
+        <!-- 1.新单->支付成功  支付成功-->
+		<Transition name="fromInitToPaySuccessOnPaySuccess" id="1">
+			<Do>
+				<Api type="local" name="gorderPayCallback">
+					<InputParam name="payStatus" type="java.lang.Integer" value="1" />
+					<InputParam name="coreParams.gorderId" type="java.lang.String" />
+					<InputParam name="coreParams.ip" type="java.lang.String" />
+				</Api>
+				<Api type="local" name="updatePayRecord">
+					<InputParam name="coreParams.payParam.payNo" type="java.lang.String" />
+					<InputParam name="payRecordStatus" type="java.lang.Integer" value="2" />
+					<InputParam name="coreParams.payParam.failureReason" type="java.lang.String" />
+				</Api>
+			</Do>
+			<Message>
+				<Api type="local" name="message">
+					<InputParam name="context" type="com.elong.oms.statemachine.Context" />
+					<InputParam name="tempType" type="java.lang.String" value="1" />
+					<InputParam name="messageName" type="java.lang.String" value="11_from0To1OnPaySuccess" />
+				</Api>
+			</Message>
+		</Transition>
+        
+        <!-- 2.新单->支付失败  支付失败 -->
+		<Transition name="fromInitToPayFailureOnPayFailure" id="2">
+			<Do>
+				<Api type="local" name="gorderPayCallback">
+					<InputParam name="payStatus" type="java.lang.Integer" value="-1" />
+					<InputParam name="coreParams.gorderId" type="java.lang.String" />
+					<InputParam name="coreParams.ip" type="java.lang.String" />
+				</Api>
+				<Api type="local" name="updatePayRecord">
+					<InputParam name="coreParams.payParam.payNo" type="java.lang.String" />
+					<InputParam name="payRecordStatus" type="java.lang.Integer" value="-1" />
+					<InputParam name="coreParams.payParam.failureReason" type="java.lang.String" />
+				</Api>
+			</Do>
+		    <Message>
+                <Api type="local" name="message">
+                    <InputParam name="context" type="com.elong.oms.statemachine.Context" />
+                    <InputParam name="tempType" type="java.lang.String" value="1" />
+                    <InputParam name="messageName" type="java.lang.String" value="11_from0Tom1OnPayFailure" />
+                </Api>
+            </Message>
+		</Transition>
+
+        <!-- 3.新单->关单  支付超时 -->
+		<Transition name="fromInitToClosedOnPayTimeout" id="3">
+			<Do>
+				<Api type="local" name="closeGorder">
+					<InputParam name="coreParams.gorderId" type="java.lang.String" />
+					<InputParam name="coreParams.ip" type="java.lang.String" />
+					<InputParam name="coreParams.closedReason" type="java.lang.String" value="支付超时" />
+					<InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean" />
+					<InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order" />
+					<InputParam name="coreParams.payParam" type="com.elong.oms.statemachine.param.PayParam" />
+				</Api>
+			</Do>
+		    <Message>
+                <Api type="local" name="message">
+                    <InputParam name="context" type="com.elong.oms.statemachine.Context" />
+                    <InputParam name="tempType" type="java.lang.String" value="1" />
+                    <InputParam name="messageName" type="java.lang.String" value="11_from0To5OnPayTimeout" />
+                </Api>
+            </Message>	
+		</Transition>
+        
+        <!-- 4.新单->取消 用户取消 -->
+		<Transition name="fromInitToClosedOnCancelByUser" id="4">
+			<Do>
+				<Api type="local" name="closeGorder">
+					<InputParam name="coreParams.gorderId" type="java.lang.String" />
+					<InputParam name="coreParams.ip" type="java.lang.String" />
+					<InputParam name="coreParams.closedReason" type="java.lang.String" value="用户取消" />
+					<InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean" />
+					<InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order" />
+					<InputParam name="coreParams.payParam" type="com.elong.oms.statemachine.param.PayParam" />
+				</Api>
+			</Do>
+		  <Message>
+                <Api type="local" name="message">
+                    <InputParam name="context" type="com.elong.oms.statemachine.Context" />
+                    <InputParam name="tempType" type="java.lang.String" value="1" />
+                    <InputParam name="messageName" type="java.lang.String" value="11_from0To5OnCancelByUser" />
+                </Api>
+            </Message>
+		</Transition>
+
+        <!-- 5.取消->取消 支付成功 -->
+        <Transition name="fromClosedToClosedOnPaySuccess" id="5">
+            <Do>
+                <Api type="local" name="updatePayRecord">
+                    <InputParam name="coreParams.payParam.payNo" type="java.lang.String" />
+                    <InputParam name="payRecordStatus" type="java.lang.Integer" value="2" />
+                    <InputParam name="coreParams.payParam.failureReason" type="java.lang.String" />
+                </Api>
+            </Do>
+        </Transition>
+
+        <!-- 6.取消->取消 支付失败 -->
+        <Transition name="fromClosedToClosedOnPayFailure" id="6">
+            <Do>
+                <Api type="local" name="updatePayRecord">
+                    <InputParam name="coreParams.payParam.payNo" type="java.lang.String" />
+                    <InputParam name="payRecordStatus" type="java.lang.Integer" value="-1" />
+                    <InputParam name="coreParams.payParam.failureReason" type="java.lang.String" />
+                </Api>
+            </Do>
+        </Transition>
+
+        <!-- 7.取消->取消 退款成功 -->
+        <Transition name="fromClosedToClosedOnRefundSuccess" id="7">
+            <Do>
+                <Api type="local" name="updatePayRecord">
+                    <InputParam name="coreParams.payParam.payNo" type="java.lang.String" />
+                    <InputParam name="payRecordStatus" type="java.lang.Integer"  value="2" />
+                    <InputParam name="coreParams.payParam.failureReason" type="java.lang.String" />
+                </Api>
+            </Do>
+            <Message>
+                <Api type="local" name="message">
+                    <InputParam name="context" type="com.elong.oms.statemachine.Context" />
+                    <InputParam name="tempType" type="java.lang.String" value="1" />
+                    <InputParam name="messageName" type="java.lang.String" value="11_from5To5OnRefundSuccess" />
+                </Api>
+            </Message>
+        </Transition>
+
+        <!-- 8. 取消->取消 退款失败-->
+        <Transition name="fromClosedToClosedOnRefundFailure" id="8">
+            <Do>
+                <Api type="local" name="updatePayRecord">
+                    <InputParam name="coreParams.payParam.payNo" type="java.lang.String" />
+                    <InputParam name="payRecordStatus" type="java.lang.Integer" value="-1" />
+                    <InputParam name="coreParams.payParam.failureReason" type="java.lang.String" />
+                </Api>
+            </Do>
+        </Transition>
+        
+        <!-- 9.支付失败->取消   支付超时 -->
+        <Transition name="fromPayFailureToClosedOnPayTimeout" id="9">
+            <Do>
+                <Api type="local" name="closeGorder">
+                    <InputParam name="coreParams.gorderId" type="java.lang.String" />
+                    <InputParam name="coreParams.ip" type="java.lang.String" />
+                    <InputParam name="coreParams.closedReason" type="java.lang.String" value="支付超时" />
+                    <InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean" />
+                    <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order" />
+                    <InputParam name="coreParams.payParam" type="com.elong.oms.statemachine.param.PayParam" />
+                </Api>
+            </Do>
+        </Transition>
+        
+        <!-- 10.支付失败->取消  用户取消 -->
+        <Transition name="fromPayFailureToClosedOnCancelByUser" id="10">
+            <Do>
+                <Api type="local" name="closeGorder">
+                    <InputParam name="coreParams.gorderId" type="java.lang.String" />
+                    <InputParam name="coreParams.ip" type="java.lang.String" />
+                    <InputParam name="coreParams.closedReason" type="java.lang.String" value="用户取消" />
+                    <InputParam name="coreParams.isNeedCloseOrderItem" type="java.lang.Boolean" />
+                    <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order" />
+                    <InputParam name="coreParams.payParam" type="com.elong.oms.statemachine.param.PayParam" />
+                </Api>
+            </Do>
+        </Transition>
+
+        <!-- 11.支付失败->支付成功  支付成功 -->
+		<Transition name="fromPayFailureToPaySuccessOnPaySuccess" id="11">
+			<Do>
+				<Api type="local" name="gorderPayCallback">
+					<InputParam name="payStatus" type="java.lang.Integer" value="1" />
+					<InputParam name="coreParams.gorderId" type="java.lang.String" />
+					<InputParam name="coreParams.ip" type="java.lang.String" />
+				</Api>
+				<Api type="local" name="updatePayRecord">
+					<InputParam name="coreParams.payParam.payNo" type="java.lang.String" />
+					<InputParam name="payRecordStatus" type="java.lang.Integer" value="2" />
+					<InputParam name="coreParams.payParam.failureReason" type="java.lang.String" />
+				</Api>
+			</Do>
+			<Message>
+				<Api type="local" name="message">
+					<InputParam name="context" type="com.elong.oms.statemachine.Context" />
+					<InputParam name="tempType" type="java.lang.String" value="1" />
+					<InputParam name="messageName" type="java.lang.String" value="11_fromm1To1OnPaySuccess" />
+				</Api>
+			</Message>
+		</Transition>
+
+        <!-- 12.支付失败->支付失败   支付失败 -->
+		<Transition name="fromPayFailureToPayFailureOnPayFailure" id="12">
+			<Do>
+				<Api type="local" name="updatePayRecord">
+					<InputParam name="coreParams.payParam.payNo" type="java.lang.String" />
+					<InputParam name="payRecordStatus" type="java.lang.Integer" value="-1" />
+					<InputParam name="coreParams.payParam.failureReason" type="java.lang.String" />
+				</Api>
+			</Do>
+		</Transition>
+        
+	</TransitionList>
+</ProductLine>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xiaodou.out_in.dao.OutInDao">
+
+<insert id="createOutInLog" parameterType="Map">
+		insert into
+		xd_log_out_in (id, client_ip, params, log_time,
+		local_ip, project_name, local_mac, log_name) values
+		(#{entity.id}, #{entity.clientIp}, #{entity.params},
+		#{entity.logTime}, #{entity.localIp},
+		#{entity.projectName}, #{entity.localMac},
+		#{entity.logName})
+	</insert>	
+</mapper>

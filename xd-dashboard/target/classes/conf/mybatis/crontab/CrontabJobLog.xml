@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CrontabJobLog">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.dashboard.model.crontab.CrontabJobLog">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="config_id" property="configId" jdbcType="INTEGER" />
+		<result column="context_id" property="contextId" jdbcType="VARCHAR" />
+		<result column="excutor_id" property="excutorId" jdbcType="VARCHAR" />
+		<result column="context_name" property="contextName" jdbcType="VARCHAR" />
+		<result column="data_version" property="dataVersion" jdbcType="INTEGER" />
+		<result column="cront_status" property="crontStatus" jdbcType="TINYINT" />
+		<result column="cront_time" property="crontTime" jdbcType="TIMESTAMP" />
+		<result column="cront_cost" property="crontCost" jdbcType="INTEGER" />
+		<result column="cront_result" property="crontResult" jdbcType="VARCHAR" />
+		<result column="cront_retry" property="crontRetry" jdbcType="TINYINT" />
+	</resultMap>
+	<sql id="base_column">id, config_id, context_id, excutor_id, context_name,
+		data_version, cront_status, cront_time, cront_cost, cront_result,
+		cront_retry</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.dashboard.model.crontab.CrontabJobLog">
+		select
+		<include refid="base_column" />
+		from xd_crontab_job_log
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_crontab_job_log
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.dashboard.model.crontab.CrontabJobLog"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_crontab_job_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="configId != null">config_id,</if>
+			<if test="contextId != null">context_id,</if>
+			<if test="excutorId != null">excutor_id,</if>
+			<if test="contextName != null">context_name,</if>
+			<if test="dataVersion != null">data_version,</if>
+			<if test="crontStatus != null">cront_status,</if>
+			<if test="crontTime != null">cront_time,</if>
+			<if test="crontCost != null">cront_cost,</if>
+			<if test="crontResult != null">cront_result,</if>
+			<if test="crontRetry != null">cront_retry,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="configId != null">#{configId,jdbcType=INTEGER},</if>
+			<if test="contextId != null">#{contextId,jdbcType=VARCHAR},</if>
+			<if test="excutorId != null">#{excutorId,jdbcType=VARCHAR},</if>
+			<if test="contextName != null">#{contextName,jdbcType=VARCHAR},</if>
+			<if test="dataVersion != null">#{dataVersion,jdbcType=INTEGER},</if>
+			<if test="crontStatus != null">#{crontStatus,jdbcType=TINYINT},</if>
+			<if test="crontTime != null">#{crontTime,jdbcType=TIMESTAMP},</if>
+			<if test="crontCost != null">#{crontCost,jdbcType=INTEGER},</if>
+			<if test="crontResult != null">#{crontResult,jdbcType=VARCHAR},</if>
+			<if test="crontRetry != null">#{crontRetry,jdbcType=TINYINT},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.dashboard.model.crontab.CrontabJobLog">
+		update xd_crontab_job_log
+		<set>
+			<if test="value != null and value.crontStatus != null">cront_status = #{value.crontStatus,jdbcType=TINYINT},
+			</if>
+			<if test="value != null and value.crontTime != null">cront_time = #{value.crontTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.crontCost != null">cront_cost = #{value.crontCost,jdbcType=INTEGER},</if>
+			<if test="value != null and value.crontResult != null">cront_result = #{value.crontResult,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.crontRetry != null">cront_retry = #{value.crontRetry,jdbcType=TINYINT},</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.dashboard.model.crontab.CrontabJobLog">
+		update xd_crontab_job_log
+		<set>
+			<if test="value != null and value.crontStatus != null">cront_status = #{value.crontStatus,jdbcType=TINYINT},
+			</if>
+			<if test="value != null and value.crontTime != null">cront_time = #{value.crontTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.crontCost != null">cront_cost = #{value.crontCost,jdbcType=INTEGER},</if>
+			<if test="value != null and value.crontResult != null">cront_result = #{value.crontResult,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.crontRetry != null">cront_retry = #{value.crontRetry,jdbcType=TINYINT},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.dashboard.model.crontab.CrontabJobLog">
+		delete from
+		xd_crontab_job_log
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_crontab_job_log
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.configId != null">config_id,</if>
+			<if test="output != null and output.contextId != null">context_id,</if>
+			<if test="output != null and output.excutorId != null">excutor_id,</if>
+			<if test="output != null and output.contextName != null">context_name,</if>
+			<if test="output != null and output.dataVersion != null">data_version,</if>
+			<if test="output != null and output.crontStatus != null">cront_status,</if>
+			<if test="output != null and output.crontTime != null">cront_time,</if>
+			<if test="output != null and output.crontCost != null">cront_cost,</if>
+			<if test="output != null and output.crontResult != null">cront_result,</if>
+			<if test="output != null and output.crontRetry != null">cront_retry,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.configId != null">and config_id=#{input.configId}</if>
+			<if test="input != null and input.contextId != null">and context_id=#{input.contextId}</if>
+			<if test="input != null and input.excutorId != null">and excutor_id=#{input.excutorId}</if>
+			<if test="input != null and input.contextName != null">and context_name=#{input.contextName}</if>
+			<if test="input != null and input.dataVersion != null">and data_version=#{input.dataVersion}</if>
+			<if test="input != null and input.crontStatus != null">and cront_status=#{input.crontStatus}</if>
+			<if test="input != null and input.crontTimeLower != null">and cront_time &gt; #{input.crontTimeLower}</if>
+			<if test="input != null and input.crontTimeUpper != null">and cront_time &lt; #{input.crontTimeUpper}</if>
+			<if test="input != null and input.crontCost != null">and cront_cost=#{input.crontCost}</if>
+			<if test="input != null and input.crontResult != null">and cront_result=#{input.crontResult}</if>
+			<if test="input != null and input.crontRetry != null">and cront_retry=#{input.crontRetry}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.configId != null and ( sort.configId == 'ASC' or sort.configId == 'DESC' )">config_id ${sort.configId},</if>
+			<if
+				test="sort != null and sort.contextId != null and ( sort.contextId == 'ASC' or sort.contextId == 'DESC' )">context_id ${sort.contextId},</if>
+			<if
+				test="sort != null and sort.excutorId != null and ( sort.excutorId == 'ASC' or sort.excutorId == 'DESC' )">excutor_id ${sort.excutorId},</if>
+			<if
+				test="sort != null and sort.contextName != null and ( sort.contextName == 'ASC' or sort.contextName == 'DESC' )">context_name ${sort.contextName},</if>
+			<if
+				test="sort != null and sort.dataVersion != null and ( sort.dataVersion == 'ASC' or sort.dataVersion == 'DESC' )">data_version ${sort.dataVersion},</if>
+			<if
+				test="sort != null and sort.crontStatus != null and ( sort.crontStatus == 'ASC' or sort.crontStatus == 'DESC' )">cront_status ${sort.crontStatus},</if>
+			<if
+				test="sort != null and sort.crontTime != null and ( sort.crontTime == 'ASC' or sort.crontTime == 'DESC' )">cront_time ${sort.crontTime},</if>
+			<if
+				test="sort != null and sort.crontCost != null and ( sort.crontCost == 'ASC' or sort.crontCost == 'DESC' )">cront_cost ${sort.crontCost},</if>
+			<if
+				test="sort != null and sort.crontResult != null and ( sort.crontResult == 'ASC' or sort.crontResult == 'DESC' )">cront_result ${sort.crontResult},</if>
+			<if
+				test="sort != null and sort.crontRetry != null and ( sort.crontRetry == 'ASC' or sort.crontRetry == 'DESC' )">cront_retry ${sort.crontRetry},</if>
+		</trim>
+	</sql>
+</mapper>

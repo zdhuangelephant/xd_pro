@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaodou.resources.dao.quesbk.UserStoreRecordMapper">
+	<resultMap id="BaseResultMap" type="com.xiaodou.resources.model.quesbk.UserStoreRecord">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="course_id" property="courseId" jdbcType="BIGINT" />
+		<result column="chapter_id" property="chapterId" jdbcType="BIGINT" />
+		<result column="question_id" property="questionId" jdbcType="BIGINT" />
+		<result column="store_status" property="storeStatus" jdbcType="TINYINT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, course_id, chapter_id,
+		question_id,store_status
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_store_record
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByUidAndSubjectId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		s.id, s.user_id, s.course_id, s.chapter_id,
+		s.question_id,s.store_status
+		from
+		xd_user_store_record s
+		where s.user_id
+		= #{0}
+		and
+		s.course_id = #{1}
+	</select>
+	<select id="selectByUSC" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from
+		xd_user_store_record
+		where user_id = #{0}
+		and course_id = #{1}
+		and
+		chapter_id = #{2}
+	</select>
+	<select id="queryCountByUSC" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(id) from xd_user_store_record
+		where user_id =
+		#{0}
+		and course_id = #{1}
+		and
+		chapter_id = #{2}
+	</select>
+	<select id="selectByUSCQ" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from
+		xd_user_store_record
+		where user_id = #{0}
+		and course_id = #{1}
+		and
+		chapter_id = #{2}
+		and question_id = #{3}
+	</select>
+	<select id="selectByUSCList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from
+		xd_user_store_record
+		<include refid="dynamic_where" />
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		xd_user_store_record
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.xiaodou.resources.model.quesbk.UserStoreRecord">
+		insert into
+		xd_user_store_record (id, user_id, course_id,
+		chapter_id,
+		question_id,store_status)
+		values
+		(#{id,jdbcType=BIGINT},
+		#{userId,jdbcType=BIGINT},
+		#{courseId,jdbcType=BIGINT},
+		#{chapterId,jdbcType=BIGINT},
+		#{questionId,jdbcType=BIGINT},
+		#{storeStatus,jdbcType=TINYINT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.xiaodou.resources.model.quesbk.UserStoreRecord">
+		insert into xd_user_store_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="courseId != null">
+				course_id,
+			</if>
+			<if test="chapterId != null">
+				chapter_id,
+			</if>
+			<if test="questionId != null">
+				question_id,
+			</if>
+			<if test="storeStatus != null">
+				store_status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="courseId != null">
+				#{courseId,jdbcType=BIGINT},
+			</if>
+			<if test="chapterId != null">
+				#{chapterId,jdbcType=BIGINT},
+			</if>
+			<if test="questionId != null">
+				#{questionId,jdbcType=BIGINT},
+			</if>
+			<if test="storeStatus != null">
+				#{storeStatus,jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.xiaodou.resources.model.quesbk.UserStoreRecord">
+		update xd_user_store_record
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="courseId != null">
+				course_id = #{courseId,jdbcType=BIGINT},
+			</if>
+			<if test="chapterId != null">
+				chapter_id = #{chapterId,jdbcType=BIGINT},
+			</if>
+			<if test="questionId != null">
+				question_id = #{questionId,jdbcType=BIGINT},
+			</if>
+			<if test="storeStatus != null">
+				store_status = #{storeStatus,jdbcType=TINYINT},
+			</if>
+		</set>
+		where question_id = #{questionId,jdbcType=BIGINT} and user_id =
+		#{userId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.xiaodou.resources.model.quesbk.UserStoreRecord">
+		update
+		xd_user_store_record
+		set user_id = #{userId,jdbcType=BIGINT},
+		course_id
+		=
+		#{courseId,jdbcType=BIGINT},
+		chapter_id =
+		#{chapterId,jdbcType=BIGINT},
+		question_id =
+		#{questionId,jdbcType=BIGINT},
+		store_status =
+		#{storeStatus,jdbcType=TINYINT}
+		where id =
+		#{id,jdbcType=BIGINT}
+	</update>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and
+				id=#{input.id,jdbcType=BIGINT}
+			</if>
+			<if test="input != null and input.userId != null">and
+				user_id = #{input.userId,jdbcType=BIGINT}
+			</if>
+			<if test="input != null and input.courseId != null">and
+				course_id = #{input.courseId,jdbcType=BIGINT}
+			</if>
+			<if test="input != null and input.chapterId != null">and
+				chapter_id = #{input.chapterId,jdbcType=BIGINT}
+			</if>
+			
+			<if test="input != null and input.chapterIdList != null">
+				and
+				chapter_id in
+				<foreach collection="input.chapterIdList" close=")" open="("
+					separator="," item="item">
+					#{item}
+				</foreach>
+			</if>
+			
+			<if test="input != null and input.questionId != null">and
+				question_id = #{input.questionId,jdbcType=BIGINT}
+			</if>
+			<if test="input != null and input.storeStatus != null and input.storeStatus == 0"> and
+				store_status IN (1,2,3)
+			</if>
+			<if test="input != null and input.storeStatus != null and input.storeStatus != 0">and
+				store_status = #{input.storeStatus,jdbcType=TINYINT}
+			</if>
+		</where>
+	</sql>
+</mapper>

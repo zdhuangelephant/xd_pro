@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MessageDeviceTagModel">
+
+	<!-- 1. 根据条件 查询 文档列表(不分页) -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM
+		xd_message_device_tag
+		<include refid="dynamic_where" />
+	</select>
+
+	<!-- 2. 根据条件 修改 文档 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_message_device_tag
+		<set>
+			<if test="value != null and value.tagId != null">tag_id = #{value.tagId},</if>
+			<if test="value != null and value.deviceId != null">device_id = #{value.deviceId},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 3.文档 插入 方法 -->
+	<insert id="addEntity" parameterType="MessageDeviceTagModel">
+		insert into xd_message_device_tag
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+	
+	<!-- 4.文档 删除 方法 -->
+	<delete id="deleteList" parameterType="java.util.Map">
+		delete from xd_message_device_tag
+		<include refid="dynamic_where" />
+	</delete>
+	<!-- ******************************** 上面是DAO层方法实现, 下面是各个动态语句的拼写 ******************************************* -->
+
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseResultMap" type="MessageDeviceTagModel">
+		<result column="tag_id" property="tagId" />
+		<result column="device_id" property="deviceId" />
+		<result column="create_time" property="createTime" />
+		<result column="_timestamp" property="timestamp" />
+	</resultMap>
+
+	<sql id="Base_Column_List" >
+	    tag_id, device_id, create_time
+	</sql>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.tagId != null">and tag_id =#{input.tagId}</if>
+			<if test="input != null and input.deviceId != null">and device_id =#{input.deviceId}</if>
+			<if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+		</where>
+	</sql>
+
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="tagId != null">tag_id,</if>
+			<if test="deviceId != null">device_id,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="tagId != null">#{tagId},</if>
+			<if test="deviceId != null">#{deviceId},</if>
+			<if test="createTime != null">#{createTime},</if>
+		</trim>
+	</sql>
+	
+</mapper>

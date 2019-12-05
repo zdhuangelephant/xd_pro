@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<description>Spring公共配置文件</description>
+	<context:property-placeholder
+		location="classpath:conf/custom/env/config.properties"
+		ignore-unresolvable="true" />
+
+	<bean id="springContextHolder" class="com.xiaodou.summer.util.SpringWebContextHolder" />
+
+
+	<!-- annotation way configuration -->
+	<!-- for aop annotation -->
+	<!-- <aop:aspectj-autoproxy proxy-target-class="true"/> -->
+	<aop:aspectj-autoproxy />
+
+	<!-- =========================DAO配置=================================== -->
+	<bean id="orderBaseDao" abstract="true">
+		<property name="summerSqlSessionFactory" ref="summerSqlSessionFactory" />
+		<!-- <property name="sqlMapClient" ref="orderSqlMapClient"/> -->
+	</bean>
+
+	<!-- 使用订单数据源的Dao -->
+	<bean id="seqDao" class="com.xiaodou.summer.dao.seq.SeqDao">
+		<property name="seqDataSource" ref="summerDataSource" />
+	</bean>
+	<bean id="orderDao" parent="orderBaseDao" class="com.xiaodou.oms.dao.order.OrderDao" />
+	<bean id="orderItemDao" parent="orderBaseDao"
+		class="com.xiaodou.oms.dao.order.OrderItemDao" />
+	<bean id="gorderDao" parent="orderBaseDao" class="com.xiaodou.oms.dao.order.GorderDao" />
+	<bean id="cascadeQueryDao" parent="orderBaseDao"
+		class="com.xiaodou.oms.dao.order.CascadeQueryDao" />
+	<bean id="wayBillDao" parent="orderBaseDao"
+		class="com.xiaodou.oms.dao.order.WayBillDao" />
+	<bean id="payRequestDao" parent="orderBaseDao"
+		class="com.xiaodou.oms.dao.order.PayRequestDao" />
+	<bean id="payRecordDao" parent="orderBaseDao"
+		class="com.xiaodou.oms.dao.order.PayRecordDao" />
+
+	<!-- ============================ Service配置============================ -->
+
+	<bean id="queryService" class="com.xiaodou.oms.service.order.QueryService">
+	</bean>
+
+	<bean id="updateService" class="com.xiaodou.oms.service.order.UpdateService">
+	</bean>
+	<bean id="orderService" class="com.xiaodou.oms.service.order.OrderService">
+	</bean>
+	<bean id="orderItemService" class="com.xiaodou.oms.service.order.OrderItemService">
+	</bean>
+	<bean id="gorderService" class="com.xiaodou.oms.service.order.GorderService">
+	</bean>
+
+	<bean id="shopConstant" class="com.xiaodou.oms.entity.ShopConstant">
+	</bean>
+
+	<bean id="cascadeQueryService" class="com.xiaodou.oms.service.order.CascadeQueryService" />
+	<bean id="wayBillService" class="com.xiaodou.oms.service.order.WayBillService" />
+	<bean id="payService" class="com.xiaodou.oms.service.order.PayService" />
+	<bean id="orderServiceFacade" class="com.xiaodou.oms.service.facade.OrderServiceFacadeImpl" />
+
+	<!-- spring 线程池配置 start -->
+	<bean id="taskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="${taskExecutor.corePoolSize}" />
+		<property name="maxPoolSize" value="${taskExecutor.maxPoolSize}" />
+		<property name="keepAliveSeconds" value="${taskExecutor.keepAliveSeconds}" />
+		<property name="queueCapacity" value="${taskExecutor.queueCapacity}" />
+	</bean>
+
+	<!-- spring 线程池配置 end -->
+
+	<bean id="stateMachineProxy" class="com.xiaodou.oms.statemachine.StateMachineProxy" />
+	<bean id="stateMachineFactory" class="com.xiaodou.oms.statemachine.StateMachineFactory"
+		init-method="initMethod">
+		<property name="stateMachineInstanceList">
+			<list>
+				<value>com.xiaodou.oms.statemachine.instance.selftaught.product.StProductStateMachine
+				</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="apiContext" class="com.xiaodou.oms.statemachine.engine.APIContext">
+		<constructor-arg value="conf/core/ApiLib.xml" />
+	</bean>
+
+	<bean id="stateMachineConf" class="com.xiaodou.oms.statemachine.engine.StateMachineContext">
+		<constructor-arg value="conf/core/stateMachine" />
+	</bean>
+
+	<bean id="flowExecutor" class="com.xiaodou.oms.statemachine.FlowExecutor" />
+
+	<bean id="serviceAdapter" class="com.xiaodou.oms.statemachine.ServiceAdapter" />
+
+	<!-- API Bean -->
+
+	<!-- RabbitMQ -->
+	<bean id="rabbitMQSender" class="com.xiaodou.jmsg.client.RabbitMQSender" />
+
+	<!-- <bean id="mytest" class="com.xiaodou.oms.statemachine.engine.model.api.localapi.Mytest"/> -->
+</beans>

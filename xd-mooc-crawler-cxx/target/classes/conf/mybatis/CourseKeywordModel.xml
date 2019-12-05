@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CourseKeywordModel">
+
+    <resultMap id="BaseResultMap" type="CourseKeywordModel">
+        <id column="id" property="id"/>
+        <result column="chapter_id" property="chapterId"/>
+        <result column="name" property="name"/>
+        <result column="detail" property="detail"/>
+        <result column="create_time" property="createTime"/>
+        <result column="chapter_name" property="chapterName" />
+        <result column="importance_level" property="importanceLevel" />
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">chapter_id,name,detail,create_time,importance_level </sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="chapterId != null">chapter_id,</if>
+            <if test="name != null">name,</if>
+            <if test="detail != null">detail,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="importanceLevel != null">importance_level,</if>
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="chapterId != null">#{chapterId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="detail != null">#{detail},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="importanceLevel != null">#{importanceLevel},</if>
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="CourseKeywordModel">
+        insert into xd_course_keyword
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update xd_course_keyword
+        <set>
+            <if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId},</if>
+            <if test="value != null and value.name != null">name = #{value.name},</if>
+            <if test="value != null and value.detail != null">detail = #{value.detail},</if>
+            <if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+            <if test="value != null and value.importanceLevel != null">importance_level = #{value.importanceLevel},</if>
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_course_keyword
+        <include refid="dynamic_where"/>
+    </select>
+
+    <select id="cascadeQueryKeywords" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        xd_course_keyword.id,xd_course_keyword.chapter_id,xd_course_keyword.name,xd_course_keyword.detail,xd_course_keyword.create_time,
+        xd_course_chapter.name chapter_name,xd_course_keyword.importance_level importance_level
+        from xd_course_keyword
+        left join xd_course_chapter on xd_course_keyword.chapter_id = xd_course_chapter.id
+        <where>
+            <if test="input != null and input.id != null">and xd_course_keyword.id =#{input.id}</if>
+            <if test="input != null and input.chapterId != null">and xd_course_keyword.chapter_id =#{input.chapterId}
+            </if>
+            <if test="input != null and input.chapterIds != null">and xd_course_keyword.chapter_id  in
+                <foreach collection="input.chapterIds" separator="," item="item" index="index" open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="input != null and input.name != null">and xd_course_keyword.name =#{input.name}</if>
+            <if test="input != null and input.detail != null">and xd_course_keyword.detail =#{input.detail}</if>
+            <if test="input != null and input.createTime != null">and xd_course_keyword.create_time
+                =#{input.createTime}
+            </if>
+            <if test="input != null and input.importanceLevel != null">and xd_course_keyword.importance_level
+                =#{input.importanceLevel}
+            </if>
+        </where>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="CourseKeywordModel" resultMap="BaseResultMap">
+        select * from xd_course_keyword where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from xd_course_keyword
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and id =#{input.id}</if>
+            <if test="input != null and input.ids != null">and id in
+                <foreach collection="input.ids" open="(" close=")" separator="," item="item" index="index">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="input != null and input.chapterId != null">and chapter_id =#{input.chapterId}
+            </if>
+            <if test="input != null and input.chapterIds != null">and chapter_id  in
+                <foreach collection="input.chapterIds" separator="," item="item" index="index" open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="input != null and input.name != null">and name =#{input.name}</if>
+            <if test="input != null and input.detail != null">and detail =#{input.detail}</if>
+            <if test="input != null and input.createTime != null">and create_time
+                =#{input.createTime}
+            </if>
+            <if test="input != null and input.importanceLevel != null">and importance_level
+                =#{input.importanceLevel}
+            </if>
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">id,</if>
+            <if test="output != null and output.chapterId != null">chapter_id,</if>
+            <if test="output != null and output.name != null">name,</if>
+            <if test="output != null and output.detail != null">detail,</if>
+            <if test="output != null and output.createTime != null">create_time,</if>
+            <if test="output != null and output.importanceLevel != null">importance_level,</if>
+        </trim>
+    </sql>
+
+
+</mapper>

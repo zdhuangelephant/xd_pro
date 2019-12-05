@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CourseKeywordResourceModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.course.model.product.CourseKeywordResourceModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="resource_id" property="resourceId" jdbcType="INTEGER" />
+		<result column="keyword_id" property="keywordId" jdbcType="INTEGER" />
+		<result column="resource_type" property="resourceType"
+			jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, resource_id, keyword_id, resource_type, create_time
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.course.model.product.CourseKeywordResourceModel">
+		select
+		<include refid="base_column" />
+		from xd_course_keyword_resource where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_keyword_resource
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.course.model.product.CourseKeywordResourceModel">
+		insert into xd_course_keyword_resource
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="resourceId != null">resource_id,</if>
+			<if test="keywordId != null">keyword_id,</if>
+			<if test="resourceType != null">resource_type,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="resourceId != null">#{resourceId,jdbcType=INTEGER},</if>
+			<if test="keywordId != null">#{keywordId,jdbcType=INTEGER},</if>
+			<if test="resourceType != null">#{resourceType,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.course.model.product.CourseKeywordResourceModel">
+		update xd_course_keyword_resource
+		<set>
+			<if test="value != null and value.resourceId != null">resource_id = #{value.resourceId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.keywordId != null">keyword_id = #{value.keywordId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.resourceType != null">resource_type = #{value.resourceType,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.course.model.product.CourseKeywordResourceModel">
+		update xd_course_keyword_resource
+		<set>
+			<if test="value != null and value.resourceId != null">resource_id = #{value.resourceId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.keywordId != null">keyword_id = #{value.keywordId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.resourceType != null">resource_type = #{value.resourceType,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById"
+		parameterType="com.xiaodou.course.model.product.CourseKeywordResourceModel"> delete from xd_course_keyword_resource where id =
+		#{id,jdbcType=INTEGER}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_course_keyword_resource
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.resourceId != null">resource_id,</if>
+			<if test="output != null and output.keywordId != null">keyword_id,</if>
+			<if test="output != null and output.resourceType != null">resource_type,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.resourceId != null">and resource_id=#{input.resourceId}</if>
+			<if test="input != null and input.resourceIdList != null">
+				and resource_id in
+				<foreach collection="input.resourceIdList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.keywordId != null">and keyword_id=#{input.keywordId}</if>
+			<if test="input != null and input.resourceType != null">and resource_type=#{input.resourceType}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+		</trim>
+	</sql>
+</mapper>

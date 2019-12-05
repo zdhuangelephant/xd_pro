@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" ><mapper namespace="FeedBackModel">    <resultMap id="BaseResultMap" type="com.xiaodou.userCenter.model.FeedBackModel">        <id column="id" property="id" jdbcType="INTEGER" />
+<result column="content" property="content" jdbcType="VARCHAR" />
+<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+<result column="category_descs" property="categoryDescs" jdbcType="VARCHAR" />
+<result column="number" property="number" jdbcType="VARCHAR" />
+<result column="image_urls" property="imageUrls" jdbcType="VARCHAR" />
+<result column="device_type" property="deviceType" jdbcType="VARCHAR" />
+<result column="os_version" property="osVersion" jdbcType="VARCHAR" />
+<result column="user_id" property="userId" jdbcType="INTEGER" />
+<result column="app_version" property="appVersion" jdbcType="VARCHAR" />
+    </resultMap>    <sql id="base_column">id, content, create_time, category_descs, number, image_urls, device_type, os_version, user_id, app_version</sql>    <select id="findEntityById" resultMap="BaseResultMap"        parameterType="com.xiaodou.userCenter.model.FeedBackModel">        select        <include refid="base_column" />        from xd_user_feedback        where id = #{id,jdbcType=INTEGER}
+    </select>    <select id="findEntityListByCond" resultMap="BaseResultMap"        parameterType="java.util.Map">        select        <include refid="dynamic_output" />        from xd_user_feedback        <include refid="dynamic_where" />        <include refid="dynamic_sort" />        <include refid="dynamic_limit" />    </select>    <insert id="addEntity" parameterType="com.xiaodou.userCenter.model.FeedBackModel" useGeneratedKeys="true" keyProperty="id" >        insert into xd_user_feedback        <trim prefix="(" suffix=")" suffixOverrides=",">            <if test="id != null">id,</if>
+<if test="content != null">content,</if>
+<if test="createTime != null">create_time,</if>
+<if test="categoryDescs != null">category_descs,</if>
+<if test="number != null">number,</if>
+<if test="imageUrls != null">image_urls,</if>
+<if test="deviceType != null">device_type,</if>
+<if test="osVersion != null">os_version,</if>
+<if test="userId != null">user_id,</if>
+<if test="appVersion != null">app_version,</if>
+        </trim>        <trim prefix="values (" suffix=")" suffixOverrides=",">            <if test="id != null">#{id,jdbcType=INTEGER},</if>
+<if test="content != null">#{content,jdbcType=VARCHAR},</if>
+<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+<if test="categoryDescs != null">#{categoryDescs,jdbcType=VARCHAR},</if>
+<if test="number != null">#{number,jdbcType=VARCHAR},</if>
+<if test="imageUrls != null">#{imageUrls,jdbcType=VARCHAR},</if>
+<if test="deviceType != null">#{deviceType,jdbcType=VARCHAR},</if>
+<if test="osVersion != null">#{osVersion,jdbcType=VARCHAR},</if>
+<if test="userId != null">#{userId,jdbcType=INTEGER},</if>
+<if test="appVersion != null">#{appVersion,jdbcType=VARCHAR},</if>
+        </trim>    </insert>    <update id="updateEntityById" parameterType="com.xiaodou.userCenter.model.FeedBackModel">        update xd_user_feedback        <set>                    </set>        where id = #{id,jdbcType=INTEGER}
+    </update>    <update id="updateEntity" parameterType="com.xiaodou.userCenter.model.FeedBackModel">        update xd_user_feedback        <set>                    </set>        <include refid="dynamic_where" />    </update>    <update id="deleteEntityById" parameterType="com.xiaodou.userCenter.model.FeedBackModel">        delete from xd_user_feedback        where id = #{id,jdbcType=INTEGER}
+    </update>    <delete id="deleteEntity" parameterType="java.util.Map">        delete from xd_user_feedback        <include refid="dynamic_where" />    </delete>    <sql id="dynamic_output">        <trim suffixOverrides=",">            <if test="output != null and output.id != null">id,</if>
+<if test="output != null and output.content != null">content,</if>
+<if test="output != null and output.createTime != null">create_time,</if>
+<if test="output != null and output.categoryDescs != null">category_descs,</if>
+<if test="output != null and output.number != null">number,</if>
+<if test="output != null and output.imageUrls != null">image_urls,</if>
+<if test="output != null and output.deviceType != null">device_type,</if>
+<if test="output != null and output.osVersion != null">os_version,</if>
+<if test="output != null and output.userId != null">user_id,</if>
+<if test="output != null and output.appVersion != null">app_version,</if>
+        </trim>    </sql>    <sql id="dynamic_where">        <where>            <if test="input != null and input.id != null">and id=#{input.id}</if>
+<if test="input != null and input.content != null">and content=#{input.content}</if>
+<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+<if test="input != null and input.categoryDescs != null">and category_descs=#{input.categoryDescs}</if>
+<if test="input != null and input.number != null">and number=#{input.number}</if>
+<if test="input != null and input.imageUrls != null">and image_urls=#{input.imageUrls}</if>
+<if test="input != null and input.deviceType != null">and device_type=#{input.deviceType}</if>
+<if test="input != null and input.osVersion != null">and os_version=#{input.osVersion}</if>
+<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+<if test="input != null and input.appVersion != null">and app_version=#{input.appVersion}</if>
+        </where>    </sql>    <sql id="dynamic_limit">        <if test="limit != null and limit.limitStart != null and limit.limitCount != null">            limit \${limit.limitStart}, \${limit.limitCount}        </if>    </sql>    <sql id="dynamic_sort">        <trim suffixOverrides=",">            <if test="sort !=null">                order by            </if>            <if test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+<if test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+<if test="sort != null and sort.number != null and ( sort.number == 'ASC' or sort.number == 'DESC' )">number ${sort.number},</if>
+<if test="sort != null and sort.deviceType != null and ( sort.deviceType == 'ASC' or sort.deviceType == 'DESC' )">device_type ${sort.deviceType},</if>
+<if test="sort != null and sort.osVersion != null and ( sort.osVersion == 'ASC' or sort.osVersion == 'DESC' )">os_version ${sort.osVersion},</if>
+<if test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+<if test="sort != null and sort.appVersion != null and ( sort.appVersion == 'ASC' or sort.appVersion == 'DESC' )">app_version ${sort.appVersion},</if>
+        </trim>    </sql></mapper>

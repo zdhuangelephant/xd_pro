@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="xd-autotest">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="xiaodou-jredis-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xiaodou-jredis/xiaodou-jredis">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-autotest-core-1.1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-autotest-core/xd-autotest-core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xiaodou-login-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xiaodou-login/xiaodou-login">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xiaodou-autobuild-1.1.0-snapshot.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-autobuild/xd-autobuild">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="xd-autotest"/>
+        <property name="java-output-path" value="/xd-autotest/target/classes"/>
+    </wb-module>
+</project-modules>

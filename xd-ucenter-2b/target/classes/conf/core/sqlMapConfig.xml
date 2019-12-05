@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties resource="conf/custom/env/config.properties"></properties>
+	<typeAliases>
+		<typeAlias type="com.xiaodou.userCenter.model.UserModel"
+			alias="UserModel" />
+		<typeAlias type="com.xiaodou.userCenter.model.HelpDocModel"
+			alias="HelpDocModel" />
+		<typeAlias type="com.xiaodou.userCenter.model.UserRelateNoticeModel"
+			alias="UserRelateNoticeModel" />
+		<typeAlias type="com.xiaodou.userCenter.model.FeedBackModel"
+			alias="FeedBackModel" />
+		<typeAlias type="com.xiaodou.common.info.model.CommonInfo"
+			alias="CommonInfo" />
+		<typeAlias type="com.xiaodou.common.info.model.ModuleInfo"
+			alias="ModuleInfo"/>
+		<typeAlias alias="AppBindingModel" type="com.xiaodou.userCenter.model.AppBindingModel" />
+		<typeAlias type="com.xiaodou.userCenter.model.BlankNoticeModel"
+			alias="BlankNoticeModel" />
+		<typeAlias type="com.xiaodou.userCenter.model.FriendModel"
+			alias="FriendModel" />
+		<typeAlias type="com.xiaodou.userCenter.model.UserPraiseModel"
+			alias="UserPraiseModel" />
+		<typeAlias type="com.xiaodou.userCenter.model.vo.UserPraiseVo"
+			alias="UserPraiseVo" />
+		<typeAlias type="com.xiaodou.userCenter.model.RankUserInfo"
+			alias="RankUserInfo" />
+		<typeAlias type="com.xiaodou.userCenter.model.ProductUtilModel"
+			alias="ProductUtilModel" />
+		<typeAlias type="com.xiaodou.userCenter.model.ProductCategoryUtilModel"
+			alias="ProductCategoryUtilModel" />
+		<typeAlias type="com.xiaodou.userCenter.model.AccountWalletGood"
+			alias="AccountWalletGood" />
+		<typeAlias type="com.xiaodou.userCenter.model.alarm.LoginInfoModel"
+			alias="LoginInfoModel"/>	
+		<typeAlias type="com.xiaodou.userCenter.model.alarm.AlarmRecordModel"
+			alias="AlarmRecordModel"/>
+		<typeAlias type="com.xiaodou.userCenter.model.CreditChangeLog"
+			alias="CreditChangeLog" />	
+		<typeAlias type="com.xiaodou.userCenter.model.FeedBackCategoryDO"
+			alias="FeedBackCategoryDO"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="conf/mybatis/appBindingModel.xml" />
+		<mapper resource="conf/mybatis/common_info.xml" />
+		<mapper resource="conf/mybatis/module_info.xml"/>
+		<mapper resource="conf/mybatis/userModel.xml" />
+		<mapper resource="conf/mybatis/helpdocModel.xml" />
+		<mapper resource="conf/mybatis/userRelateNoticeModel.xml" />
+		<mapper resource="conf/mybatis/feedbackModel.xml" />
+		<mapper resource="conf/mybatis/blankNoticeModel.xml" />
+		<mapper resource="conf/mybatis/userFriendship.xml" />
+		<mapper resource="conf/mybatis/userPraise.xml" />
+		<mapper resource="conf/mybatis/userPraiseVo.xml" />
+		<mapper resource="conf/mybatis/userRank.xml" />
+		<mapper resource="conf/mybatis/productUtilModel.xml" />
+		<mapper resource="conf/mybatis/productCategoryUtilModel.xml" />
+		<mapper resource="conf/mybatis/AccountWalletGood.xml" />
+		<mapper resource="conf/mybatis/alarm/LoginInfoModel.xml" />
+		<mapper resource="conf/mybatis/alarm/AlarmRecordModel.xml" />
+		<mapper resource="conf/mybatis/CreditChangeLog.xml" />
+		<mapper resource="conf/mybatis/FeedBackCategoryDO.xml"/>
+	</mappers>
+</configuration>

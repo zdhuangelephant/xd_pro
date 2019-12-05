@@ -1,0 +1,25 @@
+<ProductLine code="0101" name="car">
+	<StateMachineInstance>123</StateMachineInstance>
+	<StateInstance>123</StateInstance>
+	<EventInstance>123</EventInstance>
+	<TransitionList>
+		<Transition name="fromInitToPay">
+			<Do>
+				<Api type="local" name="omsApi" />
+			</Do>
+		</Transition>
+		<Transition name="fromPayToSuccess">
+			<PreCheck>
+				<Api type="remote" name="carDriver" />
+			</PreCheck>
+			<Do>
+				<Api type="local" name="omsApi">
+					<InputParam name="coreParams.PayParam.payId" type="java.lang.String" />
+					<InputParam name="coreParams.productType" type="java.lang.String" />
+					<InputParam name="pojoType" type="java.lang.String"
+						value="1" />
+				</Api>
+			</Do>
+		</Transition>
+	</TransitionList>
+</ProductLine>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CategoryRelationModel">
+
+	<!-- ===========================具体业务sql====================================== -->
+	<!-- 添加数据 -->
+	<insert id="addEntity" parameterType="CategoryRelationModel">
+		insert into xd_category_relation
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- 根据条件删除数据 -->
+	<delete id="deleteList" parameterType="java.util.Map">
+		delete from xd_category_relation
+		<include refid="dynamic_where" />
+	</delete>
+
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_category_relation
+		<include refid="dynamic_update" />
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 查询 -->
+	<select id="findEntityById" parameterType="com.xiaodou.resources.model.forum.CategoryRelationModel"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM xd_category_relation
+		where id =#{id}
+	</select>
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM xd_category_relation
+		<include refid="dynamic_where" />
+	</select>
+	<select id="queryCommentNumber" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(id)
+		FROM xd_category_relation
+		<include refid="dynamic_where" />
+	</select>
+	<!-- <select id="queryCommentListByCondNoPage" parameterType="java.util.Map" 
+		resultMap="ForumCommentModel"> select <include refid="all_columns"></include> 
+		from <include refid="table_name" /> <include refid="dynamic_where"/> order 
+		by id desc <include refid="dynamic_limit_forum"></include> </select> -->
+	<!-- ==========================基础属性配置=========================================== -->
+
+	<sql id="table_name">`xd_category_relation`</sql>
+	<sql id="id_column">`id`</sql>
+	<sql id="base_columns">
+		category_id, resources_id
+	</sql>
+	<sql id="all_columns">
+		<include refid="id_column" />
+		,
+		<include refid="base_columns" />
+	</sql>
+	<sql id="base_count">
+		count(1)
+	</sql>
+
+	<!-- 动态排序 -->
+	<sql id="dynamic_limit_forum">
+		<if test="limitCount != null">
+			limit ${limitCount}
+		</if>
+	</sql>
+
+	<!-- 动态语句：修改 -->
+	<sql id="dynamic_update">
+		<set>
+			<if test="value != null and value.categoryId != null"> category_id=#{value.categoryId},</if>
+			<if test="value != null and value.resourcesId != null"> resources_id =#{value.resourcesId},</if>
+		</set>
+	</sql>
+	<!-- 动态语句：返回结果 -->
+	<resultMap id="BaseResultMap" type="ForumCommentModel">
+		<result column="category_id" property="categoryId" jdbcType="LONGVARCHAR" />
+		<result column="resources_id" property="resourcesId" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<!-- 动态语句：条件 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.categoryId != null"> category_id=#{input.categoryId}</if>
+			<if test="input != null and input.resourcesId != null"> resources_id =#{input.resourcesId}</if>
+		</where>
+	</sql>
+	<!-- 动态语句:插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="categoryId != null">category_id,</if>
+			<if test="resourcesId != null">resources_id,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="categoryId != null">#{categoryId},</if>
+			<if test="resourcesId != null">#{resourcesId},</if>
+		</trim>
+	</sql>
+
+	<sql id="Base_Column_List">
+		category_id, resources_id
+	</sql>
+
+</mapper>

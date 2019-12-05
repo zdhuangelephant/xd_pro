@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CourseResourceVideoModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.course.model.product.CourseResourceVideoModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="course_id" property="courseId" jdbcType="BIGINT" />
+		<result column="chapter_id" property="chapterId" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="file_url" property="fileUrl" jdbcType="VARCHAR" />
+		<result column="detail" property="detail" jdbcType="VARCHAR" />
+		<result column="key_point" property="keyPoint" jdbcType="VARCHAR" />
+		<result column="resource_type" property="resourceType"
+			jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="base_column">id, course_id, chapter_id, name, url, file_url, detail,
+		key_point, resource_type, status</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.course.model.product.CourseResourceVideoModel">
+		select
+		<include refid="base_column" />
+		from xd_course_resource_video where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_resource_video
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.course.model.product.CourseResourceVideoModel">
+		insert into xd_course_resource_video
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="courseId != null">course_id,</if>
+			<if test="chapterId != null">chapter_id,</if>
+			<if test="name != null">name,</if>
+			<if test="url != null">url,</if>
+			<if test="fileUrl != null">file_url,</if>
+			<if test="detail != null">detail,</if>
+			<if test="keyPoint != null">key_point,</if>
+			<if test="resourceType != null">resource_type,</if>
+			<if test="status != null">status,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="courseId != null">#{courseId,jdbcType=BIGINT},</if>
+			<if test="chapterId != null">#{chapterId,jdbcType=BIGINT},</if>
+			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+			<if test="url != null">#{url,jdbcType=VARCHAR},</if>
+			<if test="fileUrl != null">#{fileUrl,jdbcType=VARCHAR},</if>
+			<if test="detail != null">#{detail,jdbcType=VARCHAR},</if>
+			<if test="keyPoint != null">#{keyPoint,jdbcType=VARCHAR},</if>
+			<if test="resourceType != null">#{resourceType,jdbcType=VARCHAR},</if>
+			<if test="status != null">#{status,jdbcType=INTEGER},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.course.model.product.CourseResourceVideoModel">
+		update xd_course_resource_video
+		<set>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.url != null">url = #{value.url,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.fileUrl != null">file_url = #{value.fileUrl,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.detail != null">detail = #{value.detail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.keyPoint != null">key_point = #{value.keyPoint,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.resourceType != null">resource_type = #{value.resourceType,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=INTEGER},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.course.model.product.CourseResourceVideoModel">
+		update xd_course_resource_video
+		<set>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.url != null">url = #{value.url,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.fileUrl != null">file_url = #{value.fileUrl,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.detail != null">detail = #{value.detail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.keyPoint != null">key_point = #{value.keyPoint,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.resourceType != null">resource_type = #{value.resourceType,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=INTEGER},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById"
+		parameterType="com.xiaodou.course.model.product.CourseResourceVideoModel"> delete from xd_course_resource_video where id =
+		#{id,jdbcType=BIGINT}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_course_resource_video
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.courseId != null">course_id,</if>
+			<if test="output != null and output.chapterId != null">chapter_id,</if>
+			<if test="output != null and output.name != null">name,</if>
+			<if test="output != null and output.url != null">url,</if>
+			<if test="output != null and output.fileUrl != null">file_url,</if>
+			<if test="output != null and output.detail != null">detail,</if>
+			<if test="output != null and output.keyPoint != null">key_point,</if>
+			<if test="output != null and output.resourceType != null">resource_type,</if>
+			<if test="output != null and output.status != null">status,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.courseId != null">and course_id=#{input.courseId}</if>
+			<if test="input != null and input.chapterId != null">and chapter_id=#{input.chapterId}</if>
+			<if test="input != null and input.name != null">and name=#{input.name}</if>
+			<if test="input != null and input.url != null">and url=#{input.url}</if>
+			<if test="input != null and input.fileUrl != null">and file_url=#{input.fileUrl}</if>
+			<if test="input != null and input.detail != null">and detail=#{input.detail}</if>
+			<if test="input != null and input.keyPoint != null">and key_point=#{input.keyPoint}</if>
+			<if test="input != null and input.resourceType != null">and resource_type=#{input.resourceType}</if>
+			<if test="input != null and input.status != null">and status=#{input.status}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+		</trim>
+	</sql>
+</mapper>

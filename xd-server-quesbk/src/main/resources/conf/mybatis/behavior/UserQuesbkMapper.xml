@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserQuesbk" >
+  <resultMap id="BaseResultMap" type="com.xiaodou.domain.UserQuesbk" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="quesbase" property="quesbase" jdbcType="VARCHAR" />
+    <result column="scope" property="scope" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, quesbase, scope, state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from xd_user_quesbk
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from xd_user_quesbk
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xiaodou.domain.UserQuesbk" >
+    insert into xd_user_quesbk (id, user_id, quesbase, 
+      scope, state)
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{quesbase,jdbcType=VARCHAR}, 
+      #{scope,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiaodou.domain.UserQuesbk" >
+    insert into xd_user_quesbk
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="quesbase != null" >
+        quesbase,
+      </if>
+      <if test="scope != null" >
+        scope,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="quesbase != null" >
+        #{quesbase,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null" >
+        #{scope,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiaodou.domain.UserQuesbk" >
+    update xd_user_quesbk
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="quesbase != null" >
+        quesbase = #{quesbase,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null" >
+        scope = #{scope,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiaodou.domain.UserQuesbk" >
+    update xd_user_quesbk
+    set user_id = #{userId,jdbcType=VARCHAR},
+      quesbase = #{quesbase,jdbcType=VARCHAR},
+      scope = #{scope,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

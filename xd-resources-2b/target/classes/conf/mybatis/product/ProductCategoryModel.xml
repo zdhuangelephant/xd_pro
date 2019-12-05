@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ProductCategoryModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.resources.model.product.ProductCategoryModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+		<result column="child_id" property="childId" jdbcType="VARCHAR" />
+		<result column="show_status" property="showStatus" jdbcType="INTEGER" />
+		<result column="all_parent_id" property="allParentId" jdbcType="VARCHAR" />
+		<result column="all_child_id" property="allChildId" jdbcType="VARCHAR" />
+		<result column="level" property="level" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="detail" property="detail" jdbcType="VARCHAR" />
+		<result column="misc" property="misc" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="is_leaf" property="isLeaf" jdbcType="INTEGER" />
+		<result column="type_code" property="typeCode" jdbcType="VARCHAR" />
+		<result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="list_order" property="listOrder" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, parent_id, child_id, show_status, all_parent_id,
+		all_child_id, level, name, detail, misc, create_time, update_time,
+		is_leaf, type_code, picture_url, user_id, list_order</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.resources.model.product.ProductCategoryModel">
+		select
+		<include refid="base_column" />
+		from xd_course_product_category
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_product_category
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.parentId != null">parent_id,</if>
+			<if test="output != null and output.childId != null">child_id,</if>
+			<if test="output != null and output.showStatus != null">show_status,</if>
+			<if test="output != null and output.allParentId != null">all_parent_id,</if>
+			<if test="output != null and output.allChildId != null">all_child_id,</if>
+			<if test="output != null and output.level != null">level,</if>
+			<if test="output != null and output.name != null">name,</if>
+			<if test="output != null and output.detail != null">detail,</if>
+			<if test="output != null and output.misc != null">misc,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.updateTime != null">update_time,</if>
+			<if test="output != null and output.isLeaf != null">is_leaf,</if>
+			<if test="output != null and output.typeCode != null">type_code,</if>
+			<if test="output != null and output.pictureUrl != null">picture_url,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.listOrder != null">list_order,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.parentId != null">and parent_id=#{input.parentId}</if>
+			<if test="input != null and input.childId != null">and child_id=#{input.childId}</if>
+			<if test="input != null and input.showStatus != null">and show_status=#{input.showStatus}</if>
+			<if test="input != null and input.allParentId != null">and all_parent_id=#{input.allParentId}</if>
+			<if test="input != null and input.allChildId != null">and all_child_id=#{input.allChildId}</if>
+			<if test="input != null and input.level != null">and level=#{input.level}</if>
+			<if test="input != null and input.name != null">and name=#{input.name}</if>
+			<if test="input != null and input.detail != null">and detail=#{input.detail}</if>
+			<if test="input != null and input.misc != null">and misc=#{input.misc}</if>
+			<if test="input != null and input.createTimeLower != null">and create_time &gt; #{input.createTimeLower}</if>
+			<if test="input != null and input.createTimeUpper != null">and create_time &lt; #{input.createTimeLower}</if>
+			<if test="input != null and input.updateTimeLower != null">and update_time &gt; #{input.updateTimeLower}</if>
+			<if test="input != null and input.updateTimeUpper != null">and update_time &lt; #{input.updateTimeLower}</if>
+			<if test="input != null and input.isLeaf != null">and is_leaf=#{input.isLeaf}</if>
+			<if test="input != null and input.typeCode != null">and type_code=#{input.typeCode}</if>
+			<if test="input != null and input.pictureUrl != null">and picture_url=#{input.pictureUrl}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.listOrder != null">and list_order=#{input.listOrder}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limitStart != null and limitCount != null">
+			limit ${limitStart}, ${limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.parentId != null and ( sort.parentId == 'ASC' or sort.parentId == 'DESC' )">parent_id ${sort.parentId},</if>
+			<if
+				test="sort != null and sort.childId != null and ( sort.childId == 'ASC' or sort.childId == 'DESC' )">child_id ${sort.childId},</if>
+			<if
+				test="sort != null and sort.showStatus != null and ( sort.showStatus == 'ASC' or sort.showStatus == 'DESC' )">show_status ${sort.showStatus},</if>
+			<if
+				test="sort != null and sort.allParentId != null and ( sort.allParentId == 'ASC' or sort.allParentId == 'DESC' )">all_parent_id ${sort.allParentId},</if>
+			<if
+				test="sort != null and sort.allChildId != null and ( sort.allChildId == 'ASC' or sort.allChildId == 'DESC' )">all_child_id ${sort.allChildId},</if>
+			<if
+				test="sort != null and sort.level != null and ( sort.level == 'ASC' or sort.level == 'DESC' )">level ${sort.level},</if>
+			<if
+				test="sort != null and sort.name != null and ( sort.name == 'ASC' or sort.name == 'DESC' )">name ${sort.name},</if>
+			<if
+				test="sort != null and sort.detail != null and ( sort.detail == 'ASC' or sort.detail == 'DESC' )">detail ${sort.detail},</if>
+			<if
+				test="sort != null and sort.misc != null and ( sort.misc == 'ASC' or sort.misc == 'DESC' )">misc ${sort.misc},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">update_time ${sort.updateTime},</if>
+			<if
+				test="sort != null and sort.isLeaf != null and ( sort.isLeaf == 'ASC' or sort.isLeaf == 'DESC' )">is_leaf ${sort.isLeaf},</if>
+			<if
+				test="sort != null and sort.typeCode != null and ( sort.typeCode == 'ASC' or sort.typeCode == 'DESC' )">type_code ${sort.typeCode},</if>
+			<if
+				test="sort != null and sort.pictureUrl != null and ( sort.pictureUrl == 'ASC' or sort.pictureUrl == 'DESC' )">picture_url ${sort.pictureUrl},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.listOrder != null and ( sort.listOrder == 'ASC' or sort.listOrder == 'DESC' )">list_order ${sort.listOrder},</if>
+		</trim>
+	</sql>
+</mapper>

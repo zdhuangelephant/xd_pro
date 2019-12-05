@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RawDataFaceRecognitionDO">
+	<resultMap id="BaseResultMap" type="com.xiaodou.st.dashboard.domain.alarm.RawDataFaceRecognitionDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+<result column="test_id" property="testId" jdbcType="VARCHAR" />
+<result column="student_id" property="studentId" jdbcType="BIGINT" />
+<result column="cat_name" property="catName" jdbcType="VARCHAR" />
+<result column="product_name" property="productName" jdbcType="VARCHAR" />
+<result column="test_point" property="testPoint" jdbcType="VARCHAR" />
+<result column="collect_time" property="collectTime" jdbcType="TIMESTAMP" />
+<result column="collect_portrait" property="collectPortrait" jdbcType="VARCHAR" />
+<result column="similarity" property="similarity" jdbcType="VARCHAR" />
+<result column="result" property="result" jdbcType="VARCHAR" />
+<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+	</resultMap>
+	<sql id="base_column">id, test_id, student_id, cat_name, product_name, test_point, collect_time, collect_portrait, similarity, result, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.alarm.RawDataFaceRecognitionDO">
+		select
+		<include refid="base_column" />
+		from xd_raw_data_face_recognition
+		where id = #{id,jdbcType=BIGINT}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_raw_data_face_recognition
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.st.dashboard.domain.alarm.RawDataFaceRecognitionDO"  >
+		insert into xd_raw_data_face_recognition
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+<if test="testId != null">test_id,</if>
+<if test="studentId != null">student_id,</if>
+<if test="catName != null">cat_name,</if>
+<if test="productName != null">product_name,</if>
+<if test="testPoint != null">test_point,</if>
+<if test="collectTime != null">collect_time,</if>
+<if test="collectPortrait != null">collect_portrait,</if>
+<if test="similarity != null">similarity,</if>
+<if test="result != null">result,</if>
+<if test="createTime != null">create_time,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+<if test="testId != null">#{testId,jdbcType=VARCHAR},</if>
+<if test="studentId != null">#{studentId,jdbcType=BIGINT},</if>
+<if test="catName != null">#{catName,jdbcType=VARCHAR},</if>
+<if test="productName != null">#{productName,jdbcType=VARCHAR},</if>
+<if test="testPoint != null">#{testPoint,jdbcType=VARCHAR},</if>
+<if test="collectTime != null">#{collectTime,jdbcType=TIMESTAMP},</if>
+<if test="collectPortrait != null">#{collectPortrait,jdbcType=VARCHAR},</if>
+<if test="similarity != null">#{similarity,jdbcType=VARCHAR},</if>
+<if test="result != null">#{result,jdbcType=VARCHAR},</if>
+<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.st.dashboard.domain.alarm.RawDataFaceRecognitionDO">
+		update xd_raw_data_face_recognition
+		<set>
+			<if test="value != null and value.testId != null">test_id = #{value.testId,jdbcType=VARCHAR},</if>
+<if test="value != null and value.studentId != null">student_id = #{value.studentId,jdbcType=BIGINT},</if>
+<if test="value != null and value.catName != null">cat_name = #{value.catName,jdbcType=VARCHAR},</if>
+<if test="value != null and value.productName != null">product_name = #{value.productName,jdbcType=VARCHAR},</if>
+<if test="value != null and value.testPoint != null">test_point = #{value.testPoint,jdbcType=VARCHAR},</if>
+<if test="value != null and value.collectTime != null">collect_time = #{value.collectTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.collectPortrait != null">collect_portrait = #{value.collectPortrait,jdbcType=VARCHAR},</if>
+<if test="value != null and value.similarity != null">similarity = #{value.similarity,jdbcType=VARCHAR},</if>
+<if test="value != null and value.result != null">result = #{value.result,jdbcType=VARCHAR},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.st.dashboard.domain.alarm.RawDataFaceRecognitionDO">
+		update xd_raw_data_face_recognition
+		<set>
+			<if test="value != null and value.testId != null">test_id = #{value.testId,jdbcType=VARCHAR},</if>
+<if test="value != null and value.studentId != null">student_id = #{value.studentId,jdbcType=BIGINT},</if>
+<if test="value != null and value.catName != null">cat_name = #{value.catName,jdbcType=VARCHAR},</if>
+<if test="value != null and value.productName != null">product_name = #{value.productName,jdbcType=VARCHAR},</if>
+<if test="value != null and value.testPoint != null">test_point = #{value.testPoint,jdbcType=VARCHAR},</if>
+<if test="value != null and value.collectTime != null">collect_time = #{value.collectTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.collectPortrait != null">collect_portrait = #{value.collectPortrait,jdbcType=VARCHAR},</if>
+<if test="value != null and value.similarity != null">similarity = #{value.similarity,jdbcType=VARCHAR},</if>
+<if test="value != null and value.result != null">result = #{value.result,jdbcType=VARCHAR},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.st.dashboard.domain.alarm.RawDataFaceRecognitionDO">
+		delete from xd_raw_data_face_recognition
+		where id = #{id,jdbcType=BIGINT}
+
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_raw_data_face_recognition
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+<if test="output != null and output.testId != null">test_id,</if>
+<if test="output != null and output.studentId != null">student_id,</if>
+<if test="output != null and output.catName != null">cat_name,</if>
+<if test="output != null and output.productName != null">product_name,</if>
+<if test="output != null and output.testPoint != null">test_point,</if>
+<if test="output != null and output.collectTime != null">collect_time,</if>
+<if test="output != null and output.collectPortrait != null">collect_portrait,</if>
+<if test="output != null and output.similarity != null">similarity,</if>
+<if test="output != null and output.result != null">result,</if>
+<if test="output != null and output.createTime != null">create_time,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+<if test="input != null and input.testId != null">and test_id=#{input.testId}</if>
+<if test="input != null and input.studentId != null">and student_id=#{input.studentId}</if>
+<if test="input != null and input.catName != null">and cat_name=#{input.catName}</if>
+<if test="input != null and input.productName != null">and product_name=#{input.productName}</if>
+<if test="input != null and input.testPoint != null">and test_point=#{input.testPoint}</if>
+<if test="input != null and input.collectTime != null">and collect_time=#{input.collectTime}</if>
+<if test="input != null and input.collectPortrait != null">and collect_portrait=#{input.collectPortrait}</if>
+<if test="input != null and input.similarity != null">and similarity=#{input.similarity}</if>
+<if test="input != null and input.result != null">and result=#{input.result}</if>
+<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+<if test="sort != null and sort.testId != null and ( sort.testId == 'ASC' or sort.testId == 'DESC' )">test_id ${sort.testId},</if>
+<if test="sort != null and sort.studentId != null and ( sort.studentId == 'ASC' or sort.studentId == 'DESC' )">student_id ${sort.studentId},</if>
+<if test="sort != null and sort.catName != null and ( sort.catName == 'ASC' or sort.catName == 'DESC' )">cat_name ${sort.catName},</if>
+<if test="sort != null and sort.productName != null and ( sort.productName == 'ASC' or sort.productName == 'DESC' )">product_name ${sort.productName},</if>
+<if test="sort != null and sort.testPoint != null and ( sort.testPoint == 'ASC' or sort.testPoint == 'DESC' )">test_point ${sort.testPoint},</if>
+<if test="sort != null and sort.collectTime != null and ( sort.collectTime == 'ASC' or sort.collectTime == 'DESC' )">collect_time ${sort.collectTime},</if>
+<if test="sort != null and sort.collectPortrait != null and ( sort.collectPortrait == 'ASC' or sort.collectPortrait == 'DESC' )">collect_portrait ${sort.collectPortrait},</if>
+<if test="sort != null and sort.similarity != null and ( sort.similarity == 'ASC' or sort.similarity == 'DESC' )">similarity ${sort.similarity},</if>
+<if test="sort != null and sort.result != null and ( sort.result == 'ASC' or sort.result == 'DESC' )">result ${sort.result},</if>
+<if test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+
+		</trim>
+	</sql>
+</mapper>

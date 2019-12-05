@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html{
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    position: relative;
+    overflow: hidden;
+}
+body {
+    font-family: "微软雅黑";
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    background: #f0f0f0;
+    overflow: hidden;
+    position: relative;
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+}
+.main .xdFail{
+    width: 100%;
+    margin:0 auto;
+    text-align: center;
+    margin-top: 10%;
+}
+.main .xdFail img{
+    width: 100%;
+}
+.main .xdFail .userName{
+    margin:0 auto;
+    color:#425264;
+    margin-top: 18px;
+    font-size: 22px;
+}
+.download{
+    width: 100%;
+    bottom: 0px;
+    height: 80px;
+    border-top:1px solid #cdcdcd;
+    border-bottom:1px solid #cdcdcd;
+    background: #ffffff;
+    position: absolute;
+}
+.download .picture{
+    float:left;
+}
+.download .text{
+    position:relative;
+    float:left;
+
+    margin-left: 10px;
+    margin-top: 8px;;
+    width:75%;
+
+}
+.download .text .p1{
+    color:#5e9ef8;
+    font-size: 18px;
+
+}
+.download .text .p2{
+    color:#a0a0a0;
+    margin-top: 17px;
+}
+.download .btn{
+    position: absolute;
+    bottom: 50px;
+    right:35px;
+    float:right;
+    width: 75px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    color:#ffffff;
+    background: #fd6131;
+    border-radius: 8px;
+    margin-top: 22px;
+    margin-right: -20px;
+}
+.download .front{
+    width: 75px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    color:#ffffff;
+    background: #fd6131;
+    border-radius: 8px;
+    font-size:14px;
+    margin-right: 10px;
+    float:right;
+}
+.download .picture{
+    width: 54px;
+    height: 54px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.download .picture img{
+    width: 100%;
+}
+.xd{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    background: #efefef;
+    z-index: 1000;
+    display: none;
+}
+.xd img{
+    display: block;
+    width: 90%;
+    margin:0 auto;
+    padding-top: 10px;
+
+}
+
+@media screen and (max-width: 330px) {
+    .main .xdFail{
+        width: 100%;
+    }
+
+}

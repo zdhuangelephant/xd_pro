@@ -1,0 +1,221 @@
+<ProductLine code="14" name="businsurance">
+
+	<StateMachineInstance>com.elong.oms.statemachine.instance.businsurance.BusInsuranceStateMachine</StateMachineInstance>
+	<StateInstance>com.elong.oms.statemachine.instance.businsurance.BusInsuranceState</StateInstance>
+	<EventInstance>com.elong.oms.statemachine.instance.businsurance.BusInsuranceEvent</EventInstance>
+	
+	<TransitionList>
+		<!-- 支付成功->投保成功   from 1 to 6 -->
+	    <Transition name="fromPaySuccessToDeliveringSuccessOnDeliveringSuccess" id="13">
+			<Do>
+			    <Api type="local" name="updateOrderStatus">
+                   <InputParam name="coreParams.orderId" type="java.lang.String" />
+                   <InputParam name="coreParams.ip" type="java.lang.String" />
+                   <InputParam name="shares.toState"  type="java.lang.Integer" />
+                </Api>
+			</Do>
+			<Message>
+				   <Api type="local" name="message">
+				      <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+				      <InputParam name="tempType" type="java.lang.String" value="1"/>
+				      <InputParam name="messageName" type="java.lang.String" value="14_from1To6OnDeliveringSuccess" />
+				   </Api>
+			</Message>
+		</Transition>
+		
+		<!-- 投保成功->出保成功   from 6 to 2 -->
+		<Transition name="fromDeliveringSuccessToDeliveredOnDeliveredSuccess" id="14">
+			<Do>
+			    <Api type="local" name="updateOrderStatusAndMerchantOrderId">
+                    <InputParam name="coreParams.orderId" type="java.lang.String" />
+                    <InputParam name="coreParams.ip" type="java.lang.String" />
+                    <InputParam name="coreParams.merchantOrderId"  type="java.lang.String" />
+                    <InputParam name="shares.toState"  type="java.lang.Integer" />
+                </Api>
+			</Do>
+			<Message>
+				   <Api type="local" name="message">
+				      <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+				      <InputParam name="tempType" type="java.lang.String" value="1"/>
+				      <InputParam name="messageName" type="java.lang.String" value="14_from6To2OnDeliveredSuccess" />
+				   </Api>
+			</Message>
+		</Transition>
+		
+		<!-- 支付成功->出保成功   from 1 to 2 -->
+		<Transition name="fromPaySuccessToDeliveredOnDeliveredSuccess" id="15">
+			<Do>
+			    <Api type="local" name="updateOrderStatusAndMerchantOrderId">
+                    <InputParam name="coreParams.orderId" type="java.lang.String" />
+                    <InputParam name="coreParams.ip" type="java.lang.String" />
+                    <InputParam name="coreParams.merchantOrderId"  type="java.lang.String" />
+                    <InputParam name="shares.toState"  type="java.lang.Integer" />
+                </Api>
+			</Do>
+			<Message>
+				   <Api type="local" name="message">
+				      <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+				      <InputParam name="tempType" type="java.lang.String" value="1"/>
+				      <InputParam name="messageName" type="java.lang.String" value="14_from1To2OnDeliveredSuccess" />
+				   </Api>
+			</Message>
+		</Transition>
+		
+		<!-- 投保成功->出保失败   from 6 to -2 -->
+		<Transition name="fromDeliveringSuccessToDeliveredFailureOnDeliveredFailure" id="16">
+			<Do>
+			    <Api type="local" name="updateOrderStatusAndMerchantInfo">
+                    <InputParam name="coreParams.orderId" type="java.lang.String" />
+                    <InputParam name="coreParams.ip" type="java.lang.String" />
+                    <InputParam name="coreParams.orderUpdateInfo"  type="com.elong.oms.entity.order.Order" />
+                    <InputParam name="shares.toState"  type="java.lang.Integer" />
+                </Api>
+                <!--记录出保失败原因 -->
+				<Api type="local" name="updateOrderMisc">
+					<InputParam name="coreParams.orderId" type="java.lang.String" />
+					<InputParam name="coreParams.ip" type="java.lang.String" />
+					<InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order" />
+				</Api>
+			</Do>
+			<Message>
+				   <Api type="local" name="message">
+				      <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+				      <InputParam name="tempType" type="java.lang.String" value="1"/>
+				      <InputParam name="messageName" type="java.lang.String" value="14_from6Tom2OnDeliveredFailure" />
+				   </Api>
+			</Message>
+		</Transition>
+		
+		<!-- 支付成功->出保失败   from 1 to -2 -->
+		<Transition name="fromPaySuccessToDeliveredFailureOnDeliveredFailure" id="18">
+			<Do>
+			    <Api type="local" name="updateOrderStatusAndMerchantInfo">
+                    <InputParam name="coreParams.orderId" type="java.lang.String" />
+                    <InputParam name="coreParams.ip" type="java.lang.String" />
+                    <InputParam name="coreParams.orderUpdateInfo"  type="com.elong.oms.entity.order.Order" />
+                    <InputParam name="shares.toState"  type="java.lang.Integer" />
+                </Api>
+                <!--记录出保失败原因 -->
+				<Api type="local" name="updateOrderMisc">
+					<InputParam name="coreParams.orderId" type="java.lang.String" />
+					<InputParam name="coreParams.ip" type="java.lang.String" />
+					<InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order" />
+				</Api>
+			</Do>
+			<Message>
+				   <Api type="local" name="message">
+				      <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+				      <InputParam name="tempType" type="java.lang.String" value="1"/>
+				      <InputParam name="messageName" type="java.lang.String" value="14_from1Tom2OnDeliveredFailure" />
+				   </Api>
+			</Message>
+		</Transition>
+		
+		<!-- 再次请求投保    投保失败->支付出成功  from -2 to 1  -->
+		<Transition name="fromDeliveredFailureToPaySuccessOnDeliveringRequestAgain" id="19">
+			<Do>
+			    <Api type="local" name="updateOrderStatus">
+                   <InputParam name="coreParams.orderId" type="java.lang.String" />
+                   <InputParam name="coreParams.ip" type="java.lang.String" />
+                   <InputParam name="shares.toState"  type="java.lang.Integer" />
+                </Api>
+                <Api type="local" name="addOrderNote">
+                   <InputParam name="coreParams.orderId" type="java.lang.String" />
+                   <InputParam name="coreParams.orderUpdateInfo"  type="com.elong.oms.entity.order.Order" />
+                </Api>
+                  <!--更新出保失败原因 -->
+				<Api type="local" name="updateOrderMisc">
+					<InputParam name="coreParams.orderId" type="java.lang.String" />
+					<InputParam name="coreParams.ip" type="java.lang.String" />
+					<InputParam name="coreParams.orderUpdateInfo" type="com.elong.oms.entity.order.Order" />
+				</Api>
+			</Do>
+			<Message>
+				   <Api type="local" name="message">
+				      <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+				      <InputParam name="tempType" type="java.lang.String" value="1"/>
+				      <InputParam name="messageName" type="java.lang.String" value="14_fromm2To1OnDeliveringRequestAgain" />
+				   </Api>
+			</Message>
+		</Transition>
+		
+		<!-- 投保失败->出保成功   from -2 to 2 -->
+		<Transition name="fromDeliveredFailureToDeliveredOnModifiedToDelivered" id="17">
+			<Do>
+			    <Api type="local" name="updateOrderStatusAndMerchantOrderId">
+                    <InputParam name="coreParams.orderId" type="java.lang.String" />
+                    <InputParam name="coreParams.ip" type="java.lang.String" />
+                    <InputParam name="coreParams.merchantOrderId"  type="java.lang.String" />
+                    <InputParam name="shares.toState"  type="java.lang.Integer" />
+                </Api>
+                <Api type="local" name="addOrderNote">
+                   <InputParam name="coreParams.orderId" type="java.lang.String" />
+                   <InputParam name="coreParams.orderUpdateInfo"  type="com.elong.oms.entity.order.Order" />
+                </Api>
+			</Do>
+			<Message>
+				   <Api type="local" name="message">
+				      <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+				      <InputParam name="tempType" type="java.lang.String" value="1"/>
+				      <InputParam name="messageName" type="java.lang.String" value="14_fromm2To2OnModifiedToDelivered" />
+				   </Api>
+			</Message>
+		</Transition>
+		
+		<!-- 出保失败->取消   from -2 to 5 -->
+		<Transition name="fromDeliveredFailureToClosedOnRefundRequest" id="20">
+			<Do>
+			    <Api type="local" name="updateOrderStatus">
+			       <InputParam name="coreParams.gorderId" type="java.lang.String" />
+                   <InputParam name="coreParams.orderId" type="java.lang.String" />
+                   <InputParam name="coreParams.ip" type="java.lang.String" />
+                   <InputParam name="shares.toState"  type="java.lang.Integer" />
+                </Api>
+                <Api type="local" name="createPayRequestFromOrder">
+                   <InputParam name="coreParams.payParam"
+						type="com.elong.oms.statemachine.param.PayParam" />
+                   <InputParam name="payCallbackUrl"  type="java.lang.String" value="refund_notify.do"/>
+                   <InputParam name="shares.dbOrder" type="com.elong.oms.entity.order.Order"/>
+                </Api>
+			</Do>
+			<Message>
+				   <Api type="local" name="message">
+				      <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+				      <InputParam name="tempType" type="java.lang.String" value="1"/>
+				      <InputParam name="messageName" type="java.lang.String" value="14_fromm2To5OnRefundRequest" />
+				   </Api>
+			</Message>
+		</Transition>
+		
+		<!-- 取消-> 取消   退款成功  from 5 To 5-->
+		<Transition name="fromClosedToClosedOnRefundSuccess"  id="23">
+			<Do>
+			     <Api type="local" name="updatePayRecord">
+			      <InputParam name="coreParams.gorderId" type="java.lang.String" />
+                  <InputParam name="coreParams.payParam.payNo" type="java.lang.String" />
+                  <InputParam name="payRecordStatus"  type="java.lang.Integer" value="2"/>
+                  <InputParam name="coreParams.payParam.failureReason" type="java.lang.String"/>
+                </Api>
+			</Do>
+			<Message>
+				   <Api type="local" name="message">
+				      <InputParam name="context" type="com.elong.oms.statemachine.Context"/>
+				      <InputParam name="tempType" type="java.lang.String" value="1"/>
+				      <InputParam name="messageName" type="java.lang.String" value="06_from5To5OnRefundSuccess" />
+				   </Api>
+			</Message>
+		</Transition>
+		
+		<!-- 取消-> 取消   退款失败  from 5 To 5-->
+		<Transition name="fromClosedToClosedOnRefundFailure"  id="24">
+			<Do>
+			     <Api type="local" name="updatePayRecord">
+			      <InputParam name="coreParams.gorderId" type="java.lang.String" />
+                  <InputParam name="coreParams.payParam.payNo" type="java.lang.String" />
+                  <InputParam name="payRecordStatus"  type="java.lang.Integer" value="-1"/>
+                  <InputParam name="coreParams.payParam.failureReason" type="java.lang.String"/>
+                </Api>
+			</Do>
+		</Transition>
+	</TransitionList>
+</ProductLine>

@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MissionModel">
+	<resultMap id="BaseResultMap" type="com.xiaodou.mission.domain.MissionModel">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="major_id" property="majorId" jdbcType="VARCHAR" />
+		<result column="course_id" property="courseId" jdbcType="VARCHAR" />
+		<result column="chapter_id" property="chapterId" jdbcType="VARCHAR" />
+		<result column="mission_type" property="missionType" jdbcType="VARCHAR" />
+		<result column="precond_list" property="preCondList" jdbcType="VARCHAR" />
+		<result column="cond_type" property="condType" jdbcType="VARCHAR" />
+		<result column="mission_cond" property="condition" jdbcType="VARCHAR" />
+		<result column="scope" property="scope" jdbcType="VARCHAR" />
+		<result column="threshold" property="threshold" jdbcType="VARCHAR" />
+		<result column="mission_name" property="missionName" jdbcType="VARCHAR" />
+		<result column="mission_desc" property="missionDesc" jdbcType="VARCHAR" />
+		<result column="mission_picurl" property="missionPicUrl"
+			jdbcType="VARCHAR" />
+		<result column="jump_type" property="jumpType" jdbcType="VARCHAR" />
+		<result column="task_type" property="taskType" jdbcType="VARCHAR" />
+		<result column="mission_state" property="missionState"
+			jdbcType="TINYINT" />
+		<result column="mission_order" property="missionOrder"
+			jdbcType="INTEGER" />
+		<result column="credit_upper" property="creditUpper" jdbcType="INTEGER" />
+		<result column="red_bonus_type" property="redBonusType"
+			jdbcType="VARCHAR" />
+		<result column="expiry_date" property="expiryDate" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, module, course_id, chapter_id, mission_type,
+		precond_list, cond_type,
+		mission_cond,
+		scope,
+		threshold, mission_name,
+		mission_desc,
+		mission_picurl,
+		jump_type,
+		task_type,
+		mission_state,
+		mission_order,
+		credit_upper,
+		red_bonus_type,
+		expiry_date
+	</sql>
+	<sql id="Cascade_Column_List">
+		m.id, m.module, IFNULL(pr.product_category_id,'-1')
+		major_id, m.course_id, m.chapter_id, m.mission_type,
+		m.precond_list,
+		m.cond_type,
+		m.mission_cond,
+		m.scope,
+		m.threshold, m.mission_name,
+		m.mission_desc,
+		m.mission_picurl,
+		m.jump_type,
+		m.task_type,
+		m.mission_state,
+		m.mission_order,
+		m.credit_upper,
+		m.red_bonus_type,
+		m.expiry_date
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.mission.domain.MissionModel">
+		select
+		<include refid="Base_Column_List" />
+		from xd_mission_model
+		where id = #{id,jdbcType=VARCHAR}
+		order by
+		m.mission_order asc
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_mission_model m
+		<include refid="dynamic_where" />
+		order by m.mission_order asc
+	</select>
+	<select id="cascadeQueryListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Cascade_Column_List" />
+		from xd_mission_model m left join xd_mission_product_relation pr on
+		m.course_id = pr.product_id
+		<include refid="dynamic_where" />
+		order by m.mission_order asc
+	</select>
+	<delete id="deleteEntity" parameterType="com.xiaodou.mission.domain.MissionModel">
+		delete from
+		xd_mission_model
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="addEntity" parameterType="com.xiaodou.mission.domain.MissionModel"
+		useGeneratedKeys="true">
+		insert into xd_mission_model
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="module != null">
+				module,
+			</if>
+			<if test="courseId != null">
+				course_id,
+			</if>
+			<if test="chapterId != null">
+				chapter_id,
+			</if>
+			<if test="missionType != null">
+				mission_type,
+			</if>
+			<if test="preCondList != null">
+				precond_list,
+			</if>
+			<if test="condType != null">
+				cond_type,
+			</if>
+			<if test="condition != null">
+				mission_cond,
+			</if>
+			<if test="scope != null">
+				scope,
+			</if>
+			<if test="threshold != null">
+				threshold,
+			</if>
+			<if test="missionName != null">
+				mission_name,
+			</if>
+			<if test="missionDesc != null">
+				mission_desc,
+			</if>
+			<if test="missionPicUrl != null">
+				mission_picurl,
+			</if>
+			<if test="jumpType != null">
+				jump_type,
+			</if>
+			<if test="taskType != null">
+				task_type,
+			</if>
+			<if test="missionState != null">
+				mission_state,
+			</if>
+			<if test="missionOrder != null">
+				mission_order,
+			</if>
+			<if test="creditUpper != null">
+				credit_upper,
+			</if>
+			<if test="redBonusType != null">
+				red_bonus_type,
+			</if>
+			<if test="expiryDate != null">
+				expiry_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="module != null">
+				#{module,jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null">
+				#{courseId,jdbcType=VARCHAR},
+			</if>
+			<if test="chapterId != null">
+				#{chapterId,jdbcType=VARCHAR},
+			</if>
+			<if test="missionType != null">
+				#{missionType,jdbcType=VARCHAR},
+			</if>
+			<if test="preCondList != null">
+				#{preCondList,jdbcType=VARCHAR},
+			</if>
+			<if test="condType != null">
+				#{condType,jdbcType=VARCHAR},
+			</if>
+			<if test="condition != null">
+				#{condition,jdbcType=VARCHAR},
+			</if>
+			<if test="scope != null">
+				#{scope,jdbcType=VARCHAR},
+			</if>
+			<if test="threshold != null">
+				#{threshold,jdbcType=VARCHAR},
+			</if>
+			<if test="missionName != null">
+				#{missionName,jdbcType=VARCHAR},
+			</if>
+			<if test="missionDesc != null">
+				#{missionDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="missionPicUrl != null">
+				#{missionPicUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="jumpType != null">
+				#{jumpType,jdbcType=VARCHAR},
+			</if>
+			<if test="taskType != null">
+				#{taskType,jdbcType=VARCHAR},
+			</if>
+			<if test="missionState != null">
+				#{missionState,jdbcType=TINYINT},
+			</if>
+			<if test="missionOrder != null">
+				#{missionOrder,jdbcType=INTEGER},
+			</if>
+			<if test="creditUpper != null">
+				#{creditUpper,jdbcType=INTEGER},
+			</if>
+			<if test="redBonusType != null">
+				#{redBonusType,jdbcType=VARCHAR},
+			</if>
+			<if test="expiryDate != null">
+				#{expiryDate,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.mission.domain.MissionModel">
+		update xd_mission_model
+		<set>
+			<if test="module != null">
+				module = #{module,jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null">
+				course_id = #{courseId,jdbcType=VARCHAR},
+			</if>
+			<if test="chapterId != null">
+				chapter_id = #{chapterId,jdbcType=VARCHAR},
+			</if>
+			<if test="missionType != null">
+				mission_type = #{missionType,jdbcType=VARCHAR},
+			</if>
+			<if test="preCondList != null">
+				precond_list = #{preCondList,jdbcType=VARCHAR},
+			</if>
+			<if test="condType != null">
+				cond_type = #{condType,jdbcType=VARCHAR},
+			</if>
+			<if test="condition != null">
+				mission_cond = #{condition,jdbcType=VARCHAR},
+			</if>
+			<if test="scope != null">
+				scope = #{scope,jdbcType=VARCHAR},
+			</if>
+			<if test="threshold != null">
+				threshold = #{threshold,jdbcType=VARCHAR},
+			</if>
+			<if test="missionName != null">
+				mission_name = #{missionName,jdbcType=VARCHAR},
+			</if>
+			<if test="missionDesc != null">
+				mission_desc = #{missionDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="missionPicUrl != null">
+				mission_picurl = #{missionPicUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="jumpType != null">
+				jump_type = #{jumpType,jdbcType=VARCHAR},
+			</if>
+			<if test="taskType != null">
+				task_type = #{taskType,jdbcType=VARCHAR},
+			</if>
+			<if test="missionState != null">
+				mission_state = #{missionState,jdbcType=TINYINT},
+			</if>
+			<if test="missionOrder != null">
+				mission_order = #{missionOrder,jdbcType=VARCHAR},
+			</if>
+			<if test="creditUpper != null">
+				credit_upper = #{creditUpper,jdbcType=INTEGER},
+			</if>
+			<if test="redBonusType != null">
+				red_bonus_type = #{redBonusType,jdbcType=VARCHAR},
+			</if>
+			<if test="expiryDate != null">
+				expiry_date = #{expiryDate,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.module != null">
+				and m.module = #{input.module,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.majorId != null">
+				and pr.product_category_id =
+				#{input.majorId,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.courseId != null">
+				and m.course_id = #{input.courseId,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.chapterId != null">
+				and m.chapter_id = #{input.chapterId,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.missionType != null">
+				and m.mission_type =
+				#{input.missionType,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.preCondList != null">
+				and m.precond_list =
+				#{input.preCondList,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.condType != null">
+				and m.cond_type = #{input.condType,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.condition != null">
+				and m.mission_cond = #{input.condition,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.scope != null">
+				and m.scope = #{input.scope,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.threshold != null">
+				and m.threshold = #{input.threshold,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.missionName != null">
+				and m.mission_name =
+				#{input.missionName,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.missionDesc != null">
+				and m.mission_desc =
+				#{input.missionDesc,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.missionPicUrl != null">
+				and m.mission_picurl =
+				#{input.missionPicUrl,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.jumpType != null">
+				and m.jump_type =
+				#{input.jumpType,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.taskType != null">
+				and m.task_type =
+				#{input.taskType,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.missionState != null">
+				and m.mission_state =
+				#{input.missionState,jdbcType=TINYINT}
+			</if>
+			<if test="input != null and input.missionOrder != null">
+				and m.mission_order =
+				#{input.missionOrder,jdbcType=INTEGER}
+			</if>
+			<if test="input != null and input.creditUpper != null">
+				and m.credit_upper =
+				#{input.creditUpper,jdbcType=INTEGER}
+			</if>
+			<if test="input != null and input.redBonusType != null">
+				and m.red_bonus_type =
+				#{input.redBonusType,jdbcType=VARCHAR}
+			</if>
+			<if test="input != null and input.expiryDate != null">
+				and m.expiry_date = #{input.expiryDate,jdbcType=INTEGER}
+			</if>
+		</where>
+	</sql>
+</mapper>

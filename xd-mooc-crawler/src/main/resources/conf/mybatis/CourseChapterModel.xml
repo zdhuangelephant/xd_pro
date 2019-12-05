@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CourseChapterModel">
+
+	<resultMap id="BaseResultMap" type="CourseChapterModel">
+		<id column="id" property="id" />
+		<result column="subject_id" property="subjectId" />
+		<result column="parent_id" property="parentId" />
+		<result column="child_id" property="childId" />
+		<result column="all_child_id" property="allChildId" />
+		<result column="all_parent_id" property="allParentId" />
+		<result column="name" property="name" />
+		<result column="s_index" property="sindex" />
+		<result column="level" property="level" />
+		<result column="detail" property="detail" />
+		<result column="create_time" property="createTime" />
+		<result column="is_leaf" property="isLeaf" />
+        <result column="list_order" property="listOrder" />
+	</resultMap>
+
+	<!--字段 -->
+	<sql id="base_column">subject_id,parent_id,child_id,allChild_id,all_parent_id,name,s_index,level,detail,create_time,is_leaf,list_order
+	</sql>
+	<sql id="all_column">
+		id,
+		<include refid="base_column" />
+	</sql>
+
+	<!-- 1.插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="subjectId != null">subject_id,</if>
+			<if test="parentId != null">parent_id,</if>
+			<if test="childId != null">child_id,</if>
+			<if test="allChildId != null">all_child_id,</if>
+			<if test="allParentId != null">all_parent_id,</if>
+			<if test="name != null">name,</if>
+			<if test="sindex != null">s_index,</if>
+			<if test="level != null">level,</if>
+			<if test="detail != null">detail,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="isLeaf != null">is_leaf,</if>
+            <if test="listOrder != null">list_order,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="subjectId != null">#{subjectId},</if>
+			<if test="parentId != null">#{parentId},</if>
+			<if test="childId != null">#{childId},</if>
+			<if test="allChildId != null">#{allChildId},</if>
+			<if test="allParentId != null">#{allParentId},</if>
+			<if test="name != null">#{name},</if>
+			<if test="sindex != null">#{sindex},</if>
+			<if test="level != null">#{level},</if>
+			<if test="detail != null">#{detail},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="isLeaf != null">#{isLeaf},</if>
+            <if test="listOrder != null">#{listOrder},</if>
+		</trim>
+	</sql>
+
+	<insert id="addEntity" parameterType="CourseChapterModel" keyProperty="id" useGeneratedKeys="true">
+		insert into xd_course_chapter
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- 2.更新 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_course_chapter
+		<set>
+			<if test="value != null and value.id != null">id = #{value.id},</if>
+			<if test="value != null and value.subjectId != null">subject_id = #{value.subjectId},
+			</if>
+			<if test="value != null and value.parentId != null">parent_id = #{value.parentId},</if>
+			<if test="value != null and value.childId != null">child_id = #{value.childId},</if>
+			<if test="value != null and value.allChildId != null">all_child_id =
+				#{value.allChildId},
+			</if>
+			<if test="value != null and value.allParentId != null">all_parent_id =
+				#{value.allParentId},
+			</if>
+			<if test="value != null and value.name != null">name = #{value.name},</if>
+			<if test="value != null and value.sindex != null">s_index = #{value.sindex},</if>
+			<if test="value != null and value.level != null">level = #{value.level},</if>
+			<if test="value != null and value.detail != null">detail = #{value.detail},</if>
+			<if test="value != null and value.createTime != null">create_time =
+				#{value.createTime},
+			</if>
+			<if test="value != null and value.isLeaf != null">is_leaf =
+				#{value.isLeaf},
+			</if>
+            <if test="value != null and value.listOrder != null">list_order = #{value.listOrder},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 3.查询 -->
+	<select id="findEntityListByCond" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_chapter
+		<include refid="dynamic_where" />
+        order by list_order asc; 
+	</select>
+	<!-- 根据栏目级联查询 -->
+     <select id="cascadeQueryMission" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_course_chapter
+        left join xd_mission_model on xd_course_chapter.id = xd_mission_model.threshold
+        <include refid="dynamic_where"/>
+    </select>
+	
+
+	<!-- 4.查询单个记录 -->
+	<select id="findEntityById" parameterType="CourseChapterModel"
+		resultMap="BaseResultMap">
+		select * from xd_course_chapter where id = #{id};
+	</select>
+
+	<!-- 5.根据条件删除 -->
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_course_chapter
+		<include refid="dynamic_where" />
+	</delete>
+	
+	<!-- 插入时寻找chapterId -->
+	<select id="findChapterId" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		SELECT b.id 
+		FROM 
+			xd_course_chapter a
+			INNER JOIN
+			xd_course_chapter b
+		ON a.id=b.parent_id 
+		<include refid="dynamic_where" />
+	</select>
+	
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id = #{input.id}</if>
+			<if test="input != null and input.ids != null">
+				and id in
+				<foreach collection="input.ids" item="item" separator=","
+					open="(" close=")" index="index">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.subjectId != null">and subject_id = #{input.subjectId}
+			</if>
+			<if test="input != null and input.parentId != null">and parent_id = #{input.parentId}</if>
+			<if test="input != null and input.childId != null">and child_id = #{input.childId}</if>
+			<if test="input != null and input.allChildId != null">and all_child_id =
+				#{input.allChildId}
+			</if>
+			<if test="input != null and input.allParentId != null">and all_parent_id =
+				#{input.allParentId}
+			</if>
+			<if test="input != null and input.name != null">and name = #{input.name}</if>
+			<if test="input != null and input.sindex != null">and s_index = #{input.sindex}</if>
+			<if test="input != null and input.level != null">and level = #{input.level}</if>
+			<if test="input != null and input.detail != null">and detail = #{input.detail}</if>
+			<if test="input != null and input.createTime != null">and create_time =
+				#{input.createTime}
+			</if>
+			<if test="input != null and input.isLeaf != null">and is_leaf =
+				#{input.isLeaf}
+			</if>
+            <if test="input != null and input.listOrder != null">and list_order =#{input.listOrder}</if>
+            <if test="input != null and input.parentIdNo != null">and parent_id!=#{input.parentIdNo}</if>
+			<!-- zhang, jie -->
+			<if test="input != null and input.s_index_zhang != null">and a.s_index = #{input.s_index_zhang}</if>
+			<if test="input != null and input.s_index_jie != null">and b.s_index = #{input.s_index_jie}</if>
+			<if test="input != null and input._subjectId != null">and b.subject_id = #{input._subjectId}</if>
+			
+		</where>
+	</sql>
+	<!--动态语句:输出 -->
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_course_chapter.id,</if>
+			<if test="output != null and output.subjectId != null">xd_course_chapter.subject_id,</if>
+			<if test="output != null and output.parentId != null">xd_course_chapter.parent_id,</if>
+			<if test="output != null and output.childId != null">xd_course_chapter.child_id,</if>
+			<if test="output != null and output.allChildId != null">xd_course_chapter.all_child_id,</if>
+			<if test="output != null and output.allParentId != null">xd_course_chapter.all_parent_id,</if>
+			<if test="output != null and output.name != null">xd_course_chapter.name,</if>
+			<if test="output != null and output.id != null">xd_course_chapter.s_index,</if>
+			<if test="output != null and output.sindex != null">xd_course_chapter.s_index,</if>
+			<if test="output != null and output.level != null">xd_course_chapter.level,</if>
+			<if test="output != null and output.detail != null">xd_course_chapter.detail,</if>
+			<if test="output != null and output.createTime != null">xd_course_chapter.create_time,</if>
+			<if test="output != null and output.isLeaf != null">xd_course_chapter.is_leaf,</if>
+            <if test="output != null and output.listOrder != null">xd_course_chapter.list_order,</if>
+             <if test="output != null and output.missionId != null">xd_mission_model.id as missionId,</if>
+		</trim>
+	</sql>
+
+</mapper>

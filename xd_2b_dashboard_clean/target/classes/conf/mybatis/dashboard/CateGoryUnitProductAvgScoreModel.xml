@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CateGoryUnitProductAvgScoreModel">
+	<resultMap id="BaseResultMap" type="com.xiaodou.st.dataclean.model.domain.dashboard.CateGoryUnitProductAvgScoreModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+<result column="cat_id" property="catId" jdbcType="INTEGER" />
+<result column="pilot_unit_id" property="pilotUnitId" jdbcType="INTEGER" />
+<result column="product_id" property="productId" jdbcType="INTEGER" />
+<result column="avg_score" property="avgScore" jdbcType="DOUBLE" />
+<result column="role_type" property="roleType" jdbcType="INTEGER" />
+<result column="unit_id" property="unitId" jdbcType="INTEGER" />
+<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+	</resultMap>
+	<sql id="base_column">id, cat_id, pilot_unit_id, product_id, avg_score, role_type, unit_id, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.CateGoryUnitProductAvgScoreModel">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_category_unit_session_product_avg_score
+		where id = #{id,jdbcType=INTEGER}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_category_unit_session_product_avg_score
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.CateGoryUnitProductAvgScoreModel"  >
+		insert into xd_dashboard_category_unit_session_product_avg_score
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+<if test="catId != null">cat_id,</if>
+<if test="pilotUnitId != null">pilot_unit_id,</if>
+<if test="productId != null">product_id,</if>
+<if test="avgScore != null">avg_score,</if>
+<if test="roleType != null">role_type,</if>
+<if test="unitId != null">unit_id,</if>
+<if test="createTime != null">create_time,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+<if test="catId != null">#{catId,jdbcType=INTEGER},</if>
+<if test="pilotUnitId != null">#{pilotUnitId,jdbcType=INTEGER},</if>
+<if test="productId != null">#{productId,jdbcType=INTEGER},</if>
+<if test="avgScore != null">#{avgScore,jdbcType=DOUBLE},</if>
+<if test="roleType != null">#{roleType,jdbcType=INTEGER},</if>
+<if test="unitId != null">#{unitId,jdbcType=INTEGER},</if>
+<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.CateGoryUnitProductAvgScoreModel">
+		update xd_dashboard_category_unit_session_product_avg_score
+		<set>
+			<if test="value != null and value.catId != null">cat_id = #{value.catId,jdbcType=INTEGER},</if>
+<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=INTEGER},</if>
+<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=INTEGER},</if>
+<if test="value != null and value.avgScore != null">avg_score = #{value.avgScore,jdbcType=DOUBLE},</if>
+<if test="value != null and value.roleType != null">role_type = #{value.roleType,jdbcType=INTEGER},</if>
+<if test="value != null and value.unitId != null">unit_id = #{value.unitId,jdbcType=INTEGER},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.CateGoryUnitProductAvgScoreModel">
+		update xd_dashboard_category_unit_session_product_avg_score
+		<set>
+			<if test="value != null and value.catId != null">cat_id = #{value.catId,jdbcType=INTEGER},</if>
+<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=INTEGER},</if>
+<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=INTEGER},</if>
+<if test="value != null and value.avgScore != null">avg_score = #{value.avgScore,jdbcType=DOUBLE},</if>
+<if test="value != null and value.roleType != null">role_type = #{value.roleType,jdbcType=INTEGER},</if>
+<if test="value != null and value.unitId != null">unit_id = #{value.unitId,jdbcType=INTEGER},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.CateGoryUnitProductAvgScoreModel">
+		delete from xd_dashboard_category_unit_session_product_avg_score
+		where id = #{id,jdbcType=INTEGER}
+
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_category_unit_session_product_avg_score
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+<if test="output != null and output.catId != null">cat_id,</if>
+<if test="output != null and output.pilotUnitId != null">pilot_unit_id,</if>
+<if test="output != null and output.productId != null">product_id,</if>
+<if test="output != null and output.avgScore != null">avg_score,</if>
+<if test="output != null and output.roleType != null">role_type,</if>
+<if test="output != null and output.unitId != null">unit_id,</if>
+<if test="output != null and output.createTime != null">create_time,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+<if test="input != null and input.catId != null">and cat_id=#{input.catId}</if>
+<if test="input != null and input.pilotUnitId != null">and pilot_unit_id=#{input.pilotUnitId}</if>
+<if test="input != null and input.productId != null">and product_id=#{input.productId}</if>
+<if test="input != null and input.avgScore != null">and avg_score=#{input.avgScore}</if>
+<if test="input != null and input.roleType != null">and role_type=#{input.roleType}</if>
+<if test="input != null and input.unitId != null">and unit_id=#{input.unitId}</if>
+<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+
+		</trim>
+	</sql>
+</mapper>

@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon Aug 20 17:02:07 
+	CST 2012 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="OrderItem">
+
+	<resultMap type="com.xiaodou.oms.entity.order.OrderItem" id="orderItemMap">
+		<result property="id" column="ID" />
+		<result property="buyAccountId" column="BUY_ACCOUNT_ID" />
+		<result property="orderId" column="ORDER_ID" />
+		<result property="prctId" column="PRCT_ID" />
+		<result property="subPrctId" column="SUB_PRCT_ID" />
+		<result property="merchantPrctId" column="MERCHANT_PRCT_ID" />
+		<result property="merchantPrctName" column="MERCHANT_PRCT_NAME" />
+		<result property="subMerchantPrctId" column="SUB_MERCHANT_PRCT_ID" />
+		<result property="subMerchantPrctName" column="SUB_MERCHANT_PRCT_NAME" />
+		<result property="productName" column="PRODUCT_NAME" />
+		<result property="productType" column="PRODUCT_TYPE" />
+		<result property="buyCount" column="BUY_COUNT" />
+		<result property="unitPrice" column="UNIT_PRICE" />
+		<result property="itemOrderAmount" column="ITEM_ORDER_AMOUNT" />
+		<result property="originalItemPayAmount" column="ORIGINAL_ITEM_PAY_AMOUNT" />
+		<result property="itemPayAmount" column="ITEM_PAY_AMOUNT" />
+		<result property="itemCostAmount" column="ITEM_COST_AMOUNT" />
+		<result property="itemFee" column="ITEM_FEE" />
+		<result property="refundAmount" column="REFUND_AMOUNT" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="updateTime" column="UPDATE_TIME" />
+		<result property="canRefund" column="CAN_REFUND" />
+		<result property="refundDeadline" column="REFUND_DEADLINE" />
+		<result property="refundStatus" column="REFUND_STATUS" />
+		<result property="canExchange" column="CAN_EXCHANGE" />
+		<result property="exchangeDeadline" column="EXCHANGE_DEADLINE" />
+		<result property="exchangeStatus" column="EXCHANGE_STATUS" />
+		<result property="okCount" column="OK_COUNT" />
+		<result property="okAmount" column="OK_AMOUNT" />
+		<result property="itemSaveAmount" column="ITEM_SAVE_AMOUNT" />
+		<result property="activityLabel" column="ACTIVITY_LABEL" />
+		<result property="itemPoint" column="ITEM_POINT" />
+		<result property="goodsImageUrl" column="GOODS_IMAGE_URL" />
+		<result property="itemStatus" column="ITEM_STATUS" />
+		<result property="misc" column="ITEM_MISC" />
+		<result property="relationId" column="ITEM_RELATION_ID" />
+		<result property="note" column="NOTE" />
+
+
+	</resultMap>
+
+	<sql id="dynamic_where">
+		<if test="condition != null and condition.id != null">and
+			ID=#{condition.id}
+		</if>
+		<if test="condition != null and condition.orderId != null">and
+			ORDER_ID=#{condition.orderId}
+		</if>
+		<if test="condition != null and condition.productName != null">and
+			PRODUCT_NAME like
+			concat('%',#{condition.productName},'%')
+		</if>
+		<if test="condition != null and condition.productType != null">and
+			PRODUCT_TYPE = #{condition.productType}
+		</if>
+		<if test="condition != null and condition.prctId != null">and
+			PRCT_ID = #{condition.prctId}
+		</if>
+		<if test="condition != null and condition.subPrctId != null">and
+			SUB_PRCT_ID = #{condition.subPrctId}
+		</if>
+		<if test="condition != null and condition.merchantPrctId != null">and
+			MERCHANT_PRCT_ID = #{condition.merchantPrctId}
+		</if>
+		<if test="condition != null and condition.merchantPrctName != null">and
+			MERCHANT_PRCT_NAME = #{condition.merchantPrctName}
+		</if>
+		<if test="condition != null and condition.subMerchantPrctId != null">and
+			SUB_MERCHANT_PRCT_ID = #{condition.subMerchantPrctId}
+		</if>
+		<if test="condition != null and condition.subMerchantPrctName != null">and
+			SUB_MERCHANT_PRCT_NAME =
+			#{condition.subMerchantPrctName}
+		</if>
+		<if test="condition != null and condition.merchantId != null">and
+			MERCHANT_ID = #{condition.merchantId}
+		</if>
+		<if test="condition != null and condition.buyAccountId != null">and
+			BUY_ACCOUNT_ID = #{condition.buyAccountId}
+		</if>
+		<if test="condition != null and condition.buyCount != null">and
+			BUY_COUNT = #{condition.buyCount}
+		</if>
+		<if test="condition != null and condition.buyCountLower != null">and
+			BUY_COUNT &gt;= #{condition.buyCountLower}
+		</if>
+		<if test="condition != null and condition.buyCountUpper != null">and
+			BUY_COUNT &lt;= #{condition.buyCountUpper}
+		</if>
+		<if test="condition != null and condition.canRefund != null">and
+			CAN_REFUND = #{condition.canRefund}
+		</if>
+		<if test="condition != null and condition.refundStatus != null">and
+			REFUND_STATUS = #{condition.refundStatus}
+		</if>
+		<if test="condition != null and condition.canExchange != null">and
+			CAN_EXCHANGE = #{condition.canExchange}
+		</if>
+		<if test="condition != null and condition.refundDeadlineLower != null">and
+			REFUND_DEADLINE &gt;= #{condition.refundDeadlineLower}
+		</if>
+		<if test="condition != null and condition.refundDeadlineUpper != null">and
+			REFUND_DEADLINE &lt;= #{condition.refundDeadlineUpper}
+		</if>
+		<if test="condition != null and condition.exchangeDeadlineLower != null">and
+			EXCHANGE_DEADLINE &gt;=
+			#{condition.exchangeDeadlineLower}
+		</if>
+		<if test="condition != null and condition.exchangeDeadlineUpper != null">and
+			EXCHANGE_DEADLINE &lt;=
+			#{condition.exchangeDeadlineUpper}
+		</if>
+		<if test="condition != null and condition.unitPrice != null">and
+			UNIT_PRICE = #{condition.unitPrice}
+		</if>
+		<if test="condition != null and condition.unitPriceLower != null">and
+			UNIT_PRICE &gt;= #{condition.unitPriceLower}
+		</if>
+		<if test="condition != null and condition.unitPriceUpper != null">and
+			UNIT_PRICE &lt;= #{condition.unitPriceUpper}
+		</if>
+		<if test="condition != null and condition.itemOrderAmount != null">and
+			ITEM_ORDER_AMOUNT = #{condition.itemOrderAmount}
+		</if>
+		<if test="conditionput != null and condition.itemOrderAmountLower != null">and
+			ITEM_ORDER_AMOUNT
+			&gt;=#{condition.itemOrderAmountLower}
+		</if>
+		<if test="condition != null and condition.itemOrderAmountUpper != null">and
+			ITEM_ORDER_AMOUNT
+			&lt;=#{condition.itemOrderAmountUpper}
+		</if>
+		<if test="condition != null and condition.itemPayAmount != null">and
+			ITEM_PAY_AMOUNT = #{condition.itemPayAmount}
+		</if>
+		<if test="condition != null and condition.itemPayAmountLower != null">and
+			ITEM_PAY_AMOUNT &gt;= #{condition.itemPayAmountLower}
+		</if>
+		<if test="condition != null and condition.itemPayAmountUpper != null">and
+			ITEM_PAY_AMOUNT &lt;= #{condition.itemPayAmountUpper}
+		</if>
+		<if test="condition != null and condition.originalItemPayAmount != null">and
+			ORIGINAL_ITEM_PAY_AMOUNT =
+			#{condition.originalItemPayAmount}
+		</if>
+		<if test="condition != null and condition.itemCostAmount != null">and
+			ITEM_COST_AMOUNT = #{condition.itemCostAmount}
+		</if>
+		<if test="condition != null and condition.itemCostAmountLower != null">and
+			ITEM_COST_AMOUNT &gt;= #{condition.itemCostAmountLower}
+		</if>
+		<if test="condition != null and condition.itemCostAmountUpper != null">and
+			ITEM_COST_AMOUNT &lt;= #{condition.itemCostAmountUpper}
+		</if>
+		<if test="condition != null and condition.itemFee != null">and
+			ITEM_FEE = #{condition.itemFee}
+		</if>
+		<if test="condition != null and condition.itemFeeLower != null">and
+			ITEM_FEE &gt;= #{condition.itemFeeLower}
+		</if>
+		<if test="condition != null and condition.itemFeeUpper != null">and
+			ITEM_FEE &lt;= #{condition.itemFeeUpper}
+		</if>
+		<if test="condition != null and condition.okCount != null">and
+			OK_COUNT = #{condition.okCount}
+		</if>
+
+		<if test="condition != null and condition.okCountLower != null">and
+			OK_COUNT &gt;= #{condition.okCountLower}
+		</if>
+
+		<if test="condition != null and condition.okCountUpper != null">and
+			OK_COUNT &lt;= #{condition.okCountUpper}
+		</if>
+		<if test="condition != null and condition.okAmount != null">and
+			OK_AMOUNT = #{condition.okAmount}
+		</if>
+		<if test="condition != null and condition.okAmountLower != null">and
+			OK_AMOUNT &gt;= #{condition.okAmountLower}
+		</if>
+		<if test="condition != null and condition.okAmountUpper != null">and
+			OK_AMOUNT &lt;= #{condition.okAmountUpper}
+		</if>
+		<if test="condition != null and condition.refundAmount != null">and
+			REFUND_AMOUNT = #{condition.refundAmount}
+		</if>
+		<if test="condition != null and condition.refundAmountLower != null">and
+			REFUND_AMOUNT &gt;= #{condition.refundAmountLower}
+		</if>
+		<if test="condition != null and condition.refundAmountUpper != null">and
+			REFUND_AMOUNT &lt;= #{condition.refundAmountUpper}
+		</if>
+		<if test="condition != null and condition.itemSaveAmount != null">and
+			ITEM_SAVE_AMOUNT &lt;= #{condition.itemSaveAmount}
+		</if>
+		<if test="condition != null and condition.itemSaveAmountLower != null">and
+			ITEM_SAVE_AMOUNT &lt;= #{condition.itemSaveAmountLower}
+		</if>
+		<if test="condition != null and condition.itemSaveAmountUpper != null">and
+			ITEM_SAVE_AMOUNT &lt;= #{condition.itemSaveAmountUpper}
+		</if>
+
+		<if test="condition != null and condition.createTime != null">and
+			CREATE_TIME = #{condition.createTime}
+		</if>
+		<if test="condition != null and condition.createTimeLower != null">and
+			CREATE_TIME &gt;= #{condition.createTimeLower}
+		</if>
+		<if test="condition != null and condition.createTimeUpper != null">and
+			CREATE_TIME &lt;= #{condition.createTimeUpper}
+		</if>
+		<if test="condition != null and condition.activityLabel != null">and
+			ACTIVITY_LABEL = #{condition.activityLabel}
+		</if>
+		<if test="condition != null and condition.itemPoint != null">and
+			ITEM_POINT = #{condition.itemPoint}
+		</if>
+		<if test="condition != null and condition.goodsImageUrl != null">and
+			GOODS_IMAGE_URL = #{condition.goodsImageUrl}
+		</if>
+		<if test="condition != null and condition.itemStatus != null">and
+			item_status = #{condition.itemStatus}
+		</if>
+		<if test="condition != null and condition.misc != null">and
+			item_misc like concat('%',#{condition.misc},'%')
+		</if>
+		<if test="condition != null and condition.relationId != null">and
+			item_relation_id = #{condition.relationId}
+		</if>
+		<if test="condition != null and condition.note != null">and
+			NOTE like concat('%',#{input.note},'%')
+		</if>
+	</sql>
+
+	<select id="selectById" parameterType="java.lang.String"
+		resultMap="orderItemMap">
+		SELECT * FROM xd_order_order_item
+		WHERE ID = #{id}
+	</select>
+
+	<select id="queryEntityListByCond" parameterType="java.util.Map"
+		resultMap="orderItemMap">
+		SELECT
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">ID,</if>
+			<if test="output != null and output.orderId != null">ORDER_ID,</if>
+			<if test="output != null and output.productName != null">PRODUCT_NAME,</if>
+			<if test="output != null and output.productType != null">PRODUCT_TYPE,</if>
+			<if test="output != null and output.prctId != null">PRCT_ID,</if>
+			<if test="output != null and output.subPrctId != null">SUB_PRCT_ID,</if>
+			<if test="output != null and output.merchantPrctId != null">MERCHANT_PRCT_ID,</if>
+			<if test="output != null and output.merchantPrctName != null">MERCHANT_PRCT_NAME,</if>
+			<if test="output != null and output.subMerchantPrctId != null">SUB_MERCHANT_PRCT_ID,</if>
+			<if test="output != null and output.subMerchantPrctName != null">SUB_MERCHANT_PRCT_NAME,</if>
+			<if test="output != null and output.buyCount != null">BUY_COUNT,</if>
+			<if test="output != null and output.unitPrice != null">UNIT_PRICE,</if>
+			<if test="output != null and output.itemOrderAmount != null">ITEM_ORDER_AMOUNT,</if>
+			<if test="output != null and output.originalItemPayAmount != null">ORIGINAL_ITEM_PAY_AMOUNT,</if>
+			<if test="output != null and output.itemPayAmount != null">ITEM_PAY_AMOUNT,</if>
+			<if test="output != null and output.itemCostAmount != null">ITEM_COST_AMOUNT,</if>
+			<if test="output != null and output.itemFee != null">ITEM_FEE,</if>
+			<if test="output != null and output.itemSaveAmount != null">ITEM_SAVE_AMOUNT,</if>
+			<if test="output != null and output.okCount != null">OK_COUNT,</if>
+			<if test="output != null and output.okAmount != null">OK_AMOUNT,</if>
+			<if test="output != null and output.canRefund != null">CAN_REFUND,</if>
+			<if test="output != null and output.refundDeadline != null">REFUND_DEADLINE,</if>
+			<if test="output != null and output.refundAmount != null">REFUND_AMOUNT,</if>
+			<if test="output != null and output.refundStatus != null">REFUND_STATUS,</if>
+			<if test="output != null and output.canExchange != null">CAN_EXCHANGE,</if>
+			<if test="output != null and output.exchangeDeadline != null">EXCHANGE_DEADLINE,</if>
+			<if test="output != null and output.exchangeStatus != null">EXCHANGE_STATUS,</if>
+			<if test="output != null and output.updateTime != null">UPDATE_TIME,</if>
+			<if test="output != null and output.createTime != null">CREATE_TIME,</if>
+			<if test="output != null and output.activityLabel != null">ACTIVITY_LABEL,</if>
+			<if test="output != null and output.itemPoint != null">ITEM_POINT,</if>
+			<if test="output != null and output.goodsImageUrl != null">GOODS_IMAGE_URL,</if>
+			<if test="output != null and output.buyAccountId != null">BUY_ACCOUNT_ID,</if>
+			<if test="output != null and output.itemStatus != null">item_status,</if>
+			<if test="output != null and output.misc != null">item_misc,</if>
+			<if test="output != null and output.relationId != null">item_relation_id,</if>
+			<if test="output != null and output.note != null">note,</if>
+		</trim>
+		FROM xd_order_order_item
+		<where>
+			<include refid="dynamic_where" />
+		</where>
+		order by ORDER_ID desc
+		<if test="condition != null and condition.forUpdate">
+			for update
+		</if>
+	</select>
+
+	<select id="queryItemByGorderId" parameterType="java.lang.String"
+		resultMap="orderItemMap">
+		select i.*,o.gorder_id as GORDER_ID from xd_order_order
+		o,xd_order_order_item i
+		where o.gorder_id = #{gorderId}
+		and o.id =
+		i.order_id
+	</select>
+
+
+	<sql id="orderItemInsertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="orderId != null">ORDER_ID,</if>
+			<if test="productName != null">PRODUCT_NAME,</if>
+			<if test="productType != null">PRODUCT_TYPE,</if>
+			<if test="prctId != null">PRCT_ID,</if>
+			<if test="subPrctId != null">SUB_PRCT_ID,</if>
+			<if test="merchantPrctId != null">MERCHANT_PRCT_ID,</if>
+			<if test="merchantPrctName != null">MERCHANT_PRCT_NAME,</if>
+			<if test="subMerchantPrctId != null">SUB_MERCHANT_PRCT_ID,</if>
+			<if test="subMerchantPrctName != null">SUB_MERCHANT_PRCT_NAME,</if>
+			<if test="buyCount != null">BUY_COUNT,</if>
+			<if test="unitPrice != null">UNIT_PRICE,</if>
+			<if test="itemOrderAmount != null">ITEM_ORDER_AMOUNT,</if>
+			<if test="originalItemPayAmount != null">ORIGINAL_ITEM_PAY_AMOUNT,</if>
+			<if test="itemPayAmount != null">ITEM_PAY_AMOUNT,</if>
+			<if test="itemCostAmount != null">ITEM_COST_AMOUNT,</if>
+			<if test="itemFee != null">ITEM_FEE,</if>
+			<if test="itemSaveAmount != null">ITEM_SAVE_AMOUNT,</if>
+			<if test="okCount != null">OK_COUNT,</if>
+			<if test="okAmount != null">OK_AMOUNT,</if>
+			<if test="canRefund != null">CAN_REFUND,</if>
+			<if test="refundDeadline != null">REFUND_DEADLINE,</if>
+			<if test="refundAmount != null">REFUND_AMOUNT,</if>
+			<if test="refundStatus != null">REFUND_STATUS,</if>
+			<if test="canExchange != null">CAN_EXCHANGE,</if>
+			<if test="exchangeDeadline != null">EXCHANGE_DEADLINE,</if>
+			<if test="exchangeStatus != null">EXCHANGE_STATUS,</if>
+			<if test="updateTime != null">UPDATE_TIME,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="activityLabel != null">ACTIVITY_LABEL,</if>
+			<if test="itemPoint != null">ITEM_POINT,</if>
+			<if test="goodsImageUrl != null">GOODS_IMAGE_URL,</if>
+			<if test="buyAccountId != null">BUY_ACCOUNT_ID,</if>
+			<if test="itemStatus != null">item_status,</if>
+			<if test="misc != null">item_misc,</if>
+			<if test="relationId != null">item_relation_id,</if>
+			<if test="note != null">NOTE,</if>
+		</trim>
+	</sql>
+
+	<sql id="orderItemInsertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="orderId != null">#{orderId,jdbcType=VARCHAR},</if>
+			<if test="productName != null">#{productName,jdbcType=VARCHAR},</if>
+			<if test="productType != null">#{productType,jdbcType=NUMERIC},</if>
+			<if test="prctId != null">#{prctId,jdbcType=NUMERIC}, </if>
+			<if test="subPrctId != null">#{subPrctId,jdbcType=NUMERIC}, </if>
+			<if test="merchantPrctId != null">#{merchantPrctId,jdbcType=VARCHAR},</if>
+			<if test="merchantPrctName != null">#{merchantPrctName,jdbcType=VARCHAR},</if>
+			<if test="subMerchantPrctId != null">#{subMerchantPrctId,jdbcType=VARCHAR},</if>
+			<if test="subMerchantPrctName != null">#{subMerchantPrctName,jdbcType=VARCHAR},</if>
+			<if test="buyCount != null">#{buyCount,jdbcType=NUMERIC},</if>
+			<if test="unitPrice != null">#{unitPrice,jdbcType=NUMERIC},</if>
+			<if test="itemOrderAmount != null">#{itemOrderAmount,jdbcType=NUMERIC},</if>
+			<if test="originalItemPayAmount != null">#{originalItemPayAmount,jdbcType=NUMERIC},</if>
+			<if test="itemPayAmount != null">#{itemPayAmount,jdbcType=NUMERIC},</if>
+			<if test="itemCostAmount != null">#{itemCostAmount,jdbcType=NUMERIC},</if>
+			<if test="itemFee != null">#{itemFee,jdbcType=NUMERIC},</if>
+			<if test="itemSaveAmount != null">#{itemSaveAmount,jdbcType=NUMERIC},</if>
+			<if test="okCount != null">#{okCount,jdbcType=NUMERIC},</if>
+			<if test="okAmount != null">#{okAmount,jdbcType=NUMERIC},</if>
+			<if test="canRefund != null">#{canRefund,jdbcType=NUMERIC},</if>
+			<if test="refundDeadline != null">#{refundDeadline,jdbcType=TIMESTAMP},</if>
+			<if test="refundAmount != null">#{refundAmount,jdbcType=NUMERIC},</if>
+			<if test="refundStatus != null">#{refundStatus,jdbcType=NUMERIC},</if>
+			<if test="canExchange != null">#{canExchange,jdbcType=NUMERIC},</if>
+			<if test="exchangeDeadline != null">#{exchangeDeadline,jdbcType=TIMESTAMP},</if>
+			<if test="exchangeStatus != null">#{exchangeStatus,jdbcType=NUMERIC},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="activityLabel != null">#{activityLabel,jdbcType=VARCHAR},</if>
+			<if test="itemPoint != null">#{itemPoint,jdbcType=NUMERIC},</if>
+			<if test="goodsImageUrl != null">#{goodsImageUrl,jdbcType=VARCHAR},</if>
+			<if test="buyAccountId != null">#{buyAccountId,jdbcType=VARCHAR},</if>
+			<if test="itemStatus != null">#{itemStatus,jdbcType=NUMERIC},</if>
+			<if test="misc != null">#{misc,jdbcType=VARCHAR},</if>
+			<if test="relationId != null">#{relationId,jdbcType=VARCHAR},</if>
+			<if test="note != null">#{note,jdbcType=VARCHAR},</if>
+		</trim>
+	</sql>
+
+
+	<insert id="insertOrderItem" parameterType="com.xiaodou.oms.entity.order.OrderItem">
+		INSERT INTO xd_order_order_item
+		(
+		<include refid="orderItemInsertColumns" />
+		)
+		values
+		(
+		<include refid="orderItemInsertValues" />
+		)
+	</insert>
+
+	<update id="updateOrderItem" parameterType="java.util.Map">
+		UPDATE xd_order_order_item
+		<set>
+			<if test="value != null and value.updateTime != null">
+				update_time = #{value.updateTime},
+			</if>
+			<if test="value != null and value.productName != null">
+				PRODUCT_NAME = #{value.productName},
+			</if>
+			<if test="value != null and value.productType != null">
+				PRODUCT_TYPE = #{value.productType},
+			</if>
+			<if test="value != null and value.prctId != null">
+				PRCT_ID =
+				#{value.prctId},
+			</if>
+			<if test="value != null and value.subPrctId != null">
+				SUB_PRCT_ID =
+				#{value.subPrctId},
+			</if>
+			<if test="value != null and value.merchantPrctId != null">
+				MERCHANT_PRCT_ID = #{value.merchantPrctId},
+			</if>
+			<if test="value != null and value.subMerchantPrctId != null">
+				SUB_MERCHANT_PRCT_ID = #{value.subMerchantPrctId},
+			</if>
+			<if test="value != null and value.buyCount != null">
+				BUY_COUNT = #{value.buyCount},
+			</if>
+			<if test="value != null and value.unitPrice != null">
+				UNIT_PRICE = #{value.unitPrice},
+			</if>
+			<if test="value != null and value.itemOrderAmount != null ">
+				ITEM_ORDER_AMOUNT = #{value.itemOrderAmount},
+			</if>
+			<if test="value != null and value.originalItemPayAmount != null">
+				ORIGINAL_ITEM_PAY_AMOUNT =
+				#{value.originalItemPayAmount},
+			</if>
+			<if test="value != null and value.itemPayAmount != null">
+				ITEM_PAY_AMOUNT = #{value.itemPayAmount},
+			</if>
+			<if test="value != null and value.itemCostAmount != null">
+				ITEM_COST_AMOUNT = #{value.itemCostAmount},
+			</if>
+			<if test="value != null and value.itemFee != null">
+				ITEM_FEE = #{value.itemFee},
+			</if>
+			<if test="value != null and value.itemSaveAmount != null">
+				ITEM_SAVE_AMOUNT = #{value.itemSaveAmount},
+			</if>
+			<if test="value != null and value.okAmount != null">
+				OK_AMOUNT = #{value.okAmount},
+			</if>
+			<if test="value != null and value.canRefund != null">
+				CAN_REFUND = #{value.canRefund},
+			</if>
+			<if test="value != null and value.refundDeadline != null">
+				REFUND_DEADLINE = #{value.refundDeadline},
+			</if>
+			<if test="value != null and value.refundAmount != null">
+				REFUND_AMOUNT = #{value.refundAmount},
+			</if>
+			<if test="value != null and value.refundStatus != null">
+				REFUND_STATUS = #{value.refundStatus},
+			</if>
+			<if test="value != null and value.canExchange != null">
+				CAN_EXCHANGE = #{value.canExchange},
+			</if>
+			<if test="value != null and value.exchangeDeadline != null">
+				EXCHANGE_DEADLINE = #{value.exchangeDeadline},
+			</if>
+			<if test="value != null and value.exchangeStatus != null">
+				EXCHANGE_STATUS = #{value.exchangeStatus},
+			</if>
+			<if test="value != null and value.activityLabel != null">
+				ACTIVITY_LABEL = #{value.activityLabel},
+			</if>
+			<if test="value != null and value.itemPoint != null">
+				ITEM_POINT = #{value.itemPoint},
+			</if>
+			<if test="value != null and value.goodsImageUrl != null">
+				GOODS_IMAGE_URL = #{value.goodsImageUrl},
+			</if>
+			<if test=" value!=null and value.itemStatus != null">
+				item_status = #{value.itemStatus},
+			</if>
+			<if test="value!=null and value.misc != null">
+				item_misc = #{value.misc},
+			</if>
+			<if test="value!=null and value.relationId != null">
+				item_relation_id = #{value.relationId},
+			</if>
+			<if test="value != null and value.note != null">
+				NOTE = #{value.note,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<where>
+			<include refid="dynamic_where" />
+		</where>
+	</update>
+</mapper>

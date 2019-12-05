@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="DataSourceData">
+	<resultMap id="BaseResultMap" type="com.xiaodou.autotest.web.model.datasource.DataSourceData">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+<result column="alias" property="alias" jdbcType="VARCHAR" />
+<result column="driver_url" property="driverUrl" jdbcType="VARCHAR" />
+<result column="user_name" property="userName" jdbcType="VARCHAR" />
+<result column="password" property="password" jdbcType="VARCHAR" />
+
+	</resultMap>
+	<sql id="base_column">id, alias, driver_url, user_name, password</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.autotest.web.model.datasource.DataSourceData">
+		select
+		<include refid="base_column" />
+		from data_source_data
+		where id = #{id,jdbcType=VARCHAR}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from data_source_data
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.autotest.web.model.datasource.DataSourceData"  >
+		insert into data_source_data
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+<if test="alias != null">alias,</if>
+<if test="driverUrl != null">driver_url,</if>
+<if test="userName != null">user_name,</if>
+<if test="password != null">password,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+<if test="alias != null">#{alias,jdbcType=VARCHAR},</if>
+<if test="driverUrl != null">#{driverUrl,jdbcType=VARCHAR},</if>
+<if test="userName != null">#{userName,jdbcType=VARCHAR},</if>
+<if test="password != null">#{password,jdbcType=VARCHAR},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.autotest.web.model.datasource.DataSourceData">
+		update data_source_data
+		<set>
+			<if test="value != null and value.alias != null">alias = #{value.alias,jdbcType=VARCHAR},</if>
+<if test="value != null and value.driverUrl != null">driver_url = #{value.driverUrl,jdbcType=VARCHAR},</if>
+<if test="value != null and value.userName != null">user_name = #{value.userName,jdbcType=VARCHAR},</if>
+<if test="value != null and value.password != null">password = #{value.password,jdbcType=VARCHAR},</if>
+
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.autotest.web.model.datasource.DataSourceData">
+		update data_source_data
+		<set>
+			<if test="value != null and value.alias != null">alias = #{value.alias,jdbcType=VARCHAR},</if>
+<if test="value != null and value.driverUrl != null">driver_url = #{value.driverUrl,jdbcType=VARCHAR},</if>
+<if test="value != null and value.userName != null">user_name = #{value.userName,jdbcType=VARCHAR},</if>
+<if test="value != null and value.password != null">password = #{value.password,jdbcType=VARCHAR},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.autotest.web.model.datasource.DataSourceData">
+		delete from data_source_data
+		where id = #{id,jdbcType=VARCHAR}
+
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from data_source_data
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+<if test="output != null and output.alias != null">alias,</if>
+<if test="output != null and output.driverUrl != null">driver_url,</if>
+<if test="output != null and output.userName != null">user_name,</if>
+<if test="output != null and output.password != null">password,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+<if test="input != null and input.alias != null">and alias=#{input.alias}</if>
+<if test="input != null and input.driverUrl != null">and driver_url=#{input.driverUrl}</if>
+<if test="input != null and input.userName != null">and user_name=#{input.userName}</if>
+<if test="input != null and input.password != null">and password=#{input.password}</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			
+		</trim>
+	</sql>
+</mapper>

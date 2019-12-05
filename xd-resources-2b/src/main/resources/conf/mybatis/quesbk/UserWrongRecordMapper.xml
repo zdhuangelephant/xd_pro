@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserWrongRecord">
+	<resultMap id="BaseResultMap" type="com.xiaodou.resources.model.quesbk.UserWrongRecord">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="course_id" property="courseId" jdbcType="BIGINT" />
+		<result column="chapter_id" property="chapterId" jdbcType="BIGINT" />
+		<result column="question_id" property="questionId" jdbcType="BIGINT" />
+		<result column="wrong_answer" property="wrongAnswer" jdbcType="VARCHAR" />
+		<result column="wrong_times" property="wrongTimes" jdbcType="INTEGER" />
+		<result column="right_times" property="rightTimes" jdbcType="INTEGER" />
+		<result column="total_times" property="totalTimes" jdbcType="INTEGER" />
+		<result column="exam_time" property="examTime" jdbcType="TIMESTAMP" />
+		<result column="wrong_status" property="wrongStatus" jdbcType="INTEGER" />
+
+		<result column="total_times" property="quesDetail.statistic.myExamTimes"
+			jdbcType="BIGINT" />
+		<result column="wrong_times" property="quesDetail.statistic.myWrongTimes"
+			jdbcType="BIGINT" />
+		<result column="total_exam_times" property="quesDetail.statistic.totalExamTimes"
+			jdbcType="BIGINT" />
+		<result column="total_wrong_times" property="quesDetail.statistic.totalWrongTimes"
+			jdbcType="BIGINT" />
+		<result column="total_right_percent" property="quesDetail.statistic.totalRightPercent"
+			jdbcType="BIGINT" />
+
+		<result column="ques_id" property="quesDetail.id" jdbcType="BIGINT" />
+		<result column="question_type" property="quesDetail.questionType"
+			jdbcType="VARCHAR" />
+		<result column="question_src" property="quesDetail.questionSrc"
+			jdbcType="VARCHAR" />
+		<result column="ques_chapter_id" property="quesDetail.chapterId"
+			jdbcType="VARCHAR" />
+		<result column="ques_course_id" property="quesDetail.courseId"
+			jdbcType="VARCHAR" />
+		<result column="ques_img_url" property="quesDetail.quesImgUrl"
+			jdbcType="VARCHAR" />
+		<result column="ques_key_point" property="quesDetail.keyPoint"
+			jdbcType="VARCHAR" />
+		<result column="ques_cognition_level" property="quesDetail.cognitionLevel"
+			jdbcType="VARCHAR" />
+		<result column="ques_diffcult_level" property="quesDetail.diffcultLevel"
+			jdbcType="VARCHAR" />
+		<result column="right_times" property="quesDetail.myRightTimes"
+			jdbcType="VARCHAR" />
+		<result column="wrong_answer" property="quesDetail.myAnswerIds"
+			jdbcType="VARCHAR" />
+		<result column="ques_answer_ids" property="quesDetail.answerIds"
+			jdbcType="VARCHAR" />
+		<result column="ques_mdesc" property="quesDetail.mdesc"
+			jdbcType="VARCHAR" />
+		<result column="ques_manalyze" property="quesDetail.manalyze"
+			jdbcType="VARCHAR" />
+		<result column="ques_status" property="quesDetail.status"
+			jdbcType="VARCHAR" />
+		<result column="ques_misc" property="quesDetail.misc" jdbcType="VARCHAR" />
+		<result column="ques_answer_list" property="quesDetail.answerList"
+			jdbcType="VARCHAR" />
+		<result column="ques_time" property="quesDetail.quesTime"
+			jdbcType="TIMESTAMP" />
+		<result column="wrong_status" property="quesDetail.wrongStatus"
+			jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, course_id, chapter_id, question_id,
+		wrong_answer, wrong_times, right_times, total_times,
+		exam_time,
+		wrong_status
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_wrong_record
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityByCond" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		xd_user_wrong_record w
+		<include refid="dynamic_where" />
+		order by wrong_status asc
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.resources.model.quesbk.UserWrongRecord">
+		insert into xd_user_wrong_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="courseId != null">
+				course_id,
+			</if>
+			<if test="chapterId != null">
+				chapter_id,
+			</if>
+			<if test="questionId != null">
+				question_id,
+			</if>
+			<if test="wrongAnswer != null">
+				wrong_answer,
+			</if>
+			<if test="wrongTimes != null">
+				wrong_times,
+			</if>
+			<if test="rightTimes != null">
+				right_times,
+			</if>
+			<if test="totalTimes">
+				total_times,
+			</if>
+			<if test="examTime != null">
+				exam_time,
+			</if>
+			<if test="wrongStatus != null">
+				wrong_status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null">
+				#{courseId,jdbcType=BIGINT},
+			</if>
+			<if test="chapterId != null">
+				#{chapterId,jdbcType=BIGINT},
+			</if>
+			<if test="questionId != null">
+				#{questionId,jdbcType=BIGINT},
+			</if>
+			<if test="wrongAnswer != null">
+				#{wrongAnswer,jdbcType=VARCHAR},
+			</if>
+			<if test="wrongTimes != null">
+				#{wrongTimes,jdbcType=INTEGER},
+			</if>
+			<if test="rightTimes != null">
+				#{rightTimes,jdbcType=INTEGER},
+			</if>
+			<if test="totalTimes != null">
+				#{totalTimes,jdbcType=INTEGER},
+			</if>
+			<if test="examTime != null">
+				#{examTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="wrongStatus != null">
+				#{wrongStatus,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateEntity" parameterType="com.xiaodou.resources.model.quesbk.UserWrongRecord">
+		update xd_user_wrong_record
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null">
+				course_id = #{courseId,jdbcType=BIGINT},
+			</if>
+			<if test="chapterId != null">
+				chapter_id = #{chapterId,jdbcType=BIGINT},
+			</if>
+			<if test="questionId != null">
+				question_id = #{questionId,jdbcType=BIGINT},
+			</if>
+			<if test="wrongAnswer != null">
+				wrong_answer = #{wrongAnswer,jdbcType=VARCHAR},
+			</if>
+			<if test="wrongTimes != null">
+				wrong_times = #{wrongTimes,jdbcType=INTEGER},
+			</if>
+			<if test="rightTimes != null">
+				right_times = #{rightTimes,jdbcType=INTEGER},
+			</if>
+			<if test="totalTimes != null">
+				total_times = #{totalTimes,jdbcType=INTEGER},
+			</if>
+			<if test="examTime != null">
+				exam_time = #{examTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="wrongStatus != null">
+				wrong_status = #{wrongStatus,jdbcType=INTEGER},
+			</if>
+		</set>
+		where question_id = #{questionId,jdbcType=VARCHAR} and user_id =
+		#{userId,jdbcType=VARCHAR}
+	</update>
+
+	<sql id="dynamic_where">
+		<where>
+			<if test="cond != null and cond.id != null">and
+				w.id=#{cond.id}
+			</if>
+			<if test="cond != null and cond.idList != null">
+				and
+				w.id in
+				<foreach collection="cond.idList" item="item" separator=","
+					open="(" close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cond != null and cond.userId != null">and
+				w.user_id=#{cond.userId}
+			</if>
+			<if test="cond != null and cond.courseId != null">and
+				w.course_id=#{cond.courseId}
+			</if>
+			<if test="cond != null and cond.chapterId != null">and
+				w.chapter_id=#{cond.chapterId}
+			</if>
+			<if test="cond != null and cond.chapterIdList != null">
+				and
+				w.chapter_id in
+				<foreach collection="cond.chapterIdList" separator=","
+					close=")" open="(" item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cond != null and cond.questionId != null">and
+				w.question_id=#{cond.questionId}
+			</if>
+			<if test="cond != null and cond.questionIdList != null">
+				and
+				w.question_id in
+				<foreach collection="cond.questionIdList" item="item"
+					separator="," open="(" close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cond != null and cond.wrongAnswer != null">and
+				w.wrong_answer=#{cond.wrongAnswer}
+			</if>
+			<if test="cond != null and cond.wrongTimes != null">and
+				w.wrong_times=#{cond.wrongTimes}
+			</if>
+			<if test="cond != null and cond.wrongTimesLower != null">and
+				w.wrong_times &gt; #{cond.wrongTimesLower}
+			</if>
+			<if test="cond != null and cond.wrongTimesUpper != null">and
+				w.wrong_times &lt; #{cond.wrongTimesUpper}
+			</if>
+			<if test="cond != null and cond.rightTimes != null">and
+				w.right_times=#{cond.rightTimes}
+			</if>
+			<if test="cond != null and cond.rightTimesLower != null">and
+				w.right_times &gt; #{cond.rightTimesLower}
+			</if>
+			<if test="cond != null and cond.rightTimesUpper != null">and
+				w.right_times &lt; #{cond.rightTimesUpper}
+			</if>
+			<if test="cond != null and cond.totalTimes != null">and
+				w.total_times=#{cond.totalTimes}
+			</if>
+			<if test="cond != null and cond.examTimeLower != null">and
+				w.exam_time &gt; #{cond.examTimeLower}
+			</if>
+			<if test="cond != null and cond.examTimeUpper != null">and
+				w.exam_time &lt; #{cond.examTimeUpper}
+			</if>
+			<if
+				test="cond != null and cond.wrongStatus != null and cond.wrongStatus == 0"> and
+				w.wrong_status in (1,2,3)
+			</if>
+			<if
+				test="cond != null and cond.wrongStatus != null and cond.wrongStatus != 0">and
+				w.wrong_status=#{cond.wrongStatus}
+			</if>
+		</where>
+	</sql>
+	<select id="queryCountByCond" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(id) from xd_user_wrong_record w
+		<include refid="dynamic_where" />
+	</select>
+	<select id="findEntityListByCond" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<if test="output == null">
+			w.id, w.user_id, w.course_id, w.chapter_id,
+			w.question_id,
+			w.wrong_answer,
+			w.wrong_times,
+			w.right_times,
+			w.total_times,
+			w.exam_time,
+			w.wrong_status,
+			q.id ques_id,
+			q.question_type, r.name
+			question_src,
+			q.chapter_id
+			ques_chapter_id,
+			q.course_id ques_course_id,
+			q.key_point
+			ques_key_point,
+			q.cognition_level
+			ques_cognition_level,
+			q.diffcult_level
+			ques_diffcult_level, q.answer_ids ques_answer_ids,
+			q.ques_img_url,
+			q.mdesc ques_mdesc,
+			q.manalyze ques_manalyze,
+			q.status
+			ques_status,
+			q.misc ques_misc,
+			q.answer_list ques_answer_list,
+			q.ques_time,
+			s.exam_times
+			total_exam_times, s.wrong_times
+			total_wrong_times,
+			s.right_percent
+			total_right_percent
+			from
+			xd_user_wrong_record w
+			left
+			join xd_quesbk_ques
+			q on w.question_id =
+			q.id
+			left join
+			xd_quesbk_ques_statistics s on
+			w.question_id =
+			s.question_id
+			left join
+			xd_quesbk_ques_resource r on
+			q.resource_id =
+			r.id
+		</if>
+		<include refid="dynamic_where" />
+		order by exam_time ASC
+	</select>
+	<update id="updateRightTimes" parameterType="com.xiaodou.resources.model.quesbk.UserWrongRecord">
+		update
+		xd_user_wrong_record set
+		right_times = right_times+1,
+		wrong_status =
+		#{wrongStatus,jdbcType=INTEGER},
+		total_times =
+		total_times+1
+		where id =
+		#{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateWrongTimes" parameterType="com.xiaodou.resources.model.quesbk.UserWrongRecord">
+		update
+		xd_user_wrong_record set
+		right_times = 0,
+		wrong_times = wrong_times+1,
+		wrong_status = 1,
+		wrong_answer =
+		#{wrongAnswer,jdbcType=VARCHAR},
+		total_times =
+		total_times+1
+		where id
+		=
+		#{id,jdbcType=BIGINT}
+	</update>
+</mapper>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="QuesbkExamPaper">
+	<resultMap id="BaseResultMap" type="com.xiaodou.domain.product.QuesbkExamPaper">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="product_id" property="courseId" jdbcType="BIGINT" />
+		<result column="product_chapter_id" property="chapterId" jdbcType="BIGINT" />
+		<result column="product_item_id" property="itemId" jdbcType="BIGINT" />
+		<result column="exam_type_id" property="examTypeId" jdbcType="BIGINT" />
+		<result column="exam_name" property="examName" jdbcType="VARCHAR" />
+		<result column="ques_num" property="quesNum" jdbcType="INTEGER" />
+		<result column="ques_ids" property="quesIds" jdbcType="VARCHAR" />
+		<result column="mdesc" property="mdesc" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="diffculty" property="diffculty" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, product_id, product_chapter_id, product_item_id, exam_type_id,
+		exam_name, ques_num, ques_ids, mdesc, status, diffculty</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.domain.product.QuesbkExamPaper">
+		select
+		<include refid="base_column" />
+		from xd_quesbk_exam_paper where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_quesbk_exam_paper
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.domain.product.QuesbkExamPaper"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_quesbk_exam_paper
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="courseId != null">product_id,</if>
+			<if test="chapterId != null">product_chapter_id,</if>
+			<if test="itemId != null">product_item_id,</if>
+			<if test="examTypeId != null">exam_type_id,</if>
+			<if test="examName != null">exam_name,</if>
+			<if test="quesNum != null">ques_num,</if>
+			<if test="quesIds != null">ques_ids,</if>
+			<if test="mdesc != null">mdesc,</if>
+			<if test="status != null">status,</if>
+			<if test="diffculty != null">diffculty,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="courseId != null">#{courseId,jdbcType=BIGINT},</if>
+			<if test="chapterId != null">#{chapterId,jdbcType=BIGINT},</if>
+			<if test="itemId != null">#{itemId,jdbcType=BIGINT},</if>
+			<if test="examTypeId != null">#{examTypeId,jdbcType=BIGINT},</if>
+			<if test="examName != null">#{examName,jdbcType=VARCHAR},</if>
+			<if test="quesNum != null">#{quesNum,jdbcType=INTEGER},</if>
+			<if test="quesIds != null">#{quesIds,jdbcType=VARCHAR},</if>
+			<if test="mdesc != null">#{mdesc,jdbcType=VARCHAR},</if>
+			<if test="status != null">#{status,jdbcType=VARCHAR},</if>
+			<if test="diffculty != null">#{diffculty,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.domain.product.QuesbkExamPaper">
+		update xd_quesbk_exam_paper
+		<set>
+			<if test="value != null and value.courseId != null">product_id = #{value.courseId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.chapterId != null">product_chapter_id = #{value.chapterId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.itemId != null">product_item_id = #{value.itemId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.examTypeId != null">exam_type_id = #{value.examTypeId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.examName != null">exam_name = #{value.examName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.quesNum != null">ques_num = #{value.quesNum,jdbcType=INTEGER},</if>
+			<if test="value != null and value.quesIds != null">ques_ids = #{value.quesIds,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.mdesc != null">mdesc = #{value.mdesc,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.diffculty != null">diffculty = #{value.diffculty,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.domain.product.QuesbkExamPaper">
+		update xd_quesbk_exam_paper
+		<set>
+			<if test="value != null and value.courseId != null">product_id = #{value.courseId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.chapterId != null">product_chapter_id = #{value.chapterId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.itemId != null">product_item_id = #{value.itemId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.examTypeId != null">exam_type_id = #{value.examTypeId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.examName != null">exam_name = #{value.examName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.quesNum != null">ques_num = #{value.quesNum,jdbcType=INTEGER},</if>
+			<if test="value != null and value.quesIds != null">ques_ids = #{value.quesIds,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.mdesc != null">mdesc = #{value.mdesc,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.diffculty != null">diffculty = #{value.diffculty,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.domain.product.QuesbkExamPaper"> delete from
+		xd_quesbk_exam_paper where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_quesbk_exam_paper
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.courseId != null">product_id,</if>
+			<if test="output != null and output.chapterId != null">product_chapter_id,</if>
+			<if test="output != null and output.itemId != null">product_item_id,</if>
+			<if test="output != null and output.examTypeId != null">exam_type_id,</if>
+			<if test="output != null and output.examName != null">exam_name,</if>
+			<if test="output != null and output.quesNum != null">ques_num,</if>
+			<if test="output != null and output.quesIds != null">ques_ids,</if>
+			<if test="output != null and output.mdesc != null">mdesc,</if>
+			<if test="output != null and output.status != null">status,</if>
+			<if test="output != null and output.diffculty != null">diffculty,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.idLower != null">and id &gt; #{input.idLower}</if>
+			<if test="input != null and input.idUpper != null">and id &lt; #{input.idUpper}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.courseId != null">and product_id=#{input.courseId}</if>
+			<if test="input != null and input.chapterId != null">and product_chapter_id=#{input.chapterId}</if>
+			<if test="input != null and input.itemId != null">and product_item_id=#{input.itemId}</if>
+			<if test="input != null and input.examTypeId != null">and exam_type_id=#{input.examTypeId}</if>
+			<if test="input != null and input.examName != null">and exam_name=#{input.examName}</if>
+			<if test="input != null and input.quesNum != null">and ques_num=#{input.quesNum}</if>
+			<if test="input != null and input.quesIds != null">and ques_ids=#{input.quesIds}</if>
+			<if test="input != null and input.mdesc != null">and mdesc=#{input.mdesc}</if>
+			<if test="input != null and input.status != null">and status=#{input.status}</if>
+			<if test="input != null and input.diffculty != null">and diffculty=#{input.diffculty}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.courseId != null and ( sort.courseId == 'ASC' or sort.courseId == 'DESC' )">product_id ${sort.courseId},</if>
+			<if
+				test="sort != null and sort.chapterId != null and ( sort.chapterId == 'ASC' or sort.chapterId == 'DESC' )">product_chapter_id ${sort.chapterId},</if>
+			<if
+				test="sort != null and sort.itemId != null and ( sort.itemId == 'ASC' or sort.itemId == 'DESC' )">product_item_id ${sort.itemId},</if>
+			<if
+				test="sort != null and sort.examTypeId != null and ( sort.examTypeId == 'ASC' or sort.examTypeId == 'DESC' )">exam_type_id ${sort.examTypeId},</if>
+			<if
+				test="sort != null and sort.examName != null and ( sort.examName == 'ASC' or sort.examName == 'DESC' )">exam_name ${sort.examName},</if>
+			<if
+				test="sort != null and sort.quesNum != null and ( sort.quesNum == 'ASC' or sort.quesNum == 'DESC' )">ques_num ${sort.quesNum},</if>
+			<if
+				test="sort != null and sort.quesIds != null and ( sort.quesIds == 'ASC' or sort.quesIds == 'DESC' )">ques_ids ${sort.quesIds},</if>
+			<if
+				test="sort != null and sort.mdesc != null and ( sort.mdesc == 'ASC' or sort.mdesc == 'DESC' )">mdesc ${sort.mdesc},</if>
+			<if
+				test="sort != null and sort.status != null and ( sort.status == 'ASC' or sort.status == 'DESC' )">status ${sort.status},</if>
+			<if
+				test="sort != null and sort.diffculty != null and ( sort.diffculty == 'ASC' or sort.diffculty == 'DESC' )">diffculty ${sort.diffculty},</if>
+		</trim>
+	</sql>
+	
+	
+	<select id="queryTodayExamQuesList" resultType="java.lang.String"
+		parameterType="java.util.Map">
+		select
+		r.exam_detail
+		from xd_user_exam_record r
+		where r.user_id = #{input.uid}
+		and r.course_id in
+		<foreach collection="input.courseIdList" open="(" close=")" item="item"
+			separator=",">
+			#{item}
+		</foreach>
+		and r.exam_time &gt; CURDATE()
+	</select>
+	<!-- ldh START -->
+	<select id="queryTotalExamPaperList" resultType="java.lang.String"
+		parameterType="java.util.Map">
+		select
+		p.ques_ids
+		from xd_user_exam_record r, xd_quesbk_exam_paper p
+		where r.user_id = #{input.uid}
+		and r.course_id in
+		<foreach collection="input.courseIdList" open="(" close=")" item="item"
+			separator=",">
+			#{item}
+		</foreach>
+		and r.paper_no = p.id
+	</select>
+	<!-- ldh END -->
+	
+	<select id="queryTodayChallengeRecordList" resultType="java.lang.String"
+		parameterType="java.util.Map">
+		select
+		p.ques_ids
+		from xd_user_exam_record r, xd_quesbk_exam_paper p
+		where r.user_id = #{uid}
+		and r.course_id in
+		<foreach collection="courseIdList" open="(" close=")" item="item"
+			separator=",">
+			#{item}
+		</foreach>
+		<!-- and r.exam_time &gt; CURDATE() -->
+		and r.exam_time = CURDATE()
+		and r.paper_no = p.id
+	</select>
+	
+</mapper>

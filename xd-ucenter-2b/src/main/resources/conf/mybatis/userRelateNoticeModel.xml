@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserRelateNoticeModel">
+
+	<!-- 1. 根据条件 查询 文档列表(不分页) -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseListResultMap">
+		SELECT a.`status`,a.user_id,b.id as
+		notice_id,b.title,b.create_time,b.content,b.type FROM
+		xd_user_relate_notice_info a
+		RIGHT JOIN xd_user_notice b
+		ON a.notice_id
+		= b.id AND a.user_id = #{input.userId}
+		order by b.create_time desc
+	</select>
+
+	<!-- 1. 根据条件 查询 文档列表(不分页) -->
+	<select id="count" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT count(relate_id) from
+		xd_user_relate_notice_info
+		where user_id =
+		#{input.userId}
+		and status = #{input.status}
+	</select>
+
+	<select id="countByUid" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT count(relate_id) from
+		xd_user_relate_notice_info
+		where user_id =
+		#{input.userId}
+	</select>
+	
+	<!-- 2. 根据条件 修改 文档 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_user_relate_notice_info
+		<set>
+			<if test="value != null and value.status != null">status = #{value.status},</if>
+		</set>
+		<!-- where user_id = #{input.userId} and notice_id = #{input.noticeId}; -->
+		<!-- where relate_id = #{input.relateId} ; -->
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 3.文档 插入 方法 -->
+	<insert id="addEntity" useGeneratedKeys="true" keyProperty="relateId"
+		parameterType="com.xiaodou.userCenter.model.UserRelateNoticeModel">
+		insert into xd_user_relate_notice_info
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- 4.查询单个记录 -->
+	<select id="findEntityById" parameterType="UserRelateNoticeModel"
+		resultMap="BaseResultMap">
+		SELECT a.status,b.type,b.content,b.create_time FROM
+		xd_user_relate_notice_info a
+		RIGHT JOIN xd_user_notice b
+		ON a.notice_id
+		= b.id
+		WHERE a.user_id = #{userId} and a.notice_id = #{noticeId}
+		<!-- WHERE a.relate_id = #{relateId} -->
+	</select>
+	<!-- 4.查询单个记录 -->
+	<select id="findNoticeEntityById" parameterType="UserRelateNoticeModel"
+		resultMap="BaseResultMap">
+		SELECT type,content,create_time FROM
+		xd_user_notice
+		WHERE id =
+		#{noticeId}
+	</select>
+
+	<!-- ******************************** 上面是DAO层方法实现, 下面是各个动态语句的拼写 ******************************************* -->
+
+	<!-- 动态语句:返回结果 -->
+	<resultMap id="BaseListResultMap"
+		type="com.xiaodou.userCenter.model.UserRelateNoticeModel">
+		<result column="notice_id" property="noticeId" />
+		<result column="user_id" property="userId" />
+		<result column="status" property="status" />
+		<result column="title" property="title" />
+		<result column="create_time" property="createTime" />
+		<result column="type" property="type" />
+	</resultMap>
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.userCenter.model.UserRelateNoticeModel">
+		<result column="status" property="status" />
+		<result column="type" property="type" />
+		<result column="content" property="content" />
+		<result column="create_time" property="createTime" />
+	</resultMap>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.relateId != null">and relate_id =#{input.relateId}</if>
+			<if test="input != null and input.userId != null">and user_id = #{input.userId}</if>
+			<if test="input != null and input.noticeId != null">and notice_id = #{input.noticeId}</if>
+			<if test="input != null and input.status != null">and status = #{input.status}</if>
+		</where>
+	</sql>
+
+	<!-- 动态语句:为中间表插入数据 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="relateId != null">relate_id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="noticeId != null">notice_id,</if>
+			<if test="status != null">status,</if>
+			<if test="createTime !=null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="relateId != null">#{relateId},</if>
+			<if test="userId != null">#{userId},</if>
+			<if test="noticeId != null">#{noticeId},</if>
+			<if test="status != null">#{status},</if>
+			<if test="createTime !=null">#{createTime},</if>
+		</trim>
+	</sql>
+</mapper>

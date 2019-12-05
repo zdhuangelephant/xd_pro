@@ -1,0 +1,978 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon Aug 20 17:02:07 
+	CST 2012 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Order">
+	<resultMap type="java.lang.String" id="OrderId" />
+
+	<!-- 订单 -->
+	<sql id="orderInsertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="orderTime != null">ORDER_TIME,</if>
+			<if test="orderAmount != null">ORDER_AMOUNT,</if>
+			<if test="payAmount != null">PAY_AMOUNT,</if>
+			<if test="logisticsAmount != null">LOGISTICS_AMOUNT,</if>
+			<if test="buyAccountId != null">BUY_ACCOUNT_ID,</if>
+			<if test="orderStatus != null">ORDER_STATUS,</if>
+			<if test="updateTime != null">UPDATE_TIME,</if>
+			<if test="successTime != null">SUCCESS_TIME,</if>
+			<if test="settleUp != null">SETTLE_UP,</if>
+			<if test="merchantId != null">MERCHANT_ID,</if>
+			<if test="merchantName != null">MERCHANT_NAME,</if>
+			<if test="merchantAccount != null">MERCHANT_ACCOUNT,</if>
+			<if test="fee != null">FEE,</if>
+			<if test="merchantTel != null">MERCHANT_TEL,</if>
+			<if test="merchantOrderId != null">MERCHANT_ORDER_ID,</if>
+			<if test="misc != null">MISC,</if>
+			<if test="remark != null">REMARK,</if>
+			<if test="canDeliver != null">CAN_DELIVER,</if>
+			<if test="canRefund != null">CAN_REFUND,</if>
+			<if test="canSettleUp != null">CAN_SETTLE_UP,</if>
+			<if test="preCloseTime != null">PRE_CLOSE_TIME,</if>
+			<if test="gorderId != null">GORDER_ID,</if>
+			<if test="originalPayAmount != null">ORIGINAL_PAY_AMOUNT,</if>
+			<if test="costAmount != null">COST_AMOUNT,</if>
+			<if test="saveAmount != null">SAVE_AMOUNT,</if>
+			<if test="merchantAmount != null">MERCHANT_AMOUNT,</if>
+			<if test="activityId != null">ACTIVITY_ID,</if>
+			<if test="activityType != null">ACTIVITY_TYPE,</if>
+			<if test="orderDesc != null">ORDER_DESC,</if>
+			<if test="productType != null">PRODUCT_TYPE,</if>
+			<if test="keywords != null">KEY_WORDS,</if>
+			<if test="deliveryBeginTime != null">DELIVERY_BEGIN_TIME,</if>
+			<if test="deliveryEndTime != null">DELIVERY_END_TIME,</if>
+			<if test="relationId != null">RELATION_ID,</if>
+			<if test="orderIp != null">ORDER_IP,</if>
+			<if test="closedReason != null">CLOSED_REASON,</if>
+			<if test="statusDesc != null">STATUS_DESC,</if>
+			<if test="note != null">NOTE,</if>
+			<if test="distributorOrderId != null">DISTRIBUTOR_ORDER_ID,</if>
+		</trim>
+	</sql>
+
+	<sql id="orderInsertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="orderTime != null">#{orderTime,jdbcType=TIMESTAMP},</if>
+			<if test="orderAmount != null">#{orderAmount,jdbcType=NUMERIC},</if>
+			<if test="payAmount != null">#{payAmount,jdbcType=NUMERIC},</if>
+			<if test="logisticsAmount != null">#{logisticsAmount,jdbcType=NUMERIC}, </if>
+			<if test="buyAccountId != null">#{buyAccountId,jdbcType=VARCHAR},</if>
+			<if test="orderStatus != null">#{orderStatus,jdbcType=NUMERIC},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="successTime != null">#{successTime,jdbcType=TIMESTAMP},</if>
+			<if test="settleUp != null">#{settleUp,jdbcType=NUMERIC},</if>
+			<if test="merchantId != null">#{merchantId,jdbcType=NUMERIC},</if>
+			<if test="merchantName != null">#{merchantName,jdbcType=VARCHAR},</if>
+			<if test="merchantAccount != null">#{merchantAccount,jdbcType=VARCHAR},</if>
+			<if test="fee != null">#{fee,jdbcType=NUMERIC},</if>
+			<if test="merchantTel != null">#{merchantTel,jdbcType=VARCHAR},</if>
+			<if test="merchantOrderId != null">#{merchantOrderId,jdbcType=VARCHAR},</if>
+			<if test="misc != null">#{misc,jdbcType=VARCHAR},</if>
+			<if test="remark != null">#{remark,jdbcType=VARCHAR},</if>
+			<if test="canDeliver != null">#{canDeliver,jdbcType=NUMERIC},</if>
+			<if test="canRefund != null">#{canRefund,jdbcType=NUMERIC},</if>
+			<if test="canSettleUp != null">#{canSettleUp,jdbcType=NUMERIC},</if>
+			<if test="preCloseTime != null">#{preCloseTime,jdbcType=TIMESTAMP},</if>
+			<if test="gorderId != null">#{gorderId,jdbcType=VARCHAR},</if>
+			<if test="originalPayAmount != null">#{originalPayAmount,jdbcType=NUMERIC},</if>
+			<if test="costAmount != null">#{costAmount,jdbcType=NUMERIC},</if>
+			<if test="saveAmount != null">#{saveAmount,jdbcType=NUMERIC},</if>
+			<if test="merchantAmount != null">#{merchantAmount,jdbcType=NUMERIC},</if>
+			<if test="activityId != null">#{activityId,jdbcType=NUMERIC},</if>
+			<if test="activityType != null">#{activityType,jdbcType=NUMERIC},</if>
+			<if test="orderDesc != null">#{orderDesc,jdbcType=VARCHAR},</if>
+			<if test="productType != null">#{productType,jdbcType=VARCHAR},</if>
+			<if test="keywords != null">#{keywords,jdbcType=VARCHAR},</if>
+			<if test="deliveryBeginTime != null">#{deliveryBeginTime,jdbcType=TIMESTAMP},</if>
+			<if test="deliveryEndTime != null">#{deliveryEndTime,jdbcType=TIMESTAMP},</if>
+			<if test="relationId != null">#{relationId,jdbcType=TIMESTAMP},</if>
+			<if test="orderIp != null">#{orderIp,jdbcType=TIMESTAMP},</if>
+			<if test="closedReason != null">#{closedReason,jdbcType=VARCHAR},</if>
+			<if test="statusDesc != null">#{statusDesc,jdbcType=VARCHAR},</if>
+			<if test="note != null">#{note,jdbcType=VARCHAR},</if>
+			<if test="distributorOrderId != null">#{distributorOrderId,jdbcType=VARCHAR},</if>
+		</trim>
+	</sql>
+
+	<insert id="insertOrder" parameterType="com.xiaodou.oms.entity.order.Order">
+		insert into xd_order_order
+		(
+		<include refid="orderInsertColumns" />
+		)
+		values
+		(
+		<include refid="orderInsertValues" />
+		)
+	</insert>
+
+	<!-- 统一查询动态sql，避免多处维护 -->
+	<sql id="Dynamic_Where">
+		<where>
+			<if test="input != null and input.id != null">and
+				ID=#{input.id}
+			</if>
+			<if test="input != null and input.idLower != null"> and
+				ID &gt;= #{input.idLower}
+			</if>
+			<if test="input != null and input.idUpper != null"> and
+				ID &lt;= #{input.idUpper}
+			</if>
+			<if test="input != null and input.listId != null">
+				and
+				ID in
+				<foreach collection="input.listId" item="item" separator=","
+					close=")" open="(">#{item,jdbcType=VARCHAR}</foreach>
+			</if>
+			<if test="input != null and input.notInListId != null">
+				and
+				ID not in
+				<foreach collection="input.notInListId" item="item"
+					separator="," close=")" open="(">#{item,jdbcType=VARCHAR}</foreach>
+			</if>
+			<if test="input != null and input.orderTimeLower != null">and
+				ORDER_TIME &gt;= #{input.orderTimeLower}
+			</if>
+			<if test="input != null and input.orderTimeUpper != null">and
+				ORDER_TIME &lt;= #{input.orderTimeUpper}
+			</if>
+			<if test="input != null and input.orderAmount != null">and
+				ORDER_AMOUNT=#{input.orderAmount}
+			</if>
+			<if test="input != null and input.payAmount != null">and
+				PAY_AMOUNT=#{input.payAmount}
+			</if>
+			<if test="input != null and input.payAmountLower != null">and
+				PAY_AMOUNT &gt;= #{input.payAmountLower}
+			</if>
+			<if test="input != null and input.payAmountUpper != null">and
+				PAY_AMOUNT &lt;= #{input.payAmountUpper}
+			</if>
+			<if test="input != null and input.logisticsAmount != null">and
+				LOGISTICS_AMOUNT=#{input.logisticsAmount}
+			</if>
+			<if test="input != null and input.buyAccountId != null">and
+				BUY_ACCOUNT_ID=#{input.buyAccountId}
+			</if>
+			<if test="input != null and input.orderStatus != null">and
+				ORDER_STATUS=#{input.orderStatus}
+			</if>
+			<if test="input != null and input.listOrderStatus != null">
+				and
+				ORDER_STATUS in
+				<foreach collection="input.listOrderStatus" item="item"
+					separator="," close=")" open="(">#{item,jdbcType=NUMERIC}</foreach>
+			</if>
+			<if test="input != null and input.updateTimeLower != null">and
+				UPDATE_TIME &gt; #{input.updateTimeLower}
+			</if>
+			<if test="input != null and input.updateTimeUpper != null">and
+				UPDATE_TIME &lt; #{input.updateTimeUpper}
+			</if>
+			<if test="input != null and input.successTimeLower != null">and
+				SUCCESS_TIME &gt; #{input.successTimeLower}
+			</if>
+			<if test="input != null and input.successTimeUpper != null">and
+				SUCCESS_TIME &lt; #{input.successTimeUpper}
+			</if>
+			<if test="input != null and input.settleUp != null">and
+				SETTLE_UP=#{input.settleUp}
+			</if>
+			<if test="input != null and input.merchantId != null">and
+				MERCHANT_ID=#{input.merchantId}
+			</if>
+			<if test="input != null and input.listMerchantId != null">
+				and
+				MERCHANT_ID in
+				<foreach collection="input.listMerchantId" item="item"
+					separator="," close=")" open="(">#{item,jdbcType=NUMERIC}</foreach>
+			</if>
+			<if test="input != null and input.merchantName != null">and
+				MERCHANT_NAME like concat('%',#{input.merchantName},'%')
+			</if>
+			<if test="input != null and input.fee != null">and
+				FEE = #{input.fee}
+			</if>
+			<if test="input != null and input.merchantTel != null">and
+				MERCHANT_TEL = #{input.merchantTel}
+			</if>
+			<if test="input != null and input.merchantOrderId != null">and
+				MERCHANT_ORDER_ID = #{input.merchantOrderId}
+			</if>
+			<if test="input != null and input.misc != null">and
+				MISC like concat('%',#{input.misc},'%')
+			</if>
+			<if test="input != null and input.remark != null">and
+				REMARK like concat('%',#{input.remark},'%')
+			</if>
+			<if test="input != null and input.canDeliver != null">and
+				CAN_DELIVER = #{input.canDeliver}
+			</if>
+
+			<if test="input != null and input.canRefund != null">and
+				CAN_REFUND = #{input.canRefund}
+			</if>
+			<if test="input != null and input.canSettleUp != null">and
+				CAN_SETTLE_UP = #{input.canSettleUp}
+			</if>
+
+			<if test="input != null and input.gorderId != null">and
+				GORDER_ID = #{input.gorderId}
+			</if>
+
+			<if test="input != null and input.originalPayAmount != null">and
+				ORIGINAL_PAY_AMOUNT = #{input.originalPayAmount}
+			</if>
+			<if test="input != null and input.costAmount != null">and
+				COST_AMOUNT = #{input.costAmount}
+			</if>
+			<if test="input != null and input.saveAmount != null">and
+				SAVE_AMOUNT = #{input.saveAmount}
+			</if>
+			<if test="input != null and input.merchantAmount != null">and
+				MERCHANT_AMOUNT = #{input.merchantAmount}
+			</if>
+
+			<if test="input != null and input.activityId != null">and
+				ACTIVITY_ID = #{input.activityId}
+			</if>
+			<if test="input != null and input.activityType != null">and
+				ACTIVITY_TYPE =#{input.activityType}
+			</if>
+			<if test="input != null and input.productType != null">and
+				PRODUCT_TYPE =#{input.productType}
+			</if>
+			<if test="input != null and input.productTypeLike != null">and
+				PRODUCT_TYPE like concat(#{input.productTypeLike},'%')
+			</if>
+			<if test="input != null and input.keywords != null">and
+				KEY_WORDS like concat('%',#{input.keywords},'%')
+			</if>
+			<if test="input != null and input.relationId != null">and
+				RELATION_ID=#{input.relationId}
+			</if>
+			<if test="input != null and input.orderIp != null">and
+				ORDER_IP=#{input.orderIp}
+			</if>
+			<if test="input != null and input.closedReason != null">and
+				CLOSED_REASON=#{input.closedReason}
+			</if>
+			<if test="input != null and input.notClosedReason != null">and
+				(( CLOSED_REASON is not null and
+				CLOSED_REASON!=#{input.notClosedReason}) or (CLOSED_REASON is null
+				))
+			</if>
+
+			<if test="input != null and input.listClosedReason != null">
+				and
+				CLOSED_REASON in
+				<foreach collection="input.listClosedReason" item="item"
+					separator="," close=")" open="(">
+					#{item,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+			<if test="input != null and input.statusDesc != null">and
+				STATUS_DESC=#{input.statusDesc}
+			</if>
+			<if test="input != null and input.mod != null and input.reminder != null">and
+				id%#{input.mod} = #{input.reminder}
+			</if>
+
+			<if test="input != null and input.deliveryBeginTimeLower != null">and
+				DELIVERY_BEGIN_TIME &gt;= #{input.deliveryBeginTimeLower}
+			</if>
+			<if test="input != null and input.deliveryBeginTimeUpper != null">and
+				DELIVERY_BEGIN_TIME &lt;= #{input.deliveryBeginTimeUpper}
+			</if>
+
+			<if test="input != null and input.deliveryEndTimeLower != null">and
+				DELIVERY_END_TIME &gt;= #{input.deliveryEndTimeLower}
+			</if>
+			<if test="input != null and input.deliveryEndTimeUpper != null">and
+				DELIVERY_END_TIME &lt;= #{input.deliveryEndTimeUpper}
+			</if>
+
+			<if test="input != null and input.preCloseTimeLower != null">and
+				pre_close_time &gt;= #{input.preCloseTimeLower}
+			</if>
+			<if test="input != null and input.preCloseTimeUpper != null">and
+				pre_close_time &lt;= #{input.preCloseTimeUpper}
+			</if>
+
+			<if test="input != null and input.distributorOrderId != null">and
+				DISTRIBUTOR_ORDER_ID= #{input.distributorOrderId}
+			</if>
+
+		</where>
+	</sql>
+
+	<!-- 通用订单查询 -->
+	<select id="findEntityListByCond" parameterType="java.util.Map"
+		resultType="com.xiaodou.oms.entity.order.Order">
+		select
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">
+				ID id,
+			</if>
+			<if test="output != null and output.sumPayAmount != null">
+				sum(PAY_AMOUNT) payAmount,
+			</if>
+			<if test="output != null and output.orderTime != null">
+				ORDER_TIME orderTime,
+			</if>
+			<if test="output != null and output.orderAmount != null">
+				ORDER_AMOUNT orderAmount,
+			</if>
+			<if test="output != null and output.payAmount != null">
+				PAY_AMOUNT payAmount,
+			</if>
+			<if test="output != null and output.logisticsAmount != null">
+				LOGISTICS_AMOUNT logisticsAmount,
+			</if>
+			<if test="output != null and output.buyAccountId != null">
+				BUY_ACCOUNT_ID buyAccountId,
+			</if>
+			<if test="output != null and output.orderStatus != null">
+				ORDER_STATUS orderStatus,
+			</if>
+			<if test="output != null and output.updateTime != null">
+				UPDATE_TIME updateTime,
+			</if>
+			<if test="output != null and output.successTime != null">
+				SUCCESS_TIME successTime,
+			</if>
+			<if test="output != null and output.settleUp != null">
+				SETTLE_UP settleUp,
+			</if>
+			<if test="output != null and output.merchantId != null">
+				MERCHANT_ID merchantId,
+			</if>
+			<if test="output != null and output.merchantName != null">
+				MERCHANT_NAME merchantName,
+			</if>
+			<if test="output != null and output.merchantAccount != null">
+				MERCHANT_ACCOUNT merchantAccount,
+			</if>
+			<if test="output != null and output.fee != null">
+				FEE fee,
+			</if>
+			<if test="output != null and output.merchantTel != null">
+				MERCHANT_TEL merchantTel,
+			</if>
+			<if test="output != null and output.merchantOrderId != null">
+				MERCHANT_ORDER_ID merchantOrderId,
+			</if>
+			<if test="output != null and output.misc != null">
+				MISC misc,
+			</if>
+			<if test="output != null and output.remark != null">
+				REMARK remark,
+			</if>
+			<if test="output != null and output.canDeliver != null">
+				CAN_DELIVER canDeliver,
+			</if>
+			<if test="output != null and output.canRefund != null">
+				CAN_REFUND canRefund,
+			</if>
+			<if test="output != null and output.canSettleUp != null">
+				CAN_SETTLE_UP canSettleUp,
+			</if>
+			<if test="output != null and output.preCloseTime != null">
+				PRE_CLOSE_TIME preCloseTime,
+			</if>
+			<if test="output != null and output.gorderId != null">
+				GORDER_ID gorderId,
+			</if>
+			<if test="output != null and output.originalPayAmount != null">
+				ORIGINAL_PAY_AMOUNT originalPayAmount,
+			</if>
+			<if test="output != null and output.costAmount != null">
+				COST_AMOUNT costAmount,
+			</if>
+			<if test="output != null and output.saveAmount != null">
+				SAVE_AMOUNT saveAmount,
+			</if>
+			<if test="output != null and output.merchantAmount != null">
+				MERCHANT_AMOUNT merchantAmount,
+			</if>
+			<if test="output != null and output.activityId != null">
+				ACTIVITY_ID activityId,
+			</if>
+			<if test="output != null and output.activityType != null">
+				ACTIVITY_TYPE activityType,
+			</if>
+			<if test="output != null and output.orderDesc != null">
+				ORDER_DESC orderDesc,
+			</if>
+			<if test="output != null and output.productType != null">
+				PRODUCT_TYPE productType,
+			</if>
+			<if test="output != null and output.keywords != null">
+				KEY_WORDS keywords,
+			</if>
+			<if test="output != null and output.deliveryBeginTime != null">
+				DELIVERY_BEGIN_TIME deliveryBeginTime,
+			</if>
+			<if test="output != null and output.deliveryEndTime != null">
+				DELIVERY_END_TIME deliveryEndTime,
+			</if>
+			<if test="output != null and output.relationId != null">
+				RELATION_ID relationId,
+			</if>
+			<if test="output != null and output.orderIp != null">
+				ORDER_IP orderIp,
+			</if>
+			<if test="output != null and output.closedReason != null">
+				CLOSED_REASON closedReason,
+			</if>
+			<if test="output != null and output.statusDesc != null">
+				STATUS_DESC statusDesc,
+			</if>
+			<if test="output != null and output.note != null">
+				NOTE note,
+			</if>
+			<if test="output != null and output.refundAmount != null">
+				refund_amount refundAmount,
+			</if>
+		</trim>
+		from xd_order_order
+		<include refid="Dynamic_Where" />
+		<if test="groupBy != null ">group by </if>
+		<if test="groupBy != null and groupBy.groupByMerchantId != null">
+			MERCHANT_ID
+		</if>
+		<if test="input != null and input.orderDescend != null">
+			order by ORDER_TIME desc
+		</if>
+		<if test="input != null and input.orderAscend != null">
+			order by ORDER_TIME asc
+		</if>
+		<if test="input != null and input.forUpdate != null">
+			for update
+		</if>
+	</select>
+
+	<!-- 通用订单查询 -->
+	<select id="findIdListByCond" parameterType="java.util.Map"
+		resultType="OrderId">
+		select
+		ID id
+		from xd_order_order
+		<include refid="Dynamic_Where" />
+		<if test="groupBy != null ">group by </if>
+		<if test="groupBy != null and groupBy.groupByMerchantId != null">
+			MERCHANT_ID
+		</if>
+		<if test="input != null and input.orderDescend != null">
+			order by ORDER_TIME desc
+		</if>
+		<if test="input != null and input.forUpdate != null">
+			for update
+		</if>
+	</select>
+
+	<!-- buyAccountId和merchantAccount先禁止修改 -->
+	<update id="updateOrder" parameterType="java.util.Map">
+		update xd_order_order
+		<set>
+			<if test="value != null and value.orderAmount != null">
+				ORDER_AMOUNT=#{value.orderAmount,jdbcType=NUMERIC},
+			</if>
+			<if test="value != null and value.payAmount != null">
+				PAY_AMOUNT=#{value.payAmount,jdbcType=NUMERIC},
+			</if>
+			<if test="value != null and value.logisticsAmount != null">
+				LOGISTICS_AMOUNT=#{value.logisticsAmount,jdbcType=NUMERIC},
+			</if>
+			<if test="value != null and value.orderStatus != null">
+				ORDER_STATUS=#{value.orderStatus,jdbcType=NUMERIC},
+			</if>
+			<if test="value != null and value.updateTime != null">
+				UPDATE_TIME=#{value.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.orderIp != null">
+				ORDER_IP=#{value.orderIp,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.paySuccessTime != null">
+				PAY_SUCCESS_TIME=#{value.paySuccessTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.successTime != null">
+				SUCCESS_TIME=#{value.successTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.settleUp != null">
+				SETTLE_UP=#{value.settleUp,jdbcType=NUMERIC},
+			</if>
+			<if test="value != null and value.merchantId != null">
+				MERCHANT_ID=#{value.merchantId,jdbcType=NUMERIC},
+			</if>
+			<if test="value != null and value.merchantName != null">
+				MERCHANT_NAME=#{value.merchantName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.fee != null">
+				FEE = #{value.fee,jdbcType=NUMERIC},
+			</if>
+			<if test="value != null and value.merchantTel != null">
+				MERCHANT_TEL = #{value.merchantTel,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.merchantOrderId != null">
+				MERCHANT_ORDER_ID = #{value.merchantOrderId,jdbcType=VARCHAR},
+			</if>
+
+			<if test="value != null and value.misc != null">
+				MISC = #{value.misc,jdbcType=VARCHAR},
+			</if>
+
+			<if test="value != null and value.remark != null">
+				REMARK = concat_ws('||',REMARK,#{value.remark,jdbcType=VARCHAR}),
+			</if>
+			<if test="value != null and value.canDeliver != null">
+				CAN_DELIVER = #{value.canDeliver,jdbcType=NUMERIC},
+			</if>
+
+			<if test="value != null and value.canRefund != null">
+				CAN_REFUND = #{value.canRefund,jdbcType=NUMERIC},
+			</if>
+			<if test="value != null and value.canSettleUp != null">
+				CAN_SETTLE_UP = #{value.canSettleUp,jdbcType=NUMERIC},
+			</if>
+			<if test="value != null and value.preCloseTime != null">
+				PRE_CLOSE_TIME = #{value.preCloseTime,jdbcType=TIMESTAMP},
+			</if>
+
+			<if test="value != null and value.gorderId != null">
+				GORDER_ID = #{value.gorderId,jdbcType=VARCHAR},
+			</if>
+
+			<if test="value != null and value.originalPayAmount != null">
+				ORIGINAL_PAY_AMOUNT = #{value.originalPayAmount,jdbcType=NUMERIC},
+			</if>
+			<if test="value != null and value.costAmount != null">
+				COST_AMOUNT = #{value.costAmount,jdbcType=NUMERIC},
+			</if>
+			<if test="value != null and value.saveAmount != null">
+				SAVE_AMOUNT = #{value.saveAmount,jdbcType=NUMERIC},
+			</if>
+			<if test="value != null and value.merchantAmount != null">
+				MERCHANT_AMOUNT = #{value.merchantAmount,jdbcType=NUMERIC},
+			</if>
+
+			<if test="value != null and value.activityId != null">
+				ACTIVITY_ID = #{value.activityId,jdbcType=NUMERIC},
+			</if>
+			<if test="value != null and value.activityType != null">
+				ACTIVITY_TYPE =#{value.activityType,jdbcType=NUMERIC},
+			</if>
+			<if test="value != null and value.productType != null">
+				PRODUCT_TYPE =#{value.productType,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.keywords != null">
+				KEY_WORDS =#{value.keywords,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.deliveryBeginTime != null">
+				DELIVERY_BEGIN_TIME = #{value.deliveryBeginTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.deliveryEndTime != null">
+				DELIVERY_End_TIME = #{value.deliveryEndTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.relationId != null">
+				RELATION_ID = #{value.relationId,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.orderDesc != null">
+				ORDER_DESC =#{value.orderDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.orderIp != null">
+				ORDER_IP =#{value.orderIp,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.closedReason != null">
+				CLOSED_REASON =#{value.closedReason,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.statusDesc != null">
+				STATUS_DESC =#{value.statusDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.note != null">
+				NOTE = concat_ws('||',NOTE,#{value.note,jdbcType=VARCHAR}),
+			</if>
+			<if test="value != null and value.refundAmount != null">
+				refund_amount = #{value.refundAmount,jdbcType=NUMERIC},
+			</if>
+		</set>
+		<include refid="Dynamic_Where" />
+	</update>
+
+	<!-- 简单统计 -->
+	<select id="queryOrderStatistics" parameterType="java.util.Map"
+		resultType="com.xiaodou.oms.entity.order.Order">
+		select
+		<if test="output != null and output.id != null">
+			ID id
+		</if>
+		<if test="output != null and output.orderTime != null">,
+			ORDER_TIME orderTime
+		</if>
+		<if test="output != null and output.orderAmount != null">,
+			sum(ORDER_AMOUNT) orderAmount
+		</if>
+		<if test="output != null and output.payAmount != null">,
+			sum(PAY_AMOUNT) payAmount
+		</if>
+		<if test="output != null and output.logisticsAmount != null">,
+			sum(LOGISTICS_AMOUNT) logisticsAmount
+		</if>
+		<if test="output != null and output.buyAccountId != null">,
+			BUY_ACCOUNT_ID buyAccountId
+		</if>
+		<if test="output != null and output.orderStatus != null">,
+			ORDER_STATUS orderStatus
+		</if>
+		<if test="output != null and output.updateTime != null">,
+			UPDATE_TIME updateTime
+		</if>
+		<if test="output != null and output.orderIp != null">,
+			ORDER_IP orderIp
+		</if>
+		<if test="output != null and output.paySuccessTime != null">,
+			PAY_SUCCESS_TIME paySuccessTime
+		</if>
+		<if test="output != null and output.successTime != null">,
+			SUCCESS_TIME successTime
+		</if>
+		<if test="output != null and output.tradeSuccessTime != null">,
+			TRADE_SUCCESS_TIME tradeSuccessTime
+		</if>
+		<if test="output != null and output.settleUp != null">,
+			SETTLE_UP settleUp
+		</if>
+		<if test="output != null and output.merchantId != null">,
+			MERCHANT_ID merchantId
+		</if>
+		<if test="output != null and output.merchantName != null">,
+			MERCHANT_NAME merchantName
+		</if>
+		<if test="output != null and output.fee != null">,
+			FEE fee
+		</if>
+		<if test="output != null and output.merchantTel != null">,
+			MERCHANT_TEL merchantTel
+		</if>
+		<if test="output != null and output.merchantOrderId != null">,
+			MERCHANT_ORDER_ID = #{output.merchantOrderId}
+		</if>
+		<if test="output != null and output.misc != null">,
+			MISC = #{output.misc}
+		</if>
+		<if test="output != null and output.origin != null">,
+			ORIGIN = #{output.origin}
+		</if>
+		<if test="output != null and output.remark != null">,
+			REMARK = #{output.remark}
+		</if>
+		<if test="output != null and output.canDeliver != null">,
+			CAN_DELIVER = #{output.canDeliver}
+		</if>
+		<if test="output != null and output.realPayMethod != null">,
+			REAL_PAY_METHOD realPayMethod
+		</if>
+		<if test="output != null and output.canRefund != null">,
+			CAN_REFUND canRefund
+		</if>
+		<if test="output != null and output.canSettleUp != null">,
+			CAN_SETTLE_UP canSettleUp
+		</if>
+		<if test="output != null and output.preCloseTime != null">,
+			PRE_CLOSE_TIME preCloseTime
+		</if>
+		<if test="output != null and output.payURL != null">,
+			PAY_URL = #{output.payURL}
+		</if>
+		<if test="output != null and output.gorderId != null">,
+			GORDER_ID gorderId
+		</if>
+		<if test="output != null and output.wybOrderId != null">,
+			WYB_ORDER_ID wybOrderId
+		</if>
+		<if test="output != null and output.originalPayAmount != null">,
+			ORIGINAL_PAY_AMOUNT = #{output.originalPayAmount}
+		</if>
+		<if test="output != null and output.costAmount != null">,
+			COST_AMOUNT = #{output.costAmount}
+		</if>
+		<if test="output != null and output.saveAmount != null">,
+			SAVE_AMOUNT = #{output.saveAmount}
+		</if>
+		<if test="output != null and output.merchantAmount != null">,
+			MERCHANT_AMOUNT = #{output.merchantAmount}
+		</if>
+		from xd_order_order
+		<include refid="Dynamic_Where" />
+		<if test="groupBy != null ">group by </if>
+		<if test="groupBy != null and groupBy.id != null">,
+			ID
+		</if>
+		<if test="groupBy != null and groupBy.orderTime != null">,
+			ORDER_TIME
+		</if>
+		<if test="groupBy != null and groupBy.orderAmount != null">,
+			ORDER_AMOUNT
+		</if>
+		<if test="groupBy != null and groupBy.payAmount != null">,
+			PAY_AMOUNT
+		</if>
+		<if test="groupBy != null and groupBy.logisticsAmount != null">,
+			LOGISTICS_AMOUNT
+		</if>
+		<if test="groupBy != null and groupBy.buyAccountId != null">,
+			BUY_ACCOUNT_ID
+		</if>
+		<if test="groupBy != null and groupBy.orderStatus != null">,
+			ORDER_STATUS
+		</if>
+		<if test="groupBy != null and groupBy.updateTime != null">,
+			UPDATE_TIME
+		</if>
+		<if test="groupBy != null and groupBy.orderIp != null">,
+			ORDER_IP
+		</if>
+		<if test="groupBy != null and groupBy.paySuccessTime != null">,
+			PAY_SUCCESS_TIME
+		</if>
+		<if test="groupBy != null and groupBy.successTime != null">,
+			SUCCESS_TIME
+		</if>
+		<if test="groupBy != null and groupBy.tradeSuccessTime != null">,
+			TRADE_SUCCESS_TIME
+		</if>
+		<if test="groupBy != null and groupBy.settleUp != null">,
+			SETTLE_UP
+		</if>
+		<if test="groupBy != null and groupBy.merchantId != null">,
+			MERCHANT_ID
+		</if>
+		<if test="groupBy != null and groupBy.merchantName != null">,
+			MERCHANT_NAME
+		</if>
+		<if test="groupBy != null and groupBy.fee != null">,
+			FEE
+		</if>
+		<if test="groupBy != null and groupBy.merchantTel != null">,
+			MERCHANT_TEL
+		</if>
+		<if test="groupBy != null and groupBy.merchantOrderId != null">,
+			MERCHANT_ORDER_ID
+		</if>
+		<if test="groupBy != null and groupBy.misc != null">,
+			MISC
+		</if>
+		<if test="groupBy != null and groupBy.origin != null">,
+			ORIGIN
+		</if>
+		<if test="groupBy != null and groupBy.remark != null">,
+			REMARK
+		</if>
+		<if test="groupBy != null and groupBy.canDeliver != null">,
+			CAN_DELIVER
+		</if>
+		<if test="groupBy != null and groupBy.canRefund != null">,
+			CAN_REFUND
+		</if>
+		<if test="groupBy != null and groupBy.canSettleUp != null">,
+			CAN_SETTLE_UP
+		</if>
+		<if test="groupBy != null and groupBy.preCloseTime != null">,
+			PRE_CLOSE_TIME
+		</if>
+		<if test="groupBy != null and groupBy.payURL != null">,
+			PAY_URL
+		</if>
+		<if test="groupBy != null and groupBy.gorderId != null">,
+			GORDER_ID
+		</if>
+		<if test="groupBy != null and groupBy.wybOrderId != null">,
+			WYB_ORDER_ID
+		</if>
+		<if test="groupBy != null and groupBy.originalPayAmount != null">,
+			ORIGINAL_PAY_AMOUNT = #{groupBy.originalPayAmount}
+		</if>
+		<if test="groupBy != null and groupBy.costAmount != null">,
+			COST_AMOUNT = #{groupBy.costAmount}
+		</if>
+		<if test="groupBy != null and groupBy.partnerAmount != null">,
+			PARTNER_AMOUNT = #{groupBy.partnerAmount}
+		</if>
+	</select>
+
+	<!-- 订单状态日志 -->
+	<insert id="insertStatusLog" parameterType="com.xiaodou.oms.entity.order.StatusLog">
+		insert into xd_order_order_log
+		(
+		ORDER_ID,
+		ORDER_STATUS,
+		LOG_TIME,
+		LOG_IP,
+		NOTE,
+		BUY_ACCOUNT_ID
+		)
+		values(
+		#{orderId,jdbcType=VARCHAR},
+		#{orderStatus,jdbcType=NUMERIC},
+		#{logTime,jdbcType=TIMESTAMP},
+		#{logIp,jdbcType=VARCHAR},
+		#{note,jdbcType=VARCHAR},
+		<if test="buyAccountId != null">
+			#{buyAccountId,jdbcType=VARCHAR}
+		</if>
+		<if test="buyAccountId == null">
+			(select BUY_ACCOUNT_ID FROM xd_order_order WHERE
+			ID=#{orderId,jdbcType=VARCHAR})
+		</if>
+
+		)
+	</insert>
+
+	<select id="queryStatusLog">
+	</select>
+
+	<select id="queryStatusLogCount">
+	</select>
+	<!-- ONLY ALLOW TO UPDATE LOGNOTE -->
+	<update id="updateStatusLog" parameterType="java.util.Map">
+		update xd_order_order_log
+		<set>
+			<if test="value != null and value.note != null">
+				NOTE=#{value.note,jdbcType=VARCHAR}
+			</if>
+		</set>
+		<where>
+			ORDER_ID=#{input.orderId}
+			and ORDER_STATUS=#{input.orderStatus}
+		</where>
+	</update>
+
+	<select id="selectUncompletedOrder" parameterType="int"
+		resultType="String">
+		select id
+		from xd_order_order
+		where order_status=2
+		and update_time &lt;=
+		to_date(to_char(sysdate-#{value},'yyyymmddhh24miss'),'yyyymmddhh24miss')
+		for update
+	</select>
+
+
+
+	<select id="queryLogisticsId" parameterType="String" resultType="String">
+		select id
+		from xd_order_logistics_company
+		where name = #{value}
+	</select>
+
+	<insert id="insertWayBill" parameterType="com.xiaodou.oms.entity.order.WayBill">
+		insert into xd_order_waybill
+		values(
+		#{wayBillId,jdbcType=VARCHAR},
+		#{logisticsId,jdbcType=NUMERIC},
+		#{orderId,jdbcType=VARCHAR},
+		#{remarks,jdbcType=VARCHAR})
+	</insert>
+
+	<!-- 创建费用减免 -->
+	<insert id="insertAbatement" parameterType="com.xiaodou.oms.entity.order.Abatement">
+		insert into xd_order_abatement
+		(
+		id,
+		type,
+		amount,
+		remark,
+		order_id
+		)
+		values
+		(
+		SHOP_SEQ.nextval,
+		#{type,jdbcType=VARCHAR},
+		#{amount,jdbcType=NUMERIC},
+		#{remark,jdbcType=VARCHAR},
+		#{orderId,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 查询费用减免 -->
+	<select id="queryAbatement" parameterType="java.util.Map"
+		resultType="com.xiaodou.oms.entity.order.Abatement">
+		select
+		<if test="output != null and output.id != null">
+			ID id
+		</if>
+		<if test="output != null and output.type != null">,
+			TYPE type
+		</if>
+		<if test="output != null and output.amount != null">,
+			AMOUNT amount
+		</if>
+		<if test="output != null and output.remark != null">,
+			REMARK remark
+		</if>
+		<if test="output != null and output.orderId != null">,
+			ORDER_ID orderId
+		</if>
+		from xd_order_abatement
+		<where>
+			<if test="input != null and input.id != null">and
+				ID = #{input.id}
+			</if>
+			<if test="input != null and input.type != null">and
+				TYPE = #{input.type}
+			</if>
+			<if test="input != null and input.amount != null">and
+				AMOUNT = #{input.amount}
+			</if>
+			<if test="input != null and input.remark != null">and
+				REMARK = #{input.remark}
+			</if>
+			<if test="input != null and input.orderId != null">and
+				ORDER_ID = #{input.orderId}
+			</if>
+			<if test="input != null and input.listOrderId != null">
+				and
+				ORDER_ID in
+				<foreach collection="input.listOrderId" item="item"
+					separator="," close=")" open="(">#{item,jdbcType=NUMERIC}</foreach>
+			</if>
+		</where>
+	</select>
+
+
+
+	<select id="queryLatestFailOrderByMerchantProductId"
+		parameterType="java.lang.String" resultType="com.xiaodou.oms.entity.order.Order">
+		select id, misc, prct_id prctId, merchant_id merchantId, order_status
+		orderStatus, pay_amount payAmount
+		from xd_order_order
+		where update_time &gt;
+		(
+		select update_time from
+		(select update_time
+		from xd_order_order
+		where merchant_prct_id = #{value} and order_status in (3, 2) order by
+		update_time desc)
+		where rownum = 1
+		)
+		and merchant_prct_id = #{value}
+		and order_status in (4, 41, 42, 21)
+		order by update_time desc
+	</select>
+
+	<!-- ONLY ALLOW TO UPDATE LOGNOTE -->
+	<update id="updateBuyAccountIdByGorderId" parameterType="java.util.Map">
+		update xd_order_order
+		<set>
+			<if test="value != null and value.buyAccountId != null">
+				BUY_ACCOUNT_ID=#{value.buyAccountId,jdbcType=VARCHAR}
+			</if>
+		</set>
+		<where>
+			GORDER_ID=#{input.gorderId}
+		</where>
+	</update>
+
+</mapper>

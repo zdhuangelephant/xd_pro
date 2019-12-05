@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AdminDO">
+	<resultMap id="BaseResultMap" type="com.xiaodou.st.dashboard.domain.admin.AdminDO">
+				<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="salt" property="salt" jdbcType="VARCHAR" />
+		<result column="last_login_ip" property="lastLoginIp" jdbcType="VARCHAR" />
+		<result column="last_login_time" property="lastLoginTime"
+			jdbcType="TIMESTAMP" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="telephone" property="telephone" jdbcType="BIGINT" />
+		<result column="real_name" property="realName" jdbcType="VARCHAR" />
+		<result column="portrait" property="portrait" jdbcType="VARCHAR" />
+		<result column="unit_id" property="unitId" jdbcType="BIGINT" />
+		
+		<result column="unit_name" property="unitName" jdbcType="VARCHAR" />
+		<result column="role" property="role" jdbcType="TINYINT" />
+		<result column="unit_portrait" property="unitPortrait"
+			jdbcType="VARCHAR" />
+		<result column="price_rate" property="priceRate" jdbcType="DOUBLE" />
+		<result column="child_role" property="childRole"/>
+		<result column="type" property="type" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, user_name, password, salt, last_login_ip,
+		last_login_time, email, telephone, real_name, portrait, unit_id,
+		unit_name, role, create_time, type, child_role</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.admin.AdminDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_admin
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_admin
+		left join xd_dashboard_unit on 
+		xd_dashboard_unit.id = xd_dashboard_admin.unit_id 
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.st.dashboard.domain.admin.AdminDO">
+		insert into xd_dashboard_admin
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="userName != null">user_name,</if>
+			<if test="password != null">password,</if>
+			<if test="salt != null">salt,</if>
+			<if test="lastLoginIp != null">last_login_ip,</if>
+			<if test="lastLoginTime != null">last_login_time,</if>
+			<if test="email != null">email,</if>
+			<if test="telephone != null">telephone,</if>
+			<if test="realName != null">real_name,</if>
+			<if test="portrait != null">portrait,</if>
+			<if test="unitId != null">unit_id,</if>
+			<if test="unitName != null">unit_name,</if>
+			<if test="role != null">role,</if>
+			<if test="unitPortrait != null">unit_portrait,</if>
+			<if test="priceRate != null">price_rate,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="childRole != null">child_role,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="userName != null">#{userName,jdbcType=VARCHAR},</if>
+			<if test="password != null">#{password,jdbcType=VARCHAR},</if>
+			<if test="salt != null">#{salt,jdbcType=VARCHAR},</if>
+			<if test="lastLoginIp != null">#{lastLoginIp,jdbcType=VARCHAR},</if>
+			<if test="lastLoginTime != null">#{lastLoginTime,jdbcType=TIMESTAMP},</if>
+			<if test="email != null">#{email,jdbcType=VARCHAR},</if>
+			<if test="telephone != null">#{telephone,jdbcType=BIGINT},</if>
+			<if test="realName != null">#{realName,jdbcType=VARCHAR},</if>
+			<if test="portrait != null">#{portrait,jdbcType=VARCHAR},</if>
+			<if test="unitId != null">#{unitId,jdbcType=BIGINT},</if>
+			<if test="unitName != null">#{unitName,jdbcType=VARCHAR},</if>
+			<if test="role != null">#{role,jdbcType=TINYINT},</if>
+			<if test="unitPortrait != null">#{unitPortrait,jdbcType=VARCHAR},</if>
+			<if test="priceRate != null">#{priceRate,jdbcType=DOUBLE},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="childRole != null">#{childRole},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.st.dashboard.domain.admin.AdminDO">
+		update xd_dashboard_admin
+		<set>
+			<if test="value != null and value.userName != null">user_name = #{value.userName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.password != null">password = #{value.password,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.salt != null">salt = #{value.salt,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.lastLoginIp != null">last_login_ip = #{value.lastLoginIp,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.lastLoginTime != null">last_login_time =
+				#{value.lastLoginTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.email != null">email = #{value.email,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.telephone != null">telephone = #{value.telephone,jdbcType=BIGINT},</if>
+			<if test="value != null and value.realName != null">real_name = #{value.realName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.portrait != null">portrait = #{value.portrait,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.unitId != null">unit_id = #{value.unitId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.unitName != null">unit_name = #{value.unitName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.role != null">role = #{value.role,jdbcType=TINYINT},</if>
+			<if test="value != null and value.unitPortrait != null">unit_portrait = #{value.unitPortrait,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.priceRate != null">price_rate = #{value.priceRate,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.childRole != nulll">child_role = #{value.childRole},</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.st.dashboard.domain.admin.AdminDO">
+		update xd_dashboard_admin
+		<set>
+			<if test="value != null and value.userName != null">user_name = #{value.userName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.password != null">password = #{value.password,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.salt != null">salt = #{value.salt,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.lastLoginIp != null">last_login_ip = #{value.lastLoginIp,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.lastLoginTime != null">last_login_time =
+				#{value.lastLoginTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.email != null">email = #{value.email,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.telephone != null">telephone = #{value.telephone,jdbcType=BIGINT},</if>
+			<if test="value != null and value.realName != null">real_name = #{value.realName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.portrait != null">portrait = #{value.portrait,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.unitId != null">unit_id = #{value.unitId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.unitName != null">unit_name = #{value.unitName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.role != null">role = #{value.role,jdbcType=TINYINT},</if>
+			<if test="value != null and value.unitPortrait != null">unit_portrait = #{value.unitPortrait,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.priceRate != null">price_rate = #{value.priceRate,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.childRole != null">child_role = #{value.childRole},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.st.dashboard.domain.admin.AdminDO">
+		delete from
+		xd_dashboard_admin
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_admin
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_dashboard_admin.id,</if>
+			<if test="output != null and output.userName != null">user_name,</if>
+			<if test="output != null and output.password != null">password,</if>
+			<if test="output != null and output.salt != null">salt,</if>
+			<if test="output != null and output.lastLoginIp != null">last_login_ip,</if>
+			<if test="output != null and output.lastLoginTime != null">last_login_time,</if>
+			<if test="output != null and output.email != null">email,</if>
+			<if test="output != null and output.telephone != null">telephone,</if>
+			<if test="output != null and output.realName != null">real_name,</if>
+			<if test="output != null and output.portrait != null">portrait,</if>
+			<if test="output != null and output.unitId != null">unit_id,</if>
+			<if test="output != null and output.unitName != null">xd_dashboard_unit.unit_name,</if>
+			<if test="output != null and output.role != null">xd_dashboard_unit.role,</if>
+			<if test="output != null and output.unitPortrait != null">xd_dashboard_unit.unit_portrait,</if>
+			<if test="output != null and output.priceRate != null">xd_dashboard_unit.price_rate,</if>
+			<if test="output != null and output.childRole != null">child_role,</if>
+			<if test="output != null and output.type != null">type,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.userName != null">and user_name=#{input.userName}</if>
+			<if test="input != null and input.password != null">and password=#{input.password}</if>
+			<if test="input != null and input.salt != null">and salt=#{input.salt}</if>
+			<if test="input != null and input.lastLoginIp != null">and last_login_ip=#{input.lastLoginIp}</if>
+			<if test="input != null and input.lastLoginTime != null">and last_login_time=#{input.lastLoginTime}</if>
+			<if test="input != null and input.email != null">and email=#{input.email}</if>
+			<if test="input != null and input.telephone != null">and telephone=#{input.telephone}</if>
+			<if test="input != null and input.realName != null">and real_name=#{input.realName}</if>
+			<if test="input != null and input.portrait != null">and portrait=#{input.portrait}</if>
+			<if test="input != null and input.unitId != null">and unit_id=#{input.unitId}</if>
+			<if test="input != null and input.unitName != null">and xd_dashboard_unit.unit_name=#{input.unitName}</if>
+			<if test="input != null and input.role != null">and xd_dashboard_unit.role=#{input.role}</if>
+			<if test="input != null and input.unitPortrait != null">and xd_dashboard_unit.unit_portrait=#{input.unitPortrait}</if>
+			<if test="input != null and input.priceRate != null">and xd_dashboard_unit.price_rate=#{input.priceRate}</if>
+			<if test="input != null and input.childRole != null">and child_role=#{input.childRole}</if>
+			
+			<if test="input != null and input.userNameLike != null">and user_name like concat('%',#{input.userNameLike},'%')</if>
+			<if test="input != null and input.realNameLike != null">and real_name like concat('%',#{input.realNameLike},'%')</if>
+			<if test="input != null and input.emailLike != null">and email like concat('%',#{input.emailLike},'%')</if>
+			<if test="input != null and input.telephoneLike != null">and telephone like concat('%',#{input.telephoneLike},'%')</if>
+			
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">xd_dashboard_admin.create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

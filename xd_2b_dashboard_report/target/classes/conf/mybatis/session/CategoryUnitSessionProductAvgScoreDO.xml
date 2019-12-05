@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CategoryUnitSessionProductAvgScoreDO">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dashboard.domain.session.CategoryUnitSessionProductAvgScoreDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="cat_id" property="catId" jdbcType="BIGINT" />
+		<result column="pilot_unit_id" property="pilotUnitId" jdbcType="BIGINT" />
+		<result column="product_id" property="productId" jdbcType="BIGINT" />
+		<result column="avg_score" property="avgScore" jdbcType="VARCHAR" />
+		<result column="role_type" property="roleType" jdbcType="VARCHAR" />
+		<result column="unit_id" property="unitId" jdbcType="BIGINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+		<result column="product_name" property="productName" />
+	</resultMap>
+	<sql id="base_column">id, cat_id, pilot_unit_id, product_id, avg_score,
+		role_type, unit_id, create_time
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.session.CategoryUnitSessionProductAvgScoreDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_category_unit_session_product_avg_score
+		where id =
+		#{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_category_unit_session_product_avg_score
+		left join
+		xd_raw_data_product
+		on xd_raw_data_product.id =
+		xd_dashboard_category_unit_session_product_avg_score.product_id
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_dashboard_category_unit_session_product_avg_score.id,
+			</if>
+			<if test="output != null and output.catId != null">cat_id,</if>
+			<if test="output != null and output.pilotUnitId != null">pilot_unit_id,</if>
+			<if test="output != null and output.productId != null">product_id,</if>
+			<if test="output != null and output.avgScore != null">avg_score,</if>
+			<if test="output != null and output.roleType != null">role_type,</if>
+			<if test="output != null and output.unitId != null">unit_id,</if>
+			<if test="output != null and output.createTime != null">xd_dashboard_category_unit_session_product_avg_score.create_time,
+			</if>
+
+			<if test="output != null and output.productName != null">xd_raw_data_product.name product_name,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.catId != null">and cat_id=#{input.catId}</if>
+			<if test="input != null and input.pilotUnitId != null">and pilot_unit_id=#{input.pilotUnitId}</if>
+			<if test="input != null and input.productId != null">and product_id=#{input.productId}</if>
+			<if test="input != null and input.avgScore != null">and avg_score=#{input.avgScore}</if>
+			<if test="input != null and input.roleType != null">and role_type=#{input.roleType}</if>
+			<if test="input != null and input.unitId != null">and unit_id=#{input.unitId}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.catId != null and ( sort.catId == 'ASC' or sort.catId == 'DESC' )">cat_id ${sort.catId},</if>
+			<if
+				test="sort != null and sort.pilotUnitId != null and ( sort.pilotUnitId == 'ASC' or sort.pilotUnitId == 'DESC' )">pilot_unit_id ${sort.pilotUnitId},</if>
+			<if
+				test="sort != null and sort.productId != null and ( sort.productId == 'ASC' or sort.productId == 'DESC' )">product_id ${sort.productId},</if>
+			<if
+				test="sort != null and sort.avgScore != null and ( sort.avgScore == 'ASC' or sort.avgScore == 'DESC' )">avg_score ${sort.avgScore},</if>
+			<if
+				test="sort != null and sort.roleType != null and ( sort.roleType == 'ASC' or sort.roleType == 'DESC' )">role_type ${sort.roleType},</if>
+			<if
+				test="sort != null and sort.unitId != null and ( sort.unitId == 'ASC' or sort.unitId == 'DESC' )">unit_id ${sort.unitId},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">xd_dashboard_category_unit_session_product_avg_score.create_time
+				${sort.createTime},
+			</if>
+		</trim>
+	</sql>
+</mapper>

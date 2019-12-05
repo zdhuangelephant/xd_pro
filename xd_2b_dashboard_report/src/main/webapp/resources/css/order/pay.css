@@ -1,0 +1,21 @@
+.pay-method {
+    float: left;
+    width: auto;
+    height: 60px;
+    margin-right: 10px;
+    border: 1px dashed #d2d2d2;
+    cursor: pointer;
+}
+
+.pay-method.ali {
+    background: url(/resources/image/order/alipay.jpg);
+    background-position: 0 95%;
+}
+
+.pay-method[data-pay=WX_NATIVE] {
+    background: url(/resources/image/order/wxpay.jpg);
+}
+
+.box-body .pay-method.active {
+    border: 2px solid #f55f60;
+}

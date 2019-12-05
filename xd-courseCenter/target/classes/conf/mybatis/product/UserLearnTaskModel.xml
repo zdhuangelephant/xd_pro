@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserLearnTaskModel">
+
+    <resultMap id="BaseResultMap" type="UserLearnTaskModel">
+        <id column="id" property="id"/>
+        <result column="product_id" property="productId"/>
+        <result column="item_id" property="itemId"/>
+        <result column="task_ratio" property="taskRatio"/>
+        <result column="complete_time" property="completeTime"/>
+        <result column="begin_time" property="beginTime"/>
+        <result column="module_id" property="moduleId"/>
+        <result column="user_id" property="userId" />
+
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">product_id,item_id,task_ratio,complete_time,begin_time,module_id,user_id</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="productId != null">product_id,</if>
+            <if test="itemId != null">item_id,</if>
+            <if test="taskRatio != null">task_ratio,</if>
+            <if test="completeTime != null">complete_time,</if>
+            <if test="beginTime != null">begin_time,</if>
+            <if test="moduleId != null">module_id,</if>
+            <if test="userId != null">user_id,</if>
+
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="productId != null">#{productId},</if>
+            <if test="itemId != null">#{itemId},</if>
+            <if test="taskRatio != null">#{taskRatio},</if>
+            <if test="completeTime != null">#{completeTime},</if>
+            <if test="beginTime != null">#{beginTime},</if>
+            <if test="moduleId != null">#{moduleId},</if>
+            <if test="userId != null">#{userId},</if>
+
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="UserLearnTaskModel">
+        insert into xd_user_learn_task
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update xd_user_learn_task
+        <set>
+            <if test="value != null and value.productId != null">product_id = #{value.productId},</if>
+            <if test="value != null and value.itemId != null">item_id = #{value.itemId},</if>
+            <if test="value != null and value.taskRatio != null">task_ratio = #{value.taskRatio},</if>
+            <if test="value != null and value.completeTime != null">complete_time = #{value.completeTime},</if>
+            <if test="value != null and value.beginTime != null">begin_time = #{value.beginTime},</if>
+            <if test="value != null and value.moduleId != null">module_id = #{value.moduleId},</if>
+            <if test="value != null and value.userId != null">user_id = #{value.userId},</if>
+
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_user_learn_task
+        <include refid="dynamic_where"/>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="UserLearnTaskModel" resultMap="BaseResultMap">
+        select * from xd_user_learn_task where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from xd_user_learn_task
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and id =#{input.id}</if>
+            <if test="input != null and input.productId != null">and product_id =#{input.productId}</if>
+            <if test="input != null and input.itemId != null">and item_id =#{input.itemId}</if>
+            <if test="input != null and input.taskRatio != null">and task_ratio =#{input.taskRatio}</if>
+            <if test="input != null and input.completeTime != null">and complete_time =#{input.completeTime}</if>
+            <if test="input != null and input.beginTime != null">and begin_time =#{input.beginTime}</if>
+            <if test="input != null and input.moduleId != null">and module_id =#{input.moduleId}</if>
+            <if test="input != null and input.userId != null">and user_id =#{input.userId}</if>
+
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">id,</if>
+            <if test="output != null and output.productId != null">product_id,</if>
+            <if test="output != null and output.itemId != null">item_id,</if>
+            <if test="output != null and output.taskRatio != null">task_ratio,</if>
+            <if test="output != null and output.completeTime != null">complete_time,</if>
+            <if test="output != null and output.beginTime != null">begin_time,</if>
+            <if test="output != null and output.moduleId != null">module_id,</if>
+            <if test="output != null and output.userId != null">user_id,</if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

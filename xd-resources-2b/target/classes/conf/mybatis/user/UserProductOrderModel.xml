@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserProductOrderModel">
+
+	<resultMap id="BaseResultMap" type="UserProductOrderModel">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="course_id" property="courseId" />
+		<result column="order_status" property="orderStatus" />
+		<result column="order_time" property="orderTime" />
+		<result column="exp_date" property="expDate" />
+		<result column="is_exp" property="isExp" />
+		<result column="exam_date_status" property="examDateStatus"/>
+	</resultMap>
+
+	<!--字段 -->
+	<sql id="base_column">user_id,course_id,order_status,order_time,exp_date,is_exp,exam_date_status</sql>
+	<sql id="all_column">
+		id,
+		<include refid="base_column" />
+	</sql>
+
+	<!-- 1.插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="userId != null">user_id,</if>
+			<if test="courseId != null">course_id,</if>
+			<if test="orderStatus != null">order_status,</if>
+			<if test="orderTime != null">order_time,</if>
+			<if test="expDate != null">exp_date,</if>
+			<if test="isExp != null">is_exp,</if>
+			<if test="examDateStatus != null">exam_date_status</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="userId != null">#{userId},</if>
+			<if test="courseId != null">#{courseId},</if>
+			<if test="orderStatus != null">#{orderStatus},</if>
+			<if test="orderTime != null">#{orderTime},</if>
+			<if test="expDate != null">#{expDate},</if>
+			<if test="isExp != null">#{isExp},</if>
+			<if test="examDateStatus != null">#{examDateStatus},</if>
+		</trim>
+	</sql>
+
+	<insert id="addEntity" parameterType="UserProductOrderModel">
+		insert into xd_user_product_order
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- 2.更新 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_user_product_order
+		<set>
+			<if test="value != null and value.userId != null">user_id = #{value.userId},</if>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId},</if>
+			<if test="value != null and value.orderStatus != null">order_status = #{value.orderStatus},</if>
+			<if test="value != null and value.orderTime != null">order_time = #{value.orderTime},</if>
+			<if test="value != null and value.expDate != null">exp_date = #{value.expDate},</if>
+			<if test="value != null and value.isExp != null">is_exp = #{value.isExp},</if>
+			<if test="value != null and value.examDateStatus != null">exam_date_status = #{value.examDateStatus},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 3.查询 -->
+	<select id="findEntityListByCond" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="dynamic_output" />
+		from xd_user_product_order  
+		JOIN xd_course_product ON xd_user_product_order.course_id = xd_course_product.id 
+		<!-- left join xd_course_product_relation on
+		xd_course_product.id = xd_course_product_relation.product_id
+		left join xd_course_product_category on
+		xd_course_product_relation.product_category_id =
+		xd_course_product_category.id --> 
+		<include refid="dynamic_where" />
+	</select>
+
+	<!-- 4.查询单个记录 -->
+	<select id="findEntityById" parameterType="UserProductOrderModel"
+		resultMap="BaseResultMap">
+		select * from xd_user_product_order where id = #{id};
+	</select>
+
+	<!-- 5.根据条件删除 -->
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_user_product_order
+		<include refid="dynamic_where" />
+	</delete>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_user_product_order.id =#{input.id}</if>
+			<if test="input != null and input.ids != null">
+				and xd_user_product_order.id in
+				<foreach collection="input.ids" open="(" close=")"
+					separator="," item="item" index="index">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.userId != null">and xd_user_product_order.user_id =#{input.userId}</if>
+			<if test="input != null and input.courseId != null">and xd_user_product_order.course_id =#{input.courseId}</if>
+			<if test="input != null and input.orderStatus != null">and xd_user_product_order.order_status =#{input.orderStatus}</if>
+			<if test="input != null and input.orderTime != null">and xd_user_product_order.order_time =#{input.orderTime}</if>
+			<if test="input != null and input.expDate != null">and xd_user_product_order.exp_date =#{input.expDate}</if>
+			<if test="input != null and input.isExp != null">and xd_user_product_order.is_exp =#{input.isExp}</if>
+			<if test="input != null and input.normalDate != null"> <!-- and xd_user_product_order.order_time &lt; NOW()  -->and xd_user_product_order.exp_date &gt; NOW() </if>
+			<if test="input != null and input.examDateStatus != null">and xd_user_product_order.exam_date_status = #{input.examDateStatus}</if>
+			<if test="input != null and input.typeCode != null">and xd_course_product_category.type_code = #{input.typeCode}</if>
+			<if test="input != null and input.nowTime != null"><!--  and xd_user_product_order.order_time &lt; #{input.nowTime} --> and xd_user_product_order.exp_date &gt; #{input.nowTime} </if>
+		</where>
+	</sql>
+	<!--动态语句:输出 -->
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_user_product_order.id,</if>
+			<if test="output != null and output.userId != null">xd_user_product_order.user_id,</if>
+			<if test="output != null and output.courseId != null">xd_user_product_order.course_id,</if>
+			<if test="output != null and output.orderStatus != null">xd_user_product_order.order_status,</if>
+			<if test="output != null and output.orderTime != null">xd_user_product_order.order_time,</if>
+			<if test="output != null and output.expDate != null">xd_user_product_order.exp_date,</if>
+			<if test="output != null and output.isExp != null">xd_user_product_order.is_exp,</if>
+			<if test="output != null and output.examDateStatus !=null">xd_user_product_order.exam_date_status,</if>
+		</trim>
+	</sql>
+
+</mapper>

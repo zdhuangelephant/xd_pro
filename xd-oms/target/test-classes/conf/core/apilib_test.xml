@@ -1,0 +1,26 @@
+<ApiLib>
+	<Import location="/conf/custom/env/apiLib_test.properties" />
+	<ProductLine code="0101" name="car">
+		<Apis>
+			<RemoteAPI name="carDriver" protocol="json"
+				parameterTemplate="default_simple" returnValueName="carDriverReturnValue"
+				url="${carDriver_url}" />
+		</Apis>
+	</ProductLine>
+	<ElongOrder>
+		<Apis>
+			<LocalAPI name="omsApi"
+				className="com.elong.oms.statemachine.engine.model.api.localapi.Mytest"
+				beanId="myTest" method="test" returnValueName="omsApiReturnValue">
+				<InputParam name="orderId" type="java.lang.String" />
+				<InputParam name="productType" type="java.lang.String" />
+			</LocalAPI>
+		</Apis>
+	</ElongOrder>
+	<ParameterTemplate basePath="/conf/custom/notenv/vm/api">
+		<Template name="default_simple" file="default_simple.vm"
+			pojo="SimpleTemp" />
+		<Template name="default_complete" file="default_complete.vm"
+			pojo="CompleteTemp" />
+	</ParameterTemplate>
+</ApiLib>

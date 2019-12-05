@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RaiseWrongQues">
+	<resultMap id="BaseResultMap" type="com.xiaodou.domain.product.RaiseWrongQues">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="course_id" property="courseId" jdbcType="BIGINT" />
+		<result column="chapter_id" property="chapterId" jdbcType="BIGINT" />
+		<result column="ques_id" property="quesId" jdbcType="BIGINT" />
+		<result column="wrong_type" property="wrongType" jdbcType="VARCHAR" />
+		<result column="wrong_msg" property="wrongMsg" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, user_id, course_id, chapter_id, ques_id, wrong_type,
+		wrong_msg</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.domain.product.RaiseWrongQues">
+		select
+		<include refid="base_column" />
+		from xd_user_raise_wrong_ques where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_user_raise_wrong_ques
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.domain.product.RaiseWrongQues"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_user_raise_wrong_ques
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="courseId != null">course_id,</if>
+			<if test="chapterId != null">chapter_id,</if>
+			<if test="quesId != null">ques_id,</if>
+			<if test="wrongType != null">wrong_type,</if>
+			<if test="wrongMsg != null">wrong_msg,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+			<if test="courseId != null">#{courseId,jdbcType=BIGINT},</if>
+			<if test="chapterId != null">#{chapterId,jdbcType=BIGINT},</if>
+			<if test="quesId != null">#{quesId,jdbcType=BIGINT},</if>
+			<if test="wrongType != null">#{wrongType,jdbcType=VARCHAR},</if>
+			<if test="wrongMsg != null">#{wrongMsg,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.domain.product.RaiseWrongQues">
+		update xd_user_raise_wrong_ques
+		<set>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.quesId != null">ques_id = #{value.quesId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.wrongType != null">wrong_type = #{value.wrongType,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.wrongMsg != null">wrong_msg = #{value.wrongMsg,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.domain.product.RaiseWrongQues">
+		update xd_user_raise_wrong_ques
+		<set>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.quesId != null">ques_id = #{value.quesId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.wrongType != null">wrong_type = #{value.wrongType,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.wrongMsg != null">wrong_msg = #{value.wrongMsg,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.domain.product.RaiseWrongQues"> delete from
+		xd_user_raise_wrong_ques where id = #{id,jdbcType=BIGINT}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_user_raise_wrong_ques
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.courseId != null">course_id,</if>
+			<if test="output != null and output.chapterId != null">chapter_id,</if>
+			<if test="output != null and output.quesId != null">ques_id,</if>
+			<if test="output != null and output.wrongType != null">wrong_type,</if>
+			<if test="output != null and output.wrongMsg != null">wrong_msg,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.idLower != null">and id &gt; #{input.idLower}</if>
+			<if test="input != null and input.idUpper != null">and id &lt; #{input.idUpper}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.courseId != null">and course_id=#{input.courseId}</if>
+			<if test="input != null and input.chapterId != null">and chapter_id=#{input.chapterId}</if>
+			<if test="input != null and input.quesId != null">and ques_id=#{input.quesId}</if>
+			<if test="input != null and input.wrongType != null">and wrong_type=#{input.wrongType}</if>
+			<if test="input != null and input.wrongMsg != null">and wrong_msg=#{input.wrongMsg}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.courseId != null and ( sort.courseId == 'ASC' or sort.courseId == 'DESC' )">course_id ${sort.courseId},</if>
+			<if
+				test="sort != null and sort.chapterId != null and ( sort.chapterId == 'ASC' or sort.chapterId == 'DESC' )">chapter_id ${sort.chapterId},</if>
+			<if
+				test="sort != null and sort.quesId != null and ( sort.quesId == 'ASC' or sort.quesId == 'DESC' )">ques_id ${sort.quesId},</if>
+			<if
+				test="sort != null and sort.wrongType != null and ( sort.wrongType == 'ASC' or sort.wrongType == 'DESC' )">wrong_type ${sort.wrongType},</if>
+			<if
+				test="sort != null and sort.wrongMsg != null and ( sort.wrongMsg == 'ASC' or sort.wrongMsg == 'DESC' )">wrong_msg ${sort.wrongMsg},</if>
+		</trim>
+	</sql>
+</mapper>

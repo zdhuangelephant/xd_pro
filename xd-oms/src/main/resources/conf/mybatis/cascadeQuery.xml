@@ -1,0 +1,1397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CascadeQuery">
+
+	<resultMap type="java.lang.String" id="GorderId" />
+
+	<resultMap type="OrderItem" id="OrderQueryMap">
+
+		<result property="gorder.id" column="GORDER_ID" />
+		<result property="gorder.productType" column="GPRODUCT_TYPE" />
+		<result property="gorder.gorderTime" column="GORDER_TIME" />
+		<result property="gorder.gorderAmount" column="GORDER_AMOUNT" />
+		<result property="gorder.gpayAmount" column="GPAY_AMOUNT" />
+		<result property="gorder.originalGpayAmount" column="ORIGINAL_GPAY_AMOUNT" />
+		<result property="gorder.gsaveAmount" column="GSAVE_AMOUNT" />
+		<result property="gorder.gfee" column="GFEE" />
+		<result property="gorder.gorderStatus" column="GORDER_STATUS" />
+		<result property="gorder.realPayMethod" column="REAL_PAY_METHOD" />
+		<result property="gorder.goodsName" column="GOODS_NAME" />
+		<result property="gorder.payOrderId" column="PAY_ORDER_ID" />
+		<result property="gorder.payUrl" column="PAY_URL" />
+		<result property="gorder.preCloseTime" column="GORDER_PRE_CLOSE_TIME" />
+		<result property="gorder.paySuccessTime" column="PAY_SUCCESS_TIME" />
+		<result property="gorder.sellerNickName" column="SELLER_NICK_NAME" />
+		<result property="gorder.invoice" column="INVOICE" />
+		<result property="gorder.shippingAddress" column="SHIPPING_ADDRESS" />
+		<result property="gorder.receiverEmail" column="RECEIVER_EMAIL" />
+		<result property="gorder.receiverName" column="RECEIVER_NAME" />
+		<result property="gorder.receiverPhone" column="RECEIVER_PHONE"
+			javaType="String" jdbcType="BIGINT" />
+		<result property="gorder.deliveryDateType" column="DELIVERY_DATE_TYPE" />
+		<result property="gorder.expectedShippingTime" column="EXPECTED_SHIPPING_TIME" />
+		<result property="gorder.outerOrigin" column="OUTER_ORIGIN" />
+		<result property="gorder.innerOrigin" column="INNER_ORIGIN" />
+		<result property="gorder.parentGorderId" column="PARENT_GORDER_ID" />
+		<result property="gorder.note" column="GNOTE" />
+		<result property="gorder.updateTime" column="GUPDATE_TIME" />
+		<result property="gorder.clientType" column="CLIENT_TYPE" />
+		<result property="gorder.closeTime" column="GCLOSE_TIME" />
+		<result property="gorder.city" column="CITY" />
+		<result property="gorder.gorderDesc" column="GORDER_DESC" />
+		<result property="gorder.gorderIp" column="GORDER_IP" />
+		<result property="gorder.buyAccountId" column="GBUY_ACCOUNT_ID" />
+		<result property="gorder.isNeedInvoice" column="is_need_invoice" />
+		<result property="gorder.isLogin" column="is_login" />
+		<result property="gorder.uid" column="uid" />
+		<result property="gorder.deviceId" column="DEVICE_ID" />
+		<result property="gorder.orderFrom" column="ORDER_FROM_ID" />
+		<result property="gorder.tags" column="tags" />
+
+		<result property="order.id" column="ORDER_ID" />
+		<result property="order.gorderId" column="ORDER_GORDER_ID" />
+		<result property="order.productType" column="PRODUCT_TYPE" />
+		<result property="order.orderTime" column="ORDER_TIME" />
+		<result property="order.orderIp" column="ORDER_IP" />
+		<result property="order.orderStatus" column="ORDER_STATUS" />
+		<result property="order.orderAmount" column="ORDER_AMOUNT" />
+		<result property="order.saveAmount" column="SAVE_AMOUNT" />
+		<result property="order.payAmount" column="PAY_AMOUNT" />
+		<result property="order.logisticsAmount" column="LOGISTICS_AMOUNT" />
+		<result property="order.fee" column="FEE" />
+		<result property="order.originalPayAmount" column="ORIGINAL_PAY_AMOUNT" />
+		<result property="order.costAmount" column="COST_AMOUNT" />
+		<result property="order.buyAccountId" column="BUY_ACCOUNT_ID" />
+		<result property="order.preCloseTime" column="PRE_CLOSE_TIME" />
+		<result property="order.updateTime" column="UPDATE_TIME" />
+		<result property="order.successTime" column="SUCCESS_TIME" />
+		<result property="order.settleUp" column="SETTLE_UP" />
+		<result property="order.merchantId" column="MERCHANT_ID" />
+		<result property="order.merchantName" column="MERCHANT_NAME" />
+		<result property="order.merchantOrderId" column="MERCHANT_ORDER_ID" />
+		<result property="order.merchantAccount" column="MERCHANT_ACCOUNT" />
+		<result property="order.merchantAmount" column="MERCHANT_AMOUNT" />
+		<result property="order.merchantTel" column="MERCHANT_TEL" />
+		<result property="order.activityType" column="ACTIVITY_TYPE" />
+		<result property="order.activityId" column="ACTIVITY_ID" />
+		<result property="order.orderDesc" column="ORDER_DESC" />
+		<result property="order.remark" column="REMARK" />
+		<result property="order.misc" column="MISC" />
+		<result property="order.canDeliver" column="CAN_DELIVER" />
+		<result property="order.canSettleUp" column="CAN_SETTLE_UP" />
+		<result property="order.canRefund" column="CAN_REFUND" />
+		<result property="order.orderIp" column="ORDER_IP" />
+		<result property="order.keywords" column="KEY_WORDS" />
+		<result property="order.deliveryBeginTime" column="DELIVERY_BEGIN_TIME" />
+		<result property="order.deliveryEndTime" column="DELIVERY_END_TIME" />
+		<result property="order.relationId" column="RELATION_ID" />
+		<result property="order.closedReason" column="closed_reason" />
+		<result property="order.statusDesc" column="status_desc" />
+		<result property="order.note" column="order_note" />
+		<result property="order.distributorOrderId" column="DISTRIBUTOR_ORDER_ID" />
+
+		<result property="id" column="ORDER_ITEM_ID" />
+		<result property="orderId" column="ITEM_ORDER_ID" />
+		<result property="prctId" column="PRCT_ID" />
+		<result property="subPrctId" column="SUB_PRCT_ID" />
+		<result property="merchantPrctId" column="MERCHANT_PRCT_ID" />
+		<result property="merchantPrctName" column="MERCHANT_PRCT_NAME" />
+		<result property="merchantSubPrctId" column="SUB_MERCHANT_PRCT_ID" />
+		<result property="merchantSubPrctName" column="SUB_MERCHANT_PRCT_NAME" />
+		<result property="productType" column="ITEM_PRODUCT_TYPE" />
+		<result property="productName" column="ITEM_PRODUCT_NAME" />
+		<result property="buyCount" column="BUY_COUNT" />
+		<result property="unitPrice" column="UNIT_PRICE" />
+		<result property="itemOrderAmount" column="ITEM_ORDER_AMOUNT" />
+		<result property="itemSaveAmount" column="ITEM_SAVE_AMOUNT" />
+		<result property="itemPayAmount" column="ITEM_PAY_AMOUNT" />
+		<result property="itemFee" column="ITEM_FEE" />
+		<result property="itemCostAmount" column="ITEM_COST_AMOUNT" />
+		<result property="originalItemPayAmount" column="ORIGINAL_ITEM_PAY_AMOUNT" />
+		<result property="refundAmount" column="REFUND_AMOUNT" />
+		<result property="createTime" column="ITEM_CREATE_TIME" />
+		<result property="updateTime" column="ITEM_UPDATE_TIME" />
+		<result property="canRefund" column="ITEM_CAN_REFUND" />
+		<result property="canRefund" column="ITEM_CAN_REFUND" />
+		<result property="refundDeadline" column="ITEM_REFUND_DEADLINE" />
+		<result property="refundStatus" column="ITEM_REFUND_STATUS" />
+		<result property="canExchange" column="CAN_EXCHANGE" />
+		<result property="exchangeDeadline" column="EXCHANGE_DEADLINE" />
+		<result property="exchangeStatus" column="EXCHANGE_STATUS" />
+		<result property="okAmount" column="OK_AMOUNT" />
+		<result property="okCount" column="OK_COUNT" />
+		<result property="activityLabel" column="ACTIVITY_LABEL" />
+		<result property="itemPoint" column="ITEM_POINT" />
+		<result property="goodsImageUrl" column="GOODS_IMAGE_URL" />
+		<result property="itemStatus" column="item_status" />
+		<result property="misc" column="item_misc" />
+		<result property="relationId" column="item_relation_id" />
+		<result property="note" column="item_note" />
+	</resultMap>
+	<resultMap type="Order" id="Order">
+
+		<result property="gorder.id" column="GORDER_ID" />
+		<result property="gorder.productType" column="GPRODUCT_TYPE" />
+		<result property="gorder.gorderTime" column="GORDER_TIME" />
+		<result property="gorder.gorderAmount" column="GORDER_AMOUNT" />
+		<result property="gorder.gpayAmount" column="GPAY_AMOUNT" />
+		<result property="gorder.originalGpayAmount" column="ORIGINAL_GPAY_AMOUNT" />
+		<result property="gorder.gsaveAmount" column="GSAVE_AMOUNT" />
+		<result property="gorder.gfee" column="GFEE" />
+		<result property="gorder.gorderStatus" column="GORDER_STATUS" />
+		<result property="gorder.realPayMethod" column="REAL_PAY_METHOD" />
+		<result property="gorder.goodsName" column="GOODS_NAME" />
+		<result property="gorder.payOrderId" column="PAY_ORDER_ID" />
+		<result property="gorder.payUrl" column="PAY_URL" />
+		<result property="gorder.preCloseTime" column="GORDER_PRE_CLOSE_TIME" />
+		<result property="gorder.paySuccessTime" column="PAY_SUCCESS_TIME" />
+		<result property="gorder.sellerNickName" column="SELLER_NICK_NAME" />
+		<result property="gorder.invoice" column="INVOICE" />
+		<result property="gorder.shippingAddress" column="SHIPPING_ADDRESS" />
+		<result property="gorder.receiverEmail" column="RECEIVER_EMAIL" />
+		<result property="gorder.receiverName" column="RECEIVER_NAME" />
+		<result property="gorder.receiverPhone" column="RECEIVER_PHONE"
+			javaType="String" jdbcType="BIGINT" />
+		<result property="gorder.deliveryDateType" column="DELIVERY_DATE_TYPE" />
+		<result property="gorder.expectedShippingTime" column="EXPECTED_SHIPPING_TIME" />
+		<result property="gorder.outerOrigin" column="OUTER_ORIGIN" />
+		<result property="gorder.innerOrigin" column="INNER_ORIGIN" />
+		<result property="gorder.parentGorderId" column="PARENT_GORDER_ID" />
+		<result property="gorder.note" column="GNOTE" />
+		<result property="gorder.updateTime" column="GUPDATE_TIME" />
+		<result property="gorder.clientType" column="CLIENT_TYPE" />
+		<result property="gorder.closeTime" column="GCLOSE_TIME" />
+		<result property="gorder.city" column="CITY" />
+		<result property="gorder.gorderDesc" column="GORDER_DESC" />
+		<result property="gorder.gorderIp" column="GORDER_IP" />
+		<result property="gorder.buyAccountId" column="GBUY_ACCOUNT_ID" />
+		<result property="gorder.isNeedInvoice" column="is_need_invoice" />
+		<result property="gorder.isLogin" column="is_login" />
+		<result property="gorder.uid" column="uid" />
+		<result property="gorder.deviceId" column="DEVICE_ID" />
+		<result property="gorder.orderFrom" column="ORDER_FROM_ID" />
+		<result property="gorder.tags" column="TAGS" />
+
+		<result property="id" column="ORDER_ID" />
+		<result property="gorderId" column="ORDER_GORDER_ID" />
+		<result property="productType" column="PRODUCT_TYPE" />
+		<result property="orderTime" column="ORDER_TIME" />
+		<result property="orderIp" column="ORDER_IP" />
+		<result property="orderStatus" column="ORDER_STATUS" />
+		<result property="orderAmount" column="ORDER_AMOUNT" />
+		<result property="saveAmount" column="SAVE_AMOUNT" />
+		<result property="payAmount" column="PAY_AMOUNT" />
+		<result property="logisticsAmount" column="LOGISTICS_AMOUNT" />
+		<result property="fee" column="FEE" />
+		<result property="originalPayAmount" column="ORIGINAL_PAY_AMOUNT" />
+		<result property="costAmount" column="COST_AMOUNT" />
+		<result property="buyAccountId" column="BUY_ACCOUNT_ID" />
+		<result property="preCloseTime" column="PRE_CLOSE_TIME" />
+		<result property="updateTime" column="UPDATE_TIME" />
+		<result property="successTime" column="SUCCESS_TIME" />
+		<result property="settleUp" column="SETTLE_UP" />
+		<result property="merchantId" column="MERCHANT_ID" />
+		<result property="merchantName" column="MERCHANT_NAME" />
+		<result property="merchantOrderId" column="MERCHANT_ORDER_ID" />
+		<result property="merchantAccount" column="MERCHANT_ACCOUNT" />
+		<result property="merchantAmount" column="MERCHANT_AMOUNT" />
+		<result property="merchantTel" column="MERCHANT_TEL" />
+		<result property="activityType" column="ACTIVITY_TYPE" />
+		<result property="activityId" column="ACTIVITY_ID" />
+		<result property="orderDesc" column="ORDER_DESC" />
+		<result property="remark" column="REMARK" />
+		<result property="misc" column="MISC" />
+		<result property="canDeliver" column="CAN_DELIVER" />
+		<result property="canSettleUp" column="CAN_SETTLE_UP" />
+		<result property="canRefund" column="CAN_REFUND" />
+		<result property="orderIp" column="ORDER_IP" />
+		<result property="keywords" column="KEY_WORDS" />
+		<result property="deliveryBeginTime" column="DELIVERY_BEGIN_TIME" />
+		<result property="deliveryEndTime" column="DELIVERY_END_TIME" />
+		<result property="relationId" column="RELATION_ID" />
+		<result property="closedReason" column="closed_reason" />
+		<result property="statusDesc" column="status_desc" />
+		<result property="note" column="order_note" />
+	</resultMap>
+
+
+	<resultMap id="QueryPaymentModel" type="QueryPaymentModel">
+		<result property="id" column="id" />
+		<result property="productType" column="product_type" />
+		<result property="orderId" column="order_id" />
+		<result property="payNo" column="pay_no" />
+		<result property="gorderStatus" column="gorder_status" />
+		<result property="gorderIp" column="gorder_ip" />
+	</resultMap>
+
+	<select id="queryGorderJoinPayRecordById" resultMap="QueryPaymentModel"
+		parameterType="java.util.Map">
+		select g.id,g.product_type,p.order_id ,p.pay_no,g.gorder_status,g.gorder_ip
+		FROM xd_order_pay_record p INNER JOIN xd_order_gorder g
+		ON p.gorder_id=g.id WHERE g.id=#{input.id} AND p.oper_type=0 AND
+		p.pay_type=1 AND p.pay_status=1
+	</select>
+
+	<sql id="from_sql">
+		from xd_order_gorder g left join xd_order_order o on
+		o.GORDER_ID = g.ID left
+		join xd_order_order_item i on o.ID = i.ORDER_ID
+	</sql>
+	<sql id="from_gorder_order">
+		from xd_order_gorder g left join xd_order_order o on
+		o.GORDER_ID = g.ID
+	</sql>
+	<!-- order- orderitem 联查 -->
+	<sql id="from_order_orderitem">
+		from xd_order_order o left join xd_order_order_item i on o.ID = i.ORDER_ID
+	</sql>
+
+	<sql id="dynamic_where">
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.id != null ">and
+			g.ID = #{condition.gorder.id}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.listId != null ">
+			and
+			g.ID in
+			<foreach collection="condition.gorder.listId" item="item"
+				separator="," open="(" close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.gorderTimeLower != null">and
+			g.gorder_time &gt; #{condition.gorder.gorderTimeLower}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.gorderTimeUpper != null">and
+			g.gorder_time &lt; #{condition.gorder.gorderTimeUpper}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.gorderStatus != null">and
+			g.GORDER_STATUS = #{condition.gorder.gorderStatus}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.payOrderId != null">and
+			g.PAY_ORDER_ID = #{condition.gorder.payOrderId}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.preCloseTimeLower != null">and
+			g.PRE_CLOSE_TIME &gt;= #{condition.gorder.preCloseTimeLower}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.preCloseTimeUpper != null">and
+			g.PRE_CLOSE_TIME &lt;= #{condition.gorder.preCloseTimeUpper}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.paySuccessTimeLower != null">and
+			g.PAY_SUCCESS_TIME &gt;=
+			#{condition.gorder.paySuccessTimeLower}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.paySuccessTimeUpper != null">and
+			g.PAY_SUCCESS_TIME &lt;=
+			#{condition.gorder.paySuccessTimeUpper}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.updateTimeLower != null">and
+			g.UPDATE_TIME &gt;= #{condition.gorder.updateTimeLower}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.updateTimeUpper != null">and
+			g.UPDATE_TIME &lt;= #{condition.gorder.updateTimeUpper}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.buyAccountId != null">and
+			g.BUY_ACCOUNT_ID = #{condition.gorder.buyAccountId}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.gorderIp != null">and
+			g.GORDER_IP = #{condition.gorder.gorderIp}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.receiverEmail != null">and
+			g.RECEIVER_EMAIL = #{condition.gorder.receiverEmail}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.receiverName != null">and
+			g.RECEIVER_NAME = #{condition.gorder.receiverName}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.receiverPhone != null">and
+			g.RECEIVER_PHONE = #{condition.gorder.receiverPhone}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.outerOrigin != null">and
+			g.OUTER_ORIGIN = #{condition.gorder.outerOrigin}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.innerOrigin != null">and
+			g.INNER_ORIGIN = #{condition.gorder.innerOrigin}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.parentGorderId != null">and
+			g.PARENT_GORDER_ID = #{condition.gorder.parentGorderId}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.clientType != null">and
+			g.CLIENT_TYPE = #{condition.gorder.clientType}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.city != null">and
+			g.CITY = #{condition.gorder.city}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.productType != null">and
+			g.PRODUCT_TYPE = #{condition.gorder.productType}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.productTypeLike != null">and
+			g.PRODUCT_TYPE like
+			concat(#{condition.gorder.productTypeLike},'%')
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.expectedShippingTimeLower != null">and
+			g.EXPECTED_SHIPPING_TIME &gt;=
+			#{condition.gorder.expectedShippingTimeLower}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.expectedShippingTimeUpper != null">and
+			g.EXPECTED_SHIPPING_TIME &lt;=
+			#{condition.gorder.expectedShippingTimeUpper}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.isNeedInvoice != null">and
+			g.is_need_invoice = #{condition.gorder.isNeedInvoice}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.orderFrom != null">and
+			g.order_from_id = #{condition.gorder.orderFrom}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.tags != null">and
+			g.tags &amp; #{condition.gorder.tags} =
+			#{condition.gorder.tags}
+		</if>
+
+
+		<if
+			test="condition != null and condition.order!= null and condition.order.id != null and condition.order.id != '' ">and
+			o.ID = #{condition.order.id}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.idLower != null">
+			and
+			o.ID &gt;= #{condition.order.idLower}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.idUpper != null">
+			and
+			o.ID &lt;= #{condition.order.idUpper}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.listId != null ">
+			and
+			o.ID in
+			<foreach collection="condition.order.listId" item="item"
+				separator="," open="(" close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.orderTimeLower != null and condition.order.orderTimeLower != ''">and
+			o.ID &gt;= #{condition.order.orderTimeLower}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.orderTimeUpper != null and condition.order.orderTimeUpper != ''">and
+			o.ID &lt;= #{condition.order.orderTimeUpper}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.productType != null">and
+			o.PRODUCT_TYPE = #{condition.order.productType}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.productTypeList != null">
+			and
+			o.PRODUCT_TYPE in
+			<foreach collection="condition.order.productTypeList" item="item"
+				separator="," open="(" close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.orderStatus != null">and
+			o.ORDER_STATUS = #{condition.order.orderStatus}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.orderStatusList != null">
+			and
+			o.ORDER_STATUS in
+			<foreach collection="condition.order.orderStatusList" item="item"
+				separator="," open="(" close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.listOrderStatus != null">
+			and
+			o.ORDER_STATUS in
+			<foreach collection="condition.order.listOrderStatus" item="item"
+				separator="," open="(" close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.excludeOrderStatusList != null">
+			and
+			o.ORDER_STATUS not in
+			<foreach collection="condition.order.excludeOrderStatusList"
+				item="item" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.buyAccountId != null and condition.order.buyAccountId != '' ">and
+			o.BUY_ACCOUNT_ID = #{condition.order.buyAccountId}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.preCloseTimeLower != null">and
+			o.PRE_CLOSE_TIME &gt;= #{condition.order.preCloseTimeLower}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.preCloseTimeUpper != null">and
+			o.PRE_CLOSE_TIME &lt;= #{condition.order.preCloseTimeUpper}
+		</if>
+
+		<if
+			test="condition != null and condition.order!= null and condition.order.merchantId != null">and
+			o.MERCHANT_ID = #{condition.order.merchantId}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.listMerchantId != null">
+			and
+			o.MERCHANT_ID in
+			<foreach collection="condition.order.listMerchantId" item="item"
+				separator="," close=")" open="(">#{item,jdbcType=NUMERIC}</foreach>
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.merchantOrderId != null and condition.order.merchantOrderId != '' ">and
+			o.MERCHANT_ORDER_ID = #{condition.order.merchantOrderId}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.keywords != null and condition.order.keywords != ''">and
+			o.KEY_WORDS like concat('%',#{condition.order.keywords},'%')
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.relationId != null">and
+			o.RELATION_ID = #{condition.order.relationId}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.orderIp != null">and
+			o.ORDER_IP = #{condition.order.orderIp}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.closedReason != null">and
+			o.closed_reason = #{condition.order.closedReason}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.status_desc != null">and
+			o.statusDesc = #{condition.order.status_desc}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.mod != null and condition.order.reminder != null">and
+			o.id%#{condition.order.mod} = #{condition.order.reminder}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.updateTimeLower != null">and
+			o.update_time &gt; #{condition.order.updateTimeLower}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.updateTimeUpper != null">and
+			o.update_time &lt; #{condition.order.updateTimeUpper}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.orderTimeLower != null">and
+			o.order_time &gt; #{condition.order.orderTimeLower}
+		</if>
+		<if
+			test="condition != null and condition.order!= null and condition.order.orderTimeUpper != null">and
+			o.order_time &lt; #{condition.order.orderTimeUpper}
+		</if>
+
+		<!-- 国际酒店新增入住/离店时间查询 -->
+		<!-- 入店时间 -->
+		<if
+			test="condition != null and condition.order != null and condition.order.deliveryBeginTimeLower != null">
+			and o.delivery_begin_time &gt;=
+			#{condition.order.deliveryBeginTimeLower}
+		</if>
+		<if
+			test="condition != null and condition.order != null and condition.order.deliveryBeginTimeUpper != null">
+			and o.delivery_begin_time &lt;=
+			#{condition.order.deliveryBeginTimeUpper}
+		</if>
+		<!-- 离店时间 -->
+		<if
+			test="condition != null and condition.order != null and condition.order.deliveryEndTimeLower != null">
+			and o.delivery_end_time &gt;= #{condition.order.deliveryEndTimeLower}
+		</if>
+		<if
+			test="condition != null and condition.order != null and condition.order.deliveryEndTimeUpper != null">
+			and o.delivery_end_time &lt;= #{condition.order.deliveryEndTimeUpper}
+		</if>
+
+		<!-- 酒店前台支付增加查询条件 -->
+		<if
+			test="condition != null and condition.order!= null and condition.order.merchantName != null">and
+			o.merchant_name = #{condition.order.merchantName}
+		</if>
+
+		<if
+			test="condition != null and condition.order!= null and condition.order.distributorOrderId != null">and
+			o.distributor_order_id = #{condition.order.distributorOrderId}
+		</if>
+
+		<if
+			test="condition != null and condition.orderItem!= null and condition.orderItem.id != null ">and
+			i.ID = #{condition.orderItem.id}
+		</if>
+		<if
+			test="condition != null and condition.orderItem!= null and condition.orderItem.orderId != null ">and
+			i.ORDER_ID = #{condition.orderItem.orderId}
+		</if>
+		<if
+			test="condition != null and condition.orderItem!= null and condition.orderItem.prctId != null ">and
+			i.PRCT_ID = #{condition.orderItem.prctId}
+		</if>
+		<if
+			test="condition != null and condition.orderItem!= null and condition.orderItem.subPrctId != null ">and
+			i.SUB_PRCT_ID = #{condition.orderItem.subPrctId}
+		</if>
+		<if
+			test="condition != null and condition.orderItem!= null and condition.orderItem.merchantPrctId != null ">and
+			i.MERCHANT_PRCT_ID = #{condition.orderItem.merchantPrctId}
+		</if>
+		<if
+			test="condition != null and condition.orderItem!= null and condition.orderItem.merchantPrctName != null ">and
+			i.MERCHANT_PRCT_NAME = #{condition.orderItem.merchantPrctName}
+		</if>
+		<if
+			test="condition != null and condition.orderItem!= null and condition.orderItem.subMerchantPrctId != null ">and
+			i.SUB_MERCHANT_PRCT_ID =
+			#{condition.orderItem.subMerchantPrctId}
+		</if>
+		<if
+			test="condition != null and condition.orderItem!= null and condition.orderItem.subMerchantPrctName != null ">and
+			i.SUB_MERCHANT_PRCT_NAME = #{condition.orderItem.subMerchantPrctName}
+		</if>
+		<if
+			test="condition != null and condition.orderItem!= null and condition.orderItem.productName != null and condition.orderItem.productName != ''">and
+			i.PRODUCT_NAME like
+			concat('%',#{condition.orderItem.productName},'%')
+		</if>
+		<if
+			test="condition != null and condition.orderItem!= null and condition.orderItem.productType != null">and
+			i.PRODUCT_TYPE = #{condition.orderItem.productType}
+		</if>
+		<if
+			test="condition != null and condition.orderItem!= null and condition.orderItem.itemStatus != null">and
+			i.item_status = #{condition.orderItem.itemStatus}
+		</if>
+		<if
+			test="condition != null and condition.orderItem!= null and condition.orderItem.relationId != null">and
+			i.item_relation_id = #{condition.orderItem.relationId}
+		</if>
+		<if
+			test="condition != null and condition.orderItem!= null and condition.orderItem.misc != null">and
+			i.item_misc like concat('%',#{condition.orderItem.misc},'%')
+		</if>
+		<if
+			test="condition != null and condition.orderItem!= null and condition.orderItem.merchantPrctId != null">and
+			i.merchant_prct_id = #{condition.orderItem.merchantPrctId}
+		</if>
+		<if
+			test="condition != null and condition.orderItem!= null and condition.orderItem.updateTimeLower != null">and
+			i.update_time &gt; #{condition.orderItem.updateTimeLower}
+		</if>
+		<if
+			test="condition != null and condition.orderItem!= null and condition.orderItem.updateTimeUpper != null">and
+			i.update_time &lt; #{condition.orderItem.updateTimeUpper}
+		</if>
+		<if
+			test="condition != null and condition.orderItem!= null and condition.orderItem.createTimeLower != null">and
+			i.create_time &gt; #{condition.orderItem.createTimeLower}
+		</if>
+		<if
+			test="condition != null and condition.orderItem!= null and condition.orderItem.createTimeUpper != null">and
+			i.create_time &lt; #{condition.orderItem.createTimeUpper}
+		</if>
+		<if
+			test="condition != null and condition.gorder!= null and condition.gorder.orderFrom != null">and
+			g.order_from_id = #{condition.gorder.orderFrom}
+		</if>
+	</sql>
+
+	<sql id="select_column_sql">
+		1
+		<if
+			test="output != null and output.gorder!=null and output.gorder.id != null">,
+			g.ID as GORDER_ID
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.productType != null">,
+			g.PRODUCT_TYPE as GPRODUCT_TYPE
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.gorderTime != null">,
+			g.GORDER_TIME
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.gorderAmount != null">,
+			g.GORDER_AMOUNT
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.gpayAmount != null">,
+			g.GPAY_AMOUNT
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.originalGpayAmount != null">,
+			g.ORIGINAL_GPAY_AMOUNT
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.gsaveAmount != null">,
+			g.GSAVE_AMOUNT
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.gfee != null">,
+			g.GFEE
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.gorderStatus != null">,
+			g.GORDER_STATUS
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.realPayMethod != null">,
+			g.REAL_PAY_METHOD
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.goodsName != null">,
+			g.GOODS_NAME
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.payOrderId != null">,
+			g.PAY_ORDER_ID
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.payUrl != null">,
+			g.PAY_URL
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.preCloseTime != null">,
+			g.PRE_CLOSE_TIME GORDER_PRE_CLOSE_TIME
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.paySuccessTime != null">,
+			g.PAY_SUCCESS_TIME
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.sellerNickName != null">,
+			g.SELLER_NICK_NAME
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.invoice != null">,
+			g.INVOICE
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.shippingAddress != null">,
+			g.SHIPPING_ADDRESS
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.receiverEmail != null">,
+			g.RECEIVER_EMAIL
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.receiverName != null">,
+			g.RECEIVER_NAME
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.receiverPhone != null">,
+			g.RECEIVER_PHONE
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.deliveryDateType != null">,
+			g.DELIVERY_DATE_TYPE
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.expectedShippingTime != null">,
+			g.EXPECTED_SHIPPING_TIME
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.outerOrigin != null">,
+			g.OUTER_ORIGIN
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.innerOrigin != null">,
+			g.INNER_ORIGIN
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.parentGorderId != null">,
+			g.PARENT_GORDER_ID
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.note != null">,
+			g.NOTE as GNOTE
+		</if>
+		<if
+			test="output != null and output.gorder!=null and  output.gorder.updateTime != null">,
+			g.UPDATE_TIME as GUPDATE_TIME
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.clientType != null">,
+			g.CLIENT_TYPE
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.closeTime != null">,
+			g.CLOSE_TIME as GCLOSE_TIME
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.city != null">,
+			g.CITY
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.gorderDesc != null">,
+			g.GORDER_DESC
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.gorderIp != null">,
+			g.GORDER_IP
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.buyAccountId != null">,
+			g.BUY_ACCOUNT_ID GBUY_ACCOUNT_ID
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.isNeedInvoice != null">,
+			g.is_need_invoice is_need_invoice
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.isLogin != null">,
+			g.is_login
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.deviceId != null">,
+			g.device_id
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.orderFrom != null">,
+			g.order_from_id
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.uid != null">,
+			g.uid
+		</if>
+		<if
+			test="output != null and output.gorder!=null and output.gorder.tags != null">,
+			g.tags
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.id != null">,
+			o.ID as ORDER_ID
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.gorderId != null">,
+			o.GORDER_ID ORDER_GORDER_ID
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.productType != null">,
+			o.PRODUCT_TYPE as PRODUCT_TYPE
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.orderTime != null">,
+			o.ORDER_TIME
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.orderStatus != null">,
+			o.ORDER_STATUS
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.orderAmount != null">,
+			o.ORDER_AMOUNT
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.saveAmount != null">,
+			o.SAVE_AMOUNT
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.payAmount != null">,
+			o.PAY_AMOUNT
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.logisticsAmount != null">,
+			o.LOGISTICS_AMOUNT
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.fee != null">,
+			o.FEE
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.originalPayAmount != null">,
+			o.ORIGINAL_PAY_AMOUNT
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.costAmount != null">,
+			o.COST_AMOUNT
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.buyAccountId != null">,
+			o.BUY_ACCOUNT_ID
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.preCloseTime != null">,
+			o.PRE_CLOSE_TIME
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.updateTime != null">,
+			o.UPDATE_TIME
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.successTime != null">,
+			o.SUCCESS_TIME
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.settleUp != null">,
+			o.SETTLE_UP
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.merchantId != null">,
+			o.MERCHANT_ID
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.merchantName != null">,
+			o.MERCHANT_NAME
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.merchantAccount != null">,
+			o.MERCHANT_ACCOUNT
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.merchantTel != null">,
+			o.MERCHANT_TEL
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.merchantOrderId != null">,
+			o.MERCHANT_ORDER_ID
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.merchantAmount != null">,
+			o.MERCHANT_AMOUNT
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.activityId != null">,
+			o.ACTIVITY_ID
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.activityType != null">,
+			o.ACTIVITY_TYPE
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.orderDesc != null">,
+			o.ORDER_DESC
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.remark != null">,
+			o.REMARK
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.misc != null">,
+			o.MISC
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.canDeliver != null">,
+			o.CAN_DELIVER
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.canSettleUp != null">,
+			o.CAN_SETTLE_UP
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.canRefund != null">,
+			o.CAN_REFUND
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.orderIp!= null">,
+			o.ORDER_IP
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.keywords!= null">,
+			o.KEY_WORDS
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.deliveryBeginTime!= null">,
+			o.DELIVERY_BEGIN_TIME
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.deliveryEndTime!= null">,
+			o.DELIVERY_END_TIME
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.relationId!= null">,
+			o.RELATION_ID
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.closedReason!= null">,
+			o.closed_reason
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.statusDesc!= null">,
+			o.status_desc
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.note!= null">,
+			o.note order_note
+		</if>
+		<if
+			test="output != null and output.order!=null and output.order.distributorOrderId!= null">,
+			o.DISTRIBUTOR_ORDER_ID
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.id != null">,
+			i.ID as ORDER_ITEM_ID
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.orderId != null">,
+			i.ORDER_ID ITEM_ORDER_ID
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.prctId != null">,
+			i.PRCT_ID
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.subPrctId != null">,
+			i.SUB_PRCT_ID
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.merchantPrctId != null">,
+			i.MERCHANT_PRCT_ID
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.merchantPrctName != null">,
+			i.MERCHANT_PRCT_NAME
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.subMerchantPrctId != null">,
+			i.SUB_MERCHANT_PRCT_ID
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.subMerchantPrctName != null">,
+			i.SUB_MERCHANT_PRCT_NAME
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.productType != null">,
+			i.PRODUCT_TYPE ITEM_PRODUCT_TYPE
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.productName != null">,
+			i.PRODUCT_NAME ITEM_PRODUCT_NAME
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.buyCount != null">,
+			i.BUY_COUNT
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.unitPrice != null">,
+			i.UNIT_PRICE
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.itemOrderAmount != null">,
+			i.ITEM_ORDER_AMOUNT
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.itemSaveAmount != null">,
+			i.ITEM_SAVE_AMOUNT
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.itemPayAmount != null">,
+			i.ITEM_PAY_AMOUNT
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.itemFee != null">,
+			i.ITEM_FEE
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.itemCostAmount != null">,
+			i.ITEM_COST_AMOUNT
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.originalItemPayAmount != null">,
+			i.ORIGINAL_ITEM_PAY_AMOUNT
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.refundAmount != null">,
+			i.REFUND_AMOUNT
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.createTime != null">,
+			i.CREATE_TIME ITEM_CREATE_TIME
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.updateTime != null">,
+			i.UPDATE_TIME ITEM_UPDATE_TIME
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.canRefund != null">,
+			i.CAN_REFUND ITEM_CAN_REFUND
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.refundDeadline != null">,
+			i.REFUND_DEADLINE ITEM_REFUND_DEADLINE
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.refundStatus != null">,
+			i.REFUND_STATUS ITEM_REFUND_STATUS
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.canExchange != null">,
+			i.CAN_EXCHANGE ITEM_CAN_EXCHANGE
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.exchangeDeadline != null">,
+			i.EXCHANGE_DEADLINE ITEM_EXCHANGE_DEADLINE
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.ExchangeStatus != null">,
+			i.EXCHANGE_STATUS ITEM_EXCHANGE_STATUS
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.okAmount != null">,
+			i.OK_AMOUNT
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.okCount != null">,
+			i.OK_COUNT
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.activityLabel != null">,
+			i.ACTIVITY_LABEL
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.itemPoint != null">,
+			i.ITEM_POINT
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.goodsImageUrl != null">,
+			i.GOODS_IMAGE_URL
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.itemStatus != null">,
+			i.item_status
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.relationId != null">,
+			i.item_relation_id
+		</if>
+
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.misc != null">,
+			i.item_misc
+		</if>
+		<if
+			test="output != null and output.orderItem!=null and output.orderItem.note!= null">,
+			i.note item_note
+		</if>
+	</sql>
+
+	<select id="queryGorderIdItemListByCond" parameterType="java.util.Map"
+		resultMap="GorderId">
+		select
+		DISTINCT g.id
+		<include refid="from_sql" />
+		<where>
+			<include refid="dynamic_where" />
+		</where>
+		order by
+		<if
+			test="condition != null and condition.order != null and condition.order.deliveryBeginTimeOrder != null  and (condition.order.deliveryBeginTimeOrder == 'ASC' or condition.order.deliveryBeginTimeOrder == 'DESC')">
+			o.delivery_begin_time ${condition.order.deliveryBeginTimeOrder},
+		</if>
+		<if
+			test="conditon != null and condition.order != null and condition.order.deliveryEndTimeOrder != null and (condition.order.deliveryEndTimeOrder == 'ASC' or condition.order.deliveryEndTimeOrder == 'DESC')">
+			o.delivery_end_time ${condition.order.deliveryEndTimeOrder},
+		</if>
+		<choose>
+			<when
+				test="condition != null and condition.gorder != null and condition.gorder.createTimeOrder != null and (condition.gorder.createTimeOrder == 'ASC' or condition.gorder.createTimeOrder == 'DESC')">
+				g.ID ${condition.gorder.createTimeOrder}
+			</when>
+			<otherwise>
+				g.gorder_time DESC
+			</otherwise>
+		</choose>
+		<if
+			test="condition != null and condition.order != null and condition.order.createTimeOrder != null and (condition.order.createTimeOrder == 'ASC' or condition.order.createTimeOrder == 'DESC')">
+			,o.id ${condition.order.createTimeOrder}
+		</if>
+	</select>
+
+	<!-- 暂时未使用 -->
+	<sql id="queryGorderIdItemListByCond">
+		select
+		DISTINCT g.id
+		<include refid="from_sql" />
+		<where>
+			<include refid="dynamic_where" />
+		</where>
+		order by
+		<if
+			test="condition != null and condition.order != null and condition.order.deliveryBeginTimeOrder != null  and (condition.order.deliveryBeginTimeOrder == 'ASC' or condition.order.deliveryBeginTimeOrder == 'DESC')">
+			o.delivery_begin_time ${condition.order.deliveryBeginTimeOrder,jdbcType=VARCHAR},
+		</if>
+		<if
+			test="conditon != null and condition.order != null and condition.order.deliveryEndTimeOrder != null and (condition.order.deliveryEndTimeOrder == 'ASC' or condition.order.deliveryEndTimeOrder == 'DESC')">
+			o.delivery_end_time ${condition.order.deliveryEndTimeOrder,jdbcType=VARCHAR},
+		</if>
+		<choose>
+			<when
+				test="condition != null and condition.gorder != null and condition.gorder.createTimeOrder != null and (condition.gorder.createTimeOrder == 'ASC' or condition.gorder.createTimeOrder == 'DESC')">
+				g.ID ${condition.gorder.createTimeOrder}
+			</when>
+			<otherwise>
+				g.gorder_time DESC
+			</otherwise>
+		</choose>
+		<if
+			test="condition != null and condition.order != null and condition.order.createTimeOrder != null and (condition.order.createTimeOrder == 'ASC' or condition.order.createTimeOrder == 'DESC')">
+			,o.id ${condition.order.createTimeOrder}
+		</if>
+	</sql>
+
+
+	<!-- 以orderitem为基准的查询, 从gorder开始的级联查询 -->
+	<select id="queryOrderItemListByCond" parameterType="java.util.Map"
+		resultMap="OrderQueryMap">
+		select
+		<include refid="select_column_sql" />
+		<include refid="from_sql" />
+		<where>
+			<include refid="dynamic_where" />
+		</where>
+		<!-- 说明，优先级高的排在g.id前面，优先级低的排在g.id后面 -->
+		order by
+		<if
+			test="condition != null and condition.order != null and condition.order.deliveryBeginTimeOrder != null  and (condition.order.deliveryBeginTimeOrder == 'ASC' or condition.order.deliveryBeginTimeOrder == 'DESC')">
+			o.delivery_begin_time ${condition.order.deliveryBeginTimeOrder},
+		</if>
+		<if
+			test="conditon != null and condition.order != null and condition.order.deliveryEndTimeOrder != null and (condition.order.deliveryEndTimeOrder == 'ASC' or condition.order.deliveryEndTimeOrder == 'DESC')">
+			o.delivery_end_time ${condition.order.deliveryEndTimeOrder},
+		</if>
+		<choose>
+			<when
+				test="condition != null and condition.gorder != null and condition.gorder.createTimeOrder != null and (condition.gorder.createTimeOrder == 'ASC' or condition.gorder.createTimeOrder == 'DESC')">
+				g.ID ${condition.gorder.createTimeOrder}
+			</when>
+			<otherwise>
+				g.gorder_time DESC
+			</otherwise>
+		</choose>
+		<if
+			test="condition != null and condition.order != null and condition.order.createTimeOrder != null and (condition.order.createTimeOrder == 'ASC' or condition.order.createTimeOrder == 'DESC')">
+			,o.id ${condition.order.createTimeOrder}
+		</if>
+
+	</select>
+
+	<!-- 以orderitem为基准的查询, 从order开始的查询 -->
+	<select id="queryOrderOrderItemListByCond" parameterType="java.util.Map"
+		resultMap="OrderQueryMap">
+		select
+		<include refid="select_column_sql" />
+		<include refid="from_order_orderitem" />
+		<where>
+			<include refid="dynamic_where" />
+		</where>
+		<if
+			test="condition != null and condition.order!=null and condition.order.orderByIdAsc == null">
+			order by o.ID desc
+		</if>
+		<if
+			test="condition != null and condition.order!=null and condition.order.orderByIdAsc != null">
+			order by o.ID asc
+		</if>
+		<if
+			test="condition != null and condition.order==null and condition.orderItem!=null and condition.orderItem.orderByIdAsc == null">
+			order by i.ID desc
+		</if>
+		<if
+			test="condition != null and condition.order==null and condition.orderItem!=null and condition.orderItem.orderByIdAsc != null">
+			order by i.ID asc
+		</if>
+	</select>
+
+	<!-- 暂时未使用 -->
+	<select id="queryOrderItemListByCondLimit" parameterType="java.util.Map"
+		resultMap="OrderQueryMap">
+		select
+		<include refid="select_column_sql" />
+		<include refid="from_sql" />
+		<where>
+			<include refid="dynamic_where" />
+		</where>
+		and g.id in (
+		<include refid="queryGorderIdItemListByCond" />
+		)
+		<if
+			test="condition != null and condition.gorder!=null and condition.gorder.orderByIdAsc == null">
+			order by CONVERT(g.ID,SIGNED) desc
+		</if>
+		<if
+			test="condition != null and condition.gorder!=null and condition.gorder.orderByIdAsc != null">
+			order by CONVERT(g.ID,SIGNED) asc
+		</if>
+		<if
+			test="condition != null and condition.gorder==null and condition.order!=null and condition.order.orderByIdAsc == null">
+			order by o.ID desc
+		</if>
+		<if
+			test="condition != null and condition.gorder==null  and condition.order!=null and condition.order.orderByIdAsc != null">
+			order by o.ID asc
+		</if>
+		<if
+			test="condition != null and condition.gorder==null and condition.order==null and condition.orderItem!=null and condition.orderItem.orderByIdAsc == null">
+			order by i.ID desc
+		</if>
+		<if
+			test="condition != null and condition.gorder==null and condition.order==null and condition.orderItem!=null and condition.orderItem.orderByIdAsc != null">
+			order by i.ID asc
+		</if>
+	</select>
+
+	<!-- gorder开头的级联查询 统计数目 -->
+	<select id="queryGorderIdListByCond" parameterType="java.util.Map"
+		resultMap="GorderId">
+		select
+		DISTINCT g.id
+		<include refid="from_gorder_order" />
+		<where>
+			<include refid="dynamic_where" />
+		</where>
+		<if
+			test="condition != null and condition.gorder!=null and condition.gorder.orderByIdAsc == null">
+			order by CONVERT(g.ID,SIGNED) desc
+		</if>
+		<if
+			test="condition != null and condition.gorder!=null and condition.gorder.orderByIdAsc != null">
+			order by CONVERT(g.ID,SIGNED) asc
+		</if>
+		<if
+			test="condition != null and condition.gorder==null and condition.order!=null and condition.order.orderByIdAsc == null">
+			order by o.ID desc
+		</if>
+		<if
+			test="condition != null and condition.gorder==null  and condition.order!=null and condition.order.orderByIdAsc != null">
+			order by o.ID asc
+		</if>
+	</select>
+
+	<!-- order开头的级联查询 获取orderId列表 -->
+	<select id="queryOrderIdListByCond" parameterType="java.util.Map"
+		resultMap="GorderId">
+		select
+		DISTINCT o.id
+		<include refid="from_order_orderitem" />
+		<where>
+			<include refid="dynamic_where" />
+		</where>
+		<if
+			test="condition != null and condition.order!=null and condition.order.orderByIdAsc == null">
+			order by o.ID desc
+		</if>
+		<if
+			test="condition != null and condition.order!=null and condition.order.orderByIdAsc != null">
+			order by o.ID asc
+		</if>
+	</select>
+
+	<!-- gorder开始的查询返回gorderid列表 -->
+	<sql id="queryGorderIdListByCond">
+		select
+		DISTINCT g.id
+		<include refid="from_gorder_order" />
+		<where>
+			<include refid="dynamic_where" />
+		</where>
+		<if
+			test="condition != null and condition.gorder!=null and condition.gorder.orderByIdAsc == null">
+			order by CONVERT(g.ID,SIGNED) desc
+		</if>
+		<if
+			test="condition != null and condition.gorder!=null and condition.gorder.orderByIdAsc != null">
+			order by CONVERT(g.ID,SIGNED) asc
+		</if>
+		<if
+			test="condition != null and condition.gorder==null and condition.order!=null and condition.order.orderByIdAsc == null">
+			order by o.ID desc
+		</if>
+		<if
+			test="condition != null and condition.gorder==null  and condition.order!=null and condition.order.orderByIdAsc != null">
+			order by o.ID asc
+		</if>
+	</sql>
+
+	<select id="queryOrderListByCond" parameterType="java.util.Map"
+		resultMap="Order">
+		select
+		<include refid="select_column_sql" />
+		<include refid="from_gorder_order" />
+		<where>
+			<include refid="dynamic_where" />
+		</where>
+		<if
+			test="condition != null and condition.gorder!=null and condition.gorder.orderByIdAsc == null">
+			order by CONVERT(g.ID,SIGNED) desc
+		</if>
+		<if
+			test="condition != null and condition.gorder!=null and condition.gorder.orderByIdAsc != null">
+			order by CONVERT(g.ID,SIGNED) asc
+		</if>
+		<if
+			test="condition != null and condition.gorder==null and condition.order!=null and condition.order.orderByIdAsc == null">
+			order by o.ID desc
+		</if>
+		<if
+			test="condition != null and condition.gorder==null  and condition.order!=null and condition.order.orderByIdAsc != null">
+			order by o.ID asc
+		</if>
+	</select>
+
+	<select id="queryOrderListByCondLimit" parameterType="java.util.Map"
+		resultMap="Order">
+		select
+		<include refid="select_column_sql" />
+		<include refid="from_gorder_order" />
+		<where>
+			<include refid="dynamic_where" />
+		</where>
+		and g.id in (
+		<include refid="queryGorderIdListByCond" />
+		)
+		<if
+			test="condition != null and condition.gorder!=null and condition.gorder.orderByIdAsc == null">
+			order by CONVERT(g.ID,SIGNED) desc
+		</if>
+		<if
+			test="condition != null and condition.gorder!=null and condition.gorder.orderByIdAsc != null">
+			order by CONVERT(g.ID,SIGNED) asc
+		</if>
+		<if
+			test="condition != null and condition.gorder==null and condition.order!=null and condition.order.orderByIdAsc == null">
+			order by o.ID desc
+		</if>
+		<if
+			test="condition != null and condition.gorder==null  and condition.order!=null and condition.order.orderByIdAsc != null">
+			order by o.ID asc
+		</if>
+	</select>
+
+</mapper>

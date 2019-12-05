@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="FinalExamModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.course.model.product.FinalExamModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="exam_name" property="examName" jdbcType="VARCHAR" />
+		<result column="question_nums" property="questionNums"
+			jdbcType="INTEGER" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+		<result column="course_id" property="courseId" jdbcType="BIGINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="score" property="score" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">xd_course_product_final_exam.id, exam_name, question_nums, sort, xd_course_product_final_exam.course_id, create_time
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.course.model.product.FinalExamModel">
+		select
+		<include refid="base_column" />
+		from xd_course_product_final_exam
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_product_final_exam
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	
+	<select id="findFinalExamListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		xd_course_product_final_exam.id, exam_name, question_nums, sort, xd_course_product_final_exam.course_id, xd_course_product_final_exam.create_time,
+		xd_user_course_chapter_record.score,xd_user_course_chapter_record.status
+		from xd_course_product_final_exam left join 
+		(select * from  xd_user_course_chapter_record 
+		<where>
+			<if test="input != null and input.userId != null">and xd_user_course_chapter_record.user_id=#{input.userId}</if>
+		</where>
+		)xd_user_course_chapter_record 
+		on xd_user_course_chapter_record.course_id=xd_course_product_final_exam.course_id and
+		xd_user_course_chapter_record.item_id=xd_course_product_final_exam.id
+		<include refid="dynamic_where" />
+        order by xd_course_product_final_exam.sort ASC
+	</select>
+	
+	
+	<insert id="addEntity" parameterType="com.xiaodou.course.model.product.FinalExamModel">
+		insert into xd_course_product_final_exam
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="examName != null">exam_name,</if>
+			<if test="questionNums != null">question_nums,</if>
+			<if test="sort != null">sort,</if>
+			<if test="courseId != null">course_id,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="examName != null">#{examName,jdbcType=VARCHAR},</if>
+			<if test="questionNums != null">#{questionNums,jdbcType=INTEGER},</if>
+			<if test="sort != null">#{sort,jdbcType=INTEGER},</if>
+			<if test="courseId != null">#{courseId,jdbcType=BIGINT},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.course.model.product.FinalExamModel">
+		update xd_course_product_final_exam
+		<set>
+			<if test="value != null and value.examName != null">exam_name = #{value.examName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.questionNums != null">question_nums = #{value.questionNums,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.sort != null">sort = #{value.sort,jdbcType=INTEGER},</if>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.course.model.product.FinalExamModel">
+		update xd_course_product_final_exam
+		<set>
+			<if test="value != null and value.examName != null">exam_name = #{value.examName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.questionNums != null">question_nums = #{value.questionNums,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.sort != null">sort = #{value.sort,jdbcType=INTEGER},</if>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.course.model.product.FinalExamModel">
+		delete from
+		xd_course_product_final_exam
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_course_product_final_exam
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.examName != null">exam_name,</if>
+			<if test="output != null and output.questionNums != null">question_nums,</if>
+			<if test="output != null and output.sort != null">sort,</if>
+			<if test="output != null and output.courseId != null">course_id,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_course_product_final_exam.id=#{input.id}</if>
+			<if test="input != null and input.examName != null">and exam_name=#{input.examName}</if>
+			<if test="input != null and input.questionNums != null">and question_nums=#{input.questionNums}</if>
+			<if test="input != null and input.sort != null">and sort=#{input.sort}</if>
+			<if test="input != null and input.courseId != null">and xd_course_product_final_exam.course_id=#{input.courseId}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.examName != null and ( sort.examName == 'ASC' or sort.examName == 'DESC' )">exam_name ${sort.examName},</if>
+			<if
+				test="sort != null and sort.questionNums != null and ( sort.questionNums == 'ASC' or sort.questionNums == 'DESC' )">question_nums ${sort.questionNums},</if>
+			<if
+				test="sort != null and sort.sort != null and ( sort.sort == 'ASC' or sort.sort == 'DESC' )">sort ${sort.sort},</if>
+			<if
+				test="sort != null and sort.courseId != null and ( sort.courseId == 'ASC' or sort.courseId == 'DESC' )">course_id ${sort.courseId},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

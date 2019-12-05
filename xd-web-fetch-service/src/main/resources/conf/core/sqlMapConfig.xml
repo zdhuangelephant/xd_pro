@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.xiaodou.webfetch.web.domain.AuthorModel"
+			alias="AuthorModel" />
+		<typeAlias type="com.xiaodou.webfetch.web.domain.ForumModel"
+			alias="ForumModel" />
+		<typeAlias type="com.xiaodou.webfetch.web.domain.ForumAccount"
+			alias="ForumAccount" />
+	</typeAliases>
+
+
+	<mappers>
+		<mapper resource="conf/mybatis/AuthorModel.xml" />
+		<mapper resource="conf/mybatis/ForumModel.xml" />
+		<!-- 抓取任务 -->
+		<mapper resource="conf/mybatis/ForumAccount.xml" />
+	</mappers>
+
+</configuration>

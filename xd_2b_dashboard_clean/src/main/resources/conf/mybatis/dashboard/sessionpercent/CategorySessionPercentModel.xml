@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CategorySessionPercentModel">
+	<resultMap id="BaseResultMap" type="com.xiaodou.st.dataclean.model.domain.dashboard.sessionpercent.CategorySessionPercentModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+<result column="cat_id" property="catId" jdbcType="INTEGER" />
+<result column="chief_unit_id" property="chiefUnitId" jdbcType="INTEGER" />
+<result column="learn_percent" property="learnPercent" jdbcType="DOUBLE" />
+<result column="mission_percent" property="missionPercent" jdbcType="DOUBLE" />
+<result column="right_percent" property="rightPercent" jdbcType="DOUBLE" />
+<result column="learn_time_percent" property="learnTimePercent" jdbcType="DOUBLE" />
+<result column="student_count" property="studentCount" jdbcType="INTEGER" />
+<result column="role_type" property="roleType" jdbcType="INTEGER" />
+<result column="unit_id" property="unitId" jdbcType="INTEGER" />
+<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+	</resultMap>
+	<sql id="base_column">id, cat_id, chief_unit_id, learn_percent, mission_percent, right_percent, learn_time_percent, student_count, role_type, unit_id, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.sessionpercent.CategorySessionPercentModel">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_category_session_percent
+		where id = #{id,jdbcType=INTEGER}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_category_session_percent
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.sessionpercent.CategorySessionPercentModel"  >
+		insert into xd_dashboard_category_session_percent
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+<if test="catId != null">cat_id,</if>
+<if test="chiefUnitId != null">chief_unit_id,</if>
+<if test="learnPercent != null">learn_percent,</if>
+<if test="missionPercent != null">mission_percent,</if>
+<if test="rightPercent != null">right_percent,</if>
+<if test="learnTimePercent != null">learn_time_percent,</if>
+<if test="studentCount != null">student_count,</if>
+<if test="roleType != null">role_type,</if>
+<if test="unitId != null">unit_id,</if>
+<if test="createTime != null">create_time,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+<if test="catId != null">#{catId,jdbcType=INTEGER},</if>
+<if test="chiefUnitId != null">#{chiefUnitId,jdbcType=INTEGER},</if>
+<if test="learnPercent != null">#{learnPercent,jdbcType=DOUBLE},</if>
+<if test="missionPercent != null">#{missionPercent,jdbcType=DOUBLE},</if>
+<if test="rightPercent != null">#{rightPercent,jdbcType=DOUBLE},</if>
+<if test="learnTimePercent != null">#{learnTimePercent,jdbcType=DOUBLE},</if>
+<if test="studentCount != null">#{studentCount,jdbcType=INTEGER},</if>
+<if test="roleType != null">#{roleType,jdbcType=INTEGER},</if>
+<if test="unitId != null">#{unitId,jdbcType=INTEGER},</if>
+<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.sessionpercent.CategorySessionPercentModel">
+		update xd_dashboard_category_session_percent
+		<set>
+			<if test="value != null and value.catId != null">cat_id = #{value.catId,jdbcType=INTEGER},</if>
+<if test="value != null and value.chiefUnitId != null">chief_unit_id = #{value.chiefUnitId,jdbcType=INTEGER},</if>
+<if test="value != null and value.learnPercent != null">learn_percent = #{value.learnPercent,jdbcType=DOUBLE},</if>
+<if test="value != null and value.missionPercent != null">mission_percent = #{value.missionPercent,jdbcType=DOUBLE},</if>
+<if test="value != null and value.rightPercent != null">right_percent = #{value.rightPercent,jdbcType=DOUBLE},</if>
+<if test="value != null and value.learnTimePercent != null">learn_time_percent = #{value.learnTimePercent,jdbcType=DOUBLE},</if>
+<if test="value != null and value.studentCount != null">student_count = #{value.studentCount,jdbcType=INTEGER},</if>
+<if test="value != null and value.roleType != null">role_type = #{value.roleType,jdbcType=INTEGER},</if>
+<if test="value != null and value.unitId != null">unit_id = #{value.unitId,jdbcType=INTEGER},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.sessionpercent.CategorySessionPercentModel">
+		update xd_dashboard_category_session_percent
+		<set>
+			<if test="value != null and value.catId != null">cat_id = #{value.catId,jdbcType=INTEGER},</if>
+<if test="value != null and value.chiefUnitId != null">chief_unit_id = #{value.chiefUnitId,jdbcType=INTEGER},</if>
+<if test="value != null and value.learnPercent != null">learn_percent = #{value.learnPercent,jdbcType=DOUBLE},</if>
+<if test="value != null and value.missionPercent != null">mission_percent = #{value.missionPercent,jdbcType=DOUBLE},</if>
+<if test="value != null and value.rightPercent != null">right_percent = #{value.rightPercent,jdbcType=DOUBLE},</if>
+<if test="value != null and value.learnTimePercent != null">learn_time_percent = #{value.learnTimePercent,jdbcType=DOUBLE},</if>
+<if test="value != null and value.studentCount != null">student_count = #{value.studentCount,jdbcType=INTEGER},</if>
+<if test="value != null and value.roleType != null">role_type = #{value.roleType,jdbcType=INTEGER},</if>
+<if test="value != null and value.unitId != null">unit_id = #{value.unitId,jdbcType=INTEGER},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.sessionpercent.CategorySessionPercentModel">
+		delete from xd_dashboard_category_session_percent
+		where id = #{id,jdbcType=INTEGER}
+
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_category_session_percent
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+<if test="output != null and output.catId != null">cat_id,</if>
+<if test="output != null and output.chiefUnitId != null">chief_unit_id,</if>
+<if test="output != null and output.learnPercent != null">learn_percent,</if>
+<if test="output != null and output.missionPercent != null">mission_percent,</if>
+<if test="output != null and output.rightPercent != null">right_percent,</if>
+<if test="output != null and output.learnTimePercent != null">learn_time_percent,</if>
+<if test="output != null and output.studentCount != null">student_count,</if>
+<if test="output != null and output.roleType != null">role_type,</if>
+<if test="output != null and output.unitId != null">unit_id,</if>
+<if test="output != null and output.createTime != null">create_time,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+<if test="input != null and input.catId != null">and cat_id=#{input.catId}</if>
+<if test="input != null and input.chiefUnitId != null">and chief_unit_id=#{input.chiefUnitId}</if>
+<if test="input != null and input.learnPercent != null">and learn_percent=#{input.learnPercent}</if>
+<if test="input != null and input.missionPercent != null">and mission_percent=#{input.missionPercent}</if>
+<if test="input != null and input.rightPercent != null">and right_percent=#{input.rightPercent}</if>
+<if test="input != null and input.learnTimePercent != null">and learn_time_percent=#{input.learnTimePercent}</if>
+<if test="input != null and input.studentCount != null">and student_count=#{input.studentCount}</if>
+<if test="input != null and input.roleType != null">and role_type=#{input.roleType}</if>
+<if test="input != null and input.unitId != null">and unit_id=#{input.unitId}</if>
+<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+<if test="sort != null and sort.missionPercent != null and ( sort.missionPercent == 'ASC' or sort.missionPercent == 'DESC' )">mission_percent ${sort.missionPercent},</if>
+<if test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+
+		</trim>
+	</sql>
+</mapper>

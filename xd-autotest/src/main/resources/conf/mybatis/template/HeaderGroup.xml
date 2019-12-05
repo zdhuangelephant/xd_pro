@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="HeaderGroup">
+	<resultMap id="BaseResultMap" type="com.xiaodou.autotest.web.model.template.HeaderGroup">
+		<id column="id" property="id" jdbcType="INTEGER" />
+<result column="header_group_name" property="headerGroupName" jdbcType="VARCHAR" />
+<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+	</resultMap>
+	<sql id="base_column">id, header_group_name, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.autotest.web.model.template.HeaderGroup">
+		select
+		<include refid="base_column" />
+		from header_group
+		where id = #{id,jdbcType=INTEGER}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from header_group
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.autotest.web.model.template.HeaderGroup"  >
+		insert into header_group
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+<if test="headerGroupName != null">header_group_name,</if>
+<if test="createTime != null">create_time,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+<if test="headerGroupName != null">#{headerGroupName,jdbcType=VARCHAR},</if>
+<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.autotest.web.model.template.HeaderGroup">
+		update header_group
+		<set>
+			<if test="value != null and value.headerGroupName != null">header_group_name = #{value.headerGroupName,jdbcType=VARCHAR},</if>
+
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.autotest.web.model.template.HeaderGroup">
+		update header_group
+		<set>
+			<if test="value != null and value.headerGroupName != null">header_group_name = #{value.headerGroupName,jdbcType=VARCHAR},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.autotest.web.model.template.HeaderGroup">
+		delete from header_group
+		where id = #{id,jdbcType=INTEGER}
+
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from header_group
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+<if test="output != null and output.headerGroupName != null">header_group_name,</if>
+<if test="output != null and output.createTime != null">create_time,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+	
+		<where>
+		<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.idLower != null">and id &gt; #{input.idLower}</if>
+<if test="input != null and input.idUpper != null">and id &lt; #{input.idUpper}</if>
+<if test="input != null and input.headerGroupName != null">and header_group_name=#{input.headerGroupName}</if>
+<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+<if test="sort != null and sort.headerGroupName != null and ( sort.headerGroupName == 'ASC' or sort.headerGroupName == 'DESC' )">header_group_name ${sort.headerGroupName},</if>
+<if test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+
+		</trim>
+	</sql>
+</mapper>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LearnRecordDO">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dashboard.domain.score.LearnRecordDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="student_id" property="studentId" jdbcType="BIGINT" />
+		<result column="product_id" property="productId" jdbcType="BIGINT" />
+		<result column="learn_type" property="learnType" jdbcType="TINYINT" />
+		<result column="learn_content" property="learnContent"
+			jdbcType="VARCHAR" />
+		<result column="record_time" property="recordTime" jdbcType="VARCHAR" />
+		<result column="learn_time" property="learnTime" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, student_id, product_id, learn_type, learn_content,
+		record_time, learn_time, create_time
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.score.LearnRecordDO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_learn_record
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_learn_record
+		JOIN xd_dashboard_apply ON 
+		xd_dashboard_learn_record.product_id = xd_dashboard_apply.product_id 
+		AND xd_dashboard_learn_record.student_id = xd_dashboard_apply.student_id
+		<include refid="dynamic_where" />
+		AND order_status =1 AND apply_status=1
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.st.dashboard.domain.score.LearnRecordDO">
+		insert into xd_dashboard_learn_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="studentId != null">student_id,</if>
+			<if test="productId != null">product_id,</if>
+			<if test="learnType != null">learn_type,</if>
+			<if test="learnContent != null">learn_content,</if>
+			<if test="recordTime != null">record_time,</if>
+			<if test="learnTime != null">learn_time,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="studentId != null">#{studentId,jdbcType=BIGINT},</if>
+			<if test="productId != null">#{productId,jdbcType=BIGINT},</if>
+			<if test="learnType != null">#{learnType,jdbcType=TINYINT},</if>
+			<if test="learnContent != null">#{learnContent,jdbcType=VARCHAR},</if>
+			<if test="recordTime != null">#{recordTime,jdbcType=VARCHAR},</if>
+			<if test="learnTime != null">#{learnTime,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.st.dashboard.domain.score.LearnRecordDO">
+		update xd_dashboard_learn_record
+		<set>
+			<if test="value != null and value.studentId != null">student_id = #{value.studentId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.learnType != null">learn_type = #{value.learnType,jdbcType=TINYINT},</if>
+			<if test="value != null and value.learnContent != null">learn_content = #{value.learnContent,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.recordTime != null">record_time = #{value.recordTime,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.learnTime != null">learn_time = #{value.learnTime,jdbcType=INTEGER},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.st.dashboard.domain.score.LearnRecordDO">
+		update xd_dashboard_learn_record
+		<set>
+			<if test="value != null and value.studentId != null">student_id = #{value.studentId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.learnType != null">learn_type = #{value.learnType,jdbcType=TINYINT},</if>
+			<if test="value != null and value.learnContent != null">learn_content = #{value.learnContent,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.recordTime != null">record_time = #{value.recordTime,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.learnTime != null">learn_time = #{value.learnTime,jdbcType=INTEGER},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.st.dashboard.domain.score.LearnRecordDO">
+		delete from
+		xd_dashboard_learn_record
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_learn_record
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_dashboard_learn_record.id,</if>
+			<if test="output != null and output.studentId != null">xd_dashboard_learn_record.student_id,</if>
+			<if test="output != null and output.productId != null">xd_dashboard_learn_record.product_id,</if>
+			<if test="output != null and output.learnType != null">xd_dashboard_learn_record.learn_type,</if>
+			<if test="output != null and output.learnContent != null">xd_dashboard_learn_record.learn_content,</if>
+			<if test="output != null and output.recordTime != null">xd_dashboard_learn_record.record_time,</if>
+			<if test="output != null and output.learnTime != null">xd_dashboard_learn_record.learn_time,</if>
+			<if test="output != null and output.createTime != null">xd_dashboard_learn_record.create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_dashboard_learn_record.id=#{input.id}</if>
+			<if test="input != null and input.studentId != null">and xd_dashboard_learn_record.student_id=#{input.studentId}</if>
+			<if test="input != null and input.productId != null">and xd_dashboard_learn_record.product_id=#{input.productId}</if>
+			<if test="input != null and input.learnType != null">and xd_dashboard_learn_record.learn_type=#{input.learnType}</if>
+			<if test="input != null and input.learnContent != null">and xd_dashboard_learn_record.learn_content=#{input.learnContent}</if>
+			<if test="input != null and input.recordTime != null">and TO_DAYS(xd_dashboard_learn_record.record_time) =
+				TO_DAYS(#{input.recordTime})
+			</if>
+			<if test="input != null and input.learnTime != null">and xd_dashboard_learn_record.learn_time=#{input.learnTime}</if>
+			<if test="input != null and input.createTime != null">and xd_dashboard_learn_record.create_time=#{input.createTime}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">xd_dashboard_learn_record.create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.recordTime != null and ( sort.recordTime == 'ASC' or sort.recordTime == 'DESC' )">xd_dashboard_learn_record.record_time ${sort.recordTime},</if>
+			<if
+				test="sort != null and sort.studentId != null and ( sort.studentId == 'ASC' or sort.studentId == 'DESC' )">xd_dashboard_learn_record.student_id ${sort.studentId},</if>
+			<if
+				test="sort != null and sort.learnTime != null and ( sort.learnTime == 'ASC' or sort.learnTime == 'DESC' )">xd_dashboard_learn_record.learn_time ${sort.learnTime},</if>
+		</trim>
+	</sql>
+</mapper>

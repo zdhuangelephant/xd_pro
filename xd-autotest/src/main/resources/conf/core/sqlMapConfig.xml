@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<!--自动化测试 -->
+		<typeAlias type="com.xiaodou.autotest.web.model.operation.Doc" alias="Doc"/>
+		<typeAlias type="com.xiaodou.autotest.web.model.operation.DocRequest" alias="DocRequest" />
+		<typeAlias type="com.xiaodou.autotest.web.model.operation.Case" alias="Case" />
+		<typeAlias type="com.xiaodou.autotest.web.model.operation.CaseRequest" alias="CaseRequest" />
+		<typeAlias type="com.xiaodou.autotest.web.model.operation.CaseRequestLog" alias="CaseRequestLog" />
+		<typeAlias type="com.xiaodou.autotest.web.model.datasource.DataSourceData" alias="DataSourceData" />
+		<typeAlias type="com.xiaodou.autotest.web.model.jsfunction.JSFunction" alias="JSFunction" />
+		
+		<!-- 模版 -->
+		<typeAlias type="com.xiaodou.autotest.web.model.template.TemplateGroup" alias="TemplateGroup" />
+		<typeAlias type="com.xiaodou.autotest.web.model.template.HeaderDetail" alias="HeaderDetail" />
+		<typeAlias type="com.xiaodou.autotest.web.model.template.AfterSetDetail" alias="AfterSetDetail" />
+		<typeAlias type="com.xiaodou.autotest.web.model.template.ParamDetail" alias="ParamDetail" />
+		<typeAlias type="com.xiaodou.autotest.web.model.template.PreCondDetail" alias="PreCondDetail" />
+		<typeAlias type="com.xiaodou.autotest.web.model.template.PreSetDetail" alias="PreSetDetail" />
+		<typeAlias type="com.xiaodou.autotest.web.model.template.TestCaseDetail" alias="TestCaseDetail" />
+   </typeAliases>
+	<mappers>
+		<!--自动化测试 -->
+		<mapper resource="conf/mybatis/operation/Doc.xml" />
+		<mapper resource="conf/mybatis/operation/DocRequest.xml" />
+		<mapper resource="conf/mybatis/operation/Case.xml" />
+		<mapper resource="conf/mybatis/operation/CaseRequest.xml" />
+	    <mapper resource="conf/mybatis/operation/CaseRequestLog.xml" />
+	    <mapper resource="conf/mybatis/dataSource/DataSourceData.xml" />
+	    
+	    
+	    <mapper resource="conf/mybatis/jsfunction/JSFunction.xml" />
+	    
+	    <!-- 模版 -->
+	    <mapper resource="conf/mybatis/template/TemplateGroup.xml" />
+	    <mapper resource="conf/mybatis/template/HeaderDetail.xml" />
+	     <mapper resource="conf/mybatis/template/AfterSetDetail.xml" />
+	     <mapper resource="conf/mybatis/template/ParamDetail.xml" />
+	     <mapper resource="conf/mybatis/template/PreCondDetail.xml" />
+	     <mapper resource="conf/mybatis/template/PreSetDetail.xml" />
+	     <mapper resource="conf/mybatis/template/TestCaseDetail.xml" />
+	</mappers>
+	
+</configuration>

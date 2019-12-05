@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="QuesbkExamRule">
+	<resultMap id="BaseResultMap" type="com.xiaodou.domain.product.QuesbkExamRule">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="product_id" property="productId" jdbcType="INTEGER" />
+		<result column="exam_type_id" property="examTypeId" jdbcType="INTEGER" />
+		<result column="rule_detail" property="ruleDetail" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+	</resultMap>
+	<sql id="base_column">id, name, product_id, exam_type_id, rule_detail, status
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.domain.product.QuesbkExamRule">
+		select
+		<include refid="base_column" />
+		from xd_quesbk_exam_rule where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_quesbk_exam_rule
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.domain.product.QuesbkExamRule"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_quesbk_exam_rule
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="name != null">name,</if>
+			<if test="productId != null">product_id,</if>
+			<if test="examTypeId != null">exam_type_id,</if>
+			<if test="ruleDetail != null">rule_detail,</if>
+			<if test="status != null">status,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+			<if test="productId != null">#{productId,jdbcType=INTEGER},</if>
+			<if test="examTypeId != null">#{examTypeId,jdbcType=INTEGER},</if>
+			<if test="ruleDetail != null">#{ruleDetail,jdbcType=VARCHAR},</if>
+			<if test="status != null">#{status,jdbcType=TINYINT},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.domain.product.QuesbkExamRule">
+		update xd_quesbk_exam_rule
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.examTypeId != null">exam_type_id = #{value.examTypeId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.ruleDetail != null">rule_detail = #{value.ruleDetail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=TINYINT},</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.domain.product.QuesbkExamRule">
+		update xd_quesbk_exam_rule
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.productId != null">product_id = #{value.productId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.examTypeId != null">exam_type_id = #{value.examTypeId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.ruleDetail != null">rule_detail = #{value.ruleDetail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=TINYINT},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.domain.product.QuesbkExamRule"> delete from
+		xd_quesbk_exam_rule where id = #{id,jdbcType=INTEGER}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_quesbk_exam_rule
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.name != null">name,</if>
+			<if test="output != null and output.productId != null">product_id,</if>
+			<if test="output != null and output.examTypeId != null">exam_type_id,</if>
+			<if test="output != null and output.ruleDetail != null">rule_detail,</if>
+			<if test="output != null and output.status != null">status,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.idLower != null">and id &gt; #{input.idLower}</if>
+			<if test="input != null and input.idUpper != null">and id &lt; #{input.idUpper}</if>
+			<if test="input != null and input.idList != null">
+				and id in
+				<foreach collection="input.idList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.name != null">and name=#{input.name}</if>
+			<if test="input != null and input.productId != null">and product_id=#{input.productId}</if>
+			<if test="input != null and input.examTypeId != null">and exam_type_id=#{input.examTypeId}</if>
+			<if test="input != null and input.ruleDetail != null">and rule_detail=#{input.ruleDetail}</if>
+			<if test="input != null and input.status != null">and status=#{input.status}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null"> limit \${limit.limitStart}, \${limit.limitCount}        </if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null"> order by            </if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.name != null and ( sort.name == 'ASC' or sort.name == 'DESC' )">name ${sort.name},</if>
+			<if
+				test="sort != null and sort.productId != null and ( sort.productId == 'ASC' or sort.productId == 'DESC' )">product_id ${sort.productId},</if>
+			<if
+				test="sort != null and sort.examTypeId != null and ( sort.examTypeId == 'ASC' or sort.examTypeId == 'DESC' )">exam_type_id ${sort.examTypeId},</if>
+			<if
+				test="sort != null and sort.ruleDetail != null and ( sort.ruleDetail == 'ASC' or sort.ruleDetail == 'DESC' )">rule_detail ${sort.ruleDetail},</if>
+			<if
+				test="sort != null and sort.status != null and ( sort.status == 'ASC' or sort.status == 'DESC' )">status ${sort.status},</if>
+		</trim>
+	</sql>
+	
+	
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="base_column" />
+		from xd_quesbk_exam_rule
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+
+</mapper>

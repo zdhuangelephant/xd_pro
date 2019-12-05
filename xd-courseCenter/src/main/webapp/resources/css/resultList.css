@@ -1,0 +1,217 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html{
+    width: 100%;
+    min-height: 100%;
+    font-size: 14px;
+    position: relative;
+    overflow-x: hidden;
+}
+body {
+    font-family: "微软雅黑";
+    width: 100%;
+    min-height: 100%;
+    margin: 0 auto;
+    overflow-x: hidden;
+    background: #f0f0f0;
+}
+li{
+    list-style: none;
+}
+header{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    background: #609efc;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color:#ffffff;
+    text-align: center;
+    line-height: 50px;
+}
+header .shut{
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top:17px;
+    left:13px;
+}
+.main{
+    width: 100%;
+}
+.main .top{
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 1px solid #cdcdcd;
+}
+.main .top ul{
+    width: 90%;
+    margin:0 auto;
+}
+.main .top ul li{
+    height: 50px;
+    line-height: 50px;
+    color:#666666;
+    letter-spacing: 1px;
+}
+.main .top ul li:first-child{
+    border-bottom: 1px solid #cdcdcd;
+
+}
+.main .top ul li:first-child span{
+    letter-spacing: 5px;
+}
+.main .resultList{
+    width: 100%;
+    margin-top: 9px;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd;
+}
+.main .resultList li{
+    background: #ffffff;
+    width: 100%;
+    height:60px;
+}
+.main .resultList li .box{
+    width: 90%;
+    margin:0 auto;
+    height: 59px;
+    border-bottom:1px solid #cdcdcd ;
+}
+.main .resultList li .box .left{
+    float: left;
+    margin-top: 15px;
+}
+.main .resultList li .box .left img{
+    width: 30px;
+    display: block;
+    float: left;
+    margin-right: 10px;
+}
+.main .resultList li .box .left span{
+   line-height: 30px;
+    font-size: 16px;
+    color:#4b4b4b;
+}
+.main .resultList li .box .right{
+    float: right;
+    margin-top: 15px;
+    width: 50px;
+    height: 35px;
+}
+.main .resultList li .box .right img{
+    width: 14px;
+    display: block;
+    float: right;
+    margin-left: 7px;
+    margin-top: 11px;
+}
+.main .resultList li .box .right span{
+    display: inline-block;
+    float: left;
+    line-height: 30px;
+    font-size: 14px;
+    color:#a0a0a0;
+}
+.main .resultList li .last{
+    border-bottom: none;
+}
+.main .resultList .detail{
+    width: 100%;
+    display: none;
+}
+.main .resultList .detail .score{
+    width: 90%;
+    margin:0 auto;
+    /*height: 200px;*/
+    background: #ffffff;
+    border:1px solid #cdcdcd;
+    border-radius: 5px;
+    margin-top: 15px;
+    padding-bottom: 10px;
+    position: relative;
+}
+.main .resultList .detail .score .head{
+    height: 50px;
+    background: #17bfff;
+    line-height: 50px;
+    color:#ffffff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding-left: 15px;
+}
+.main .resultList .detail .score .absent{
+    background: #b4b4b4;
+}
+.main .resultList .detail .score p{
+    line-height: 28px;
+    color:#4b4b4b;
+    margin-left: 15px;
+}
+.main .resultList .detail .score p span{
+    color:#787878;
+}
+.main .resultList .detail .score .p1{
+    float: left;
+    margin-left: 15px;
+    margin-top: 10px;
+}
+.main .resultList .detail .score .p2{
+    float: right;
+    margin-right: 15px;
+    margin-top: 10px;
+}
+.clear{
+    clear: both;
+}
+.main .resultList .detail .remark{
+    width: 92%;
+    margin:0 auto;
+    line-height: 40px;
+    border-bottom: 1px solid #cdcdcd;
+    /*font-size: 16px;*/
+    color:#787878;
+}
+.main .resultList .detail .area{
+    width: 92%;
+    margin:0 auto;
+    line-height: 40px;
+    /*font-size: 16px;*/
+    color:#787878;
+    margin-bottom: 15px;
+}
+.main .resultList .detail .score .no{
+    width: 30px;
+    position: absolute;
+    right:20px;
+    bottom: 20px;
+}
+.main .resultList .detail .text{
+    width: 92%;
+    margin:0 auto;
+    color:#787878;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.main .resultList .detail .score .interview{
+    background: #f5ab1c;
+}
+.main .resultList .detail .score .qualified{
+    background: #ff6767;
+}
+
+.notice{
+    text-align: center;
+    margin-top: 40px;
+    color:#999999;
+    font-size: 18px;
+}
+
+
+
+
+
+
+

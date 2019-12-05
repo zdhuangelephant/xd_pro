@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserLearnStaticsModel">
+
+    <resultMap id="BaseResultMap" type="UserLearnStaticsModel">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="ratio" property="ratio"/>
+        <result column="product_id" property="productId"/>
+        <result column="current_item" property="currentItem"/>
+        <result column="current_item_name" property="currentItemName"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="chapter_id" property="chapterId" />
+        <result column="chapter_name" property="chapterName" />
+
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">user_id,ratio,product_id,current_item,current_item_name,update_time,chapter_id,chapter_name</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="ratio != null">ratio,</if>
+            <if test="productId != null">product_id,</if>
+            <if test="currentItem != null">current_item,</if>
+            <if test="currentItemName != null">current_item_name,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="chapterId != null">chapter_id,</if>
+            <if test="chapterName != null">chapter_name,</if>
+
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="ratio != null">#{ratio},</if>
+            <if test="productId != null">#{productId},</if>
+            <if test="currentItem != null">#{currentItem},</if>
+            <if test="currentItemName != null">#{currentItemName},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="chapterId != null">#{chapterId},</if>
+            <if test="chapterName != null">#{chapterName},</if>
+
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="UserLearnStaticsModel">
+        insert into xd_user_learn_statics
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update xd_user_learn_statics
+        <set>
+            <if test="value != null and value.userId != null">user_id = #{value.userId},</if>
+            <if test="value != null and value.ratio != null">ratio = #{value.ratio},</if>
+            <if test="value != null and value.productId != null">product_id = #{value.productId},</if>
+            <if test="value != null and value.currentItem != null">current_item = #{value.currentItem},</if>
+            <if test="value != null and value.currentItemName != null">current_item_name = #{value.currentItemName},</if>
+            <if test="value != null and value.updateTime != null">update_time = #{value.updateTime},</if>
+            <if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId},</if>
+            <if test="value != null and value.chapterName != null">chapter_name = #{value.chapterName},</if>
+
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_user_learn_statics
+        <include refid="dynamic_where"/>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="UserLearnStaticsModel" resultMap="BaseResultMap">
+        select * from xd_user_learn_statics where id = #{id};
+    </select>
+
+    <select id="findEntityByProductAndUser" parameterType="UserLearnStaticsModel" resultMap="BaseResultMap">
+        select * from xd_user_learn_statics where user_id = #{userId} and product_id = #{productId};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from xd_user_learn_statics
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and id =#{input.id}</if>
+            <if test="input != null and input.userId != null">and user_id =#{input.userId}</if>
+            <if test="input != null and input.ratio != null">and ratio =#{input.ratio}</if>
+            <if test="input != null and input.productId != null">and product_id =#{input.productId}</if>
+            <if test="input != null and input.currentItem != null">and current_item =#{input.currentItem}</if>
+            <if test="input != null and input.currentItemName != null">and current_item_name =#{input.currentItemName}</if>
+            <if test="input != null and input.updateTime != null">and update_time =#{input.updateTime}</if>
+            <if test="input != null and input.chapterId != null">and chapter_id =#{input.chapterId}</if>
+            <if test="input != null and input.chapterName != null">and chapter_name =#{input.chapterName}</if>
+
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">id,</if>
+            <if test="output != null and output.userId != null">user_id,</if>
+            <if test="output != null and output.ratio != null">ratio,</if>
+            <if test="output != null and output.productId != null">product_id,</if>
+            <if test="output != null and output.currentItem != null">current_item,</if>
+            <if test="output != null and output.currentItemName != null">current_item_name,</if>
+            <if test="output != null and output.updateTime != null">update_time,</if>
+            <if test="output != null and output.chapterId != null">chapter_id,</if>
+            <if test="output != null and output.chapterName != null">chapter_name,</if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

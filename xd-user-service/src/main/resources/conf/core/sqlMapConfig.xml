@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+	<typeAlias type="com.xiaodou.ucenter.model.AppBindingModel" alias="AppBindingModel" />
+		<typeAlias type="com.xiaodou.ucenter.model.UserModel" alias="UserModel" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="conf/mybatis/appBindingModel.xml" />
+		<!-- <mapper resource="conf/mybatis/city.xml" /> <mapper resource="conf/mybatis/common_info.xml" 
+			/> -->
+		<mapper resource="conf/mybatis/userModel.xml" />
+	</mappers>
+</configuration>

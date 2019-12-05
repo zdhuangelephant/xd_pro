@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="DaysLearnTimeModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dataclean.model.domain.dashboard.DaysLearnTimeModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="student_id" property="studentId" jdbcType="INTEGER" />
+		<result column="achieve_mission" property="achieveMission"
+			jdbcType="INTEGER" />
+		<result column="learn_time" property="learnTime" jdbcType="INTEGER" />
+		<result column="right_percent" property="rightPercent"
+			jdbcType="DOUBLE" />
+		<result column="date_time" property="dateTime" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, student_id, achieve_mission, learn_time, right_percent,
+		date_time, create_time
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.DaysLearnTimeModel">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_workbench_days_learn_time
+		where id =
+		#{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_workbench_days_learn_time
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<select id="queryDaysLearnTimeCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(xd_dashboard_workbench_days_learn_time.learn_time)
+		FROM
+		xd_dashboard_student inner join xd_dashboard_workbench_days_learn_time
+		on xd_dashboard_student.id =
+		xd_dashboard_workbench_days_learn_time.student_id
+		<include refid="dynamic_where" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.DaysLearnTimeModel">
+		insert into xd_dashboard_workbench_days_learn_time
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="studentId != null">student_id,</if>
+			<if test="achieveMission != null">achieve_mission,</if>
+			<if test="learnTime != null">learn_time,</if>
+			<if test="rightPercent != null">right_percent,</if>
+			<if test="dateTime != null">date_time,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="studentId != null">#{studentId,jdbcType=INTEGER},</if>
+			<if test="achieveMission != null">#{achieveMission,jdbcType=INTEGER},</if>
+			<if test="learnTime != null">#{learnTime,jdbcType=INTEGER},</if>
+			<if test="rightPercent != null">#{rightPercent,jdbcType=DOUBLE},</if>
+			<if test="dateTime != null">#{dateTime,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.DaysLearnTimeModel">
+		update xd_dashboard_workbench_days_learn_time
+		<set>
+			<if test="value != null and value.studentId != null">student_id = #{value.studentId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.achieveMission != null">achieve_mission =
+				#{value.achieveMission,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.learnTime != null">learn_time = #{value.learnTime,jdbcType=INTEGER},</if>
+			<if test="value != null and value.rightPercent != null">right_percent = #{value.rightPercent,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.dateTime != null">date_time = #{value.dateTime,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.DaysLearnTimeModel">
+		update xd_dashboard_workbench_days_learn_time
+		<set>
+			<if test="value != null and value.studentId != null">student_id = #{value.studentId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.achieveMission != null">achieve_mission =
+				#{value.achieveMission,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.learnTime != null">learn_time = #{value.learnTime,jdbcType=INTEGER},</if>
+			<if test="value != null and value.rightPercent != null">right_percent = #{value.rightPercent,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.dateTime != null">date_time = #{value.dateTime,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById"
+		parameterType="com.xiaodou.st.dataclean.model.domain.dashboard.DaysLearnTimeModel">
+		delete from xd_dashboard_workbench_days_learn_time
+		where
+		id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_workbench_days_learn_time
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.studentId != null">student_id,</if>
+			<if test="output != null and output.achieveMission != null">achieve_mission,</if>
+			<if test="output != null and output.learnTime != null">learn_time,</if>
+			<if test="output != null and output.rightPercent != null">right_percent,</if>
+			<if test="output != null and output.dateTime != null">date_time,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_dashboard_workbench_days_learn_time.id=#{input.id}
+			</if>
+			<if test="input != null and input.studentId != null">and
+				xd_dashboard_workbench_days_learn_time.student_id=#{input.studentId}
+			</if>
+			<if test="input != null and input.achieveMission != null">and
+				xd_dashboard_workbench_days_learn_time.achieve_mission=#{input.achieveMission}
+			</if>
+			<if test="input != null and input.learnTime != null">and
+				xd_dashboard_workbench_days_learn_time.learn_time=#{input.learnTime}
+			</if>
+			<if test="input != null and input.rightPercent != null">and
+				xd_dashboard_workbench_days_learn_time.right_percent=#{input.rightPercent}
+			</if>
+			<if test="input != null and input.dateTime != null">and
+				xd_dashboard_workbench_days_learn_time.date_time=#{input.dateTime}
+			</if>
+			<if test="input != null and input.createTime != null">and
+				xd_dashboard_workbench_days_learn_time.create_time=#{input.createTime}
+			</if>
+			<if test="input != null and input.pilotUnitId != null">and
+				xd_dashboard_student.pilot_unit_id=#{input.pilotUnitId}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

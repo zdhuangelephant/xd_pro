@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaodou.resources.dao.quesbk.UserExamTotalMapper">
+	<resultMap id="BaseResultMap" type="com.xiaodou.resources.model.quesbk.UserExamTotal">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="course_id" property="courseId" jdbcType="BIGINT" />
+		<result column="total_ques" property="totalQues" jdbcType="BIGINT" />
+		<result column="avg_total" property="avgTotal" jdbcType="BIGINT" />
+		<result column="total_rank" property="totalRank" jdbcType="BIGINT" />
+		<result column="right_ques" property="rightQues" jdbcType="BIGINT" />
+		<result column="avg_right" property="avgRight" jdbcType="BIGINT" />
+		<result column="right_rank" property="rightRank" jdbcType="BIGINT" />
+		<result column="right_percent" property="rightPercent"
+			jdbcType="VARCHAR" />
+		<result column="avg_right_perc" property="avgRightPerc"
+			jdbcType="VARCHAR" />
+		<result column="right_perc_rank" property="rightPercRank"
+			jdbcType="VARCHAR" />
+		<result column="chapter_score" property="chapterScore"
+			jdbcType="VARCHAR" />
+		<result column="score" property="score" jdbcType="DECIMAL" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, course_id, total_ques, avg_total, total_rank,
+		right_ques,
+		avg_right, right_rank,
+		right_percent, avg_right_perc,
+		right_perc_rank, chapter_score,
+		score
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_exam_total
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByUidAndSubjectId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_exam_total
+		where user_id = #{0}
+		and course_id = #{1}
+	</select>
+	<select id="selectByUid" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_exam_total
+		where user_id = #{user_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByUidNotAll" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_exam_total
+		<where>
+			<include refid="dynamic_where_exam" />
+		</where>
+		<include refid="dynamic_sort_exam_total" />
+		<include refid="dynamic_limit_exam" />
+	</select>
+	<select id="queryByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from xd_user_exam_total
+		<where>
+			<include refid="dynamic_where_exam" />
+		</where>
+		<include refid="dynamic_sort_exam_total" />
+		<include refid="dynamic_limit_exam" />
+	</select>
+	<!-- 动态查找 -->
+	<sql id="dynamic_where_exam">
+		<trim prefixOverrides="and">
+			<if test="input != null and input.courseId != null ">and
+				course_id = #{input.courseId}
+			</if>
+			<if test="input != null and input.userId != null ">and
+				user_id != #{input.userId}
+			</if>
+		</trim>
+	</sql>
+	<!-- 动态分页 -->
+	<sql id="dynamic_limit_exam">
+		<if test="limitStart != null and limitCount != null">
+			limit ${limitStart}, ${limitCount}
+		</if>
+	</sql>
+	<!-- 动态排序 -->
+	<sql id="dynamic_sort_exam_total">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.score != null and ( sort.score == 'ASC' or sort.score == 'DESC' )">
+				score ${sort.score},
+			</if>
+			<if
+				test="sort != null and sort.totalQues != null and ( sort.totalQues == 'ASC' or sort.totalQues == 'DESC' )">
+				total_ques ${sort.totalQues},
+			</if>
+			<if
+				test="sort != null and sort.rightQues != null and ( sort.rightQues == 'ASC' or sort.rightQues == 'DESC' )">
+				right_ques ${sort.rightQues},
+			</if>
+		</trim>
+	</sql>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		xd_user_exam_total
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.xiaodou.resources.model.quesbk.UserExamTotal">
+		insert into xd_user_exam_total
+		(id, user_id, course_id,
+		total_ques, avg_total, total_rank,
+		right_ques,
+		avg_right, right_rank,
+		right_percent, avg_right_perc, right_perc_rank,
+		chapter_score, score)
+		values (#{id,jdbcType=VARCHAR},
+		#{userId,jdbcType=VARCHAR},
+		#{courseId,jdbcType=BIGINT},
+		#{totalQues,jdbcType=VARCHAR}, #{avgTotal,jdbcType=VARCHAR},
+		#{totalRank,jdbcType=VARCHAR},
+		#{rightQues,jdbcType=VARCHAR},
+		#{avgRight,jdbcType=VARCHAR},
+		#{rightRank,jdbcType=VARCHAR},
+		#{rightPercent,jdbcType=VARCHAR}, #{avgRightPerc,jdbcType=VARCHAR},
+		#{rightPercRank,jdbcType=VARCHAR},
+		#{chapterScore,jdbcType=VARCHAR},
+		#{score,jdbcType=DECIMAL})
+	</insert>
+	<insert id="insertSelective" parameterType="com.xiaodou.resources.model.quesbk.UserExamTotal">
+		insert into xd_user_exam_total
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="courseId != null">
+				course_id,
+			</if>
+			<if test="totalQues != null">
+				total_ques,
+			</if>
+			<if test="avgTotal != null">
+				avg_total,
+			</if>
+			<if test="totalRank != null">
+				total_rank,
+			</if>
+			<if test="rightQues != null">
+				right_ques,
+			</if>
+			<if test="avgRight != null">
+				avg_right,
+			</if>
+			<if test="rightRank != null">
+				right_rank,
+			</if>
+			<if test="rightPercent != null">
+				right_percent,
+			</if>
+			<if test="avgRightPerc != null">
+				avg_right_perc,
+			</if>
+			<if test="rightPercRank != null">
+				right_perc_rank,
+			</if>
+			<if test="chapterScore != null">
+				chapter_score,
+			</if>
+			<if test="score != null">
+				score,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null">
+				#{courseId,jdbcType=BIGINT},
+			</if>
+			<if test="totalQues != null">
+				#{totalQues,jdbcType=VARCHAR},
+			</if>
+			<if test="avgTotal != null">
+				#{avgTotal,jdbcType=VARCHAR},
+			</if>
+			<if test="totalRank != null">
+				#{totalRank,jdbcType=VARCHAR},
+			</if>
+			<if test="rightQues != null">
+				#{rightQues,jdbcType=VARCHAR},
+			</if>
+			<if test="avgRight != null">
+				#{avgRight,jdbcType=VARCHAR},
+			</if>
+			<if test="rightRank != null">
+				#{rightRank,jdbcType=VARCHAR},
+			</if>
+			<if test="rightPercent != null">
+				#{rightPercent,jdbcType=VARCHAR},
+			</if>
+			<if test="avgRightPerc != null">
+				#{avgRightPerc,jdbcType=VARCHAR},
+			</if>
+			<if test="rightPercRank != null">
+				#{rightPercRank,jdbcType=VARCHAR},
+			</if>
+			<if test="chapterScore != null">
+				#{chapterScore,jdbcType=VARCHAR},
+			</if>
+			<if test="score != null">
+				#{score,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.xiaodou.resources.model.quesbk.UserExamTotal">
+		update xd_user_exam_total
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null">
+				course_id = #{courseId,jdbcType=BIGINT},
+			</if>
+			<if test="totalQues != null">
+				total_ques = #{totalQues,jdbcType=VARCHAR},
+			</if>
+			<if test="avgTotal != null">
+				avg_total = #{avgTotal,jdbcType=VARCHAR},
+			</if>
+			<if test="totalRank != null">
+				total_rank = #{totalRank,jdbcType=VARCHAR},
+			</if>
+			<if test="rightQues != null">
+				right_ques = #{rightQues,jdbcType=VARCHAR},
+			</if>
+			<if test="avgRight != null">
+				avg_right = #{avgRight,jdbcType=VARCHAR},
+			</if>
+			<if test="rightRank != null">
+				right_rank = #{rightRank,jdbcType=VARCHAR},
+			</if>
+			<if test="rightPercent != null">
+				right_percent = #{rightPercent,jdbcType=VARCHAR},
+			</if>
+			<if test="avgRightPerc != null">
+				avg_right_perc = #{avgRightPerc,jdbcType=VARCHAR},
+			</if>
+			<if test="rightPercRank != null">
+				right_perc_rank = #{rightPercRank,jdbcType=VARCHAR},
+			</if>
+			<if test="chapterScore != null">
+				chapter_score = #{chapterScore,jdbcType=VARCHAR},
+			</if>
+			<if test="score != null">
+				score = #{score,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.xiaodou.resources.model.quesbk.UserExamTotal">
+		update
+		xd_user_exam_total
+		set user_id = #{userId,jdbcType=VARCHAR},
+		course_id =
+		#{courseId,jdbcType=BIGINT},
+		total_ques =
+		#{totalQues,jdbcType=VARCHAR},
+		avg_total =
+		#{avgTotal,jdbcType=VARCHAR},
+		total_rank =
+		#{totalRank,jdbcType=VARCHAR},
+		right_ques =
+		#{rightQues,jdbcType=VARCHAR},
+		avg_right =
+		#{avgRight,jdbcType=VARCHAR},
+		right_rank =
+		#{rightRank,jdbcType=VARCHAR},
+		right_percent =
+		#{rightPercent,jdbcType=VARCHAR},
+		avg_right_perc =
+		#{avgRightPerc,jdbcType=VARCHAR},
+		right_perc_rank =
+		#{rightPercRank,jdbcType=VARCHAR},
+		chapter_score =
+		#{chapterScore,jdbcType=VARCHAR},
+		score =
+		#{score,jdbcType=DECIMAL}
+		where
+		id = #{id,jdbcType=VARCHAR}
+	</update>
+	<select id="selectAllUserCountBySubjectId" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select count(id) from xd_user_exam_total
+		where
+		course_id =
+		#{0}
+		and user_id != -1
+	</select>
+	<select id="queryTotalRankByCond" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select count(id) from xd_user_exam_total
+		where
+		course_id =
+		#{2}
+		and user_id != -1
+		and user_id != #{1}
+		and total_ques &gt; #{0}
+	</select>
+	<select id="queryRightRankByCond" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select count(id) from xd_user_exam_total
+		where
+		course_id =
+		#{2}
+		and user_id != -1
+		and user_id != #{1}
+		and right_ques &gt; #{0}
+	</select>
+</mapper>

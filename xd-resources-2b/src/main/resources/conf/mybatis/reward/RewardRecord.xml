@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RewardRecord">
+	<resultMap id="BaseResultMap" type="com.xiaodou.resources.model.reward.RewardRecord">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="record_id" property="recordId" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="target_user_id" property="targetUserId"
+			jdbcType="VARCHAR" />
+		<result column="gift_type" property="giftType" jdbcType="INTEGER" />
+		<result column="gift_money" property="giftMoney" jdbcType="DOUBLE" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="operate_type" property="operateType" jdbcType="INTEGER" />
+		<result column="operate_desc" property="operateDesc" jdbcType="VARCHAR" />
+  		<result column="h5_type" property="h5Type" jdbcType="VARCHAR" />
+  		<result column="remark" property="remark" jdbcType="VARCHAR" />
+  		<result column="pay_type" property="payType" jdbcType="VARCHAR" />
+  		<result column="rate" property="rate" jdbcType="VARCHAR" />
+  		<result column="poundage" property="poundage" jdbcType="DOUBLE" />
+	</resultMap>
+	<sql id="base_column">id, module, record_id, user_id, target_user_id, gift_type,
+		gift_money, create_time, operate_type, operate_desc,h5_type,remark,pay_type,rate,poundage
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.resources.model.reward.RewardRecord">
+		select
+		<include refid="base_column" />
+		from xd_resources_reward_record
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_resources_reward_record
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<select id="findEntityCountByCond" parameterType="java.util.Map" resultType="java.lang.Integer" >
+		select count(id)
+		from xd_resources_reward_record
+		<include refid="dynamic_where" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.resources.model.reward.RewardRecord">
+		insert into xd_resources_reward_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="module != null">module,</if>
+			<if test="recordId != null">record_id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="targetUserId != null">target_user_id,</if>
+			<if test="giftType != null">gift_type,</if>
+			<if test="giftMoney != null">gift_money,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="operateType != null">operate_type,</if>
+			<if test="operateDesc != null">operate_desc,</if>
+			<if test="h5Type != null">h5_type,</if>
+			<if test="remark != null">remark,</if>
+			<if test="payType != null">pay_type,</if>
+  			<if test="rate != null">rate,</if>
+  			<if test="poundage != null">poundage,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+			<if test="recordId != null">#{recordId,jdbcType=VARCHAR},</if>
+			<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+			<if test="targetUserId != null">#{targetUserId,jdbcType=VARCHAR},</if>
+			<if test="giftType != null">#{giftType,jdbcType=INTEGER},</if>
+			<if test="giftMoney != null">#{giftMoney,jdbcType=DOUBLE},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="operateType != null">#{operateType,jdbcType=INTEGER},</if>
+			<if test="operateDesc != null">#{operateDesc,jdbcType=VARCHAR},</if>
+			<if test="h5Type != null">#{h5Type,jdbcType=VARCHAR},</if>
+			<if test="remark != null">#{remark,jdbcType=VARCHAR},</if>
+			<if test="payType != null">#{payType,jdbcType=VARCHAR},</if>
+  			<if test="rate != null">#{rate,jdbcType=VARCHAR},</if>
+			<if test="poundage != null">#{poundage,jdbcType=DOUBLE},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.resources.model.reward.RewardRecord">
+		update xd_resources_reward_record
+		<set>
+			<if test="value != null and value.operateType != null">operate_type = #{value.operateType,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.operateDesc != null">operate_desc = #{value.operateDesc,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.resources.model.reward.RewardRecord">
+		update xd_resources_reward_record
+		<set>
+			<if test="value != null and value.operateType != null">operate_type = #{value.operateType,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.operateDesc != null">operate_desc = #{value.operateDesc,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.resources.model.reward.RewardRecord">
+		delete from
+		xd_resources_reward_record
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_resources_reward_record
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.module != null">module,</if>
+			<if test="output != null and output.recordId != null">record_id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.targetUserId != null">target_user_id,</if>
+			<if test="output != null and output.giftType != null">gift_type,</if>
+			<if test="output != null and output.giftMoney != null">gift_money,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.operateType != null">operate_type,</if>
+			<if test="output != null and output.operateDesc != null">operate_desc,</if>
+			<if test="output != null and output.h5Type != null">h5_type,</if>
+			<if test="output != null and output.remark != null">remark,</if>
+			<if test="output != null and output.payType != null">pay_type,</if>
+  			<if test="output != null and output.rate != null">rate,</if>
+			<if test="output != null and output.poundage != null">poundage,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.idUpper != null">and id &lt; #{input.idUpper}</if>
+			<if test="input != null and input.idLower != null">and id &gt; #{input.idLower}</if>
+			<if test="input != null and input.module != null">and module=#{input.module}</if>
+			<if test="input != null and input.recordId != null">and record_id=#{input.recordId}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.targetUserId != null">and target_user_id=#{input.targetUserId}</if>
+			<if test="input != null and input.giftType != null">and gift_type=#{input.giftType}</if>
+			<if test="input != null and input.giftMoney != null">and gift_money=#{input.giftMoney}</if>
+			<if test="input != null and input.createTimeLower != null">and create_time &gt; #{input.createTimeLower}</if>
+			<if test="input != null and input.createTimeUpper != null">and create_time &lt; #{input.createTimeLower}</if>
+			<if test="input != null and input.operateType != null">and operate_type=#{input.operateType}</if>
+			<if test="input != null and input.operateTypeList != null">
+				and operate_type in
+				<foreach collection="input.operateTypeList" open="(" close=")"
+					separator="," item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.operateDesc != null">and operate_desc=#{input.operateDesc}</if>
+			<if test="input != null and input.h5Type != null">and h5_type=#{input.h5Type}</if>
+			<if test="input != null and input.remark != null">and remark=#{input.remark}</if>
+			<if test="input != null and input.payType != null">and pay_type=#{input.payType}</if>
+  			<if test="input != null and input.rate != null">and rate=#{input.rate}</if>
+			<if test="input != null and input.poundage != null">and pay_type=#{input.poundage}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.module != null and ( sort.module == 'ASC' or sort.module == 'DESC' )">module ${sort.module},</if>
+			<if
+				test="sort != null and sort.recordId != null and ( sort.recordId == 'ASC' or sort.recordId == 'DESC' )">record_id ${sort.recordId},</if>
+			<if
+				test="sort != null and sort.userId != null and ( sort.userId == 'ASC' or sort.userId == 'DESC' )">user_id ${sort.userId},</if>
+			<if
+				test="sort != null and sort.targetUserId != null and ( sort.targetUserId == 'ASC' or sort.targetUserId == 'DESC' )">target_user_id ${sort.targetUserId},</if>
+			<if
+				test="sort != null and sort.giftType != null and ( sort.giftType == 'ASC' or sort.giftType == 'DESC' )">gift_type ${sort.giftType},</if>
+			<if
+				test="sort != null and sort.giftMoney != null and ( sort.giftMoney == 'ASC' or sort.giftMoney == 'DESC' )">gift_money ${sort.giftMoney},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.operateType != null and ( sort.operateType == 'ASC' or sort.operateType == 'DESC' )">operate_type ${sort.operateType},</if>
+			<if
+				test="sort != null and sort.operateDesc != null and ( sort.operateDesc == 'ASC' or sort.operateDesc == 'DESC' )">operate_desc ${sort.operateDesc},</if>
+		</trim>
+	</sql>
+</mapper>

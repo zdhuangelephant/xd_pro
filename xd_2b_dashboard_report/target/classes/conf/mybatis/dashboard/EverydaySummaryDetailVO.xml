@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EverydaySummaryDetailVO">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.st.dashboard.domain.dashboard.EverydaySummaryDetailVO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="total_students" property="totalStudents"
+			jdbcType="BIGINT" />
+		<result column="total_subjects_and_stus" property="totalSubjectsAndStus"
+			jdbcType="BIGINT" />
+		<result column="learn_none_counts" property="learnNoneCounts"
+			jdbcType="INTEGER" />
+		<result column="learn_percent" property="learnPercent"
+			jdbcType="DOUBLE" />
+		<result column="pass_percent" property="passPercent" jdbcType="DOUBLE" />
+		<result column="level_full_credit_apply_counts" property="levelFullCreditApplyCounts"
+			jdbcType="INTEGER" />
+		<result column="level_excellent_apply_counts" property="levelExcellentApplyCounts"
+			jdbcType="INTEGER" />
+		<result column="level_good_apply_counts" property="levelGoodApplyCounts"
+			jdbcType="INTEGER" />
+		<result column="level_general_apply_counts" property="levelGeneralApplyCounts"
+			jdbcType="INTEGER" />
+		<result column="level_poor_apply_counts" property="levelPoorApplyCounts"
+			jdbcType="INTEGER" />
+		<result column="role_type" property="roleType" jdbcType="INTEGER" />
+		<result column="unit_id" property="unitId" jdbcType="INTEGER" />
+		<result column="pilot_unit_id" property="pilotUnitId" jdbcType="INTEGER" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="pilot_unit_name" property="pilotUnitName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, total_students, total_subjects_and_stus,
+		learn_none_counts, learn_percent, pass_percent,
+		level_full_credit_apply_counts, level_excellent_apply_counts,
+		level_good_apply_counts, level_general_apply_counts,
+		level_poor_apply_counts, role_type, unit_id, pilot_unit_id,
+		update_time, create_time, pilot_unit_name</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.st.dashboard.domain.dashboard.EverydaySummaryDetailVO">
+		select
+		<include refid="base_column" />
+		from xd_dashboard_everyday_summary_statistics_details
+		where id =
+		#{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_dashboard_everyday_summary_statistics_details
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.st.dashboard.domain.dashboard.EverydaySummaryDetailVO">
+		insert into xd_dashboard_everyday_summary_statistics_details
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="totalStudents != null">total_students,</if>
+			<if test="totalSubjectsAndStus != null">total_subjects_and_stus,</if>
+			<if test="learnNoneCounts != null">learn_none_counts,</if>
+			<if test="learnPercent != null">learn_percent,</if>
+			<if test="passPercent != null">pass_percent,</if>
+			<if test="levelFullCreditApplyCounts != null">level_full_credit_apply_counts,</if>
+			<if test="levelExcellentApplyCounts != null">level_excellent_apply_counts,</if>
+			<if test="levelGoodApplyCounts != null">level_good_apply_counts,</if>
+			<if test="levelGeneralApplyCounts != null">level_general_apply_counts,</if>
+			<if test="levelPoorApplyCounts != null">level_poor_apply_counts,</if>
+			<if test="roleType != null">role_type,</if>
+			<if test="unitId != null">unit_id,</if>
+			<if test="pilotUnitId != null">pilot_unit_id,</if>
+			<if test="updateTime != null">update_time,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="pilotUnitName != null">pilot_unit_name,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="totalStudents != null">#{totalStudents,jdbcType=BIGINT},</if>
+			<if test="totalSubjectsAndStus != null">#{totalSubjectsAndStus,jdbcType=BIGINT},</if>
+			<if test="learnNoneCounts != null">#{learnNoneCounts,jdbcType=INTEGER},</if>
+			<if test="learnPercent != null">#{learnPercent,jdbcType=DOUBLE},</if>
+			<if test="passPercent != null">#{passPercent,jdbcType=DOUBLE},</if>
+			<if test="levelFullCreditApplyCounts != null">#{levelFullCreditApplyCounts,jdbcType=INTEGER},</if>
+			<if test="levelExcellentApplyCounts != null">#{levelExcellentApplyCounts,jdbcType=INTEGER},</if>
+			<if test="levelGoodApplyCounts != null">#{levelGoodApplyCounts,jdbcType=INTEGER},</if>
+			<if test="levelGeneralApplyCounts != null">#{levelGeneralApplyCounts,jdbcType=INTEGER},</if>
+			<if test="levelPoorApplyCounts != null">#{levelPoorApplyCounts,jdbcType=INTEGER},</if>
+			<if test="roleType != null">#{roleType,jdbcType=INTEGER},</if>
+			<if test="unitId != null">#{unitId,jdbcType=INTEGER},</if>
+			<if test="pilotUnitId != null">#{pilotUnitId,jdbcType=INTEGER},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="pilotUnitName != null">#{pilotUnitName,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.st.dashboard.domain.dashboard.EverydaySummaryDetailVO">
+		update xd_dashboard_everyday_summary_statistics_details
+		<set>
+			<if test="value != null and value.totalStudents != null">total_students = #{value.totalStudents,jdbcType=BIGINT},
+			</if>
+			<if test="value != null and value.totalSubjectsAndStus != null">total_subjects_and_stus =
+				#{value.totalSubjectsAndStus,jdbcType=BIGINT},</if>
+			<if test="value != null and value.learnNoneCounts != null">learn_none_counts =
+				#{value.learnNoneCounts,jdbcType=INTEGER},</if>
+			<if test="value != null and value.learnPercent != null">learn_percent = #{value.learnPercent,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.passPercent != null">pass_percent = #{value.passPercent,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.levelFullCreditApplyCounts != null">level_full_credit_apply_counts =
+				#{value.levelFullCreditApplyCounts,jdbcType=INTEGER},</if>
+			<if test="value != null and value.levelExcellentApplyCounts != null">level_excellent_apply_counts =
+				#{value.levelExcellentApplyCounts,jdbcType=INTEGER},</if>
+			<if test="value != null and value.levelGoodApplyCounts != null">level_good_apply_counts =
+				#{value.levelGoodApplyCounts,jdbcType=INTEGER},</if>
+			<if test="value != null and value.levelGeneralApplyCounts != null">level_general_apply_counts =
+				#{value.levelGeneralApplyCounts,jdbcType=INTEGER},</if>
+			<if test="value != null and value.levelPoorApplyCounts != null">level_poor_apply_counts =
+				#{value.levelPoorApplyCounts,jdbcType=INTEGER},</if>
+			<if test="value != null and value.roleType != null">role_type = #{value.roleType,jdbcType=INTEGER},</if>
+			<if test="value != null and value.unitId != null">unit_id = #{value.unitId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.pilotUnitName != null">pilot_unit_name =
+				#{value.pilotUnitName,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.st.dashboard.domain.dashboard.EverydaySummaryDetailVO">
+		update xd_dashboard_everyday_summary_statistics_details
+		<set>
+			<if test="value != null and value.totalStudents != null">total_students = #{value.totalStudents,jdbcType=BIGINT},
+			</if>
+			<if test="value != null and value.totalSubjectsAndStus != null">total_subjects_and_stus =
+				#{value.totalSubjectsAndStus,jdbcType=BIGINT},</if>
+			<if test="value != null and value.learnNoneCounts != null">learn_none_counts =
+				#{value.learnNoneCounts,jdbcType=INTEGER},</if>
+			<if test="value != null and value.learnPercent != null">learn_percent = #{value.learnPercent,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null and value.passPercent != null">pass_percent = #{value.passPercent,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.levelFullCreditApplyCounts != null">level_full_credit_apply_counts =
+				#{value.levelFullCreditApplyCounts,jdbcType=INTEGER},</if>
+			<if test="value != null and value.levelExcellentApplyCounts != null">level_excellent_apply_counts =
+				#{value.levelExcellentApplyCounts,jdbcType=INTEGER},</if>
+			<if test="value != null and value.levelGoodApplyCounts != null">level_good_apply_counts =
+				#{value.levelGoodApplyCounts,jdbcType=INTEGER},</if>
+			<if test="value != null and value.levelGeneralApplyCounts != null">level_general_apply_counts =
+				#{value.levelGeneralApplyCounts,jdbcType=INTEGER},</if>
+			<if test="value != null and value.levelPoorApplyCounts != null">level_poor_apply_counts =
+				#{value.levelPoorApplyCounts,jdbcType=INTEGER},</if>
+			<if test="value != null and value.roleType != null">role_type = #{value.roleType,jdbcType=INTEGER},</if>
+			<if test="value != null and value.unitId != null">unit_id = #{value.unitId,jdbcType=INTEGER},</if>
+			<if test="value != null and value.pilotUnitId != null">pilot_unit_id = #{value.pilotUnitId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="value != null and value.pilotUnitName != null">pilot_unit_name =
+				#{value.pilotUnitName,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById"
+		parameterType="com.xiaodou.st.dashboard.domain.dashboard.EverydaySummaryDetailVO">
+		delete from
+		xd_dashboard_everyday_summary_statistics_details
+		where id =
+		#{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_dashboard_everyday_summary_statistics_details
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.totalStudents != null">total_students,</if>
+			<if test="output != null and output.totalSubjectsAndStus != null">total_subjects_and_stus,</if>
+			<if test="output != null and output.learnNoneCounts != null">learn_none_counts,</if>
+			<if test="output != null and output.learnPercent != null">learn_percent,</if>
+			<if test="output != null and output.passPercent != null">pass_percent,</if>
+			<if test="output != null and output.levelFullCreditApplyCounts != null">level_full_credit_apply_counts,</if>
+			<if test="output != null and output.levelExcellentApplyCounts != null">level_excellent_apply_counts,</if>
+			<if test="output != null and output.levelGoodApplyCounts != null">level_good_apply_counts,</if>
+			<if test="output != null and output.levelGeneralApplyCounts != null">level_general_apply_counts,</if>
+			<if test="output != null and output.levelPoorApplyCounts != null">level_poor_apply_counts,</if>
+			<if test="output != null and output.roleType != null">role_type,</if>
+			<if test="output != null and output.unitId != null">unit_id,</if>
+			<if test="output != null and output.pilotUnitId != null">pilot_unit_id,</if>
+			<if test="output != null and output.updateTime != null">update_time,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.pilotUnitName != null">pilot_unit_name,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.totalStudents != null">and total_students=#{input.totalStudents}</if>
+			<if test="input != null and input.totalSubjectsAndStus != null">and total_subjects_and_stus=#{input.totalSubjectsAndStus}
+			</if>
+			<if test="input != null and input.learnNoneCounts != null">and learn_none_counts=#{input.learnNoneCounts}</if>
+			<if test="input != null and input.learnPercent != null">and learn_percent=#{input.learnPercent}</if>
+			<if test="input != null and input.passPercent != null">and pass_percent=#{input.passPercent}</if>
+			<if test="input != null and input.levelFullCreditApplyCounts != null">and
+				level_full_credit_apply_counts=#{input.levelFullCreditApplyCounts}
+			</if>
+			<if test="input != null and input.levelExcellentApplyCounts != null">and
+				level_excellent_apply_counts=#{input.levelExcellentApplyCounts}</if>
+			<if test="input != null and input.levelGoodApplyCounts != null">and level_good_apply_counts=#{input.levelGoodApplyCounts}
+			</if>
+			<if test="input != null and input.levelGeneralApplyCounts != null">and
+				level_general_apply_counts=#{input.levelGeneralApplyCounts}</if>
+			<if test="input != null and input.levelPoorApplyCounts != null">and level_poor_apply_counts=#{input.levelPoorApplyCounts}
+			</if>
+			<if test="input != null and input.roleType != null">and role_type=#{input.roleType}</if>
+			<if test="input != null and input.unitId != null">and unit_id=#{input.unitId}</if>
+			<if test="input != null and input.unitIdList != null">
+				and unit_id in
+				<foreach collection="input.unitIdList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.pilotUnitId != null">and pilot_unit_id=#{input.pilotUnitId}</if>
+			<if test="input != null and input.pilotUnitIdList != null">
+				and pilot_unit_id in
+				<foreach collection="input.pilotUnitIdList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.updateTimeLower != null">and update_time &gt; #{input.updateTimeLower}</if>
+			<if test="input != null and input.updateTimeUpper != null">and update_time &lt; #{input.updateTimeUpper}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+			<if test="input != null and input.pilotUnitName != null">and pilot_unit_name=#{input.pilotUnitName}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.pilotUnitName != null and ( sort.pilotUnitName == 'ASC' or sort.pilotUnitName == 'DESC' )">pilot_unit_name ${sort.pilotUnitName},</if>
+		</trim>
+	</sql>
+</mapper>

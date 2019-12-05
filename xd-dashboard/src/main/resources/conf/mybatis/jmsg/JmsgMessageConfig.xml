@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="JmsgMessageConfig">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.dashboard.model.jsmg.JmsgMessageConfig">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="message_name" property="messageName" jdbcType="VARCHAR" />
+		<result column="exchange_name" property="exchangeName"
+			jdbcType="VARCHAR" />
+		<result column="priority" property="priority" jdbcType="VARCHAR" />
+		<result column="use_delay_retry" property="useDelayRetry"
+			jdbcType="VARCHAR" />
+		<result column="delay_time" property="delayTime" jdbcType="VARCHAR" />
+		<result column="max_retry_count" property="maxRetryCount"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, message_name, exchange_name, priority, use_delay_retry,
+		delay_time, max_retry_count</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.dashboard.model.jsmg.JmsgMessageConfig">
+		select
+		<include refid="base_column" />
+		from message_config
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from message_config
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+
+	<!-- 查询 -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="base_column" />
+		FROM message_config
+		<include refid="dynamic_where" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.dashboard.model.jsmg.JmsgMessageConfig">
+		insert into message_config
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="messageName != null">message_name,</if>
+			<if test="exchangeName != null">exchange_name,</if>
+			<if test="priority != null">priority,</if>
+			<if test="useDelayRetry != null">use_delay_retry,</if>
+			<if test="delayTime != null">delay_time,</if>
+			<if test="maxRetryCount != null">max_retry_count,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="messageName != null">#{messageName,jdbcType=VARCHAR},</if>
+			<if test="exchangeName != null">#{exchangeName,jdbcType=VARCHAR},</if>
+			<if test="priority != null">#{priority,jdbcType=VARCHAR},</if>
+			<if test="useDelayRetry != null">#{useDelayRetry,jdbcType=VARCHAR},</if>
+			<if test="delayTime != null">#{delayTime,jdbcType=VARCHAR},</if>
+			<if test="maxRetryCount != null">#{maxRetryCount,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.dashboard.model.jsmg.JmsgMessageConfig">
+		update message_config
+		<set>
+			<if test="value != null and value.messageName != null">message_name = #{value.messageName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.exchangeName != null">exchange_name = #{value.exchangeName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.priority != null">priority = #{value.priority,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.useDelayRetry != null">use_delay_retry =
+				#{value.useDelayRetry,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.delayTime != null">delay_time = #{value.delayTime,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.maxRetryCount != null">max_retry_count =
+				#{value.maxRetryCount,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.dashboard.model.jsmg.JmsgMessageConfig">
+		update message_config
+		<set>
+			<if test="value != null and value.messageName != null">message_name = #{value.messageName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.exchangeName != null">exchange_name = #{value.exchangeName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.priority != null">priority = #{value.priority,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.useDelayRetry != null">use_delay_retry =
+				#{value.useDelayRetry,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.delayTime != null">delay_time = #{value.delayTime,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.maxRetryCount != null">max_retry_count =
+				#{value.maxRetryCount,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.dashboard.model.jsmg.JmsgMessageConfig">
+		delete from
+		message_config
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from message_config
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.messageName != null">message_name,</if>
+			<if test="output != null and output.exchangeName != null">exchange_name,</if>
+			<if test="output != null and output.priority != null">priority,</if>
+			<if test="output != null and output.useDelayRetry != null">use_delay_retry,</if>
+			<if test="output != null and output.delayTime != null">delay_time,</if>
+			<if test="output != null and output.maxRetryCount != null">max_retry_count,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.messageName != null">and message_name=#{input.messageName}</if>
+			<if test="input != null and input.exchangeName != null">and exchange_name=#{input.exchangeName}</if>
+			<if test="input != null and input.priority != null">and priority=#{input.priority}</if>
+			<if test="input != null and input.useDelayRetry != null">and use_delay_retry=#{input.useDelayRetry}</if>
+			<if test="input != null and input.delayTime != null">and delay_time=#{input.delayTime}</if>
+			<if test="input != null and input.maxRetryCount != null">and max_retry_count=#{input.maxRetryCount}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.maxRetryCount != null and ( sort.maxRetryCount == 'ASC' or sort.maxRetryCount == 'DESC' )">max_retry_count ${sort.maxRetryCount},</if>
+		</trim>
+	</sql>
+</mapper>

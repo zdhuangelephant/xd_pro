@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="OutInModel">
+	<resultMap id="BaseResultMap" type="com.xiaodou.dashboard.model.log.OutInModel">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="client_ip" property="clientIp" jdbcType="VARCHAR" />
+		<result column="params" property="params" jdbcType="VARCHAR" />
+		<result column="log_time" property="logTime" jdbcType="TIMESTAMP" />
+		<result column="local_ip" property="localIp" jdbcType="VARCHAR" />
+		<result column="project_name" property="projectName" jdbcType="VARCHAR" />
+		<result column="local_mac" property="localMac" jdbcType="VARCHAR" />
+		<result column="log_name" property="logName" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="DayChartResultMap" type="com.xiaodou.dashboard.model.log.DayChartModel">
+		<id column="timeInterval" property="timeInterval" jdbcType="VARCHAR" />
+		<result column="logCount" property="logCount" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="base_column">id, client_ip, params, log_time, local_ip, project_name,
+		local_mac, log_name</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.dashboard.model.log.OutInModel">
+		select
+		<include refid="base_column" />
+		from xd_log_out_in
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_log_out_in
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+    <select id="queryOutInNumber" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(id)
+		FROM xd_log_out_in
+		<include refid="dynamic_where"/>
+	</select>
+	
+	<select id="queryDayChartData" parameterType="java.util.Map" resultMap="DayChartResultMap">
+		SELECT 5*floor(timestampdiff(minute, log_time, now())/5) as timeInterval, count(*) as logCount  FROM xd_log_out_in   
+		<include refid="dynamic_where"/>
+		group by timeInterval
+	</select>
+	<!-- 查询 -->
+	<select id="queryList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="base_column" />
+		FROM xd_log_out_in
+		<include refid="dynamic_where" />
+	</select>
+	<!-- 根据栏目级联查询 -->
+	<select id="cascadeQueryOutIn" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		count(*)
+		FROM xd_log_out_in
+		<include refid="dynamic_where" />
+	    <include refid="dynamic_sort" />
+	    <include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.dashboard.model.log.OutInModel">
+		insert into xd_log_out_in
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="clientIp != null">client_ip,</if>
+			<if test="params != null">params,</if>
+			<if test="logTime != null">log_time,</if>
+			<if test="localIp != null">local_ip,</if>
+			<if test="projectName != null">project_name,</if>
+			<if test="localMac != null">local_mac,</if>
+			<if test="logName != null">log_name,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="clientIp != null">#{clientIp,jdbcType=VARCHAR},</if>
+			<if test="params != null">#{params,jdbcType=VARCHAR},</if>
+			<if test="logTime != null">#{logTime,jdbcType=TIMESTAMP},</if>
+			<if test="localIp != null">#{localIp,jdbcType=VARCHAR},</if>
+			<if test="projectName != null">#{projectName,jdbcType=VARCHAR},</if>
+			<if test="localMac != null">#{localMac,jdbcType=VARCHAR},</if>
+			<if test="logName != null">#{logName,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.dashboard.model.log.OutInModel">
+		update xd_log_out_in
+		<set>
+			<if test="value != null and value.clientIp != null">client_ip = #{value.clientIp,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.params != null">params = #{value.params,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.logTime != null">log_time = #{value.logTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.localIp != null">local_ip = #{value.localIp,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.projectName != null">project_name = #{value.projectName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.localMac != null">local_mac = #{value.localMac,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.logName != null">log_name = #{value.logName,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.dashboard.model.log.OutInModel">
+		update xd_log_out_in
+		<set>
+			<if test="value != null and value.clientIp != null">client_ip = #{value.clientIp,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.params != null">params = #{value.params,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.logTime != null">log_time = #{value.logTime,jdbcType=TIMESTAMP},</if>
+			<if test="value != null and value.localIp != null">local_ip = #{value.localIp,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.projectName != null">project_name = #{value.projectName,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null and value.localMac != null">local_mac = #{value.localMac,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.logName != null">log_name = #{value.logName,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<update id="deleteEntityById" parameterType="com.xiaodou.dashboard.model.log.OutInModel">
+		delete from
+		xd_log_out_in
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_log_out_in
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.clientIp != null">client_ip,</if>
+			<if test="output != null and output.params != null">params,</if>
+			<if test="output != null and output.logTime != null">log_time,</if>
+			<if test="output != null and output.localIp != null">local_ip,</if>
+			<if test="output != null and output.projectName != null">project_name,</if>
+			<if test="output != null and output.localMac != null">local_mac,</if>
+			<if test="output != null and output.logName != null">log_name,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.clientIp != null">and client_ip=#{input.clientIp}</if>
+			<if test="input != null and input.params != null">and params=#{input.params}</if>
+			<if test="input != null and input.logTime != null">and log_time=#{input.logTime}</if>
+			<if test="input != null and input.localIp != null">and local_ip=#{input.localIp}</if>
+			<if test="input != null and input.projectName != null">and project_name=#{input.projectName}</if>
+			<if test="input != null and input.localMac != null">and local_mac=#{input.localMac}</if>
+			<if test="input != null and input.logName != null">and log_name=#{input.logName}</if>
+			<if test="input != null and input.logTimeLower != null">and log_time &gt; #{input.logTimeLower}</if>
+			<if test="input != null and input.logTimeUpper != null">and log_time &lt;= #{input.logTimeUpper}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+		</trim>
+	</sql>
+</mapper>
