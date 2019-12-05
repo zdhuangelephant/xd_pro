@@ -1,0 +1,188 @@
+.right {
+    width: 50%;
+    height: 100%;
+    float: left;
+    margin: 30px;
+    /*background: #ef5e99;*/
+}
+
+.mainBody .right p {
+    font-size: 16px;
+    color: #555555;
+    margin-top: 15px;
+    margin-left: 20px;
+    /*line-height: 30px;*/
+}
+
+.mainBody .right .choose {
+    margin-left: 24px;
+}
+
+.mainBody .right .choose li {
+    float: left;
+    width: 80px;
+    height: 30px;
+    border: 1px solid #e5e5e5;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    list-style: none;
+    background-color: #f5f5f5;
+    color: #eeeeee;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    font-size: 16px;
+}
+
+.mainBody .right .choose .on {
+    background: #e5e5e5;
+    color: #858585;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.mainBody .right .rightMain {
+    position: relative;
+    width: 500px;
+    min-height: 330px;
+    border: 1px solid #e5e5e5;
+    overflow: hidden;
+    margin-left: 24px;
+}
+
+.mainBody .right .itemBox,
+.mainBody .right .keyPointBox {
+    display: block;
+}
+
+.mainBody .right .operationArea {
+    margin-top: 20px;
+    width: 500px;
+}
+
+.mainBody .right .operationArea .rightMain .img-box,
+.mainBody .right .operationArea .rightMain .richText-box {
+    position: absolute;
+    float: left;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    display: none;
+}
+
+.mainBody .right .operationArea .rightMain .richText-box {
+    display: block;
+}
+
+.mainBody .right .operationArea .rightMain .img-box .img-list {
+    margin: 5px 5px 5px 5px;
+}
+
+.mainBody .right .operationArea .rightMain .img-box .img-list .img-file {
+    float: left;
+}
+
+.mainBody .right .operationArea .rightMain .img-box .img-preview {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 5px;
+    margin: 5px 5px 5px 5px;
+    height: 85%;
+    overflow: auto;
+}
+
+.mainBody .right .operationArea .rightMain .img-box .img-list .imageName {
+    width: 82%;
+}
+
+.mainBody .right .btnArea {
+    margin-top: 9px;
+}
+
+.mainBody .right .btnArea .btnGroup {
+    margin-left: 30px;
+}
+
+.mainBody .right .btnArea .btnGroup .Btn_common {
+    border-radius: 3px;
+    color: #1b6aaa;
+    background-color: #eeeeee;
+    text-shadow: none;
+}
+
+.mainBody .right .btnArea .btnGroup .Btn_common:hover {
+    color: #FFF;
+    background-color: #1b6aaa;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);
+}
+
+.mainBody .right .btnArea .elementGroup {
+    margin-left: 30px;
+    margin-top: 15px;
+    display: none;
+}
+
+.mainBody .right .btnArea .elementGroup .Btn_disable {
+    border-radius: 3px;
+    color: #adabb7;
+    background-color: #eeeeee;
+    text-shadow: none;
+}
+
+.mainBody .right .btnArea .elementGroup .Btn_common {
+    border-radius: 3px;
+    color: #1b6aaa;
+    background-color: #eeeeee;
+    text-shadow: none;
+}
+
+.mainBody .right .btnArea .elementGroup .Btn_common:hover {
+    color: #FFF;
+    background-color: #1b6aaa;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);
+}
+
+.mainBody .right .btnArea .elementGroup .Btn_select {
+    color: #FFF;
+    background-color: #1b6aaa;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);
+}
+
+.uploadPicBox {
+    padding: 0px 0px 5px 0px !important;
+    margin: 0 auto;
+    background: #fff;
+    position: fixed;
+    top: 50%;
+    margin-top: -196px;
+    left: 20%;
+    right: 20%;
+    z-index: 111;
+    border-radius: 5px;
+    display: none;
+}
+
+.yy-click table td {
+    min-width: 40px;
+    height: 30px;
+    border: 1px solid #ccc;
+    vertical-align: top;
+    padding: 2px 4px;
+    box-sizing: border-box;
+}
+
+.yy-click table td.active {
+    /*background-color: #ffffee;*/
+}
+
+.yy-click table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 15px 0;
+}
+
+.yy-click table thead {
+    background-color: #f9f9f9;
+}

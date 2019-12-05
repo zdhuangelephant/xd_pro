@@ -1,0 +1,32 @@
+.mainBody .left {
+    width: 220px;
+    height: 100%;
+    float: left;
+    /*background: #a863ea;*/
+}
+
+.mainBody .left p {
+    font-size: 16px;
+    color: #555555;
+    margin-top: 15px;
+    margin-left: 20px;
+    line-height: 30px;
+}
+
+.mainBody .left .courseList {
+    float: left;
+    padding: 3px 4px;
+    box-shadow: none !important;
+    color: #858585;
+    border: 1px solid #d5d5d5;
+    font-size: 14px;
+    width: 200px;
+    height: 34px;
+    line-height: 1.42857143;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.mainBody .left .courseware {
+    margin-left: 20px;
+    margin-top: 18px;
+}

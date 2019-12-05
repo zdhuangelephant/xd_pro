@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RaiseWrongQues">
+	<resultMap id="BaseResultMap" type="com.xiaodou.ms.model.exam.RaiseWrongQues">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="course_id" property="courseId" jdbcType="BIGINT" />
+		<result column="chapter_id" property="chapterId" jdbcType="BIGINT" />
+		<result column="ques_id" property="quesId" jdbcType="INTEGER" />
+		<result column="wrong_type" property="wrongType" jdbcType="VARCHAR" />
+		<result column="wrong_msg" property="wrongMsg" jdbcType="VARCHAR"  />
+	</resultMap>
+	<sql id="base_column">id, user_id, course_id, chapter_id, ques_id, wrong_type, wrong_msg
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.ms.model.exam.RaiseWrongQues">
+		select
+		<include refid="base_column" />
+		from xd_user_raise_wrong_ques
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_user_raise_wrong_ques
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">xd_user_raise_wrong_ques.id,</if>
+			<if test="output != null and output.userId != null">xd_user_raise_wrong_ques.user_id,</if>
+			<if test="output != null and output.courseId != null">xd_user_raise_wrong_ques.course_id,</if>
+			<if test="output != null and output.quesId != null">xd_user_raise_wrong_ques.ques_id,</if>
+			<if test="output != null and output.wrongType != null">xd_user_raise_wrong_ques.wrong_type,</if>
+			<if test="output != null and output.wrongMsg != null">xd_user_raise_wrong_ques.wrong_msg,</if>
+			<if test="output != null and output.chapterId != null">xd_user_raise_wrong_ques.chapter_id,</if>
+			
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and xd_user_raise_wrong_ques.id=#{input.id}</if>
+			<if test="input != null and input.userId != null">and xd_user_raise_wrong_ques.user_id=#{input.userId}</if>
+			<if test="input != null and input.courseId != null">and xd_user_raise_wrong_ques.course_id=#{input.courseId}</if>
+			<if test="input != null and input.quesId != null">and xd_user_raise_wrong_ques.ques_id=#{input.quesId}</if>
+			<if test="input != null and input.wrongType != null">and xd_user_raise_wrong_ques.wrong_type=#{input.courseId}</if>
+			<if test="input != null and input.wrongMsg != null">and xd_user_raise_wrong_ques.wrong_msg = #{input.createTimeLower}</if>
+			<if test="input != null and input.chapterId != null">and xd_user_raise_wrong_ques.chapter_id = #{input.createTimeUpper}</if>
+			
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">xd_user_raise_wrong_ques.id ${sort.id},</if>
+			<if
+				test="sort != null and sort.examName != null and ( sort.examName == 'ASC' or sort.examName == 'DESC' )">xd_user_raise_wrong_ques.exam_name ${sort.examName},</if>
+			<if
+				test="sort != null and sort.questionNums != null and ( sort.questionNums == 'ASC' or sort.questionNums == 'DESC' )">xd_user_raise_wrong_ques.question_nums ${sort.questionNums},</if>
+			<if
+				test="sort != null and sort.sort != null and ( sort.sort == 'ASC' or sort.sort == 'DESC' )">xd_user_raise_wrong_ques.sort ${sort.sort},</if>
+			<if
+				test="sort != null and sort.courseId != null and ( sort.courseId == 'ASC' or sort.courseId == 'DESC' )">xd_user_raise_wrong_ques.course_id ${sort.courseId},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">xd_user_raise_wrong_ques.create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

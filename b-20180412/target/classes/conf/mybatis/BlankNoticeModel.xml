@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BlankNoticeModel">
+	<resultMap id="BaseResultMap" type="com.xiaodou.ms.model.user.BlankNoticeModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+<result column="type" property="type" jdbcType="TINYINT" />
+<result column="jump_url" property="jumpUrl" jdbcType="VARCHAR" />
+<result column="module" property="module" jdbcType="VARCHAR" />
+<result column="title" property="title" jdbcType="VARCHAR" />
+<result column="image" property="image" jdbcType="VARCHAR" />
+<result column="is_inner_link" property="isInnerLink" jdbcType="TINYINT" />
+<result column="is_visible" property="isVisible" jdbcType="TINYINT" />
+<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+
+	</resultMap>
+	<sql id="base_column">id, type, jump_url,title, image, is_inner_link, is_visible, update_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.ms.model.user.BlankNoticeModel">
+		select
+		<include refid="base_column" />
+		from xd_user_blank_notice
+		where id = #{id,jdbcType=BIGINT}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_user_blank_notice
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.ms.model.user.BlankNoticeModel"  >
+		insert into xd_user_blank_notice
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+<if test="type != null">type,</if>
+<if test="jumpUrl != null">jump_url,</if>
+<if test="title != null">title,</if>
+<if test="image != null">image,</if>
+<if test="isInnerLink != null">is_inner_link,</if>
+<if test="isVisible != null">is_visible,</if>
+<if test="updateTime != null">update_time,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+<if test="type != null">#{type,jdbcType=TINYINT},</if>
+<if test="jumpUrl != null">#{jumpUrl,jdbcType=VARCHAR},</if>
+<if test="title != null">#{title,jdbcType=VARCHAR},</if>
+<if test="image != null">#{image,jdbcType=VARCHAR},</if>
+<if test="isInnerLink != null">#{isInnerLink,jdbcType=TINYINT},</if>
+<if test="isVisible != null">#{isVisible,jdbcType=TINYINT},</if>
+<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.ms.model.user.BlankNoticeModel">
+		update xd_user_blank_notice
+		<set>
+			<if test="value != null and value.type != null">type = #{value.type,jdbcType=TINYINT},</if>
+<if test="value != null and value.jumpUrl != null">jump_url = #{value.jumpUrl,jdbcType=VARCHAR},</if>
+<if test="value != null and value.title != null">title = #{value.title,jdbcType=VARCHAR},</if>
+<if test="value != null and value.image != null">image = #{value.image,jdbcType=VARCHAR},</if>
+<if test="value != null and value.isInnerLink != null">is_inner_link = #{value.isInnerLink,jdbcType=TINYINT},</if>
+<if test="value != null and value.isVisible != null">is_visible = #{value.isVisible,jdbcType=TINYINT},</if>
+<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.ms.model.user.BlankNoticeModel">
+		update xd_user_blank_notice
+		<set>
+			<if test="value != null and value.type != null">type = #{value.type,jdbcType=TINYINT},</if>
+<if test="value != null and value.jumpUrl != null">jump_url = #{value.jumpUrl,jdbcType=VARCHAR},</if>
+<if test="value != null and value.title != null">title = #{value.title,jdbcType=VARCHAR},</if>
+<if test="value != null and value.image != null">image = #{value.image,jdbcType=VARCHAR},</if>
+<if test="value != null and value.isInnerLink != null">is_inner_link = #{value.isInnerLink,jdbcType=TINYINT},</if>
+<if test="value != null and value.isVisible != null">is_visible = #{value.isVisible,jdbcType=TINYINT},</if>
+<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.ms.model.user.BlankNoticeModel">
+		delete from xd_user_blank_notice
+		where id = #{id,jdbcType=BIGINT}
+
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_user_blank_notice
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+<if test="output != null and output.type != null">type,</if>
+<if test="output != null and output.jumpUrl != null">jump_url,</if>
+<if test="output != null and output.title != null">title,</if>
+<if test="output != null and output.image != null">image,</if>
+<if test="output != null and output.isInnerLink != null">is_inner_link,</if>
+<if test="output != null and output.isVisible != null">is_visible,</if>
+<if test="output != null and output.updateTime != null">update_time,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.idLower != null">and id &gt; #{input.idLower}</if>
+<if test="input != null and input.idUpper != null">and id &lt; #{input.idUpper}</if>
+<if test="input != null and input.type != null">and type=#{input.type}</if>
+<if test="input != null and input.jumpUrl != null">and jump_url=#{input.jumpUrl}</if>
+<if test="input != null and input.title != null">and title=#{input.title}</if>
+<if test="input != null and input.image != null">and image=#{input.image}</if>
+<if test="input != null and input.isInnerLink != null">and is_inner_link=#{input.isInnerLink}</if>
+<if test="input != null and input.isVisible != null">and is_visible=#{input.isVisible}</if>
+<if test="input != null and input.updateTime != null">and update_time=#{input.updateTime}</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+<if test="sort != null and sort.type != null and ( sort.type == 'ASC' or sort.type == 'DESC' )">type ${sort.type},</if>
+<if test="sort != null and sort.jumpUrl != null and ( sort.jumpUrl == 'ASC' or sort.jumpUrl == 'DESC' )">jump_url ${sort.jumpUrl},</if>
+<if test="sort != null and sort.title != null and ( sort.title == 'ASC' or sort.title == 'DESC' )">title ${sort.title},</if>
+<if test="sort != null and sort.image != null and ( sort.image == 'ASC' or sort.image == 'DESC' )">image ${sort.image},</if>
+<if test="sort != null and sort.isInnerLink != null and ( sort.isInnerLink == 'ASC' or sort.isInnerLink == 'DESC' )">is_inner_link ${sort.isInnerLink},</if>
+<if test="sort != null and sort.isVisible != null and ( sort.isVisible == 'ASC' or sort.isVisible == 'DESC' )">is_visible ${sort.isVisible},</if>
+<if test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">update_time ${sort.updateTime},</if>
+
+		</trim>
+	</sql>
+</mapper>

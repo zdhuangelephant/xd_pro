@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ForumListModel">
+
+    <resultMap id="BaseResultMap" type="ForumListModel">
+        <id column="id" property="id"/>
+        <result column="status" property="status"/>
+        <result column="digest" property="digest"/>
+        <result column="top" property="top"/>
+        <result column="recommend" property="recommend"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="outline" property="outline"/>
+        <result column="images" property="images"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="publisher_id" property="publisherId"/>
+        <result column="replies_number" property="repliesNumber"/>
+        <result column="praise_number" property="praiseNumber"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="assign" property="assign"/>
+        <result column="tag" property="tag"/>
+        <result column="operator" property="operator"/>
+        <result column="operatorip" property="operatorip"/>
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">status,digest,top,recommend,title,content,outline,images,category_id,publisher_id,replies_number,
+    praise_number,create_time,update_time,assign,tag,operator,operatorip</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="status!= null">status,</if>
+            <if test="digest != null">digest,</if>
+            <if test="top != null">top,</if>
+            <if test="recommend != null">recommend,</if>
+            <if test="title != null">title,</if>
+            <if test="content != null">content,</if>
+            <if test="outline != null">outline,</if>
+            <if test="images != null">images,</if>
+            <if test="categoryId != null">category_id,</if>
+            <if test="publisherId != null">publisher_id,</if>
+            <if test="repliesNumber != null">replies_number,</if>
+            <if test="praiseNumber != null">praise_number,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="assign != null">assign,</if>
+            <if test="tag != null">tag,</if>
+            <if test="operator != null">operator,</if>
+            <if test="operatorip != null">operatorip,</if>
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="status != null">#{status},</if>
+            <if test="digest != null">#{digest},</if>
+            <if test="top != null">#{top},</if>
+            <if test="recommend != null">#{recommend},</if>
+            <if test="title != null">#{title},</if>
+            <if test="content != null">#{content},</if>
+            <if test="outline != null">#{outline},</if>
+            <if test="images != null">#{images},</if>
+            <if test="categoryId != null">#{categoryId},</if>
+            <if test="publisherId != null">#{publisherId},</if>
+            <if test="repliesNumber != null">#{repliesNumber},</if>
+            <if test="praiseNumber != null">#{praiseNumber},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="assign != null">#{assign},</if>
+            <if test="tag != null">#{tag},</if>
+            <if test="operator != null">#{operator},</if>
+            <if test="operatorip != null">#{operatorip},</if>
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="ForumListModel">
+        insert into xd_forum_list
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update xd_forum_list
+        <set>
+        	<if test="value != null and value.status != null">status = #{value.status},</if>
+            <if test="value != null and value.digest != null">digest = #{value.digest},</if>
+            <if test="value != null and value.top != null">top = #{value.top},</if>
+            <if test="value != null and value.recommend != null">recommend = #{value.recommend},</if>
+            <if test="value != null and value.title != null">title = #{value.title},</if>
+            <if test="value != null and value.content != null">content = #{value.content},</if>
+            <if test="value != null and value.outline != null">outline = #{value.outline},</if>
+            <if test="value != null and value.images != null">images = #{value.images},</if>
+            <if test="value != null and value.categoryId != null">category_id = #{value.categoryId},</if>
+            <if test="value != null and value.publisherId != null">publisher_id = #{value.publisherId},</if>
+            <if test="value != null and value.repliesNumber != null">replies_number = #{value.repliesNumber},</if>
+            <if test="value != null and value.praiseNumber != null">praise_number = #{value.praiseNumber},</if>
+            <if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+            <if test="value != null and value.updateTime != null">update_time = #{value.updateTime},</if>
+            <if test="value != null and value.assign != null">assign = #{value.assign},</if>
+            <if test="value != null and value.tag != null">tag = #{value.tag},</if>
+            <if test="value != null and value.operator != null">operator = #{value.operator},</if>
+            <if test="value != null and value.operatorip != null">operatorip = #{value.operatorip},</if>
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_forum_list
+        <include refid="dynamic_where"/>
+    </select>
+
+    <select id="cascadeQueryProduct" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_forum_list
+        left join xd_forum_category on xd_forum_list.category_id = xd_forum_category.id
+        <include refid="dynamic_where"/>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="ForumListModel" resultMap="BaseResultMap">
+        select * from xd_forum_list where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from xd_forum_list
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and xd_forum_list.id =#{input.id}</if>
+            <if test="input != null and input.status != null">and xd_forum_list.status =#{input.status}</if>
+            <if test="input != null and input.categoryId != null">and xd_forum_list.category_id =#{input.categoryId}</if>
+            <!-- <if test="input != null and input.categoryIds != null">and xd_forum_list.category_id in
+                <foreach open="(" close=")" item="idItem" separator="," collection="input.categoryIds">#{idItem}</foreach></if>  -->
+            <if test="input != null and input.top != null">and xd_forum_list.top =#{input.top}</if>
+            <if test="input != null and input.recommend != null">and xd_forum_list.recommend =#{input.recommend}</if>
+            <if test="input != null and input.title != null">and xd_forum_list.title =#{input.title}</if>
+            <if test="input != null and input.content != null">and xd_forum_list.content =#{input.content}</if>
+            <if test="input != null and input.outline != null">and xd_forum_list.outline =#{input.outline}</if>
+            <if test="input != null and input.images != null">and xd_forum_list.images =#{input.images}</if>
+            <if test="input != null and input.digest != null">and xd_forum_list.digest =#{input.digest}</if>
+            <if test="input != null and input.publisherId != null">and xd_forum_list.publisher_id =#{input.publisherId}</if>
+            <if test="input != null and input.repliesNumber != null">and xd_forum_list.replies_number =#{input.repliesNumber}</if>
+            <if test="input != null and input.praiseNumber != null">and xd_forum_list.praise_number =#{input.praiseNumber}</if>
+            <if test="input != null and input.createTime != null">and xd_forum_list.create_time =#{input.createTime}</if>
+            <if test="input != null and input.updateTime != null">and xd_forum_list.update_time =#{input.updateTime}</if>
+            <if test="input != null and input.assign != null">and xd_forum_list.assign =#{input.assign}</if>
+            <if test="input != null and input.tag != null">and xd_forum_list.tag =#{input.tag}</if>
+            <if test="input != null and input.operator != null">and xd_forum_list.operator =#{input.operator}</if>
+            <if test="input != null and input.operatorip != null">and xd_forum_list.operatorip =#{input.operatorip}</if>
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">xd_forum_list.id,</if>
+            <if test="output != null and output.status != null">xd_forum_list.status,</if>
+            <if test="output != null and output.digest != null">xd_forum_list.digest,</if>
+            <if test="output != null and output.top != null">xd_forum_list.top,</if>
+            <if test="output != null and output.recommend != null">xd_forum_list.recommend,</if>
+            <if test="output != null and output.title != null">xd_forum_list.title,</if>
+            <if test="output != null and output.content != null">xd_forum_list.content,</if>
+            <if test="output != null and output.outline != null">xd_forum_list.outline,</if>
+            <if test="output != null and output.images != null">xd_forum_list.images,</if>
+            <if test="output != null and output.categoryId != null">xd_forum_list.category_id,</if>
+            <if test="output != null and output.publisherId != null">xd_forum_list.publisher_id,</if>
+            <if test="output != null and output.repliesNumber != null">xd_forum_list.replies_number,</if>
+            <if test="output != null and output.praiseNumber != null">xd_forum_list.praise_number,</if>
+            <if test="output != null and output.createTime != null">xd_forum_list.create_time,</if>
+            <if test="output != null and output.updateTime != null">xd_forum_list.update_time,</if>
+            <if test="output != null and output.assign != null">xd_forum_list.assign,</if>
+            <if test="output != null and output.tag != null">xd_forum_list.tag,</if>
+            <if test="output != null and output.operator != null">xd_forum_list.operator,</if>
+            <if test="output != null and output.operatorip != null">xd_forum_list.operatorip,</if>
+            <!-- <if test="output != null and output.categorytop != null">xd_forum_list_category.top as category_top,</if> -->
+        </trim>
+    </sql>
+
+
+</mapper>

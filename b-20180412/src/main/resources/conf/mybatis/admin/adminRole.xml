@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AdminRole">
+
+    <resultMap id="BaseResultMap" type="AdminRole">
+
+        <result column="admin_id" property="adminId"/>
+        <result column="role_id" property="roleId"/>
+        <result column="is_default" property="isDefault"/>
+
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">admin_id,role_id,is_default</sql>
+    <sql id="all_column">
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+
+            <if test="adminId != null">admin_id,</if>
+            <if test="roleId != null">role_id,</if>
+            <if test="isDefault != null">is_default,</if>
+
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+
+            <if test="adminId != null">#{adminId},</if>
+            <if test="roleId != null">#{roleId},</if>
+            <if test="isDefault != null">#{isDefault},</if>
+
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="AdminRole">
+        insert into admin_admin_role
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update admin_admin_role
+        <set>
+            <if test="value != null and value.adminId != null">admin_id = #{value.adminId},</if>
+            <if test="value != null and value.roleId != null">role_id = #{value.roleId},</if>
+            <if test="value != null and value.isDefault != null">is_default = #{value.isDefault},</if>
+
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="all_column"/>
+        from admin_admin_role
+        <include refid="dynamic_where"/>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from admin_admin_role
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+
+            <if test="input != null and input.adminId != null">and admin_id =#{input.adminId}</if>
+            <if test="input != null and input.roleId != null">and role_id =#{input.roleId}</if>
+            <if test="input != null and input.roleIds != null">and role_id in
+                <foreach collection="input.roleIds" open="(" close=")" separator="," item="item" index="index">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="input != null and input.isDefault != null">and is_default =#{input.isDefault}</if>
+
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+
+            <if test="output != null and output.adminId != null">admin_id,</if>
+            <if test="output != null and output.roleId != null">role_id,</if>
+            <if test="output != null and output.isDefault != null">is_default,</if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

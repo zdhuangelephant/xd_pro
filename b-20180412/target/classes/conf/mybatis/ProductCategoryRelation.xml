@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ProductCategoryRelation">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.ms.model.product.ProductCategoryRelation">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="product_category_id" property="productCategoryId"
+			jdbcType="BIGINT" />
+		<result column="product_id" property="productId" jdbcType="BIGINT" />
+		<result column="relation_state" property="relationState"
+			jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_product_relation
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_product_relation
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<delete id="delete" parameterType="java.util.Map">
+		delete from
+		xd_course_product_relation
+		<include refid="dynamic_where" />
+	</delete>
+	<insert id="addEntity"
+		parameterType="com.xiaodou.ms.model.product.ProductCategoryRelation" useGeneratedKeys="true" keyProperty="id">
+		insert into xd_course_product_relation
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="productCategoryId != null">product_category_id,</if>
+			<if test="productId != null">product_id,</if>
+			<if test="relationState != null">relation_state,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="productCategoryId != null">#{productCategoryId,jdbcType=BIGINT},</if>
+			<if test="productId != null">#{productId,jdbcType=BIGINT},</if>
+			<if test="relationState != null">#{relationState,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.ms.model.product.ProductCategoryRelation">
+		update xd_course_product_relation
+		<set>
+			<if test="value != null and value.id != null">id = #{id,jdbcType=BIGINT},</if>
+			<if test="value != null and value.productCategoryId != null">product_category_id =
+				#{productCategoryId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.productId != null">product_id = #{productId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.relationState != null">relation_state = #{relationState,jdbcType=INTEGER},</if>
+			<if test="value != null and value.createTime != null">create_time = #{createTime,jdbcType=TIMESTAMP},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_course_product_relation
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.productCategoryId != null">product_category_id,</if>
+			<if test="output != null and output.productId != null">product_id,</if>
+			<if test="output != null and output.relationState != null">relation_state,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.ids != null">
+				and id in
+				<foreach collection="input.ids" open="(" close=")"
+					separator="," item="item" index="index">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.productCategoryId != null">and product_category_id=#{input.productCategoryId}</if>
+			<if test="input != null and input.productId != null">and product_id=#{input.productId}</if>
+			<if test="input != null and input.relationState != null">and relation_state=#{input.relationState}</if>
+			<if test="input != null and input.createTimeLower != null">and create_time &gt; #{input.createTimeLower}</if>
+			<if test="input != null and input.createTimeUpper != null">and create_time &lt; #{input.createTimeLower}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limitStart != null and limitCount != null">
+			limit ${limitStart}, ${limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

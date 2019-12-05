@@ -1,0 +1,360 @@
+@charset "utf-8";
+/* CSS Document */
+/*全局控制*/
+html {
+    font-size: 62.5%;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 1.2rem;
+    font-family: "微软雅黑";
+    width:100%;
+    height: 100%;
+}
+html, body {
+    width:100%;
+    /*min-height:520px; */
+    height: 100%;
+    margin:0 auto;
+}
+.main{
+    width:100%;
+    /*min-width: 320px;*/
+    height: 100%;
+    min-height: 530px;
+    background:#25e8b1;
+    position: relative;
+    overflow: hidden;
+    left: 0;
+    right: 0;
+    margin:0 auto;
+}
+.main header{
+    position: relative;
+    top:0;
+    height: 44px;
+    line-height: 44px;
+    width: 100%;
+    background: #29b3f2;
+    color: #ffffff;
+    font-size: 16px;
+    text-align: center;
+}
+.main header img:first-child{
+    position: absolute;
+    left: 16px;
+    width: 10px;
+    height: 17px;
+    bottom: 12px;
+}
+.main header img:last-child{
+    position: absolute;
+    right: 16px;
+    width: 16px;
+    height: 18px;
+    bottom: 12px;
+}
+#title{
+    position: absolute;
+    height: 49px;
+    width: 86%;
+    left: 0;
+    right:0;
+    margin:0 auto;
+    top: 67px;
+    background: url("../images/title.png") 0 0 #25e8b1;
+    background-size: 100% 100%;
+    text-align: center;
+    font-size: 18px;
+    color:#ffffff;
+    letter-spacing: 2px;
+    line-height: 35px;
+    z-index: 2000;
+}
+#titleContent{
+    position: absolute;
+    left: 0;
+    right:0;
+    margin:0 auto;
+    top: 115px;
+    font-size: 10px;
+    color:#646464;
+    width: 40%;
+    text-align: center;
+}
+#mainContent{
+    position: relative;
+    top:27%;
+    width: 82%;
+    height: 65%;
+    left: 0;
+    right: 0;
+    margin:0 auto;
+    overflow: hidden;
+    text-align: center;
+    z-index: 10;
+    /*padding-top: 36px;*/
+    /*background: #e5e5e5;*/
+}
+#mainContent .list{
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 5px;
+    background: #3296f5;
+    text-align: center;
+    font-size: 17px;
+    color:#ffffff;
+    letter-spacing: 1px;
+    width: 100%;
+    z-index: 20;
+}
+ .current{
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 5px;
+    background: #3296f5;
+    text-align: center;
+    font-size: 17px;
+    color:#ffffff;
+    letter-spacing: 1px;
+    width: 100%;
+    z-index: 20;
+}
+#mainContent .content{
+    clear: both;
+    position: absolute;
+    width: 94%;
+    text-align: left;
+    height: 280px;
+    border-radius: 5px;
+    background: #ffffff;
+    top:40px;
+    z-index: 3000;
+    line-height: 25px;
+    color:#646464;
+    padding:15px 10px;
+    display: none;
+}
+#mainContent .add{
+    position:absolute;
+    top:10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    font-size: 22px;
+    line-height:20px;
+    text-align: center;
+    color:#09cc8f;
+    background: #ffffff;
+    border-radius: 50%;
+    /*animation: add 2s;*/
+    /*-moz-animation: add 2s;*/
+    /*-webkit-animation: add 2s;*/
+    /*-o-animation: add 2s;*/
+}
+#mainContent .addCurrent{
+
+}
+#mainContent .present{
+    position:absolute;
+    top:10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    font-size: 22px;
+    line-height:20px;
+    text-align: center;
+    color:#09cc8f;
+    background: #ffffff;
+    border-radius: 50%;
+}
+#mainContent img{
+    width: 26px;
+    height: 15px;
+    margin-top: 1.6%;
+    margin-bottom: 2%;
+}
+#cloud1{
+    position: absolute;
+    top:25%;
+    right: -2%;
+    width: 75px;
+    height: 32px;
+    background: #25e8b1;
+    animation: cloud1 15s;
+    -moz-animation: cloud1 15s;
+    -webkit-animation: cloud1 15s;
+    -o-animation: cloud1 15s;
+    animation-iteration-count:infinite;
+    -webkit-animation-iteration-count:infinite;
+    -moz-animation-iteration-count:infinite;
+    -o-animation-iteration-count:infinite;
+}
+#cloud2{
+    position: absolute;
+    top:38%;
+    left: 0;
+    width: 75px;
+    height: 32px;
+    z-index: 2;
+
+    animation: cloud2 15s;
+    -moz-animation: cloud2 15s;
+    -webkit-animation: cloud2 15s;
+    -o-animation: cloud2 15s;
+    animation-iteration-count:infinite;
+    -webkit-animation-iteration-count:infinite;
+    -moz-animation-iteration-count:infinite;
+    -o-animation-iteration-count:infinite;
+}
+#cloud3{
+    position: absolute;
+    bottom:22.5%;
+    right: 0;
+    width: 75px;
+    height: 32px;
+
+    background: #25e8b1;
+    animation: cloud1 15s;
+    -moz-animation: cloud1 15s;
+    -webkit-animation: cloud1 15s;
+    -o-animation: cloud1 15s;
+    animation-iteration-count:infinite;
+    -webkit-animation-iteration-count:infinite;
+    -moz-animation-iteration-count:infinite;
+    -o-animation-iteration-count:infinite;
+}
+#cloud4{
+    position: absolute;
+    bottom:5%;
+    left: 0;
+    width: 75px;
+    height: 32px;
+
+    animation: cloud2 15s;
+    -moz-animation: cloud2 15s;
+    -webkit-animation: cloud2 15s;
+    -o-animation: cloud2 15s;
+    animation-iteration-count:infinite;
+    -webkit-animation-iteration-count:infinite;
+    -moz-animation-iteration-count:infinite;
+    -o-animation-iteration-count:infinite;
+}
+#cloud1 img,#cloud2 img,#cloud3 img,#cloud4 img{
+    width: 100%;
+    height: 100%;
+}
+/*=======================云动画*/
+@keyframes cloud1
+{
+    0%   {right:-2%}
+    50% {right:12%}
+    100% {right:-2%}
+}
+@-webkit-keyframes cloud1 /* Safari 和 Chrome */
+{
+    0%   {right:-2%}
+    50% {right:12%}
+    100% {right:-2%}
+}
+@-o-keyframes cloud1 /* Opera */
+{
+    0%   {right:-2%}
+    50% {right:12%}
+    100% {right:-2%}
+}
+@-ms-keyframes cloud1
+{
+    0%   {right:-2%}
+    50% {right:12%}
+    100% {right:-2%}
+}
+@-moz-keyframes cloud1
+{
+    0%   {right:-2%}
+    50% {right:12%}
+    100% {right:-2%}
+}
+@keyframes cloud2
+{
+    0%   {left:0%}
+    50% {left:12%}
+    100% {left:0%}
+}
+@-webkit-keyframes cloud2 /* Safari 和 Chrome */
+{
+    0%   {left:0%}
+    50% {left:12%}
+    100% {left:0%}
+}
+@-o-keyframes cloud2 /* Opera */
+{
+    0%   {left:0%}
+    50% {left:12%}
+    100% {left:0%}
+}
+@-ms-keyframes cloud2
+{
+    0%   {left:0%}
+    50% {left:12%}
+    100% {left:0%}
+}
+@-moz-keyframes cloud2
+{
+    0%   {left:0%}
+    50% {left:12%}
+    100% {left:0%}
+}
+/**********************加号动画*/
+@keyframes add
+{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(45deg);}
+}
+@-webkit-keyframes add /* Safari 和 Chrome */
+{
+    0%{-webkit-transform:rotate(0deg);}
+    100%{-webkit-transform:rotate(45deg);}
+}
+@-o-keyframes add /* Opera */
+{
+    0%{-o-transform:rotate(0deg);}
+    100%{-o-transform:rotate(45deg);}
+}
+@-moz-keyframes add
+{
+    0%{-moz-transform:rotate(0deg);}
+    100%{-moz-transform:rotate(45deg);}
+}
+
+@keyframes addBack
+{
+    0%{transform:rotate(45deg);}
+    100%{transform:rotate(0deg);}
+}
+@-webkit-keyframes addBack /* Safari 和 Chrome */
+{
+    0%{-webkit-transform:rotate(45deg);}
+    100%{-webkit-transform:rotate(0deg);}
+}
+@-o-keyframes addBack /* Opera */
+{
+    0%{-o-transform:rotate(45deg);}
+    100%{-o-transform:rotate(0deg);}
+}
+@-moz-keyframes addBack
+{
+    0%{-moz-transform:rotate(45deg);}
+    100%{-moz-transform:rotate(0deg);}
+}
+
+
+
+

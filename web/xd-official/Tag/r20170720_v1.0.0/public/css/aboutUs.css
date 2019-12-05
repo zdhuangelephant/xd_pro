@@ -1,0 +1,437 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html,body {
+    width: 100%;
+    font-family: "微软雅黑";
+    font-size: 14px;
+    margin:0;
+    padding:0;
+    position: relative;
+    /*overflow: hidden;*/
+}
+a{
+    text-decoration: none;
+}
+ul li{
+    list-style: none;
+}
+.movie{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    z-index: 100;
+    display: none;
+}
+.movie .movieBox{
+    position: relative;
+    width: 850px;
+    height: 477px;
+    margin:0 auto;
+}
+.movie .video-js{
+    display: block;
+    width: 850px;
+    height: 477px;
+    margin-top: 200px;
+    /*background: url("../images/aa.png");*/
+    background: #000;
+    padding:0;
+}
+.vedio .btn{
+    width: 427px;
+    height: 240px;
+    position: absolute;
+    left:0px;
+    top:0px;
+}
+.shut{
+    display: block;
+    position: absolute;
+    width: 30px;
+    right: -8px;
+    top:-8px;
+    z-index: 200;
+}
+
+header{
+    width: 100%;
+    height: 620px;
+    background: #3784f9;
+}
+.headCenter{
+    position: relative;
+    width: 1000px;
+    height: 620px;
+    margin:0 auto;
+    background: #3784f9;
+}
+.headCenter .douBack{
+    position: absolute;
+    margin-top: 15px;
+    height: 540px;
+    width: 1000px;
+    /*background: url("../images/aboutBack_03.png");*/
+    /*background-size: 100% 100%;*/
+}
+.headCenter .douBack .back{
+    position: absolute;
+    bottom: 0;
+    width: 1000px;
+}
+.headCenter .douBack .joinXd{
+    position: absolute;
+    left: 0px;
+    top:200px;
+    color:#ffffff;
+    letter-spacing: 1px;
+}
+.headCenter .douBack .joinXd .come{
+     font-size: 76px;
+ }
+.headCenter .douBack .joinXd .edu{
+    font-size: 50px;
+}
+.headCenter .douBack .vedio{
+    position: absolute;
+    right: 0;
+    top:170px;
+    width: 427px;
+    height: 240px;
+}
+.headCenter .douBack .vedio img{
+    width: 100%;
+}
+
+.headCenter .phone{
+    width: 100%;
+    display: none;
+}
+.headCenter .phone .mVedio{
+    width: 90%;
+    margin:0 auto;
+    margin-top:60px;
+    /*background: #000000;*/
+    position: relative;
+}
+
+.headCenter .phone .mVedio img{
+    /*width: 100%;*/
+}
+.mVedio .mbtn{
+    width: 50px;
+    height: 210px;
+}
+.mVedio .mbtn img{
+    width: 50px;
+    height: 50px;
+    left:0;
+    right:0;
+    margin:0 auto;
+    top:230px;
+    position: absolute;
+}
+.headCenter .phone .mCome{
+    width: 100%;
+    margin-top: 30px;
+    text-align: center;
+    position: relative;
+}
+.headCenter .phone .mCome img{
+    width: 100%;
+}
+.headCenter .phone .mCome .p1{
+    position: absolute;
+    left:0;
+    right: 0;
+    margin:0 auto;
+    top:110px;
+    font-size: 38px;
+    color:#ffffff;
+}
+.headCenter .phone .mCome .p2{
+    position: absolute;
+    left:0;
+    right: 0;
+    margin:0 auto;
+    top:160px;
+    font-size: 26px;
+    color:#ffffff;
+}
+.headCenter .joinXd-m{
+    display: none;
+    position: absolute;
+    right: 20px;
+    top:115px;
+    color: #ffffff;
+    font-family: "宋体";
+    text-align: right;
+}
+.headCenter .joinXd-m .p1{
+    font-size: 52px;
+}
+.headCenter .joinXd-m .p2{
+    font-size:36px;
+    margin-top: 5px;
+}
+.headCenter .mobileBack{
+    position: relative;
+    display: none;
+}
+.main{
+    background: #f5f5f5;
+}
+.main .mainCenter{
+    width: 1000px;
+    margin:0 auto;
+    padding-top: 65px;
+    background: #f5f5f5;
+}
+.main .mainCenter .introduce .title{
+    font-size: 22px;
+    color:#3784f9;
+    margin-bottom: 15px;
+}
+.main .mainCenter .introduce .title span{
+    font-weight: bolder;
+    margin-right: 5px;
+}
+.main .mainCenter .introduce .content{
+    font-size: 14px;
+    color:#787878;
+    line-height: 28px;
+    margin-bottom: 55px;
+}
+.main .mainCenter .test{
+    width: 256px;
+    margin:0 auto;
+    margin-top: 90px;
+    padding-bottom: 40px;
+}
+.main .mainCenter .test img{
+    width: 100%;
+}
+.headCenter .phone .mVedio .mvideo-js{
+
+}
+/*---------------------------------------------------------手机movie全屏*/
+/*.videoFull{*/
+    /*position: absolute;*/
+    /*z-index: 500;*/
+    /*top:0;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*background: #000000;*/
+    /*display: none;*/
+/*}*/
+/*.videoFull .videoBox{*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*position: relative;*/
+/*}*/
+/*#mvideoFull{*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+/*}*/
+
+.appvedio{
+    width: 100%;
+    height: 210px;
+}
+
+@media screen and (max-width: 600px) {
+    header{
+        height: auto;
+        min-height: 560px;
+    }
+    .headCenter{
+        width: 100%;
+        height: auto;
+        min-height:560px;
+        overflow: hidden;
+    }
+    .headCenter .top .click{
+        display: block;
+    }
+    .headCenter .top .nav{
+        display: none;
+    }
+    .mobileText{
+        display: block;
+    }
+    .headCenter .logo{
+        margin-left: 10px;
+    }
+    .headCenter .douBack{
+        display: none;
+    }
+    .headCenter .douBack .joinXd{
+        display: none;
+    }
+    .headCenter .mobileBack{
+        width: 100%;
+        margin-top: 137px;
+        display: block;
+    }
+    .headCenter .mobileBack img{
+        width: 100%;
+    }
+    .headCenter .mobileBack .button{
+        position: absolute;
+        bottom: 40px;
+        width: 40%;
+        height: 30px;
+        background: #ffffff;
+        color:#3784f9;
+        font-size: 16px;
+        line-height: 30px;
+        text-align: center;
+        border-radius: 30px;
+        left: 0;
+        right: 0;
+        margin:0 auto;
+    }
+    .headCenter .logo{
+        width: 150px;
+        height:39px;
+    }
+    .headCenter .joinXd-m{
+        display: block;
+    }
+
+    /*以上为手机头部header部分*/
+    .main .mainCenter{
+        width: 100%;
+        padding-top: 15px;
+    }
+    .main .mainCenter .test{
+        width: 40%;
+        margin:0 auto;
+        margin-top: 30px;
+        padding-bottom: 30px;
+    }
+    .main .mainCenter .introduce{
+        width: 90%;
+        margin:0 auto;
+        font-size: 14px;
+        border-bottom: 1px solid #cdcdcd;
+    }
+    .main .mainCenter .introduce .content{
+        line-height: 25px;
+        margin-bottom: 25px;
+    }
+    .headCenter .phone{
+        display: block;
+    }
+    /***********************************************************以下为手机底部，footer部分*/
+    footer{
+        width: 100%;
+        height:98px;
+        background: #4b4b4b;
+    }
+    footer .footCenter{
+        width: 95%;
+        height:98px;
+        font-size: 12px;
+    }
+    footer .footCenter .p1{
+        padding-top: 20px;
+        /*padding-top: 0px;*/
+        letter-spacing: -1px;
+        line-height: 20px;
+    }
+    footer .footCenter .p2{
+        margin-top: 0px;
+        line-height: 20px;
+    }
+    .headCenter .phone .mVedio .mvideo-js{
+        width: 100%;
+        height: 210px;
+    }
+}
+@media screen and (max-width: 320px) {
+    .headCenter .mobileBack{
+        margin-top:97px;
+    }
+    .download{
+        margin-bottom: 10px;
+    }
+    .headCenter .phone .mCome .p1{
+        top:70px;
+    }
+    .headCenter .phone .mCome .p2{
+        top:120px;
+    }
+    .headCenter .phone .mVedio .mvideo-js{
+        width: 100%;
+        height: 170px;
+    }
+}
+
+
+.myBox{
+    width:100%;
+    position: relative;
+    margin:0 auto;
+    text-align: center;
+}
+.myBox .mvideo{
+    width: 100%;
+}
+.play{
+    position: absolute;
+    width: 30px;
+    left:0;
+    right:0;
+    margin:0 auto;
+    z-index: 100;
+    top:43%;
+}
+.play img{
+    width: 100%;;
+}
+.play:hover{
+    display: block;
+}
+.full{
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+    display: none;
+    z-index: 100;
+}
+.videoFull{
+    position: absolute;
+    z-index: 500;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    display: none;
+}
+.videoFull .videoBox{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.videoFull .videoBox .mvideo{
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

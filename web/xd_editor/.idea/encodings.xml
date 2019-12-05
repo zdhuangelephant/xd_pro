@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/chapconfig.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/config.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/controller/cChapter.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/controller/cCourse.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/controller/cCourseware.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/controller/cEditor.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dbconfig.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/model/chapter.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/model/course.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/model/courseware.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/model/image.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/model/node.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/model/resource.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/image.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/js/chapter.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/js/index.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qnconfig.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/sChapter.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/sCourse.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/sCourseware.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/utils/string.js" charset="UTF-8" />
+  </component>
+</project>

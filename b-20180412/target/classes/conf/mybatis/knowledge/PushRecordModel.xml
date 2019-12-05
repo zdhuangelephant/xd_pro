@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="PushRecordModel">
+	<resultMap id="BaseResultMap" type="com.xiaodou.ms.model.knowledge.PushRecordModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+<result column="type_id" property="typeId" jdbcType="INTEGER" />
+<result column="remark" property="remark" jdbcType="VARCHAR" />
+<result column="is_push" property="isPush" jdbcType="INTEGER" />
+<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+	</resultMap>
+	<sql id="base_column">id, type_id, remark, is_push, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.ms.model.knowledge.PushRecordModel">
+		select
+		<include refid="base_column" />
+		from xd_push_record
+		where id = #{id,jdbcType=BIGINT}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_push_record
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.ms.model.knowledge.PushRecordModel"  >
+		insert into xd_push_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+<if test="typeId != null">type_id,</if>
+<if test="remark != null">remark,</if>
+<if test="isPush != null">is_push,</if>
+<if test="createTime != null">create_time,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+<if test="typeId != null">#{typeId,jdbcType=INTEGER},</if>
+<if test="remark != null">#{remark,jdbcType=VARCHAR},</if>
+<if test="isPush != null">#{isPush,jdbcType=INTEGER},</if>
+<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.ms.model.knowledge.PushRecordModel">
+		update xd_push_record
+		<set>
+			<if test="value != null and value.typeId != null">type_id = #{value.typeId,jdbcType=INTEGER},</if>
+<if test="value != null and value.remark != null">remark = #{value.remark,jdbcType=VARCHAR},</if>
+<if test="value != null and value.isPush != null">is_push = #{value.isPush,jdbcType=INTEGER},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.ms.model.knowledge.PushRecordModel">
+		update xd_push_record
+		<set>
+			<if test="value != null and value.typeId != null">type_id = #{value.typeId,jdbcType=INTEGER},</if>
+<if test="value != null and value.remark != null">remark = #{value.remark,jdbcType=VARCHAR},</if>
+<if test="value != null and value.isPush != null">is_push = #{value.isPush,jdbcType=INTEGER},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.ms.model.knowledge.PushRecordModel">
+		delete from xd_push_record
+		where id = #{id,jdbcType=BIGINT}
+
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_push_record
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+<if test="output != null and output.typeId != null">type_id,</if>
+<if test="output != null and output.remark != null">remark,</if>
+<if test="output != null and output.isPush != null">is_push,</if>
+<if test="output != null and output.createTime != null">create_time,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+<if test="input != null and input.typeId != null">and type_id=#{input.typeId}</if>
+<if test="input != null and input.remark != null">and remark=#{input.remark}</if>
+<if test="input != null and input.isPush != null">and is_push=#{input.isPush}</if>
+<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+<if test="input != null and input.currentTime != null">and to_days(create_time)=to_days(#{input.currentTime})</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+<if test="sort != null and sort.typeId != null and ( sort.typeId == 'ASC' or sort.typeId == 'DESC' )">type_id ${sort.typeId},</if>
+<if test="sort != null and sort.remark != null and ( sort.remark == 'ASC' or sort.remark == 'DESC' )">remark ${sort.remark},</if>
+<if test="sort != null and sort.isPush != null and ( sort.isPush == 'ASC' or sort.isPush == 'DESC' )">is_push ${sort.isPush},</if>
+<if test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+
+		</trim>
+	</sql>
+</mapper>

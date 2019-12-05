@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="QuestionBankExamPaperModel">
+
+    <resultMap id="BaseResultMap" type="QuestionBankExamPaperModel">
+        <id column="id" property="id"/>
+        <result column="product_id" property="productId"/>
+        <result column="exam_name" property="examName"/>
+        <result column="ques_num" property="quesNum"/>
+        <result column="ques_ids" property="quesIds"/>
+        <result column="mdesc" property="mdesc"/>
+        <result column="status" property="status"/>
+        <result column="diffculty" property="diffculty"/>
+        <result column="exam_type_id" property="examTypeId" />
+
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">product_id,exam_name,ques_num,ques_ids,mdesc,status,diffculty,exam_type_id</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="productId != null">product_id,</if>
+            <if test="examName != null">exam_name,</if>
+            <if test="quesNum != null">ques_num,</if>
+            <if test="quesIds != null">ques_ids,</if>
+            <if test="mdesc != null">mdesc,</if>
+            <if test="status != null">status,</if>
+            <if test="diffculty != null">diffculty,</if>
+            <if test="examTypeId != null">exam_type_id,</if>
+
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="productId != null">#{productId},</if>
+            <if test="examName != null">#{examName},</if>
+            <if test="quesNum != null">#{quesNum},</if>
+            <if test="quesIds != null">#{quesIds},</if>
+            <if test="mdesc != null">#{mdesc},</if>
+            <if test="status != null">#{status},</if>
+            <if test="diffculty != null">#{diffculty},</if>
+            <if test="examTypeId != null">#{examTypeId},</if>
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="QuestionBankExamPaperModel" useGeneratedKeys="true" keyProperty="id">
+        insert into xd_quesbk_exam_paper
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update xd_quesbk_exam_paper
+        <set>
+            <if test="value != null and value.productId != null">product_id = #{value.productId},</if>
+            <if test="value != null and value.examName != null">exam_name = #{value.examName},</if>
+            <if test="value != null and value.quesNum != null">ques_num = #{value.quesNum},</if>
+            <if test="value != null and value.quesIds != null">ques_ids = #{value.quesIds},</if>
+            <if test="value != null and value.mdesc != null">mdesc = #{value.mdesc},</if>
+            <if test="value != null and value.status != null">status = #{value.status},</if>
+            <if test="value != null and value.diffculty != null">diffculty = #{value.diffculty},</if>
+            <if test="value != null and value.examTypeId != null">exam_type_id = #{value.examTypeId},</if>
+
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_quesbk_exam_paper
+        <include refid="dynamic_where"/>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="QuestionBankExamPaperModel" resultMap="BaseResultMap">
+        select * from xd_quesbk_exam_paper where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from xd_quesbk_exam_paper
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and id =#{input.id}</if>
+            <if test="input != null and input.ids != null"> and id in
+                <foreach collection="input.ids" separator="," index="index" item="item" open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="input != null and input.productId != null">and product_id =#{input.productId}</if>
+            <if test="input != null and input.examName != null">and exam_name =#{input.examName}</if>
+            <if test="input != null and input.quesNum != null">and ques_num =#{input.quesNum}</if>
+            <if test="input != null and input.quesIds != null">and ques_ids =#{input.quesIds}</if>
+            <if test="input != null and input.mdesc != null">and mdesc =#{input.mdesc}</if>
+            <if test="input != null and input.status != null">and status =#{input.status}</if>
+            <if test="input != null and input.diffculty != null">and diffculty =#{input.diffculty}</if>
+            <if test="input != null and input.examTypeId != null">and exam_type_id =#{input.examTypeId}</if>
+
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">id,</if>
+            <if test="output != null and output.productId != null">product_id,</if>
+            <if test="output != null and output.examName != null">exam_name,</if>
+            <if test="output != null and output.quesNum != null">ques_num,</if>
+            <if test="output != null and output.quesIds != null">ques_ids,</if>
+            <if test="output != null and output.mdesc != null">mdesc,</if>
+            <if test="output != null and output.status != null">status,</if>
+            <if test="output != null and output.diffculty != null">diffculty,</if>
+            <if test="output != null and output.examTypeId != null">exam_type_id,</if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

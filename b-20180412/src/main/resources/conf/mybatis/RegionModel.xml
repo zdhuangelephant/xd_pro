@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RegionModel">
+	<resultMap id="BaseResultMap" type="com.xiaodou.ms.model.product.RegionModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="rule_id" property="ruleId" jdbcType="VARCHAR" />
+		<result column="module" property="module" jdbcType="INTEGER" />
+		<result column="module_name" property="moduleName" jdbcType="VARCHAR" />
+		<result column="list_order" property="listOrder" jdbcType="INTEGER" />
+		<result column="is_first_choice" property="firstChoice" jdbcType="INTEGER" />
+		<result column="detail" property="detail" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="show_status" property="showStatus" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="base_column">id,rule_id,module, module_name, list_order, detail, create_time,is_first_choice,show_status
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.ms.model.product.RegionModel">
+		select
+		<include refid="base_column" />
+		from xd_module_info
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_module_info
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" keyProperty="id" useGeneratedKeys="true" parameterType="com.xiaodou.ms.model.product.RegionModel">
+		insert into xd_module_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="ruleId != null">rule_id,</if>
+			<if test="module != null">module,</if>
+			<if test="moduleName != null">module_name,</if>
+			<if test="listOrder != null">list_order,</if>
+			<if test="firstChoice != null">is_first_choice,</if>
+			<if test="detail != null">detail,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="ruleId != null">#{ruleId,jdbcType=BIGINT},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+			<if test="moduleName != null">#{moduleName,jdbcType=VARCHAR},</if>
+			<if test="listOrder != null">#{listOrder,jdbcType=INTEGER},</if>
+			<if test="firstChoice != null">#{firstChoice,jdbcType=INTEGER},</if>
+			<if test="detail != null">#{detail,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.ms.model.product.RegionModel">
+		update xd_module_info
+		<set>
+			<if test="value != null and value.ruleId != null">rule_id = #{value.ruleId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.module != null">module = #{value.module,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.moduleName != null">module_name = #{value.moduleName,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.listOrder != null">list_order = #{value.listOrder,jdbcType=INTEGER},</if>
+			<if test="value != null and value.firstChoice != null">is_first_choice = #{value.firstChoice,jdbcType=INTEGER},</if>
+			<if test="value != null and value.detail != null">detail = #{value.detail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.ms.model.product.RegionModel">
+		update xd_module_info
+		<set>
+			<if test="value != null and value.ruleId != null">rule_id = #{value.ruleId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.module != null">module = #{value.module,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.moduleName != null">module_name = #{value.moduleName,jdbcType=VARCHAR},</if>
+			<if test="input != null and input.moduleNameLike != null">and module_name like
+				concat('%',#{input.moduleNameLike},'%')</if>
+			<if test="value != null and value.listOrder != null">list_order = #{value.listOrder,jdbcType=INTEGER},</if>
+			<if test="value != null and value.firstChoice != null">is_first_choice = #{value.firstChoice,jdbcType=INTEGER},</if>
+			<if test="value != null and value.showStatus != null">show_status = #{value.showStatus,jdbcType=INTEGER},</if>
+			<if test="value != null and value.detail != null">detail = #{value.detail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.ms.model.product.RegionModel">
+		delete from
+		xd_module_info
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_module_info
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.ruleId != null">rule_id,</if>
+			<if test="output != null and output.module != null">module,</if>
+			<if test="output != null and output.moduleName != null">module_name,</if>
+			<if test="output != null and output.listOrder != null">list_order,</if>
+			<if test="output != null and output.firstChoice != null">is_first_choice,</if>
+			<if test="output != null and output.detail != null">detail,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		    <if test="output != null and output.showStatus != null">show_status,</if>
+			
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.ruleId != null">and rule_id=#{input.ruleId}</if>
+			<if test="input != null and input.module != null">and module=#{input.module}</if>
+			<if test="input != null and input.moduleName != null">and module_name=#{input.moduleName}</if>
+			<if test="input != null and input.listOrder != null">and list_order=#{input.listOrder}</if>
+			<if test="input != null and input.firstChoice != null">and is_first_choice=#{input.firstChoice}</if>
+			<if test="input != null and input.detail != null">and detail=#{input.detail}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+			<if test="input != null and input.showStatus != null">and show_status=#{input.showStatus}</if>
+			<if test="input != null and input.NId != null">and id!=#{input.NId}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.ruleId != null and ( sort.ruleId == 'ASC' or sort.ruleId == 'DESC' )">rule_id ${sort.ruleId},</if>
+			<if
+				test="sort != null and sort.module != null and ( sort.module == 'ASC' or sort.module == 'DESC' )">module ${sort.module},</if>
+			<if
+				test="sort != null and sort.moduleName != null and ( sort.moduleName == 'ASC' or sort.moduleName == 'DESC' )">module_name ${sort.moduleName},</if>
+			<if
+				test="sort != null and sort.listOrder != null and ( sort.listOrder == 'ASC' or sort.listOrder == 'DESC' )">list_order ${sort.listOrder},</if>
+			<if
+				test="sort != null and sort.firstChoice != null and ( sort.firstChoice == 'ASC' or sort.firstChoice == 'DESC' )">is_first_choice ${sort.firstChoice},</if>
+			<if
+				test="sort != null and sort.detail != null and ( sort.detail == 'ASC' or sort.detail == 'DESC' )">detail ${sort.detail},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+			<if
+				test="sort != null and sort.showStatus != null and ( sort.showStatus == 'ASC' or sort.showStatus == 'DESC' )">show_status ${sort.showStatus},</if>
+		</trim>
+	</sql>
+</mapper>

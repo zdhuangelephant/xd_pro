@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Privilege">
+
+    <resultMap id="BaseResultMap" type="Privilege">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="url" property="url"/>
+        <result column="sort_order" property="sortOrder"/>
+        <result column="display" property="display"/>
+        <result column="params" property="params"/>
+        <result column="icon" property="icon"/>
+        <result column="child_id" property="childId"/>
+        <result column="all_parent_id" property="allParentId"/>
+        <result column="all_child_id" property="allChildId"/>
+        <result column="level" property="level"/>
+        <result column="is_leaf" property="isLeaf"/>
+
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">name,parent_id,url,sort_order,display,params,icon,child_id,all_parent_id,all_child_id,
+        level,is_leaf</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="parentId != null">parent_id,</if>
+            <if test="url != null">url,</if>
+            <if test="sortOrder != null">sort_order,</if>
+            <if test="display != null">display,</if>
+            <if test="params != null">params,</if>
+            <if test="icon != null">icon,</if>
+            <if test="childId != null">child_id,</if>
+            <if test="allParentId != null">all_parent_id,</if>
+            <if test="allChildId != null">all_child_id,</if>
+            <if test="level != null">level,</if>
+            <if test="isLeaf != null">is_leaf,</if>
+
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="parentId != null">#{parentId},</if>
+            <if test="url != null">#{url},</if>
+            <if test="sortOrder != null">#{sortOrder},</if>
+            <if test="display != null">#{display},</if>
+            <if test="params != null">#{params},</if>
+            <if test="icon != null">#{icon},</if>
+            <if test="childId != null">#{childId},</if>
+            <if test="allParentId != null">#{allParentId},</if>
+            <if test="allChildId != null">#{allChildId},</if>
+            <if test="level != null">#{level},</if>
+            <if test="isLeaf != null">#{isLeaf},</if>
+
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="Privilege">
+        insert into admin_privilege
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update admin_privilege
+        <set>
+            <if test="value != null and value.name != null">name = #{value.name},</if>
+            <if test="value != null and value.parentId != null">parent_id = #{value.parentId},</if>
+            <if test="value != null and value.url != null">url = #{value.url},</if>
+            <if test="value != null and value.sortOrder != null">sort_order = #{value.sortOrder},</if>
+            <if test="value != null and value.display != null">display = #{value.display},</if>
+            <if test="value != null and value.params != null">params = #{value.params},</if>
+            <if test="value != null and value.icon != null">icon = #{value.icon},</if>
+            <if test="value != null and value.childId != null">child_id = #{value.childId},</if>
+            <if test="value != null and value.allParentId != null">all_parent_id = #{value.allParentId},</if>
+            <if test="value != null and value.allChildId != null">all_child_id = #{value.allChildId},</if>
+            <if test="value != null and value.level != null">level = #{value.level},</if>
+            <if test="value != null and value.isLeaf != null">is_leaf = #{value.isLeaf},</if>
+
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="all_column"/>
+        from admin_privilege
+        <include refid="dynamic_where"/>
+        order by sort_order asc;
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="Privilege" resultMap="BaseResultMap">
+        select * from admin_privilege where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from admin_privilege
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and id =#{input.id}</if>
+            <if test="input != null and input.ids != null">and id in
+                <foreach collection="input.ids" index="index" item="item" separator="," open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="input != null and input.name != null">and name =#{input.name}</if>
+            <if test="input != null and input.parentId != null">and parent_id =#{input.parentId}</if>
+            <if test="input != null and input.url != null">and url =#{input.url}</if>
+            <if test="input != null and input.sortOrder != null">and sort_order =#{input.sortOrder}</if>
+            <if test="input != null and input.display != null">and display =#{input.display}</if>
+            <if test="input != null and input.params != null">and params =#{input.params}</if>
+            <if test="input != null and input.icon != null">and icon =#{input.icon}</if>
+            <if test="input != null and input.childId != null">and child_id =#{input.childId}</if>
+            <if test="input != null and input.allParentId != null">and all_parent_id =#{input.allParentId}</if>
+            <if test="input != null and input.allChildId != null">and all_child_id =#{input.allChildId}</if>
+            <if test="input != null and input.level != null">and level =#{input.level}</if>
+            <if test="input != null and input.isLeaf != null">and is_leaf =#{input.isLeaf}</if>
+
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">id,</if>
+            <if test="output != null and output.name != null">name,</if>
+            <if test="output != null and output.parentId != null">parent_id,</if>
+            <if test="output != null and output.url != null">url,</if>
+            <if test="output != null and output.sortOrder != null">sort_order,</if>
+            <if test="output != null and output.display != null">display,</if>
+            <if test="output != null and output.params != null">params,</if>
+            <if test="output != null and output.icon != null">icon,</if>
+            <if test="output != null and output.childId != null">child_id,</if>
+            <if test="output != null and output.allParentId != null">all_parent_id,</if>
+            <if test="output != null and output.allChildId != null">all_child_id,</if>
+            <if test="output != null and output.level != null">level,</if>
+            <if test="output != null and output.isLeaf != null">is_leaf,</if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

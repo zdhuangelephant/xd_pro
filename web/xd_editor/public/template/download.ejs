@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="yes"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <link href="index.css" rel="stylesheet"/>
+    <title></title>
+</head>
+<body>
+<div class="main" id="mstage">
+    <div id="spage1" class="back">
+        <%- data %>
+    </div>
+</div>
+<script type="text/javascript" src="jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="fat.js"></script>
+<script type="text/javascript" src="Cover.js"></script>
+<script>
+    var jsBridge;
+    $(document).ready(function () {
+        hash = getText($("#spage1 .auto-read"));
+        var data = {'content': hash.values()};
+        if (navigator.userAgent.match(/Android/i)) {
+            try {
+                var dataJson = JSON.stringify(data);
+                window.js2Android.send(dataJson);
+            } catch (e) {
+            }
+        } else {
+            function connectWebViewJavascriptBridge(callback) {
+                if (window.WebViewJavascriptBridge) {
+                    callback(WebViewJavascriptBridge)
+                } else {
+                    document.addEventListener('WebViewJavascriptBridgeReady', function () {
+                        callback(WebViewJavascriptBridge)
+                    }, false)
+                }
+            }
+
+            connectWebViewJavascriptBridge(function (bridge) {
+                jsBridge = bridge;
+                bridge.init(function (message, responseCallback) {
+                    var data = {'Javascript Responds': 'Wee!'};
+                    responseCallback(data)
+                });
+                bridge.registerHandler('nextSentence', function (id) {
+                    nextSentence(id);
+                });
+                bridge.registerHandler('mode', function (id) {
+                    mode(id.id);
+                });
+                bridge.send(data, function (responseData) {
+                })
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

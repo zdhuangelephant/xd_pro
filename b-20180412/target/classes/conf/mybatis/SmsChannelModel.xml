@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SmsChannelModel">
+
+    <resultMap id="BaseResultMap" type="SmsChannelModel">
+        <id column="id" property="id"/>
+        <result column="merchant_id" property="merchantId"/>
+        <result column="name" property="name"/>
+        <result column="status" property="status"/>
+        <result column="priority" property="priority"/>
+        <result column="user_name" property="userName"/>
+        <result column="secret_key" property="secretKey"/>
+        <result column="channel_url" property="channelURL"/>
+        <result column="port" property="port"/>
+        <result column="time_out" property="timeOut"/>
+        <result column="control_max_count" property="controlMaxCount"/>
+        <result column="balance" property="balance"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">merchant_id,name,status,priority,user_name,secret_key,channel_url,port,time_out,control_max_count,balance,create_time</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="merchantId !=null">merchant_id,</if>
+            <if test="name != null">name,</if>
+            <if test="status != null">status,</if>
+            <if test="priority != null">priority,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="secretKey != null">secret_key,</if>
+            <if test="channelURL != null">channel_url,</if>
+            <if test="port != null">port,</if>
+            <if test="timeOut != null">time_out,</if>
+            <if test="controlMaxCount != null">control_max_count,</if>
+            <if test="balance != null">balance,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="merchantId !=null">#{merchantId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="status != null">#{status},</if>
+            <if test="priority != null">#{priority},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="secretKey != null">#{secretKey},</if>
+            <if test="channelURL != null">#{channelURL},</if>
+            <if test="port != null">#{port},</if>
+            <if test="timeOut != null">#{timeOut},</if>
+            <if test="controlMaxCount != null">#{controlMaxCount},</if>
+            <if test="balance != null">#{balance},</if>
+            <if test="createTime != null">#{createTime},</if>
+            
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="SmsChannelModel">
+        insert into xd_sms_channel
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update xd_sms_channel
+        <set>
+        	<if test="value != null and value.merchantId != null">merchant_id = #{value.merchantId},</if>
+            <if test="value != null and value.name != null">name = #{value.name},</if>
+            <if test="value != null and value.status != null">status = #{value.status},</if>
+            <if test="value != null and value.priority != null">priority = #{value.priority},</if>
+            <if test="value != null and value.userName != null">user_name = #{value.userName},</if>
+            <if test="value != null and value.secretKey != null">secret_key = #{value.secretKey},</if>
+            <if test="value != null and value.channelURL != null">channel_url = #{value.channelURL},</if>
+            <if test="value != null and value.port != null">port = #{value.port},</if>
+            <if test="value != null and value.timeOut != null">time_out = #{value.timeOut},</if>
+            <if test="value != null and value.controlMaxCount != null">control_max_count = #{value.controlMaxCount},</if>
+            <if test="value != null and value.balance != null">balance = #{value.balance},</if>
+            <if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_sms_channel
+        <include refid="dynamic_where"/>
+    </select>
+    <!-- 根据栏目级联查询 -->
+     <select id="cascadeQueryProduct" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_sms_channel
+        left join xd_sms_merchant on xd_sms_channel.merchant_id = xd_sms_merchant.id
+        <include refid="dynamic_where"/>
+    </select>
+    
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="SmsChannelModel" resultMap="BaseResultMap">
+        select * from xd_sms_channel where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from xd_sms_channel
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and xd_sms_channel.id =#{input.id}</if>
+            <if test="input != null and input.merchantId !=null">and xd_sms_channel.merchant_id=#{input.merchantId}</if>
+            <if test="input != null and input.name != null">and xd_sms_channel.name =#{input.name}</if>
+            <if test="input != null and input.status != null">and xd_sms_channel.status =#{input.status}</if>
+            <if test="input != null and input.priority != null">and xd_sms_channel.priority =#{input.priority}</if>
+            <if test="input != null and input.userName != null">and xd_sms_channel.user_name =#{input.userName}</if>
+            <if test="input != null and input.secretKey != null">and xd_sms_channel.secret_key =#{input.secretKey}</if>
+            <if test="input != null and input.channelURL != null">and xd_sms_channel.channel_url =#{input.channelURL}</if>
+            <if test="input != null and input.port !=null">and xd_sms_channel.port=#{input.port}</if>
+            <if test="input != null and input.timeOut != null">and xd_sms_channel.time_out =#{input.timeOut}</if>
+            <if test="input != null and input.controlMaxCount != null">and xd_sms_channel.control_max_count =#{input.controlMaxCount}</if>
+            <if test="input != null and input.balance != null">and xd_sms_channel.balance =#{input.balance}</if>
+            <if test="input != null and input.createTime != null">and xd_sms_channel.create_time =#{input.createTime}</if>            
+
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">xd_sms_channel.id,</if>
+            <if test="output != null and output.merchantId !=null">xd_sms_channel.merchant_id,</if>
+            <if test="output != null and output.name != null">xd_sms_channel.name,</if>
+            <if test="output != null and output.status != null">xd_sms_channel.status,</if>
+            <if test="output != null and output.priority != null">xd_sms_channel.priority,</if>
+            <if test="output != null and output.userName != null">xd_sms_channel.user_name,</if>
+            <if test="output != null and output.secretKey != null">xd_sms_channel.secret_key,</if>
+            <if test="output != null and output.channelURL != null">xd_sms_channel.channel_url,</if>
+            <if test="output != null and output.port !=null">xd_sms_channel.port,</if>
+            <if test="output != null and output.timeOut != null">xd_sms_channel.time_out,</if>
+            <if test="output != null and output.controlMaxCount != null">xd_sms_channel.control_max_count,</if>
+            <if test="output != null and output.balance != null">xd_sms_channel.balance,</if>
+            <if test="output != null and output.createTime != null">xd_sms_channel.create_time,</if>           
+
+        </trim>
+    </sql>
+
+
+</mapper>

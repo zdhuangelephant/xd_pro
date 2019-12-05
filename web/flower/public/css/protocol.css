@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html,body {
+    width: 100%;
+    font-family: "微软雅黑";
+    font-size: 14px;
+    margin:0;
+    padding:0;
+
+}
+a{
+    text-decoration: none;
+}
+ul li{
+    list-style: none;
+}
+.main{
+    width: 96%;
+    margin:0 auto;
+    padding-top: 20px;
+    line-height: 30px;
+}
+.main .title{
+    font-size: 18px;
+    color:#000000;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.main .bold{
+    font-weight: bold;
+    line-height: 30px;
+}
+.company{
+    margin-top: 30px;
+    margin-bottom: 20px;
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="yes"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <title>编辑器</title>
+    <link rel="stylesheet" href="css/simditor.css"/>
+    <link rel="stylesheet" href="css/simditor-mention.css"/>
+    <link rel="stylesheet" href="css/zTreeStyle.css"/>
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/output.css" rel="stylesheet">
+    <script type="text/javascript">
+        var id = undefined, name = '', url = "template/template.html", prefix = undefined;
+    </script>
+    <script src="js/jquery.js"></script>
+    <script src="js/TweenMax.min.js"></script>
+    <!--<script src="js/jquery.ztree.core-3.5.min.js"></script>-->
+    <!--<script src="js/jquery.ztree.excheck-3.5.min.js"></script>-->
+    <script type="text/javascript" src="js/jquery.ztree.core-3.5.js"></script>
+    <script type="text/javascript" src="js/jquery.ztree.excheck-3.5.js"></script>
+    <script type="text/javascript" src="js/jquery.ztree.exedit-3.5.js"></script>
+    <script type="text/javascript" src="simditor/module.js"></script>
+    <script type="text/javascript" src="simditor/hotkeys.js"></script>
+    <script type="text/javascript" src="simditor/uploader.js"></script>
+    <script type="text/javascript" src="simditor/simditor.js"></script>
+    <script type="text/javascript" src="simditor/simditor-mention.js"></script>
+    <script type="text/javascript" src="simditor/upload.js"></script>
+    <script type="text/javascript" src="simditor/myatbutton.js"></script>
+    <script src="js/index.js"></script>
+    <script type="text/javascript" src="js/template.js"></script>
+</head>
+<body>
+<div class="mainBody">
+    <div class="left">
+        <div class="courseware" id="courseware">
+            <p>课件列表</p>
+            <a href="javascript:void(0)" onclick="modifyChapter()">维护章节</a>
+
+            <div class="zTreeDemoBackground left">
+                <ul id="treeDemo" class="ztree"></ul>
+            </div>
+        </div>
+        <div class="controller">
+        </div>
+    </div>
+    <div id="rMenu4">
+        <ul>
+            <li id="m_add" onclick="addTreeNode();">增加节点</li>
+            <li id="d_download" onclick="download();">下载课件压缩包</li>
+        </ul>
+    </div>
+    <div id="rMenu5">
+        <ul>
+            <li id="m_up" onclick="upTreeNode();">向上移动</li>
+            <li id="m_down" onclick="downTreeNode();">向下移动</li>
+            <li id="m_mod" onclick="editTreeNode();">修改节点</li>
+            <li id="m_del" onclick="deleteTreeNode();">删除节点</li>
+        </ul>
+    </div>
+    <div class="mid">
+        <!--<p>显示区</p>-->
+
+        <div class="iphone">
+            <div class="screen" id="screen">
+                <div class="main" id="stage">
+                    <div id="page1">
+                        <!--此处添加模板-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div id="coursewarename">
+            课件名 <input type="text" id="courseName" onkeyup="changeId(this.value)">
+        </div>
+        <p>操作区</p>
+
+        <div>
+            <ul class="choose">
+                <li class="content on" data-type="content">内容</li>
+                <li class="img" data-type="img">图片</li>
+                <li class="richText" data-type="richText">富文本编辑</li>
+                <li class="other">待定</li>
+            </ul>
+            <div class="rightMain">
+                <div class="contentBox">
+                    <div>内容:<input id="contentInput"></div>
+                </div>
+                <div class="imgBox">
+                    <div>图片：<select id="imgList"></select><input id="imageInput" type="hidden" disabled="disabled">
+                        <a href="/image.html" target="_blank">添加图片</a>
+                    </div>
+                    <br/><br/>
+                    <img id="firstview" src=""/>
+                    <br/><br/>
+                </div>
+                <div class="richTextBox">
+                    <textarea id="editor" placeholder="这里输入内容"></textarea>
+                </div>
+                <div class="otherBox">
+                    其它
+                </div>
+            </div>
+
+            <!--<div>内容or图片(0内容，1图片)：<input id="typeInput"></div>-->
+            <!--<div>内容:<input id="contentInput"></div>-->
+            <!--<div>图片：<input id="imageInput"></div>-->
+
+            <!--<div> width:<input id="widthInput"></div>-->
+            <!--<div> height:<input id="heightInput"></div>-->
+            <!--<div> top:<input id="topInput"></div>-->
+            <!--<div>left:<input id="leftInput"></div>-->
+        </div>
+        <div id="enterBtn">确定</div>
+        <div id="deleteBtn">删除</div>
+        <div id="saveBtn">保存</div>
+        <div id="addBtn">添加元素</div>
+    </div>
+</div>
+</body>
+</html>

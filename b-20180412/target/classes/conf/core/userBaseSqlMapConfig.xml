@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<!--短信 -->
+		<typeAlias type="com.xiaodou.ms.model.user.UserBaseModel"
+			alias="UserBaseModel" />
+	</typeAliases>
+
+	<mappers>
+		<!--  -->
+		<mapper resource="conf/mybatis/UserBaseModel.xml" />
+
+	</mappers>
+</configuration>

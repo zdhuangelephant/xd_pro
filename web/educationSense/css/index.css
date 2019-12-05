@@ -1,0 +1,1056 @@
+@charset "utf-8";
+/* CSS Document */
+/*全局控制*/
+html {
+    font-size: 62.5%;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 1.2rem;
+    font-family: "微软雅黑";
+    width:100%;
+    height: 100%;
+    /*overflow: hidden;*/
+}
+html, body {
+    width:100%;
+    height: 100%;
+    min-height: 480px;
+    min-width: 320px;
+    margin:0 auto;
+}
+.main{
+    width:100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    min-height: 480px;
+    min-width: 320px;
+}
+header{
+    position:absolute;
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    background: #29b3f2;
+    color:#ffffff;
+    font-size: 16px;
+    z-index: 100;
+}
+header .back{
+    position: absolute;
+    width: 9px;
+    height: 18px;
+    left: 16px;
+    top:13px;
+}
+header .share{
+    position: absolute;
+    width: 16px;
+    height: 18px;
+    right: 16px;
+    top:13px;
+}
+/*-------------------------------------------------------page0*/
+.main .page0{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: url("../images/backstar_03.gif") no-repeat 20px 58% #25e8b1;
+    background-size: 90%;
+    z-index: 11;
+    overflow: hidden;
+}
+.main .superTeacher{
+    width: 46.8%;
+    position: absolute;
+    top:13%;
+    left: 0;
+    right: 0;
+    margin:0 auto;
+}
+.main .superTeacher img{
+    width: 100%;
+    height: auto;
+}
+.main .people{
+    width: 84.68%;
+    position: relative;
+    top:25%;
+    left: 0;
+    right: 0;
+    margin:0 auto;
+}
+.main .people .peopleDetail{
+    position: relative;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #1191ff;
+}
+.main .people .peopleImg{
+    position: relative;
+    width: 100%;
+    z-index: 8;
+}
+.main .people .cloud1{
+    position: absolute;
+    width:35.2% ;
+    bottom:-12%;
+    left:0%;
+    z-index: 10;
+    animation:cloud1 12s;
+    -moz-animation:cloud1 12s; /* Firefox */
+    -webkit-animation:cloud1 12s; /* Safari and Chrome */
+    -o-animation:cloud1 12s; /* Opera */
+    animation-iteration-count:infinite;
+    -webkit-animation-iteration-count:infinite;
+    -moz-animation-iteration-count:infinite;
+    -o-animation-iteration-count:infinite;
+    -ms-animation-iteration-count:infinite;
+}
+.main .people .cloud2{
+    position: absolute;
+    width:35.2% ;
+    bottom:10%;
+    right:0%;
+    z-index: 1;
+    animation:cloud2 12s;
+    -moz-animation:cloud2 12s; /* Firefox */
+    -webkit-animation:cloud2 12s; /* Safari and Chrome */
+    -o-animation:cloud2 12s; /* Opera */
+    animation-iteration-count:infinite;
+    -webkit-animation-iteration-count:infinite;
+    -moz-animation-iteration-count:infinite;
+    -o-animation-iteration-count:infinite;
+    -ms-animation-iteration-count:infinite;
+}
+.main .page0 .content{
+    position: absolute;
+    bottom: 10%;
+    width: 80%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+}
+.main .page0 .content p:nth-child(2){
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-top: 3px;
+}
+.main .page0 .content p:nth-child(3){
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-top:2px;
+}
+.main .page0 .content p:first-child{
+    font-size: 28px;
+}
+/*===========================云彩动画*/
+@keyframes cloud1
+{
+    0%   {left:0;;}
+    50% { left:14%; }
+    100% { left:0%; }
+}
+@-webkit-keyframes cloud1 /* Safari 和 Chrome */
+{
+    0%   {left:0;}
+    50% { left:14%; }
+    100% { left:0%; }
+}
+@-o-keyframes cloud1 /* Opera */
+{
+    0%   {left:0;;}
+    50% { left:14%; }
+    100% { left:0%; }
+}
+@keyframes cloud2
+{
+    0%   {right:0;}
+    50% { right:11%; }
+    100% { right:0%; }
+}
+@-webkit-keyframes cloud2
+{
+    0%   {right:0;}
+    50% { right:11%; }
+    100% { right:0%; }
+}
+@-o-keyframes cloud2
+{
+    0%   {right:0;}
+    50% { right:11%; }
+    100% { right:0%; }
+}
+@-ms-keyframes cloud2
+{
+    0%   {right:0;}
+    50% { right:11%; }
+    100% { right:0%; }
+}
+/*-------------------------------------------------------page1*/
+.main .page1{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: url("../images/backstar_03.gif") no-repeat 20px 58% #25e8b1;
+    background-size: 90%;
+    z-index: 10;
+    overflow: hidden;
+}
+.title1{
+    position: absolute;
+    height: 49px;
+    width: 86%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 10%;
+    background: url("../images/t_03.gif") 0 0 #25e8b1;
+    background-size: 100% 100%;
+    text-align: center;
+    font-size: 18px;
+    color: #ffffff;
+    /*letter-spacing: 2px;*/
+    line-height: 37px;
+    z-index: 20;
+  }
+.newBk{
+    background: url("../images/tbn_03.gif") 0 0 #25e8b1;
+    background-size: 100% 100%;
+}
+.content1{
+    position: absolute;
+    width: 86%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top:22%;
+}
+ .meaning{
+     width: 100%;
+     height: 33px;
+     line-height: 33px;
+     background: #29b3f2;
+     border-radius: 5px;
+     text-align: center;
+    color:#ffffff;
+    font-size: 18px;
+}
+ .new{
+     width: 90%;
+     margin-left: 5%;
+ }
+.way{
+    width: 50%;
+    margin-left: 25%;
+}
+.content1 p{
+    margin-top: 16px;
+    color:#4b4b4b;
+}
+.content1 img{
+    display: block;
+    width: 90%;
+    /*height: 20%;*/
+    margin-left:5%;
+    margin-top: 5%;
+}
+.content1 .cover{
+    position: absolute;
+    bottom:0%;
+    width: 100%;
+    background: #25e8b1;
+    animation:tu1 2s;
+    -moz-animation:tu1 2s;
+    -webkit-animation:tu1 2s;
+    -o-animation:tu1 2s;
+}
+.go{
+    position: absolute;
+    bottom: 1.5%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width:25px;
+    height: 18px;
+}
+@keyframes tu1
+{
+    10%   {height: 80%}
+    30%   {height: 80%}
+    100% {height:0 }
+}
+@-webkit-keyframes tu1 /* Safari 和 Chrome */
+{
+    10%   {height: 80%}
+    30%   {height: 80%}
+    100% {height:0 }
+}
+@-o-keyframes tu1 /* Opera */
+{
+    10%   {height: 80%}
+    30%   {height: 80%}
+    100% {height:0 }
+}
+/*-------------------------------------------------------page2*/
+.main .page2{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    overflow: hidden;
+    text-align: center;
+    background: url("../images/backstar_03.gif") no-repeat 20px 58% #25e8b1;
+    background-size: 90%;
+    /*overflow: hidden;*/
+}
+.main .page2 .chart{
+    position: relative;
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 20%;
+    padding-top:80%;
+    background:url("../images/six_03.gif") no-repeat ;
+    background-size: 100% 100%;
+}
+.main .page2 .chart .develop{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top:-10%;
+    width: 26%;
+    border:5px solid #ffffff;
+    border-radius: 50%;
+    padding-top: 26%;
+    background: #f8b62d;
+}
+.main .page2 .chart .develop span{
+    position: absolute;
+    top:35%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    font-size: 16px;
+    color: #ffffff;
+}
+/*.main .page2 .chart .add{*/
+    /**/
+/*}*/
+.main .page2 .chart .add{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: -15%;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border:1px solid #f8b62d;
+    background: #ffffff;
+    color:#12db9d;
+    font-size: 22px;
+    line-height: 20px;
+}
+.main .page2 .chart .add1{
+     animation:add1 2s;
+     -moz-animation:add1 2s;
+     -webkit-animation:add1 2s;
+     -o-animation:add1 2s;
+
+     -webkit-transform:rotate(45deg);
+     --moz-transform:rotate(45deg);
+     -o-transform:rotate(45deg);
+ }
+.main .page2 .chart .addBack{
+    animation:add2 2s;
+    -moz-animation:add2 2s;
+    -webkit-animation:add2 2s;
+    -o-animation:add2 2s;
+    -webkit-transform:rotate(0deg);
+    --moz-transform:rotate(0deg);
+    -o-transform:rotate(0deg);
+}
+.main .page2 .chart .point{
+    position: absolute;
+    top:100%;
+    width: 120px;
+    padding:7px 8px;
+    padding-right: 0;
+    z-index: 200;
+    background: #ffffff;
+}
+.main .page2 .chart .overall{
+    position: absolute;
+    right: -14%;
+    top:10%;
+    width: 26%;
+    border:5px solid #ffffff;
+    border-radius: 50%;
+    padding-top: 26%;
+    background: #f8b62d;
+}
+.main .page2 .chart .overall span{
+    position: absolute;
+    top:35%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    font-size: 16px;
+    color: #ffffff;
+}
+.main .page2 .chart .subject{
+    position: absolute;
+    right: -14%;
+    bottom:10%;
+    width: 26%;
+    border:5px solid #ffffff;
+    border-radius: 50%;
+    padding-top: 26%;
+    background: #f8b62d;
+}
+.main .page2 .chart .subject span{
+    position: absolute;
+    top:35%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    font-size: 16px;
+    color: #ffffff;
+}
+.main .page2 .chart .basic{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom:-14%;
+    width: 26%;
+    border:5px solid #ffffff;
+    border-radius: 50%;
+    padding-top: 26%;
+    background: #f8b62d;
+}
+.main .page2 .chart .basic span{
+    position: absolute;
+    top:35%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    font-size: 16px;
+    color: #ffffff;
+}
+.main .page2 .chart .open{
+    position: absolute;
+    left: -14%;
+    bottom:10%;
+    width: 26%;
+    border:5px solid #ffffff;
+    border-radius: 50%;
+    padding-top: 26%;
+    background: #f8b62d;
+}
+.main .page2 .chart .open span{
+    position: absolute;
+    top:35%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    font-size: 16px;
+    color: #ffffff;
+}
+.main .page2 .chart .all{
+    position: absolute;
+    left: -14%;
+    top:10%;
+    width: 26%;
+    border:5px solid #ffffff;
+    border-radius: 50%;
+    padding-top: 26%;
+    background: #f8b62d;
+}
+.main .page2 .chart .all span{
+    position: absolute;
+    top:35%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    font-size: 16px;
+    color: #ffffff;
+}
+.main .page2 .chart .developCenter,.overallCenter,.subjectCenter,.basicCenter,.openCenter,.allCenter{
+    position: absolute;
+    text-align: left;
+    width: 120px;
+    padding:7px 8px;
+    padding-right: 0;
+    left: 0;
+    right: 0;
+    margin:0 auto;
+    top:33%;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #646464;
+    font-size: 14px;
+    line-height: 20px;
+    display: none;
+}
+/*******************加号转圈动画*/
+@keyframes add1 {
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(45deg);}
+}
+@-moz-keyframes add1 {
+    0%{-moz-transform:rotate(0deg);}
+    100%{-moz-transform:rotate(45deg);}
+}
+@-webkit-keyframes add1 {
+    0%{-webkit-transform:rotate(0deg);}
+    100%{-webkit-transform:rotate(45deg);}
+}
+@-o-keyframes add1 {
+    0%{-o-transform:rotate(0deg);}
+    100%{-o-transform:rotate(45deg);}
+}
+@keyframes add2 {
+    0%{transform:rotate(45deg);}
+    100%{transform:rotate(0deg);}
+}
+@-moz-keyframes add2 {
+    0%{-moz-transform:rotate(45deg);}
+    100%{-moz-transform:rotate(0deg);}
+}
+@-webkit-keyframes add2 {
+    0%{-webkit-transform:rotate(45deg);}
+    100%{-webkit-transform:rotate(0deg);}
+}
+@-o-keyframes add2 {
+    0%{-o-transform:rotate(45deg);}
+    100%{-o-transform:rotate(0deg);}
+}
+/*-------------------------------------------------------page3*/
+.main .page3{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 8;
+    overflow: hidden;
+    text-align: center;
+    background: url("../images/backstar_03.gif") no-repeat 20px 58% #25e8b1;
+    background-size: 90%;
+    /*background: #a77169;*/
+}
+.main .page3 .box{
+    width: 100%;
+    overflow:hidden;
+    margin-top: 10%;
+ }
+.main .page3 .box .boxLeft{
+    width: 48%;
+    float: left;
+}
+.main .page3 .box  .goal{
+    width:96%;
+    min-height: 41px;
+    margin-bottom: 10%;
+    border-radius: 5px;
+    background: #ffffff;
+    text-align: center;
+    padding-bottom: 7px;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+.main .page3 .box .goalHigh{
+    height: 65px;
+}
+.main .page3 .box .bottomGoal{
+    clear: both;
+    width: 98%;
+}
+.main .page3 .box .goal div:first-child{
+    padding-top: 7px;
+    color:#3296f5;
+    font-size: 16px;
+}
+.main .page3 .box .goal div:first-child span{
+    margin-left: 3%;
+    margin-right: 3%;
+}
+.main .page3 .box .goal div:last-child{
+    color:#646464;
+    font-size: 14px;
+}
+.main .page3 .box .boxRight{
+    float: right;
+    width: 48%;
+}
+/*-------------------------------------------------------page4*/
+.main .page4{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 7;
+    overflow: hidden;
+    text-align: center;
+    background: url("../images/backstar_03.gif") no-repeat 20px 58% #25e8b1;
+    background-size: 90%;
+}
+.main .round{
+    position: relative;
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 25%;
+    padding-top:78%;
+    background:url("../images/round_03.gif") no-repeat ;
+    background-size: 100% 100%;
+}
+.main .round .policy{
+    position: absolute;
+    left:0;
+    right: 0;
+    margin:0 auto;
+    top:-20%;
+    width: 32%;
+    border:5px solid #ffffff;
+    border-radius: 50%;
+    padding-top: 32%;
+    background: #ffdc32;
+}
+.main .round .teaching{
+    position: absolute;
+    right: -12%;
+    bottom:8%;
+    width: 32%;
+    border:5px solid #ffffff;
+    border-radius: 50%;
+    padding-top: 32%;
+    background: #ffdc32;
+}
+.main .round .teacher{
+    position: absolute;
+    left: -12%;
+    bottom:8%;
+    width: 32%;
+    border:5px solid #ffffff;
+    border-radius: 50%;
+    padding-top: 32%;
+    background: #ffdc32;
+}
+.main .round .textRound{
+    position: absolute;
+    top:35%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    font-size: 16px;
+    color: #0066cc;
+}
+.main .round .policy .policyWord{
+    letter-spacing: 4px;
+}
+.main .round .btn{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: -15%;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border:1px solid #f8b62d;
+    background: #ffffff;
+    color:#12db9d;
+    font-size: 22px;
+    line-height: 20px;
+}
+.main .round .roundBox{
+    position: absolute;
+    z-index: 200;
+    width: 110%;
+    left: -5%;
+    height: 120%;
+    background: #ffffff;
+    top:-18%;
+    border-radius: 5px;
+    display: none;
+}
+.main .round .roundBox .roundBoxTop{
+   width: 100%;
+    height: 40px;
+    background: #ffdc32;
+    line-height: 40px;
+    text-align: center;
+    color:#0066cc;
+    letter-spacing: 1px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    font-size: 16px;
+    position: relative;
+}
+.main .round .roundBox .roundBoxTop .roundShut{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 7px;
+    top: 10px;
+    background: url("../images/shutnew_03.gif") no-repeat;
+    background-size: 100% 100%;
+}
+.main .round .roundBox .mainUl{
+    clear: both;
+    width: 80%;
+    margin-left: 10%;
+    text-align:left;
+    margin-top: 15px;
+}
+.main .round .roundBox .mainUl li{
+    display: block;
+    width: 100%;
+    min-height: 22px;
+    line-height: 22px;
+    color: #505050;
+    font-size: 14px;
+    overflow: hidden;
+}
+.main .round .roundBox .mainUl li span:last-child{
+    display: block;
+    float: right;
+    width: 88%;
+}
+.main .round .roundBox .mainUl li .dian{
+    font-size: 24px;
+    color:#12db9d;
+    font-weight: bold;
+    float: left;
+}
+/*-------------------------------------------------------page5*/
+.main .page5{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 6;
+    overflow: hidden;
+    text-align: center;
+    background: url("../images/backstar_03.gif") no-repeat 20px 58% #25e8b1;
+    background-size: 90%;
+}
+.page5Content{
+
+}
+.main .page5 .page5Chart{
+    position: relative;
+    width: 100%;
+    padding-top:74%;
+    background:url("../images/tu_03.gif") no-repeat ;
+    background-size: 100% 100%;
+}
+.main .page5 .page5Chart .brains{
+    position: absolute;
+    bottom: 2%;
+    left: 0;
+    width: 30%;
+    text-align: left;
+    color:#505050;
+    font-size: 14px;
+}
+.main .page5 .page5Chart .selfHood{
+    position: absolute;
+    bottom: 2%;
+    left: 0;
+    right: 0;
+    margin:0 auto;
+    width: 30%;
+    text-align: left;
+    color:#505050;
+    font-size: 14px;
+}
+.main .page5 .page5Chart .sex{
+    position: absolute;
+    bottom: 2%;
+    right: 0;
+    width: 30%;
+    text-align: left;
+    color:#505050;
+    font-size: 14px;
+}
+/*-------------------------------------------------------page6*/
+.main .page6{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    overflow: hidden;
+    text-align: center;
+    background: url("../images/backstar_03.gif") no-repeat 20px 58% #25e8b1;
+    background-size: 90%;
+}
+.main .diamond{
+    position: relative;
+    width: 70%;
+    margin-left: 15%;
+    margin-top: 25%;
+    padding-top:68%;
+    background:url("../images/si_03.gif") no-repeat ;
+    background-size: 100% 100%;
+}
+
+.main .page6 .life{
+    position: absolute;
+    left:0;
+    right: 0;
+    margin:0 auto;
+    top:-20%;
+    width: 35%;
+    border-radius: 50%;
+    padding-top: 35%;
+    background: #ffffff;
+}
+.main .page6 .lifeText{
+    position: absolute;
+    top:37%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    font-size: 14px;
+    color: #3296f5;
+}
+.main .round .page6btn{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: -14%;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border:1px solid #3296f5;
+    background: #ffffff;
+    color:#12db9d;
+    font-size: 22px;
+    line-height: 20px;
+}
+.main .page6 .latent{
+     position: absolute;
+     right: -20%;
+     top:30%;
+     width: 35%;
+     border-radius: 50%;
+     padding-top: 35%;
+     background: #ffffff;
+ }
+.main .page6 .experience{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin:0 auto;
+    bottom:-20%;
+    width: 35%;
+    border-radius: 50%;
+    padding-top: 35%;
+    background: #ffffff;
+}
+.main .page6 .experienceText{
+    width: 80%;
+    top:30%;
+}
+.main .page6 .game{
+    position: absolute;
+    left: -20%;
+    top:30%;
+    width: 35%;
+    border-radius: 50%;
+    padding-top: 35%;
+    background: #ffffff;
+}
+.main .diamond .diamondBox{
+    position: absolute;
+    z-index: 200;
+    width: 130%;
+    left: -15%;
+    height: 140%;
+    background: #ffffff;
+    top:-18%;
+    border-radius: 5px;
+    display: none;
+}
+.main .diamond .diamondBox .diamondBoxTop{
+    width: 100%;
+    height: 40px;
+    background: #29b3f2;
+    line-height: 40px;
+    text-align: center;
+    color:#ffffff;
+    letter-spacing: 1px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    font-size: 16px;
+    position: relative;
+}
+.main .diamond .diamondBox .diamondBoxTop .diamondShut{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 7px;
+    top: 10px;
+    background: url("../images/shutnew_03.gif") no-repeat;
+    background-size: 100% 100%;
+}
+.main .diamond .diamondBox .diamondDetail{
+    width: 84%;
+    margin-left: 8%;
+    margin-top: 8%;
+    text-align: left;
+    color:#646464;
+    font-size: 14px;
+    line-height: 25px;
+}
+/*==========================================滑屏*/
+@keyframes slideInBottom {
+    0%{top:100%}
+    100%{top:0}
+}
+@-moz-keyframes slideInBottom {
+    0%{top:100%}
+    100%{top:0}
+}
+@-webkit-keyframes slideInBottom {
+    0%{top:100%}
+    100%{top:0}
+}
+@-o-keyframes slideInBottom {
+    0%{top:100%}
+    100%{top:0}
+}
+@-ms-keyframes slideInBottom {
+    0%{top:100%}
+    100%{top:0}
+}
+@keyframes slideOutTop {
+    0%{top:0}
+    100%{top:-100%}
+}
+@-moz-keyframes slideOutTop {
+    0%{top:0}
+    100%{top:-100%}
+}
+@-webkit-keyframes slideOutTop {
+    0%{top:0}
+    100%{top:-100%}
+}
+@-o-keyframes slideOutTop {
+     0%{top:0}
+     100%{top:-100%}
+ }
+@-ms-keyframes slideOutTop {
+    0%{top:0}
+    100%{top:-100%}
+}
+@keyframes slideOutBottom {
+    0%{top:0}
+    100%{top:100%}
+}
+@-moz-keyframes slideOutBottom {
+    0%{top:0}
+    100%{top:100%}
+}
+@-o-keyframes slideOutBottom {
+    0%{top:0}
+    100%{top:100%}
+}
+@-webkit-keyframes slideOutBottom {
+    0%{top:0}
+    100%{top:100%}
+}
+@-ms-keyframes slideOutBottom {
+    0%{top:0}
+    100%{top:100%}
+}
+@keyframes slideInTop {
+    0%{top:-100%}
+    100%{top:0}
+}
+@-moz-keyframes slideInTop {
+    0%{top:-100%}
+    100%{top:0}
+}
+@-webkit-keyframes slideInTop {
+    0%{top:-100%}
+    100%{top:0}
+}
+@-o-keyframes slideInTop {
+    0%{top:-100%}
+    100%{top:0}
+}
+@-ms-keyframes slideInTop {
+    0%{top:-100%}
+    100%{top:0}
+}
+@media screen and (max-width: 340px) {
+    .main .page6 .lifeText{
+        top:35%;
+        font-size: 14px;
+        letter-spacing: -1px;
+    }
+    .main .page3 .box .boxRight {
+        width: 49%;
+    }
+    .content1 {
+        position: absolute;
+        width: 88%;
+        top: 22%;
+    }
+    .main .page6 .experienceText{
+        width: 84%;
+        top:28%;
+    }
+    .main .page3 .box .goal div:last-child{
+        font-size: 12px;
+    }
+    .meaning{
+        font-size: 16px;
+    }
+    .title1 {
+        font-size: 16px;
+    }
+    .main .page5 .page5Chart .brains {
+        bottom: 0%;
+        line-height: 16px;
+        width: 32%;
+        font-size: 14px;
+    }
+    .main .page5 .page5Chart .selfHood {
+        bottom: 0%;
+        width: 32%;
+        font-size: 14px;
+        line-height: 16px;
+    }
+    .main .page5 .page5Chart .sex {
+        bottom: 0%;
+        width: 32%;
+        font-size: 14px;
+        line-height: 16px;
+    }
+}
+@media screen and (max-width: 340px) {
+    .main .page3 .box .bottomGoal {
+        clear: both;
+        width: 110%;
+    }
+}

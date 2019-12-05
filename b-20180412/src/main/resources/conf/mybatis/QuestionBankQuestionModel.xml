@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="QuestionBankQuestionModel">
+
+    <resultMap id="BaseResultMap" type="QuestionBankQuestionModel">
+        <id column="id" property="id"/>
+        <result column="question_type" property="questionType"/>
+        <result column="question_src" property="questionSrc"/>
+        <result column="chapter_id" property="chapterId"/>
+        <result column="course_id" property="courseId"/>
+        <result column="ques_img_url" property="quesImgUrl"/>
+        <result column="key_point" property="keyPoint"/>
+        <result column="cognition_level" property="cognitionLevel"/>
+        <result column="diffcult_level" property="diffcultLevel"/>
+        <result column="answer_ids" property="answerIds"/>
+        <result column="mdesc" property="mdesc"/>
+        <result column="manalyze" property="manalyze"/>
+        <result column="status" property="status"/>
+        <result column="misc" property="misc"/>
+        <result column="answer_list" property="answerList"/>
+        <result column="ques_time" property="quesTime"/>
+        <result column="chapter_name" property="chapterName" />
+<!--         <result column="resource_id" property="resourceId" /> -->
+        <result column="zhenti" property="zhenti" />
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">question_type,chapter_id,course_id,ques_img_url,key_point,cognition_level,diffcult_level,answer_ids,mdesc,
+        manalyze,status,misc,answer_list,ques_time<!-- ,resource_id -->,zhenti</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="questionType != null">question_type,</if>
+<!--             <if test="resourceId != null">resource_id,</if> -->
+            <if test="chapterId != null">chapter_id,</if>
+            <if test="courseId != null">course_id,</if>
+            <if test="quesImgUrl != null">ques_img_url,</if>
+            <if test="keyPoint != null">key_point,</if>
+            <if test="cognitionLevel != null">cognition_level,</if>
+            <if test="diffcultLevel != null">diffcult_level,</if>
+            <if test="answerIds != null">answer_ids,</if>
+            <if test="mdesc != null">mdesc,</if>
+            <if test="manalyze != null">manalyze,</if>
+            <if test="status != null">status,</if>
+            <if test="misc != null">misc,</if>
+            <if test="answerList != null">answer_list,</if>
+            <if test="quesTime != null">ques_time,</if>
+            <if test="zhenti != null">zhenti,</if>
+
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="questionType != null">#{questionType},</if>
+<!--             <if test="resourceId != null">#{resourceId},</if> -->
+            <if test="chapterId != null">#{chapterId},</if>
+            <if test="courseId != null">#{courseId},</if>
+            <if test="quesImgUrl != null">#{quesImgUrl},</if>
+            <if test="keyPoint != null">#{keyPoint},</if>
+            <if test="cognitionLevel != null">#{cognitionLevel},</if>
+            <if test="diffcultLevel != null">#{diffcultLevel},</if>
+            <if test="answerIds != null">#{answerIds},</if>
+            <if test="mdesc != null">#{mdesc},</if>
+            <if test="manalyze != null">#{manalyze},</if>
+            <if test="status != null">#{status},</if>
+            <if test="misc != null">#{misc},</if>
+            <if test="answerList != null">#{answerList},</if>
+            <if test="quesTime != null">#{quesTime},</if>
+            <if test="zhenti != null">#{zhenti},</if>
+
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="QuestionBankQuestionModel" useGeneratedKeys="true" keyProperty="id">
+        insert into xd_quesbk_ques
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update xd_quesbk_ques
+        <set>
+            <if test="value != null and value.questionType != null">question_type = #{value.questionType},</if>
+<!--             <if test="value != null and value.resourceId != null">resource_id = #{value.resourceId},</if> -->
+            <if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId},</if>
+            <if test="value != null and value.courseId != null">course_id = #{value.courseId},</if>
+            <if test="value != null and value.quesImgUrl != null">ques_img_url = #{value.quesImgUrl},</if>
+            <if test="value != null and value.keyPoint != null">key_point = #{value.keyPoint},</if>
+            <if test="value != null and value.cognitionLevel != null">cognition_level = #{value.cognitionLevel},</if>
+            <if test="value != null and value.diffcultLevel != null">diffcult_level = #{value.diffcultLevel},</if>
+            <if test="value != null and value.answerIds != null">answer_ids = #{value.answerIds},</if>
+            <if test="value != null and value.mdesc != null">mdesc = #{value.mdesc},</if>
+            <if test="value != null and value.manalyze != null">manalyze = #{value.manalyze},</if>
+            <if test="value != null and value.status != null">status = #{value.status},</if>
+            <if test="value != null and value.misc != null">misc = #{value.misc},</if>
+            <if test="value != null and value.answerList != null">answer_list = #{value.answerList},</if>
+            <if test="value != null and value.quesTime != null">ques_time = #{value.quesTime},</if>
+            <if test="value != null and value.zhenti != null">zhenti = #{value.zhenti},</if>
+
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_quesbk_ques
+        left join xd_course_chapter on xd_quesbk_ques.chapter_id = xd_course_chapter.id
+        <!-- left join xd_quesbk_ques_resource on xd_quesbk_ques.resource_id = xd_quesbk_ques_resource.id -->
+        <include refid="dynamic_where"/>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="QuestionBankQuestionModel" resultMap="BaseResultMap">
+        select * from xd_quesbk_ques where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from xd_quesbk_ques
+        <include refid="dynamic_where" />
+    </delete>
+
+
+	
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and xd_quesbk_ques.id =#{input.id}</if>
+            <if test="input != null and input.ids != null">and xd_quesbk_ques.id in
+                <foreach collection="input.ids" separator="," open="(" close=")" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="input != null and input.questionType != null">and xd_quesbk_ques.question_type =#{input.questionType}</if>
+<!--             <if test="input != null and input.resourceId != null">and xd_quesbk_ques.resource_id =#{input.resourceId}</if> -->
+            <if test="input != null and input.chapterId != null">and xd_quesbk_ques.chapter_id =#{input.chapterId}</if>
+            <if test="input != null and input.chapterIds != null">and xd_quesbk_ques.chapter_id in
+                <foreach collection="input.chapterIds" open="(" close=")" separator="," index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="input != null and input.courseId != null">and xd_quesbk_ques.course_id =#{input.courseId}</if>
+            <if test="input != null and input.quesImgUrl != null">and xd_quesbk_ques.ques_img_url =#{input.quesImgUrl}</if>
+            <if test="input != null and input.keyPoint != null">and xd_quesbk_ques.key_point =#{input.keyPoint}</if>
+            <if test="input != null and input.cognitionLevel != null">and xd_quesbk_ques.cognition_level =#{input.cognitionLevel}</if>
+            <if test="input != null and input.diffcultLevel != null">and xd_quesbk_ques.diffcult_level =#{input.diffcultLevel}</if>
+            <if test="input != null and input.answerIds != null">and xd_quesbk_ques.answer_ids =#{input.answerIds}</if>
+            <if test="input != null and input.mdesc != null">and xd_quesbk_ques.mdesc =#{input.mdesc}</if>
+            <if test="input != null and input.keyword != null">and xd_quesbk_ques.mdesc like "%"#{input.keyword}"%"</if>
+            <if test="input != null and input.manalyze != null">and xd_quesbk_ques.manalyze =#{input.manalyze}</if>
+            <if test="input != null and input.status != null">and xd_quesbk_ques.status =#{input.status}</if>
+            <if test="input != null and input.misc != null">and xd_quesbk_ques.misc =#{input.misc}</if>
+            <if test="input != null and input.answerList != null">and xd_quesbk_ques.answer_list =#{input.answerList}</if>
+            <if test="input != null and input.quesTime != null">and xd_quesbk_ques.ques_time =#{input.quesTime}</if>
+            <if test="input != null and input.zhenti != null">and xd_quesbk_ques.zhenti =#{input.zhenti}</if>
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">xd_quesbk_ques.id,</if>
+            <if test="output != null and output.questionType != null">xd_quesbk_ques.question_type,</if>
+            <if test="output != null and output.resourceId != null">xd_quesbk_ques.resource_id,</if>
+            <if test="output != null and output.chapterId != null">xd_quesbk_ques.chapter_id,</if>
+            <if test="output != null and output.courseId != null">xd_quesbk_ques.course_id,</if>
+            <if test="output != null and output.quesImgUrl != null">xd_quesbk_ques.ques_img_url,</if>
+            <if test="output != null and output.keyPoint != null">xd_quesbk_ques.key_point,</if>
+            <if test="output != null and output.cognitionLevel != null">xd_quesbk_ques.cognition_level,</if>
+            <if test="output != null and output.diffcultLevel != null">xd_quesbk_ques.diffcult_level,</if>
+            <if test="output != null and output.answerIds != null">xd_quesbk_ques.answer_ids,</if>
+            <if test="output != null and output.mdesc != null">xd_quesbk_ques.mdesc,</if>
+            <if test="output != null and output.manalyze != null">xd_quesbk_ques.manalyze,</if>
+            <if test="output != null and output.status != null">xd_quesbk_ques.status,</if>
+            <if test="output != null and output.misc != null">xd_quesbk_ques.misc,</if>
+            <if test="output != null and output.answerList != null">xd_quesbk_ques.answer_list,</if>
+            <if test="output != null and output.quesTime != null">xd_quesbk_ques.ques_time,</if>
+            <if test="output != null and output.chapterName != null">xd_course_chapter.name chapter_name,</if>
+<!--             <if test="output != null and output.questionSrc != null">xd_quesbk_ques_resource.name question_src,</if> -->
+            <if test="output != null and output.zhenti != null">xd_quesbk_ques.zhenti,</if>
+        </trim>
+    </sql>
+
+
+</mapper>

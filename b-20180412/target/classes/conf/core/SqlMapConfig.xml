@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<!--课程 -->
+		<typeAlias type="com.xiaodou.ms.model.course.CourseCategoryModel"
+			alias="CourseCategoryModel" />
+		<typeAlias type="com.xiaodou.ms.model.course.CourseChapterModel"
+			alias="CourseChapterModel" />
+		<typeAlias type="com.xiaodou.ms.model.course.CourseKeywordModel"
+			alias="CourseKeywordModel" />
+		<typeAlias type="com.xiaodou.ms.model.course.CourseKeywordResourceModel"
+			alias="CourseKeywordResourceModel" />
+		<typeAlias type="com.xiaodou.ms.model.course.CourseResourceDocModel"
+			alias="CourseResourceDocModel" />
+		<typeAlias type="com.xiaodou.ms.model.course.CourseResourceVideoModel"
+			alias="CourseResourceVideoModel" />
+		<typeAlias type="com.xiaodou.ms.model.course.CourseResourceAudioModel"
+			alias="CourseResourceAudioModel" />
+		<typeAlias type="com.xiaodou.ms.model.course.CourseResourceHtml5Model"
+			alias="CourseResourceHtml5Model" />
+		<typeAlias type="com.xiaodou.ms.model.course.CourseSubjectModel"
+			alias="CourseSubjectModel" />
+		<typeAlias type="com.xiaodou.ms.model.course.CourseResourceMicroVideoModel"
+			alias="CourseResourceMicroVideoModel" />
+			
+		<!--专业 -->
+		<typeAlias type="com.xiaodou.ms.model.major.MajorDataModel"
+			alias="MajorDataModel" />
+		<typeAlias type="com.xiaodou.ms.model.major.MajorCourseModel"
+			alias="MajorCourseModel" />
+		<!--产品 -->
+		<typeAlias type="com.xiaodou.ms.model.product.ProductModuleModel"
+			alias="ProductModuleModel" />
+		<typeAlias type="com.xiaodou.ms.model.product.ProductCategoryModel"
+			alias="ProductCategoryModel" />
+		<typeAlias type="com.xiaodou.ms.model.product.ProductCategoryRelation"
+			alias="ProductCategoryRelation" />
+		<typeAlias type="com.xiaodou.ms.model.product.ProductItemModel"
+			alias="ProductItemModel" />
+		<typeAlias type="com.xiaodou.ms.model.product.ProductModel"
+			alias="ProductModel" />
+		<typeAlias type="com.xiaodou.ms.model.product.ProductQuestionModel"
+			alias="ProductQuestionModel" />
+		<typeAlias type="com.xiaodou.ms.model.product.ModuleSlideModel"
+			alias="ModuleSlideModel" />
+		<typeAlias type="com.xiaodou.ms.model.product.FinalExamModel"
+			alias="FinalExamModel" />
+		<typeAlias type="com.xiaodou.ms.model.product.UserFinalExamRelationModel"
+			alias="UserFinalExamRelationModel" />
+		<!--题库 -->
+		<typeAlias type="com.xiaodou.ms.model.exam.QuestionBankQuestionTypeModel"
+			alias="QuestionBankQuestionTypeModel" />
+		<typeAlias type="com.xiaodou.ms.model.exam.QuestionBankExamTypeModel"
+			alias="QuestionBankExamTypeModel" />
+		<typeAlias type="com.xiaodou.ms.model.exam.QuestionBankQuestionModel"
+			alias="QuestionBankQuestionModel" />
+		<typeAlias type="com.xiaodou.ms.model.exam.QuestionBankExamRuleModel"
+			alias="QuestionBankExamRuleModel" />
+		<typeAlias type="com.xiaodou.ms.model.exam.QuestionBankExamPaperModel"
+			alias="QuestionBankExamPaperModel" />
+		<typeAlias
+			type="com.xiaodou.ms.model.exam.QuestionBankQuestionResourceModel"
+			alias="QuestionBankQuestionResourceModel" />
+		<typeAlias type="com.xiaodou.ms.model.exam.RaiseWrongQues"
+			alias="RaiseWrongQues" />
+
+		<!--用户 -->
+		<typeAlias type="com.xiaodou.ms.model.user.UserModel" alias="UserModel" />
+		<typeAlias type="com.xiaodou.ms.model.user.UserFeedBackModel"
+			alias="UserFeedBackModel" />
+		<typeAlias type="com.xiaodou.ms.model.user.UserHelpModel"
+			alias="UserHelpModel" />
+		<typeAlias type="com.xiaodou.ms.model.user.UserNoticeModel"
+			alias="UserNoticeModel" />
+
+		<!--话题 -->
+		<typeAlias type="com.xiaodou.ms.model.topic.ForumCategoryModel"
+			alias="ForumCategoryModel" />
+		<typeAlias type="com.xiaodou.ms.model.topic.ForumListModel"
+			alias="ForumListModel" />
+		<typeAlias type="com.xiaodou.ms.model.topic.ForumCommentModel"
+			alias="ForumCommentModel" />
+
+		<!--消息 -->
+		<typeAlias type="com.xiaodou.ms.model.message.AdminPushMessage"
+			alias="AdminPushMessage" />
+		<typeAlias type="com.xiaodou.ms.model.message.AdminShortMessage"
+			alias="AdminShortMessage" />
+
+		<!--查询城市 -->
+		<typeAlias type="com.xiaodou.ms.model.common.XDcity" alias="XDcity" />
+
+		<!--知识分享 作者 -->
+		<typeAlias type="com.xiaodou.ms.model.knowledge.AuthorModel"
+			alias="AuthorModel" />
+		<typeAlias type="com.xiaodou.ms.model.knowledge.ForumModel"
+			alias="ForumModel" />
+		<typeAlias type="com.xiaodou.ms.model.knowledge.PushRecordModel"
+			alias="PushRecordModel" />
+
+		<!--首页展示页 -->
+		<typeAlias type="com.xiaodou.ms.model.user.BlankNoticeModel"
+			alias="BlankNoticeModel" />
+		<typeAlias type="com.xiaodou.ms.model.user.CommonInfoModel"
+			alias="CommonInfoModel" />
+
+		<!--config管理 -->
+		<typeAlias type="com.xiaodou.common.info.model.CommonInfo"
+			alias="CommonInfo" />
+
+		<!--MS系统定时调度 -->
+		<typeAlias type="com.xiaodou.ms.model.order.ProductOrderModel"
+			alias="ProductOrderModel" />
+
+
+		<!-- 挑战机器人 -->
+		<typeAlias type="com.xiaodou.ms.model.robot.ChallengeRobotModel"
+			alias="ChallengeRobotModel" />
+			<!-- 抓取任务 -->
+			<typeAlias type="com.xiaodou.ms.model.knowledge.ForumAccount"
+			alias="ForumAccount" />
+			
+		<!--MS地域改造 module->region -->
+		<typeAlias type="com.xiaodou.ms.model.product.RegionModel"
+			alias="RegionModel" />
+		<!--计分规则 -->
+		<typeAlias type="com.xiaodou.ms.model.score.ScoreRuleModel"
+			alias="ScoreRuleModel" />	
+				
+	</typeAliases>
+
+	<mappers>
+
+		<!--课程 -->
+		<mapper resource="conf/mybatis/CourseCategoryModel.xml" />
+		<mapper resource="conf/mybatis/CourseChapterModel.xml" />
+		<mapper resource="conf/mybatis/CourseKeywordModel.xml" />
+		<mapper resource="conf/mybatis/CourseKeywordResourceModel.xml" />
+		<mapper resource="conf/mybatis/CourseResourceVideoModel.xml" />
+		<mapper resource="conf/mybatis/CourseResourceAudioModel.xml" />
+		<mapper resource="conf/mybatis/CourseResourceDocModel.xml" />
+		<mapper resource="conf/mybatis/CourseResourceHtml5Model.xml" />
+		<mapper resource="conf/mybatis/CourseResourceMicroVideoModel.xml" />
+		<mapper resource="conf/mybatis/CourseSubjectModel.xml" />
+		<!--专业 -->
+		<mapper resource="conf/mybatis/MajorCourseModel.xml" />
+		<mapper resource="conf/mybatis/MajorDataModel.xml" />
+		<!--题库 -->
+		<mapper resource="conf/mybatis/QuestionBankQuestionTypeModel.xml" />
+		<mapper resource="conf/mybatis/QuestionBankExamTypeModel.xml" />
+		<mapper resource="conf/mybatis/QuestionBankQuestionModel.xml" />
+		<mapper resource="conf/mybatis/QuestionBankExamRuleModel.xml" />
+		<mapper resource="conf/mybatis/QuestionBankExamPaperModel.xml" />
+		<mapper resource="conf/mybatis/QuestionBankQuestionResourceModel.xml" />
+		<mapper resource="conf/mybatis/RaiseWrongQues.xml" />
+
+		<!--产品 -->
+		<mapper resource="conf/mybatis/ProductModuleModel.xml" />
+		<mapper resource="conf/mybatis/ProductCategoryModel.xml" />
+		<mapper resource="conf/mybatis/ProductCategoryRelation.xml" />
+		<mapper resource="conf/mybatis/ProductItemModel.xml" />
+		<mapper resource="conf/mybatis/ProductModel.xml" />
+		<mapper resource="conf/mybatis/ProductQuestionModel.xml" />
+		<mapper resource="conf/mybatis/ModuleSlideModel.xml" />
+		<mapper resource="conf/mybatis/FinalExamModel.xml" />
+		<mapper resource="conf/mybatis/UserFinalExamRelationModel.xml" />
+		<!--用户 -->
+		<mapper resource="conf/mybatis/UserModel.xml" />
+		<mapper resource="conf/mybatis/UserFeedBackModel.xml" />
+		<mapper resource="conf/mybatis/UserHelpModel.xml" />
+		<mapper resource="conf/mybatis/UserNoticeModel.xml" />
+
+		<!--话题 -->
+		<mapper resource="conf/mybatis/ForumCategoryModel.xml" />
+		<mapper resource="conf/mybatis/ForumListModel.xml" />
+		<mapper resource="conf/mybatis/ForumCommentModel.xml" />
+
+		<!--消息 -->
+		<mapper resource="conf/mybatis/admin/pushMessage.xml" />
+		<mapper resource="conf/mybatis/admin/shortMessage.xml" />
+
+		<!--查询城市 -->
+		<mapper resource="conf/mybatis/XDcity.xml" />
+
+		<!--知识分享 作者 -->
+		<mapper resource="conf/mybatis/knowledge/AuthorModel.xml" />
+		<mapper resource="conf/mybatis/knowledge/ForumModel.xml" />
+		<mapper resource="conf/mybatis/knowledge/cascadeForumModel.xml" />
+		<mapper resource="conf/mybatis/knowledge/PushRecordModel.xml" />
+
+		<!--首页展示页 -->
+		<mapper resource="conf/mybatis/BlankNoticeModel.xml" />
+		<mapper resource="conf/mybatis/CommonInfoModel.xml" />
+
+		<!--config管理 -->
+		<mapper resource="conf/mybatis/common_info.xml" />
+
+		<!--订单管理 -->
+		<mapper resource="conf/mybatis/ProductOrderModel.xml" />
+
+		<!-- 挑战机器人 -->
+		<mapper resource="conf/mybatis/robot/ChallengeRobotModel.xml" />
+		<!-- 抓取任务 -->
+		<mapper resource="conf/mybatis/knowledge/ForumAccount.xml" />
+
+		<!-- 按区域划分-->
+		<mapper resource="conf/mybatis/RegionModel.xml" />
+		
+		<!-- 计分规则-->
+		<mapper resource="conf/mybatis/scoreRule/ScoreRuleModel.xml" />
+	</mappers>
+</configuration>

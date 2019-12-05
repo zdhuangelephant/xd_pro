@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ForumCategoryModel">
+
+    <resultMap id="BaseResultMap" type="ForumCategoryModel">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="moudle" property="moudle"/>
+        <result column="short_name" property="shortName"/>
+        <result column="content" property="content"/>
+        <result column="outline" property="outline"/>
+        <result column="images" property="images"/>
+        <result column="forum_number" property="forumNumber"/>
+        <result column="people_number" property="peopleNumber"/>
+        <result column="tag" property="tag"/>
+        <result column="operator" property="operator"/>
+        <result column="operatorip" property="operatorip"/>
+        <result column="create_time" property="createTime"/>
+
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">title,moudle,short_name,content,outline,images,forum_number,people_number,tag,operator,operatorip,create_time</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="title != null">title,</if>
+            <if test="moudle !=null">moudle,</if>
+            <if test="shortName !=null">short_name,</if>
+            <if test="content != null">content,</if>
+            <if test="outline != null">outline,</if>
+            <if test="images != null">images,</if>
+            <if test="forumNumber != null">forum_number,</if>
+            <if test="peopleNumber != null">people_number,</if>
+            <if test="tag != null">tag,</if>
+            <if test="operator != null">operator,</if>
+            <if test="operatorip != null">operatorip,</if>
+            <if test="createTime != null">create_time,</if>
+
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="title != null">#{title},</if>
+            <if test="moudle !=null">#{moudle},</if>
+            <if test="shortName !=null">#{shortName},</if>
+            <if test="content != null">#{content},</if>
+            <if test="outline != null">#{outline},</if>
+            <if test="images != null">#{images},</if>
+            <if test="forumNumber != null">#{forumNumber},</if>
+            <if test="peopleNumber != null">#{peopleNumber},</if>
+            <if test="tag != null">#{tag},</if>
+            <if test="operator != null">#{operator},</if>
+            <if test="operatorip != null">#{operatorip},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="ForumCategoryModel">
+        insert into xd_forum_category
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update xd_forum_category
+        <set>
+            <if test="value != null and value.title != null">title = #{value.title},</if>
+            <if test="value != null and value.moudle !=null">moudle=#{value.moudle},</if>
+            <if test="value != null and value.shortName !=null">short_name=#{value.shortName},</if>
+            <if test="value != null and value.content != null">content = #{value.content},</if>
+            <if test="value != null and value.outline != null">outline = #{value.outline},</if>
+            <if test="value != null and value.images != null">images = #{value.images},</if>
+            <if test="value != null and value.forumNumber != null">forum_number = #{value.forumNumber},</if>
+            <if test="value != null and value.peopleNumber != null">people_number = #{value.peopleNumber},</if>
+            <if test="value != null and value.tag != null">tag = #{value.tag},</if>
+            <if test="value != null and value.operator != null">operator = #{value.operator},</if>
+            <if test="value != null and value.operatorip != null">operatorip = #{value.operatorip},</if>
+            <if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_forum_category
+        <include refid="dynamic_where"/>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="ForumCategoryModel" resultMap="BaseResultMap">
+        select 
+        <include refid="all_column"/> 
+        from xd_forum_category where id=#{id}
+       
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from xd_forum_category
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and id =#{input.id}</if>
+            <if test="input != null and input.title != null">and title =#{input.title}</if>
+            <if test="input != null and input.moudle !=null">and moudle=#{input.moudle}</if>
+            <if test="input != null and input.shortName !=null">and short_name=#{input.shortName}</if>
+            <if test="input != null and input.content != null">and content =#{input.content}</if>
+            <if test="input != null and input.outline != null">and outline =#{input.outline}</if>
+            <if test="input != null and input.images != null">and images =#{input.images}</if>
+            <if test="input != null and input.forumNumber != null">and forum_number =#{input.forumNumber}</if>
+            <if test="input != null and input.peopleNumber != null">and people_number =#{input.peopleNumber}</if>
+            <if test="input != null and input.tag != null">and tag =#{input.tag}</if>
+            <if test="input != null and input.operator != null">and operator =#{input.operator}</if>
+            <if test="input != null and input.operatorip != null">and operatorip =#{input.operatorip}</if>
+            <if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">id,</if>
+            <if test="output != null and output.title != null">title,</if>
+            <if test="output != null and output.moudle != null">moudle,</if>
+            <if test="output != null and output.shortName != null">short_name,</if>
+            <if test="output != null and output.content != null">content,</if>
+            <if test="output != null and output.outline != null">outline,</if>
+            <if test="output != null and output.images != null">images,</if>
+            <if test="output != null and output.forumNumber != null">forum_number,</if>
+            <if test="output != null and output.peopleNumber != null">people_number,</if>
+            <if test="output != null and output.tag != null">tag,</if>
+            <if test="output != null and output.operator != null">operator,</if>
+            <if test="output != null and output.operatorip != null">operatorip,</if>
+            <if test="output != null and output.createTime != null">create_time,</if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

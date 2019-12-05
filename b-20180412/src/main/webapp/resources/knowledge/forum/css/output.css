@@ -1,0 +1,178 @@
+*{margin: 0;padding: 0;}
+body {
+    font-family: -apple-system,SF UI Display,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: ##2f2f2f;
+    background-color: #fff;
+}
+.clearfix{
+  clear: both;
+}
+.top{
+  padding: 10px 15px;
+  border-bottom: 5px #eee solid;
+}
+.logo{
+  height: 48px;
+  width: 48px;
+  overflow: hidden;
+  vertical-align: middle;
+  display: inline-block;
+}
+.logo img{
+  height: 100%;
+  width: auto;
+}
+.top .slogan{
+    font-size: 16px;
+    color: #333;
+    line-height: 20px;
+    margin: 0 0 0 6px;
+    vertical-align: middle;
+    display: inline-block;
+}
+.top .app-download {
+    float: right;
+    padding: 8px 11px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #3dd3b1;
+    border-radius: 4px;
+}
+.article{
+  max-width: 640px;
+  margin: 10px auto;
+  padding: 0 15px;
+}
+.title{
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #2f2f2f;
+  margin: 15px auto;
+}
+.info{
+  padding: 10px 0;
+  width: 100%;
+  border-bottom: 1px #ccc solid;
+}
+.info p{
+  line-height: 36px;
+}
+.author-img{
+  float: left;
+  width: 36px;
+  height: 36px;
+  border-radius: 100px;
+  border: 1px #ccc solid;
+  overflow: hidden;
+}
+.author-img img{
+  width: 100%;
+  height: auto;
+  font-size: 16px;
+  font-weight: 700;
+  color: #484848;
+}
+.author{
+  float: left;
+  margin-left: 10px;
+}
+.release-date{
+  float: right;
+  font-size: 13px;
+  color: #b1b1b1;
+}
+.media{
+  clear: both;
+  margin: 20px 0;
+  border: 1px #ccc solid;
+}
+audio{
+  width: 100%;
+  height: 32px;
+  display: block;
+}
+video{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.content blockquote {
+    padding: 20px;
+    margin-bottom: 25px;
+    background-color: #f7f7f7;
+    border-left: 6px solid #b4b4b4;
+    word-break: break-word;
+    font-size: 16px;
+    line-height: 30px;
+}
+.content blockquote p:last-child {
+    margin: 0;
+}
+.content .image-package {
+    margin:25px 0px;
+    text-align: center;
+}
+.content .image-package img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+    border: 0;
+    cursor: -webkit-zoom-in;
+    transition: all .25s ease-in-out;
+}
+.content p{
+    margin-bottom: 15px;
+}
+.content img {
+	margin: 0 auto;
+	display: block;
+	width: 80% !important;
+	height: auto !important;
+}
+.content ul,
+.content ol{
+  display: block;
+  padding: 0 15px 25px;
+}
+.article-tab{
+    padding: 10px 0;
+    font-size: 13px;
+    color: #c8c8c8;
+}
+.article-tab span{
+  display: inline-block;
+  padding: 3px 5px;
+  margin-left:10px;
+  border: 1px #3dd3b1 solid;
+  color: #3dd3b1;
+  border-radius: 6px;
+}
+.footer{
+  border-top:5px #ccc solid;
+  padding: 15px;
+}
+.footer .app-download{
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  line-height: 300%;
+  color: #fff;
+  background-color: #3dd3b1;
+  border-radius: 4px;
+  display: block;
+}
+
+@media screen and (max-width: 400px) {
+    html {
+        font-size: 60%;
+    }
+}
+
+@media screen and (max-width: 330px) {
+    html {
+        font-size: 57%;
+    }
+}

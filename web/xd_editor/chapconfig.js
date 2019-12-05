@@ -1,0 +1,1 @@
+exports.url = 'http://h5share.jz.51xiaodou.com/chapter/show?id={0}';

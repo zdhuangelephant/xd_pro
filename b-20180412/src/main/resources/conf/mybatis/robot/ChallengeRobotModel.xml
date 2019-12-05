@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ChallengeRobotModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.ms.model.robot.ChallengeRobotModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="major_id" property="majorId" jdbcType="VARCHAR" />
+		<result column="course_id" property="courseId" jdbcType="BIGINT" />
+		<result column="category_id" property="categoryId" jdbcType="BIGINT" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="target_ability" property="targetAbility"
+			jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="base_column">id, user_id, major_id, course_id, target_ability,category_id,
+		create_time, module</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.ms.model.robot.ChallengeRobotModel">
+		select
+		<include refid="base_column" />
+		from xd_challenge_robot
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_challenge_robot
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.ms.model.robot.ChallengeRobotModel">
+		insert into xd_challenge_robot
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="majorId != null">major_id,</if>
+			<if test="courseId != null">course_id,</if>
+			<if test="categoryId != null">category_id,</if>
+			<if test="module != null">module,</if>
+			<if test="targetAbility != null">target_ability,</if>
+			<if test="createTime != null">create_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+			<if test="majorId != null">#{majorId,jdbcType=VARCHAR},</if>
+			<if test="courseId != null">#{courseId,jdbcType=BIGINT},</if>
+			<if test="categoryId != null">#{categoryId,jdbcType=BIGINT},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+			<if test="targetAbility != null">#{targetAbility,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.ms.model.robot.ChallengeRobotModel">
+		update xd_challenge_robot
+		<set>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.majorId != null">major_id = #{value.majorId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.categoryId != null">category_id = #{value.categoryId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.module != null">module = #{value.module,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.targetAbility != null">target_ability = #{value.targetAbility,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.ms.model.robot.ChallengeRobotModel">
+		update xd_challenge_robot
+		<set>
+			<if test="value != null and value.userId != null">user_id = #{value.userId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.majorId != null">major_id = #{value.majorId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.categoryId != null">category_id = #{value.categoryId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.module != null">module = #{value.module,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.targetAbility != null">target_ability = #{value.targetAbility,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.ms.model.robot.ChallengeRobotModel">
+		delete from
+		xd_challenge_robot
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_challenge_robot
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.majorId != null">major_id,</if>
+			<if test="output != null and output.courseId != null">course_id,</if>
+			<if test="output != null and output.categoryId != null">category_id,</if>
+			<if test="output != null and output.module != null">module,</if>
+			<if test="output != null and output.targetAbility != null">target_ability,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.userIdList != null">
+				and user_id in
+				<foreach collection="input.userIdList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.majorId != null">and major_id=#{input.majorId}</if>
+			<if test="input != null and input.majorIdList != null">
+				and major_id in
+				<foreach collection="input.majorIdList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.courseId != null">and course_id=#{input.courseId}</if>
+			<if test="input != null and input.module != null">and module=#{input.module}</if>
+			<if test="input != null and input.courseIdList != null">
+				and course_id in
+				<foreach collection="input.courseIdList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.categoryId != null">and category_id=#{input.categoryId}</if>
+			<if test="input != null and input.categoryIdList != null">
+				and category_id in
+				<foreach collection="input.categoryIdList" open="(" close=")"
+					separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.targetAbility != null">and target_ability=#{input.targetAbility}</if>
+			<if test="input != null and input.targetAbilityList != null">
+				and target_ability in
+				<foreach collection="input.targetAbilityList" open="("
+					close=")" separator="," item="item">#{item}</foreach>
+			</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+			
+			<if test="input != null and input.courseIdNotNull != null">and course_id IS NOT NULL AND course_id &lt;&gt; -1</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

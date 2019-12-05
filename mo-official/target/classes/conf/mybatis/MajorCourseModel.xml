@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MajorCourseModel">
+	<resultMap id="BaseResultMap" type="com.xiaodou.moofficial.entity.MajorCourseModel">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+<result column="name" property="name" jdbcType="VARCHAR" />
+<result column="detail" property="detail" jdbcType="VARCHAR" />
+<result column="exam_date" property="examDate" jdbcType="VARCHAR" />
+<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+<result column="major_course_info" property="majorCourseInfo" jdbcType="VARCHAR" />
+<result column="course_type" property="courseType" jdbcType="VARCHAR" />
+<result column="credit" property="credit" jdbcType="VARCHAR" />
+<result column="mode" property="mode" jdbcType="VARCHAR" />
+<result column="exam_date_type" property="examDateType" jdbcType="VARCHAR" />
+
+	</resultMap>
+	<sql id="base_column">id, name, detail, exam_date, create_time, major_course_info, course_type, credit, mode, exam_date_type</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.moofficial.entity.MajorCourseModel">
+		select
+		<include refid="base_column" />
+		from xd_major_course
+		where id = #{id,jdbcType=VARCHAR}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_major_course
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.moofficial.entity.MajorCourseModel"  >
+		insert into xd_major_course
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+<if test="name != null">name,</if>
+<if test="detail != null">detail,</if>
+<if test="examDate != null">exam_date,</if>
+<if test="createTime != null">create_time,</if>
+<if test="majorCourseInfo != null">major_course_info,</if>
+<if test="courseType != null">course_type,</if>
+<if test="credit != null">credit,</if>
+<if test="mode != null">mode,</if>
+<if test="examDateType != null">exam_date_type,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+<if test="detail != null">#{detail,jdbcType=VARCHAR},</if>
+<if test="examDate != null">#{examDate,jdbcType=VARCHAR},</if>
+<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+<if test="majorCourseInfo != null">#{majorCourseInfo,jdbcType=VARCHAR},</if>
+<if test="courseType != null">#{courseType,jdbcType=VARCHAR},</if>
+<if test="credit != null">#{credit,jdbcType=VARCHAR},</if>
+<if test="mode != null">#{mode,jdbcType=VARCHAR},</if>
+<if test="examDateType != null">#{examDateType,jdbcType=VARCHAR},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="java.util.Map">
+		update xd_major_course
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+<if test="value != null and value.detail != null">detail = #{value.detail,jdbcType=VARCHAR},</if>
+<if test="value != null and value.examDate != null">exam_date = #{value.examDate,jdbcType=VARCHAR},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.majorCourseInfo != null">major_course_info = #{value.majorCourseInfo,jdbcType=VARCHAR},</if>
+<if test="value != null and value.courseType != null">course_type = #{value.courseType,jdbcType=VARCHAR},</if>
+<if test="value != null and value.credit != null">credit = #{value.credit,jdbcType=VARCHAR},</if>
+<if test="value != null and value.mode != null">mode = #{value.mode,jdbcType=VARCHAR},</if>
+<if test="value != null and value.examDateType != null">exam_date_type = #{value.examDateType,jdbcType=VARCHAR},</if>
+
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+
+	</update>
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_major_course
+		<set>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+<if test="value != null and value.detail != null">detail = #{value.detail,jdbcType=VARCHAR},</if>
+<if test="value != null and value.examDate != null">exam_date = #{value.examDate,jdbcType=VARCHAR},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.majorCourseInfo != null">major_course_info = #{value.majorCourseInfo,jdbcType=VARCHAR},</if>
+<if test="value != null and value.courseType != null">course_type = #{value.courseType,jdbcType=VARCHAR},</if>
+<if test="value != null and value.credit != null">credit = #{value.credit,jdbcType=VARCHAR},</if>
+<if test="value != null and value.mode != null">mode = #{value.mode,jdbcType=VARCHAR},</if>
+<if test="value != null and value.examDateType != null">exam_date_type = #{value.examDateType,jdbcType=VARCHAR},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.moofficial.entity.MajorCourseModel">
+		delete from xd_major_course
+		where id = #{id,jdbcType=VARCHAR}
+
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_major_course
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+<if test="output != null and output.name != null">name,</if>
+<if test="output != null and output.detail != null">detail,</if>
+<if test="output != null and output.examDate != null">exam_date,</if>
+<if test="output != null and output.createTime != null">create_time,</if>
+<if test="output != null and output.majorCourseInfo != null">major_course_info,</if>
+<if test="output != null and output.courseType != null">course_type,</if>
+<if test="output != null and output.credit != null">credit,</if>
+<if test="output != null and output.mode != null">mode,</if>
+<if test="output != null and output.examDateType != null">exam_date_type,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+<if test="input != null and input.name != null">and name=#{input.name}</if>
+<if test="input != null and input.detail != null">and detail=#{input.detail}</if>
+<if test="input != null and input.examDate != null">and exam_date=#{input.examDate}</if>
+<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+<if test="input != null and input.majorCourseInfo != null">and major_course_info=#{input.majorCourseInfo}</if>
+<if test="input != null and input.courseType != null">and course_type=#{input.courseType}</if>
+<if test="input != null and input.credit != null">and credit=#{input.credit}</if>
+<if test="input != null and input.mode != null">and mode=#{input.mode}</if>
+<if test="input != null and input.examDateType != null">and exam_date_type=#{input.examDateType}</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+<if test="sort != null and sort.name != null and ( sort.name == 'ASC' or sort.name == 'DESC' )">name ${sort.name},</if>
+<if test="sort != null and sort.detail != null and ( sort.detail == 'ASC' or sort.detail == 'DESC' )">detail ${sort.detail},</if>
+<if test="sort != null and sort.examDate != null and ( sort.examDate == 'ASC' or sort.examDate == 'DESC' )">exam_date ${sort.examDate},</if>
+<if test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+<if test="sort != null and sort.majorCourseInfo != null and ( sort.majorCourseInfo == 'ASC' or sort.majorCourseInfo == 'DESC' )">major_course_info ${sort.majorCourseInfo},</if>
+<if test="sort != null and sort.courseType != null and ( sort.courseType == 'ASC' or sort.courseType == 'DESC' )">course_type ${sort.courseType},</if>
+<if test="sort != null and sort.credit != null and ( sort.credit == 'ASC' or sort.credit == 'DESC' )">credit ${sort.credit},</if>
+<if test="sort != null and sort.mode != null and ( sort.mode == 'ASC' or sort.mode == 'DESC' )">mode ${sort.mode},</if>
+<if test="sort != null and sort.examDateType != null and ( sort.examDateType == 'ASC' or sort.examDateType == 'DESC' )">exam_date_type ${sort.examDateType},</if>
+
+		</trim>
+	</sql>
+</mapper>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RolePrivilege">
+
+    <resultMap id="BaseResultMap" type="RolePrivilege">
+        <result column="role_id" property="roleId"/>
+        <result column="privilege_id" property="privilegeId"/>
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">role_id,privilege_id</sql>
+    <sql id="all_column">
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="roleId != null">role_id,</if>
+            <if test="privilegeId != null">privilege_id,</if>
+
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="roleId != null">#{roleId},</if>
+            <if test="privilegeId != null">#{privilegeId},</if>
+
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="RolePrivilege">
+        insert into admin_role_priv
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update admin_role_priv
+        <set>
+            <if test="value != null and value.roleId != null">role_id = #{value.roleId},</if>
+            <if test="value != null and value.privilegeId != null">privilege_id = #{value.privilegeId},</if>
+
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        role_id,privilege_id
+        from admin_role_priv
+        <include refid="dynamic_where"/>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from admin_role_priv
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.roleId != null">and role_id =#{input.roleId}</if>
+            <if test="input != null and input.roleIds != null">and role_id in
+                <foreach collection="input.roleIds" open="(" close=")" separator="," item="item" index="index">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="input != null and input.privilegeId != null">and privilege_id =#{input.privilegeId}</if>
+            <if test="input != null and input.privilegeIds != null">and privilege_id in
+                <foreach collection="input.privilegeIds" open="(" close=")" separator="," index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.roleId != null">role_id,</if>
+            <if test="output != null and output.privilegeId != null">privilege_id,</if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

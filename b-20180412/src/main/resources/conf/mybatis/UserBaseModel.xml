@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserBaseModel">
+	<resultMap id="BaseResultMap" type="com.xiaodou.ms.model.user.UserBaseModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="xd_unique_id" property="xdUniqueId" jdbcType="VARCHAR" />
+		<result column="salt" property="salt" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
+		<result column="qq" property="qq" jdbcType="VARCHAR" />
+		<result column="weixin" property="weixin" jdbcType="VARCHAR" />
+		<result column="weibo" property="weibo" jdbcType="VARCHAR" />
+		<result column="tourist" property="tourist" jdbcType="VARCHAR" />
+		<result column="main_account" property="main_account" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column">id, module, xd_unique_id, salt, password, telephone, qq,
+		weixin, weibo, tourist, main_account</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.ms.model.user.UserBaseModel">
+		select
+		<include refid="base_column" />
+		from xd_base_user
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_base_user
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.ms.model.user.UserBaseModel"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into xd_base_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="module != null">module,</if>
+			<if test="xdUniqueId != null">xd_unique_id,</if>
+			<if test="salt != null">salt,</if>
+			<if test="password != null">password,</if>
+			<if test="telephone != null">telephone,</if>
+			<if test="qq != null">qq,</if>
+			<if test="weixin != null">weixin,</if>
+			<if test="weibo != null">weibo,</if>
+			<if test="tourist != null">tourist,</if>
+			<if test="main_account != null">main_account,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
+			<if test="module != null">#{module,jdbcType=VARCHAR},</if>
+			<if test="xdUniqueId != null">#{xdUniqueId,jdbcType=VARCHAR},</if>
+			<if test="salt != null">#{salt,jdbcType=VARCHAR},</if>
+			<if test="password != null">#{password,jdbcType=VARCHAR},</if>
+			<if test="telephone != null">#{telephone,jdbcType=VARCHAR},</if>
+			<if test="qq != null">#{qq,jdbcType=VARCHAR},</if>
+			<if test="weixin != null">#{weixin,jdbcType=VARCHAR},</if>
+			<if test="weibo != null">#{weibo,jdbcType=VARCHAR},</if>
+			<if test="tourist != null">#{tourist,jdbcType=VARCHAR},</if>
+			<if test="main_account != null">#{main_account,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.ms.model.user.UserBaseModel">
+		update xd_base_user
+		<set>
+			<if test="value != null and value.module != null">module = #{value.module,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.xdUniqueId != null">xd_unique_id = #{value.xdUniqueId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.salt != null">salt = #{value.salt,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.password != null">password = #{value.password,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.telephone != null">telephone = #{value.telephone,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.qq != null">qq = #{value.qq,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.weixin != null">weixin = #{value.weixin,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.weibo != null">weibo = #{value.weibo,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.tourist != null">tourist = #{value.tourist,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.main_account != null">main_account = #{value.main_account,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.ms.model.user.UserBaseModel">
+		update xd_base_user
+		<set>
+			<if test="value != null and value.module != null">module = #{value.module,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.xdUniqueId != null">xd_unique_id = #{value.xdUniqueId,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.salt != null">salt = #{value.salt,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.password != null">password = #{value.password,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.telephone != null">telephone = #{value.telephone,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.qq != null">qq = #{value.qq,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.weixin != null">weixin = #{value.weixin,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.weibo != null">weibo = #{value.weibo,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.tourist != null">tourist = #{value.tourist,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.main_account != null">main_account = #{value.main_account,jdbcType=VARCHAR},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.ms.model.user.UserBaseModel">
+		delete from
+		xd_base_user
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_base_user
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.module != null">module,</if>
+			<if test="output != null and output.xdUniqueId != null">xd_unique_id,</if>
+			<if test="output != null and output.salt != null">salt,</if>
+			<if test="output != null and output.password != null">password,</if>
+			<if test="output != null and output.telephone != null">telephone,</if>
+			<if test="output != null and output.qq != null">qq,</if>
+			<if test="output != null and output.weixin != null">weixin,</if>
+			<if test="output != null and output.weibo != null">weibo,</if>
+			<if test="output != null and output.tourist != null">tourist,</if>
+			<if test="output != null and output.main_account != null">main_account,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.module != null">and module=#{input.module}</if>
+			<if test="input != null and input.xdUniqueId != null">and xd_unique_id=#{input.xdUniqueId}</if>
+			<if test="input != null and input.salt != null">and salt=#{input.salt}</if>
+			<if test="input != null and input.password != null">and password=#{input.password}</if>
+			<if test="input != null and input.telephone != null">and telephone=#{input.telephone}</if>
+			<if test="input != null and input.qq != null">and qq=#{input.qq}</if>
+			<if test="input != null and input.weixin != null">and weixin=#{input.weixin}</if>
+			<if test="input != null and input.weibo != null">and weibo=#{input.weibo}</if>
+			<if test="input != null and input.tourist != null">and tourist=#{input.tourist}</if>
+			<if test="input != null and input.main_account != null">and main_account=#{input.main_account}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.module != null and ( sort.module == 'ASC' or sort.module == 'DESC' )">module ${sort.module},</if>
+			<if
+				test="sort != null and sort.xdUniqueId != null and ( sort.xdUniqueId == 'ASC' or sort.xdUniqueId == 'DESC' )">xd_unique_id ${sort.xdUniqueId},</if>
+			<if
+				test="sort != null and sort.salt != null and ( sort.salt == 'ASC' or sort.salt == 'DESC' )">salt ${sort.salt},</if>
+			<if
+				test="sort != null and sort.password != null and ( sort.password == 'ASC' or sort.password == 'DESC' )">password ${sort.password},</if>
+			<if
+				test="sort != null and sort.telephone != null and ( sort.telephone == 'ASC' or sort.telephone == 'DESC' )">telephone ${sort.telephone},</if>
+			<if
+				test="sort != null and sort.qq != null and ( sort.qq == 'ASC' or sort.qq == 'DESC' )">qq ${sort.qq},</if>
+			<if
+				test="sort != null and sort.weixin != null and ( sort.weixin == 'ASC' or sort.weixin == 'DESC' )">weixin ${sort.weixin},</if>
+			<if
+				test="sort != null and sort.weibo != null and ( sort.weibo == 'ASC' or sort.weibo == 'DESC' )">weibo ${sort.weibo},</if>
+			<if
+				test="sort != null and sort.tourist != null and ( sort.tourist == 'ASC' or sort.tourist == 'DESC' )">tourist ${sort.tourist},</if>
+			<if
+				test="sort != null and sort.main_account != null and ( sort.main_account == 'ASC' or sort.main_account == 'DESC' )">main_account ${sort.main_account},</if>
+		</trim>
+	</sql>
+</mapper>

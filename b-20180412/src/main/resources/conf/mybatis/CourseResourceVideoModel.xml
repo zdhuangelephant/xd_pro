@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CourseResourceVideoModel">
+
+    <resultMap id="BaseResultMap" type="CourseResourceVideoModel">
+        <id column="id" property="id"/>
+        <result column="chapter_id" property="chapterId"/>
+        <result column="course_id" property="courseId" />
+        <result column="name" property="name"/>
+        <result column="detail" property="detail"/>
+        <result column="url" property="url"/>
+        <result column="file_url" property="fileUrl"/>
+        <result column="key_point" property="keyPoint" />
+        <result column="chapter_name" property="chapterName" />
+        <result column="status" property="status"/>
+        <result column="resource_type" property="type"/>
+        <result column="time_length_minute" property="timeLengthMinute"/>
+        <result column="time_length_second" property="timeLengthSecond"/>
+        <result column="img" property="img"/>
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">chapter_id,course_id,name,detail,url,file_url,key_point,status,resource_type,time_length_minute,time_length_second ,img</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="chapterId != null">chapter_id,</if>
+            <if test="courseId != null">course_id,</if>
+            <if test="name != null">name,</if>
+            <if test="detail != null">detail,</if>
+            <if test="url != null">url,</if>
+            <if test="fileUrl != null">file_url,</if>
+            <if test="keyPoint != null">key_point,</if>
+            <if test="status != null">status,</if>
+            <if test="type != null">resource_type,</if>
+            <if test="timeLengthMinute != null">time_length_minute,</if>
+            <if test="timeLengthSecond != null">time_length_second,</if>
+             <if test="img != null">img,</if>
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="chapterId != null">#{chapterId},</if>
+            <if test="courseId != null">#{courseId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="detail != null">#{detail},</if>
+            <if test="url != null">#{url},</if>
+            <if test="fileUrl != null">#{fileUrl},</if>
+            <if test="keyPoint != null">#{keyPoint},</if>
+            <if test="status != null">#{status},</if>
+             <if test="type != null">#{type},</if>
+              <if test="timeLengthMinute != null">#{timeLengthMinute},</if>
+               <if test="timeLengthSecond != null">#{timeLengthSecond},</if>
+               <if test="img != null">#{img},</if>
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="CourseResourceVideoModel" useGeneratedKeys="true" keyProperty="id">
+        insert into xd_course_resource_video
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update xd_course_resource_video
+        <set>
+            <if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId},</if>
+            <if test="value != null and value.courseId != null">course_id = #{value.courseId},</if>
+            <if test="value != null and value.name != null">name = #{value.name},</if>
+            <if test="value != null and value.detail != null">detail = #{value.detail},</if>
+            <if test="value != null and value.url != null">url = #{value.url},</if>
+            <if test="value != null and value.fileUrl != null">file_url = #{value.fileUrl},</if>
+            <if test="value != null and value.keyPoint != null">key_point = #{value.keyPoint},</if>
+            <if test="value != null and value.status != null">status = #{value.status},</if>
+            <if test="value != null and value.type != null">resource_type = #{value.type},</if>
+            <if test="value != null and value.timeLengthMinute != null">time_length_minute = #{value.timeLengthMinute},</if>
+            <if test="value != null and value.timeLengthSecond != null">time_length_second = #{value.timeLengthSecond},</if>
+            <if test="value != null and img != null">img = #{value.img},</if>
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_course_resource_video
+        <include refid="dynamic_where"/>
+    </select>
+
+    <select id="cascadeQueryVideoByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        xd_course_resource_video.id,
+        xd_course_resource_video.chapter_id,
+        xd_course_resource_video.course_id,
+        xd_course_resource_video.name,
+        xd_course_resource_video.detail,
+        xd_course_resource_video.url,
+        xd_course_resource_video.key_point,
+        xd_course_resource_video.status,
+        xd_course_resource_video.resource_type as type,
+        xd_course_resource_video.time_length_minute,
+        xd_course_resource_video.time_length_second,
+        xd_course_resource_video.img,
+        xd_course_chapter.name chapter_name
+        from xd_course_resource_video
+        left join xd_course_chapter on xd_course_resource_video.chapter_id = xd_course_chapter.id
+        <where>
+            <if test="input != null and input.id != null">and xd_course_resource_video.id =#{input.id}</if>
+            <if test="input != null and input.chapterId != null">and xd_course_resource_video.chapter_id =#{input.chapterId}
+            </if>
+            <if test="input != null and input.chapterIds != null">and xd_course_resource_video.chapter_id in
+                <foreach collection="input.chapterIds" open="(" close=")" separator="," index="index" item="item">
+                    ${item}
+                </foreach>
+            </if>
+            <if test="input != null and input.name != null">and xd_course_resource_video.name =#{input.name}</if>
+            <if test="input != null and input.detail != null">and xd_course_resource_video.detail =#{input.detail}</if>
+            <if test="input != null and input.url != null">and xd_course_resource_video.url
+                =#{input.url}
+            </if>
+            <if test="input != null and input.keyPoint != null">and xd_course_resource_video.key_point
+                =#{input.keyPoint}
+            </if>
+            <if test="input != null and input.status != null">and xd_course_resource_video.status
+                =#{input.status}
+            </if>
+            <if test="input != null and input.status != null">and xd_course_resource_video.status
+                =#{input.status}
+            </if>
+            <if test="input != null and input.type != null">and xd_course_resource_video.resource_type
+                =#{input.type}
+            </if>
+        </where>
+        <include refid="dynamic_limit" />
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="CourseResourceVideoModel" resultMap="BaseResultMap">
+        select * from xd_course_resource_video where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from xd_course_resource_video
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and id =#{input.id}</if>
+            <if test="input != null and input.ids != null">and id in
+                <foreach collection="input.ids" index="index" open="(" close=")" separator="," item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="input != null and input.chapterId != null">and chapter_id =#{input.chapterId}
+            </if>
+            <if test="input != null and input.courseId != null">and course_id =#{input.courseId}
+            </if>
+            <if test="input != null and input.chapterIds != null">and chapter_id in
+                <foreach collection="input.chapterIds" open="(" close=")" separator="," index="index" item="item">
+                    ${item}
+                </foreach>
+            </if>
+            <if test="input != null and input.name != null">and name =#{input.name}</if>
+            <if test="input != null and input.detail != null">and detail =#{input.detail}</if>
+            <if test="input != null and input.url != null">and url
+                =#{input.url}
+            </if>
+            <if test="input != null and input.fileUrl != null">and file_url
+                =#{input.fileUrl}
+            </if>
+            <if test="input != null and input.keyPoint != null">and key_point
+                =#{input.keyPoint}
+            </if>
+            <if test="input != null and input.status != null">and status
+                =#{input.status}
+            </if>
+            <if test="input != null and input.type != null">and resource_type
+                =#{input.type}
+            </if>
+            <if test="input != null and input.timeLengthMinute != null">and time_length_minute
+                =#{input.timeLengthMinute}
+            </if>
+            <if test="input != null and input.timeLengthSecond != null">and time_length_second
+                =#{input.timeLengthSecond}
+            </if>    
+               <if test="input != null and input.img != null">and img
+                =#{input.img}
+            </if>    
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">id,</if>
+            <if test="output != null and output.chapterId != null">chapter_id,</if>
+            <if test="output != null and output.courseId != null">course_id,</if>
+            <if test="output != null and output.name != null">name,</if>
+            <if test="output != null and output.detail != null">detail,</if>
+            <if test="output != null and output.url != null">url,</if>
+            <if test="output != null and output.fileUrl != null">file_url,</if>
+            <if test="output != null and output.keyPoint != null">key_point,</if>
+            <if test="output != null and output.status != null">status,</if>
+             <if test="output != null and output.type != null">resource_type,</if>
+              <if test="output != null and output.timeLengthSecond != null">time_length_second,</if>
+               <if test="output != null and output.timeLengthMinute != null">time_length_minute,</if>
+                <if test="output != null and output.img != null">img,</if>
+        </trim>
+    </sql>
+
+<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+</mapper>

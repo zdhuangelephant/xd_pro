@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="yes"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <link href="css/index.css" rel="stylesheet"/>
+    <title></title>
+</head>
+<body>
+<div class="main" id="mstage">
+    <div id="spage1" class="back">
+        <div class="top">
+            <div class="topLeft"></div>
+            <div class="topMain">
+                <span>8.7幼儿发展评价方法之观察</span>
+            </div>
+            <div class="topRight"></div>
+        </div>
+        <div class="exam">
+            <div class="examMove">
+                <div class="cartoon">
+                    <div class="examTitle">考点</div>
+                </div>
+                <div class="type">2：我国小学教育的发展</div>
+            </div>
+        </div>
+
+        <div class="detail" style="opacity: 1">
+            <div class="picture">
+                <img src="images2/tu.png">
+            </div>
+            <div class="point">
+                <h2>古代小学教育</h2>
+                <ol>
+                    <li>等级性</li>
+                    <li>为统治阶级服务</li>
+                    <li>对儿童进行管制与灌输，采用刻板的识记、背诵教育方式。</li>
+                </ol>
+                <hr>
+                <h2>近代小学教育</h2>
+                <ol>
+                    <li>注重培养学生身心健康</li>
+                    <li>教育方法多样化</li>
+                    <li>内容世俗化，课程设置更加科学</li>
+                    <li>对象普及化，女孩获得教育权利</li>
+                    <li>教育体系科学化，幼稚园纳入教育体系</li>
+                </ol>
+                <hr>
+                <h2>当代小学教育</h2>
+                <ol>
+                    <li>教育目的注重以人为本，以培养全面发展的人为核心，学科内容的设置和教学方法更加注重儿童的身心发展</li>
+                    <li>教育对象更为普及，义务教育在许多地方得到全面实施</li>
+                    <li>重视教师发展，教师制度逐渐规范化</li>
+                    <li>教育实验涉及的方面更广泛</li>
+                </ol>
+            </div>
+            <div class="point">
+                <h2>营造良好的情绪环</h2>
+                <p>幼儿的情绪不稳定，很容易受到周围环境的影响，其情绪的发展主要依靠周围情绪氛围的熏陶。幼儿园教育中应注意保持和谐的气氛，创造有利于幼儿情绪放松的环境，同时建立良好的师幼关系。</p>
+                <h2>成人情绪自控示范</h2>
+                <p>优秀的幼儿教师应将自己的消极情绪留在教室外，调整好自己的情绪状态，以积极饱满的情绪与幼儿互动，才能使幼儿保持良好的情绪状态。</p>
+                <h2>积极鼓励和引导</h2>
+                <p>1. 正面肯定和鼓励。</p>
+                <p>2. 耐心倾听幼儿说话。</p>
+                <p>3. 正确运用暗示和强化。</p>
+                <hr>
+                <h2>正确理解和应对幼儿的情感反应</h2>
+                <p>1. 对幼儿表现出的所有情绪都保持敏感。</p>
+                <p>2. 对幼儿正在体验的情绪做出非判断性评价。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/fat.js"></script>
+<script>
+    var jsBridge;
+    $(document).ready(function () {
+        if (navigator.userAgent.match(/Android/i)) {
+            try {
+                function getText(select) {
+                    select.children().each(function () {
+                        if ($(this).html() == $(this).text()) {
+                            str += $(this).text() + " ";
+                        } else {
+                            getText($(this));
+                        }
+                    })
+                }
+                var str = "";
+                getText($("#" + currentPageId + " .detail"));
+                str = str.replaceAll("[\\s：\:、]+", "。");
+                if (str.charAt(0) == "。") {
+                    str = str.substr(1, str.length - 1);
+                }
+                var data = {'content': str};
+                var dataJson = JSON.stringify(data);
+                window.js2Android.send(dataJson);
+            } catch (e) {
+            }
+        } else {
+            function connectWebViewJavascriptBridge(callback) {
+                if (window.WebViewJavascriptBridge) {
+                    callback(WebViewJavascriptBridge)
+                } else {
+                    document.addEventListener('WebViewJavascriptBridgeReady', function () {
+                        callback(WebViewJavascriptBridge)
+                    }, false)
+                }
+            }
+            connectWebViewJavascriptBridge(function (bridge) {
+                jsBridge = bridge;
+                bridge.init(function (message, responseCallback) {
+                    var data = {'Javascript Responds': 'Wee!'};
+                    responseCallback(data)
+                });
+                bridge.registerHandler('testJavascriptHandler', function (data, responseCallback) {//语音播放完，自动翻页方法
+                    nextPage();
+                    function getText(select) {
+                        console.log(select)
+                        select.children().each(function () {
+                            if ($(this).html() == $(this).text()) {
+                                str += $(this).text() + " ";
+                            } else {
+                                getText($(this));
+                            }
+                        })
+                    }
+                    var str = "";
+                    getText($("#" + currentPageId + " .detail"));
+                    str = str.replaceAll("[\\s：\:、]+", "。");
+                    if (str.charAt(0) == "。") {
+                        str = str.substr(1, str.length - 1);
+                    }
+                    var responseData = {'Javascript Says': str};
+                    responseCallback(responseData)
+                });
+                function getText(select) {
+                    console.log(select);
+                    select.children().each(function () {
+                        if ($(this).html() == $(this).text()) {
+                            str += $(this).text() + " ";
+                        } else {
+                            getText($(this));
+                        }
+                    })
+                }
+                var str = "";
+                getText($("#" + currentPageId + " .detail"));
+                str = str.replaceAll("[\\s：\:、]+", "。");
+                if (str.charAt(0) == "。") {
+                    str = str.substr(1, str.length - 1);
+                }
+                var data = {'content': str};
+                bridge.send(data, function (responseData) {//用户手动翻页，发送当前页文字
+                })
+            });
+        }
+    });
+</script>
+</body>
+</html>

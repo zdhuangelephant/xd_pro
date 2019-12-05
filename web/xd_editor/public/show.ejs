@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="yes"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <title>编辑器</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/fileinput.min.css" media="all"/>
+    <link rel="stylesheet" href="css/simditor.css"/>
+    <link rel="stylesheet" href="css/simditor-mention.css"/>
+    <link rel="stylesheet" href="css/simditor-html.css"/>
+    <link rel="stylesheet" href="css/metro.css"/>
+    <link rel="stylesheet" href="css/process.css">
+    <link rel="stylesheet" href="css/output.css">
+    <link rel="stylesheet" href="css/uploadImage.css">
+    <link rel="stylesheet" href="css/index-base.css">
+    <link rel="stylesheet" href="css/index-left.css">
+    <link rel="stylesheet" href="css/index-mid.css">
+    <link rel="stylesheet" href="css/index-right.css">
+</head>
+<body>
+<div class="box-page"><div class="loading-page"></div></div>
+<div class="mainBody">
+    <div class="left">
+        <div class="courseware" id="courseware">
+            <p>选择课程</p>
+            <select id="courseList" class="courseList"></select>
+            <button id="courseBtn" class="Btn_common">确定</button>
+            <div class="zTreeDemoBackground left">
+                <ul id="treeDemo" class="ztree"></ul>
+            </div>
+        </div>
+        <div class="controller">
+        </div>
+    </div>
+    <div id="rMenu0">
+        <ul>
+            <li id="u_upload_all">更新全部课件压缩包</li>
+        </ul>
+    </div>
+    <div id="rMenu2_new">
+        <ul>
+            <li id="m_add">增加节点</li>
+            <li id="u_upload">上传课件压缩包</li>
+        </ul>
+    </div>
+    <div id="rMenu3">
+        <ul>
+            <li id="m_up">向上移动</li>
+            <li id="m_down">向下移动</li>
+            <li id="m_mod">修改节点</li>
+            <li id="m_del">删除节点</li>
+        </ul>
+    </div>
+    <div class="mid">
+        <!--<p>显示区</p>-->
+
+        <div class="iphone">
+            <div class="screen" id="screen">
+                <div class="main" id="stage">
+                    <div id="page1">
+                        <!--此处添加模板-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div id="coursewarename">
+            <div style="padding: 20px 5px 5px 5px">
+                <p style="float: left">课件名</p> <input type="text" id="courseName" class="courseBox">
+            </div>
+            <div style="padding: 5px">
+                <p style="float: left">节名称</p> <input type="text" id="item" class="itemBox">
+            </div>
+            <div style="padding: 5px">
+                <p style="float: left">考点名</p> <input type="text" id="keyPoint" class="keyPointBox">
+            </div>
+        </div>
+        <p style="padding: 5px">操作区</p>
+
+        <div class="operationArea">
+            <ul class="choose">
+                <li class="richText on" data-type="richText">文本</li>
+                <li class="img" data-type="img">图片</li>
+            </ul>
+            <div class="rightMain">
+                <div class="richText-box">
+                    <textarea id="editor" placeholder="这里输入内容"></textarea>
+                </div>
+                <div class="img-box">
+                    <div class="img-list">
+                        <form action="/chapter/addImg" method="post" enctype="multipart/form-data" id="upload-pic-form">
+                            <input name="img-file" type="file" id="img-file" class="img-file"/>
+
+                            <div class="Btn_common addPic">上传图片</div>
+
+                            <!--<div class="Btn_common viewPic">查看图片</div>-->
+                        </form>
+                    </div>
+                    <div class="img-preview">
+                        <div class="file-preview-frame file-preview-initial" id="preview-1468567352303-init_1"
+                             data-fileindex="init_1" data-template="image">
+                            <div class="kv-file-content">
+                                <img id="img-preview-src"
+                                     class="kv-preview-data file-preview-image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btnArea">
+            <div class="btnGroup">
+                <div id="enterBtn" class="Btn_common">保存元素</div>
+                <div id="addBtn" class="Btn_common">添加元素</div>
+                <div id="deleteBtn" class="Btn_common">删除元素</div>
+                <div id="saveBtn" class="Btn_common">保存课件</div>
+            </div>
+            <div class="elementGroup" style="margin-top: 20px;display: none">
+                <div group="element" type="pic" loc="before" class="Btn_common">图片/前</div>
+                <div group="element" type="pic" loc="after"  class="Btn_common">图片/后</div>
+                <div group="element" type="text" loc="before"  class="Btn_common">文本/前</div>
+                <div group="element" type="text" loc="after"  class="Btn_common">文本/后</div>
+                <div id="addSubmitBtn" class="Btn_disable" disabled="disabled">确认</div>
+                <div id="addResetBtn" class="Btn_common">取消</div>
+                <div id="addCancelBtn" class="Btn_common">返回</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var id = '<%- id %>', url = '<%- url %>', prefix = '<%- prefix %>', name = '<%- name %>', courseId = '<%- courseId %>';
+</script>
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.form.js"></script>
+<script type="text/javascript" src="js/xd.common-1.0.0.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/TweenMax.min.js"></script>
+<!--<script type="text/javascript" src="js/fileinput.min.js"></script>-->
+<!--<script type="text/javascript" src="js/fileinput_locale_zh.js"></script>-->
+<script type="text/javascript" src="js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="js/beautify-html.js"></script>
+<script type="text/javascript" src="simditor/module.js"></script>
+<script type="text/javascript" src="simditor/hotkeys.js"></script>
+<script type="text/javascript" src="simditor/uploader.js"></script>
+<script type="text/javascript" src="simditor/simditor.js"></script>
+<script type="text/javascript" src="simditor/simditor-mention.js"></script>
+<script type="text/javascript" src="simditor/simditor-html.js"></script>
+<script type="text/javascript" src="simditor/upload.js"></script>
+<script type="text/javascript" src="simditor/myatbutton.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/template.js"></script>
+<!--<script type="text/javascript" src="js/uploadImage.js"></script>-->
+</body>
+</html>

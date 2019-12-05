@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  @@include("template/htmlhead.html")
+</head>
+<body>
+<div class="movie" id="movie">
+  <div class="movieBox">
+    <img class="shut" src="images/shut.png">
+    <video class="video-js" id="video-js" controls preload="none" width="330" height="200"
+           poster="images/aa.png"
+           data-setup="{}">
+      <source src="movie/bbb.mp4" type='video/mp4'/>
+      <source src="movie/dou.webm" type='video/webm'/>
+    </video>
+  </div>
+</div>
+<header>
+  <div class="headCenter">
+    <div class="top">
+      @@include("template/header.html")
+    </div>
+    <div class="douBack">
+      <img src="images/bbk_03.png" class="back">
+
+      <div class="joinXd">
+        <p class="come">让学习更有趣</p>
+
+        <p class="edu">助你一站通关</p>
+      </div>
+      <div class="vedio">
+        <div class="btn" id="btn">
+          <img src="images/xdMovie_03.png">
+        </div>
+      </div>
+    </div>
+    <div class="phone">
+      <div class="mVedio">
+        <!--<div class="mbtn" id="mbtn">-->
+        <!--<img src="images/play_03.png">-->
+        <!--</div>-->
+        <video class="mvideo-js" id="mvideo-js" controls preload="none"
+               poster="images/aa.png"
+               data-setup="{}">
+          <source src="movie/bbb.mp4" type='video/mp4'/>
+          <source src="movie/dou.webm" type='video/webm'/>
+        </video>
+      </div>
+      <div class="mCome">
+        <img src="images/mBack_02.png">
+
+        <p class="p1">让学习更有趣</p>
+
+        <p class="p2">助你一站通关</p>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="main">
+  <div class="mainCenter">
+    <div class="introduce">
+      <div class="title"><span>|</span>理念 Concept</div>
+      <div class="content">
+        我们是北京小逗网络科技有限公司。我们以线下教育十多年来的广泛资源为根基，以互联网+为模式，以用户体验为导向，掀起在线教育新浪潮，以生动活泼的形式展现刻板抽象的理论知识，为用户打造私人订制的APP学习平台。小逗坚持做真正的、纯粹的、脱离了低级模仿的互联网教育。
+      </div>
+      <div class="title"><span>|</span>历程 Progress</div>
+      <div class="content">
+        <div>2014年9月17日，小逗带着满腔热情款款而来，成立伊始便拿下500万元的天使投资，</div>
+        <div>从2014年11月10日至2015年2月13日，程序猿们闭关修练，进行了为期3个月封闭式的核心组件开发。紧接着，内容部、动画部纷纷宣告成立。内容部机制逐渐健全，外部合作也在暗潮涌动。</div>
+        <div>2015年5月25日至26日，小逗在中国科学院大学雁栖湖校区召开了教师资格考试微课创作研讨会，诚邀全国四十余位心理学、教育学专家齐聚一堂，为小逗献言献策，确保了产品的权威性和可靠度。</div>
+      </div>
+    </div>
+    <div class="test">
+      <img src="images/logoG_03.png">
+    </div>
+  </div>
+</div>
+<footer>
+  @@include("template/footer.html")
+</footer>
+<script>
+  $(document).ready(function () {
+    var myVideo = document.getElementById('video-js');
+    $("#btn").click(function () {
+      $("#movie").show();
+      myVideo.load();
+      myVideo.play();
+    });
+    $(".shut").click(function () {
+      $("#movie").hide();
+      myVideo.pause();
+    });
+    $("[data-id='aboutUs']").addClass("this");
+  })
+</script>
+</body>
+</html>

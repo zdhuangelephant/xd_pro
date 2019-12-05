@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="yes"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <link href="css/index.css" rel="stylesheet"/>
+    <title></title>
+</head>
+<body>
+<div class="main" id="mstage">
+    <% pages.forEach(function(page){ %>
+    <div id="<%- page.id %>" class="back">
+        <%- page.data %>
+    </div>
+    <% }) %>
+</div>
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/TweenMax.min.js"></script>
+<script type="text/javascript" src="js/director.js"></script>
+<script type="text/javascript" src="js/slidingScreen.js"></script>
+<script type="text/javascript" src="js/fat.js"></script>
+<script type="text/javascript" src="js/Cover.js"></script>
+<script type="text/javascript" src="js/pageTurning.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        try {
+            var obj = {};
+            obj.chapterId = 1;
+            window.js2Android.doQuestionsById(JSON.stringify(obj));
+        } catch (e) {
+        }
+        window.stageWidth = parseInt(document.documentElement.clientWidth);
+        window.stageHeight = $("#spage1").height();
+        $('#mstage').height(window.stageHeight);
+
+        $("div").find(".back").each(function (index) {
+            if (index != 0) {
+                $(this).hide();
+            }
+        });
+        var page = {};
+        page.id = "spage1";
+        page.onReady = function () {
+        };
+        page.onEnter = function () {
+            setTimeout(function () {
+                director.lock = false;
+            }, 1000)
+        };
+        page.onExit = function () {
+        };
+        director.replaceScene(page);
+//        以下为首页动画
+        $(".exam .move2").width("100%");
+        $(".exam .move2 .cartoon").css('display', 'block');
+        $(".exam .move2 .type").css('display', 'block');
+        $("#spage1 .topMain").width(30);
+        $("#spage1 .topMain span").hide();
+        $("#spage1 .topMain span").css('opacity', 0);
+        TweenMax.from("#spage1 .topMain", 0.2, {
+            css: {top: -80, rotation: -270}, ease: Power2.easeOut
+            , onComplete: function () {
+                TweenMax.to("#spage1 .topMain", 0.2, {width: "80%", ease: Power2.easeOut});
+                TweenMax.to("#spage1 .topMain span", 0.2, {display: "block", opacity: 1, delay: 0.1});
+                $("#mstage").height($("#spage1").height());
+            }
+        });
+        TweenMax.from("#spage1 .topLeft", 1.1, {left: "-15%", ease: Elastic.easeOut, delay: 0.4});
+        TweenMax.from("#spage1 .topRight", 1.1, {right: "-15%", ease: Elastic.easeOut, delay: 0.4});
+        //考点动画
+        TweenMax.from("#spage1 .exam .examMove", 0.5, {top: 30, opacity: 0, ease: Power2.easeOut, delay: 0.2});
+        //图片动画
+        TweenMax.from("#spage1 .picture img", 0.3, {opacity: 0, delay: 0.4, ease: Power2.easeOut});
+    });
+</script>
+<script>
+    currentPageId = "spage1";
+    var jsBridge;
+    $(document).ready(function () {
+
+        if (navigator.userAgent.match(/Android/i)) {
+            try {
+                hash = getText($("#" + currentPageId + " .auto-read"));
+                var data = {'content': hash.values()};
+                var dataJson = JSON.stringify(data);
+                window.js2Android.send(dataJson);
+            } catch (e) {
+            }
+        } else {
+            function connectWebViewJavascriptBridge(callback) {
+                if (window.WebViewJavascriptBridge) {
+                    callback(WebViewJavascriptBridge)
+                } else {
+                    document.addEventListener('WebViewJavascriptBridgeReady', function () {
+                        callback(WebViewJavascriptBridge)
+                    }, false)
+                }
+            }
+
+            connectWebViewJavascriptBridge(function (bridge) {
+                jsBridge = bridge;
+                bridge.init(function (message, responseCallback) {
+                    var data = {'Javascript Responds': 'Wee!'};
+                    responseCallback(data)
+                });
+                bridge.registerHandler('nextSentence', function (data, responseCallback) {
+                    var responseData = nextSentence(data);
+                    responseCallback(responseData);
+                });
+                hash = getText($("#" + currentPageId + " .auto-read"));
+                var data = {'content': hash.values()};
+                bridge.send(data, function (responseData) {//用户手动翻页，发送当前页文字
+                })
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

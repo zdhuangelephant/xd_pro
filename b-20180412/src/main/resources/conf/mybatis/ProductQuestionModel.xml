@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ProductQuestionModel">
+
+    <resultMap id="BaseResultMap" type="ProductQuestionModel">
+        <id column="id" property="id"/>
+        <result column="product_id" property="productId"/>
+        <result column="chapter_id" property="chapterId"/>
+        <result column="question_id" property="questionId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="cognition_level" property="cognitionLevel"/>
+        <result column="diffcult_level" property="diffcultLevel"/>
+        <result column="question_type" property="questionType"/>
+        <result column="question_desc" property="questionDesc" />
+        <result column="chapterName" property="chapterName" />
+        <result column="chapterIdAlias" property="chapterIdAlias" />
+
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">product_id,chapter_id,question_id,create_time,cognition_level,diffcult_level,question_type</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="productId != null">product_id,</if>
+            <if test="chapterId != null">chapter_id,</if>
+            <if test="questionId != null">question_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="cognitionLevel != null">cognition_level,</if>
+            <if test="diffcultLevel != null">diffcult_level,</if>
+            <if test="questionType != null">question_type,</if>
+
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="productId != null">#{productId},</if>
+            <if test="chapterId != null">#{chapterId},</if>
+            <if test="questionId != null">#{questionId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="cognitionLevel != null">#{cognitionLevel},</if>
+            <if test="diffcultLevel != null">#{diffcultLevel},</if>
+            <if test="questionType != null">#{questionType},</if>
+
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="ProductQuestionModel">
+        insert into xd_course_product_question
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update xd_course_product_question
+        <set>
+            <if test="value != null and value.productId != null">product_id = #{value.productId},</if>
+            <if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId},</if>
+            <if test="value != null and value.questionId != null">question_id = #{value.questionId},</if>
+            <if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+            <if test="value != null and value.cognitionLevel != null">cognition_level = #{value.cognitionLevel},</if>
+            <if test="value != null and value.diffcultLevel != null">diffcult_level = #{value.diffcultLevel},</if>
+            <if test="value != null and value.questionType != null">question_type = #{value.questionType},</if>
+
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_course_product_question
+        left join xd_quesbk_ques on xd_course_product_question.question_id = xd_quesbk_ques.id
+        left join xd_course_product_item on xd_course_product_question.chapter_id = xd_course_product_item.id
+        <include refid="dynamic_where"/>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="ProductQuestionModel" resultMap="BaseResultMap">
+        select * from xd_course_product_question where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from xd_course_product_question
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and xd_course_product_question.id =#{input.id}</if>
+            <if test="input != null and input.ids != null">and xd_course_product_question.id in
+                <foreach collection="input.ids" item="item" open="(" close=")" index="index" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="input != null and input.productId != null">and xd_course_product_question.product_id =#{input.productId}</if>
+            <if test="input != null and input.chapterId != null">and xd_course_product_question.chapter_id =#{input.chapterId}</if>
+            <if test="input != null and input.chapterIds != null">and xd_course_product_question.chapter_id in
+                <foreach collection="input.chapterIds" open="(" close=")" index="index" item="item" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="input != null and input.questionId != null">and xd_course_product_question.question_id =#{input.questionId}</if>
+            <if test="input != null and input.questionIds != null">and xd_course_product_question.question_id in
+                <foreach collection="input.questionIds" open="(" close=")" index="index" separator="," item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="input != null and input.createTime != null">and xd_course_product_question.create_time =#{input.createTime}</if>
+            <if test="input != null and input.cognitionLevel != null">and xd_course_product_question.cognition_level =#{input.cognitionLevel}</if>
+            <if test="input != null and input.diffcultLevel != null">and xd_course_product_question.diffcult_level =#{input.diffcultLevel}</if>
+            <if test="input != null and input.questionType != null">and xd_course_product_question.question_type =#{input.questionType}</if>
+
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">xd_course_product_question.id,</if>
+            <if test="output != null and output.productId != null">xd_course_product_question.product_id,</if>
+            <if test="output != null and output.chapterId != null">xd_course_product_question.chapter_id,</if>
+            <if test="output != null and output.questionId != null">xd_course_product_question.question_id,</if>
+            <if test="output != null and output.createTime != null">xd_course_product_question.create_time,</if>
+            <if test="output != null and output.cognitionLevel != null">xd_course_product_question.cognition_level,</if>
+            <if test="output != null and output.diffcultLevel != null">xd_course_product_question.diffcult_level,</if>
+            <if test="output != null and output.questionType != null">xd_course_product_question.question_type,</if>
+            <if test="output != null and output.questionDesc != null">xd_quesbk_ques.mdesc question_desc,</if>
+            <if test="output != null and output.chapterName != null">xd_course_product_item.name chapterName,</if>
+            <if test="output != null and output.chapterIdAlias != null">xd_course_product_item.chapter_id chapterIdAlias,</if>
+        </trim>
+    </sql>
+
+
+</mapper>

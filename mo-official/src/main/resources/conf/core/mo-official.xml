@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:oscache="http://www.springmodules.org/schema/oscache"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+           http://www.springmodules.org/schema/oscache http://www.springmodules.org/schema/cache/springmodules-oscache.xsd
+           http://code.alibabatech.com/schema/dubbo
+       	   http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<description>Spring公共配置文件</description>
+	<mvc:annotation-driven />
+	<mvc:resources mapping="/apidocs/**" location="/apidocs/" />
+	<context:property-placeholder
+		location="classpath:conf/custom/env/baseop.properties"
+		ignore-unresolvable="true" />
+	<context:annotation-config />
+	<context:component-scan base-package="com.xiaodou" />
+	<aop:aspectj-autoproxy expose-proxy="true" />
+	<bean class="com.xiaodou.summer.web.UTFStringHttpMessage" />
+	<bean id="applicationContext" name="applicationContext"
+		class="com.xiaodou.summer.util.SpringWebContextHolder" />
+
+	<!-- 以下导入其他配置 -->
+	<!-- 导入数据库配置 -->
+	<import resource="classpath:conf/core/database.xml" />
+
+	<!-- 一定要放在viewResolver的前面，这样就先去找freemarker的 -->
+	<bean id="freemarkerConfig"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/views/"  />
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">0</prop>
+				<prop key="default_encoding">UTF-8</prop>
+				<prop key="number_format">0.##########</prop>
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+				<prop key="classic_compatible">true</prop>
+				<prop key="template_exception_handler">ignore</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- freemarker页面解析器 -->
+	<bean id="viewResolver" class="com.xiaodou.summer.view.freemaker.ExtendFMViewResolver">
+		<property name="cache" value="true" />
+		<property name="prefix" value="" />
+		<property name="suffix" value=".ftl" />
+		<property name="viewEncoding" value="UTF-8" />
+		<property name="exposeSpringMacroHelpers">
+			<value>true</value>
+		</property>
+		<property name="requestContextAttribute">
+			<value>rc</value>
+		</property>
+		<property name="contentType" value="text/html; charset=UTF-8" />
+		<property name="baseOP" value="${view.resolver.baseOP}" />
+		<property name="baseJsOP" value="${view.resolver.baseJsOP}" />
+		<property name="baseCssOP" value="${view.resolver.baseCssOP}" />
+		<property name="baseImgOP" value="${view.resolver.baseImgOP}" />
+		<property name="dformat" value="${view.resolver.dformat}" />
+	</bean>
+
+	<!-- 对静态资源文件的访问 -->
+	<mvc:default-servlet-handler />
+	<mvc:resources mapping="/images/**" location="/images/"
+		cache-period="31556926" />
+	<mvc:resources mapping="/js/**" location="/js/"
+		cache-period="31556926" />
+	<mvc:resources mapping="/css/**" location="/css/"
+		cache-period="31556926" />
+	<!-- <bean id="eventParser" class="com.xiaodou.dashboard.engine.EventParser" 
+		/> <bean id="eventRegister" class="com.xiaodou.dashboard.engine.EventRegister" 
+		/> <bean id="eventProcesser" class="com.xiaodou.dashboard.engine.EventProcesser"> 
+		<constructor-arg value="${event.env.path}" /> <constructor-arg ref="eventParser" 
+		/> <constructor-arg ref="eventRegister" /> </bean> -->
+
+</beans>

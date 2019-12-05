@@ -1,0 +1,423 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html,body {
+    width: 100%;
+    height:100%;
+    font-family: "微软雅黑";
+    font-size: 14px;
+    margin:0;
+    padding:0;
+    background: #59d3ef;
+    overflow: hidden;
+}
+a{
+    text-decoration: none;
+}
+ul li{
+    list-style: none;
+}
+.loading{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 500000;
+    color:#ffffff;
+    font-size: 16px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 550px;
+    display: none;
+}
+
+/**************************************以上底部分享按钮*/
+
+.main .bottomBtns{
+    position:absolute;
+    width: 295px;
+    bottom:30px;
+    z-index: 2001;
+    left: 0;
+    right:0;
+    margin:0 auto;
+    display: none;
+}
+.main .bottomBtns .bottomShare{
+    width: 140px;
+    height: 40px;
+    background: #ff7f00;
+    border-radius: 5px;
+    float: left;
+    color:#ffffff;
+    text-align: center;
+    line-height: 40px;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+.main .bottomBtns .bottomAgain{
+    width: 140px;
+    height: 40px;
+    background: #ff7f00;
+    border-radius: 5px;
+    margin-left: 15px;
+    float: left;
+    color:#ffffff;
+    text-align: center;
+    line-height: 40px;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+.main .bottomBtns a{
+    color:#ffffff;
+}
+/**************************************下载条*/
+.downLoad{
+    width: 100%;
+    height: 90px;
+    border-top:1px solid #cdcdcd;
+    background: #ffffff;
+    position: absolute;
+    bottom: 0;
+    z-index: 3000;
+    display: none;
+}
+.downLoad img{
+    display: block;
+    float: left;
+    width: 70px;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+.downLoad .downText{
+    float: left;
+    width: 74%;
+    /*background: #e5e5e5;*/
+    margin-left:5px;
+    position: relative;
+}
+.downLoad .downText .p1{
+    font-size: 20px;
+    color:#609efc;
+    margin-top: 18px;
+}
+.downLoad .downText .p2{
+    font-size: 14px;
+    color:#a0a0a0;
+    margin-top: 8px;
+    letter-spacing: -1px;
+}
+.downLoad .downText .downLoadBtn{
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 30px;
+    color:#ffffff;
+    position: absolute;
+    right:0px;
+    top:17px;
+    z-index: 500000;
+    background: #fd6132;
+}
+/**************************************以上下载条*/
+.main{
+    width: 100%;
+    height:100%;
+    position: relative;
+    margin:0;
+    padding:0;
+}
+.main .bottom{
+    position: absolute;
+    /*width: 125px;*/
+    bottom:30px;
+    z-index:2001;
+    left:0;
+    right:0;
+    margin:0 auto;
+    text-align: center;
+}
+.main .bottom .btn{
+    width: 100%;
+    /*height: 40px;*/
+    /*background: #ff6d00;*/
+}
+.main .btn img{
+    width: 100%;
+}
+.main .bottom p{
+    font-size: 16px;
+    color:#129b6c;
+    vertical-align: top;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+}
+.main .bottom p .dianLeft{
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    float:left;
+    margin-top: 2px;
+}
+.main .bottom p .dianRight{
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    float:right;
+    margin-top: 2px;
+}
+.main .bottom p .bottomText{
+    position: absolute;
+    left:0;
+    right:0;
+    margin:0 auto;
+}
+.main .btns{
+    position:absolute;
+    width:100%;
+    top:8%;
+    z-index: 2001;
+    left: 0;
+    right:0;
+    margin:0 auto;
+    display: none;
+}
+.main .btns img{
+    width: 30px;
+    margin-left: 13px;
+}
+.main .btns .share{
+    float: right;
+    color:#ffffff;
+    margin-right: 10px;
+}
+.main .btns .again{
+
+    margin-right: 10px;
+    float: right;
+    color:#ffffff;
+}
+.main .btns a{
+    color:#ffffff;
+}
+.main .topText{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin:0 auto;
+    color:#ffffff;
+    font-size: 30px;
+    top:8%;
+    text-align: center;
+}
+.main .cloud1{
+    position: absolute;
+    top:25px;
+    left: -10px;
+    width: 60px;
+}
+.main .cloud2{
+    position: absolute;
+    top:70px;
+    right: -20px;
+    width: 80px;
+}
+.main .back{
+    position: absolute;
+    width: 100%;
+    margin:0;
+    padding:0;
+    bottom:-20px;
+    left:0;
+    right:0;
+}
+.main .back img{
+    width: 100%;
+    margin:0;
+    padding:0;
+}
+.main .backOn{
+    position: absolute;
+    z-index: 2000;
+    width: 100%;
+    margin:0;
+    padding:0;
+    bottom:-20px;
+    left:0;
+    right:0;
+
+}
+.main .backOn img{
+    width: 100%;
+}
+.main .flower{
+    position: absolute;
+    /*z-index: 100;*/
+    width: 220px;
+    left:0;
+    right:0;
+    margin:0 auto;
+    bottom:18.5%;
+    /*border:1px solid #000000;*/
+}
+.main .flower .box{
+    position: relative;
+}
+.main .flower .flowerBack{
+    /*position: absolute;*/
+    position: relative;
+    display: block;
+    width: 100%;
+    z-index: 30;
+}
+.main .flower .flowerHead{
+    width: 220px;
+    height: 220px;
+    position: absolute;
+    top:0;
+    left:0;
+    /*border:1px solid #e5e5e5;*/
+}
+.main .flower .flowerHead .headBox{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.main .flower .flowerHead .headBox .leaf1{
+    width: 55px;
+    position: absolute;
+    top:14px;
+    left:51px;
+    z-index: 50;
+}
+.main .flower .flowerHead .headBox .leaf2{
+    width: 55px;
+    position: absolute;
+    top:14px;
+    left:111px;
+    z-index: 50;
+}
+.main .flower .flowerHead .headBox .leaf3{
+    width: 98px;
+    position: absolute;
+    top:88px;
+    right:0px;
+    z-index: 50;
+}
+.main .flower .flowerHead .headBox .leaf4{
+    width: 55px;
+    position: absolute;
+    bottom:14px;
+    right:51px;
+    z-index: 50;
+}
+.main .flower .flowerHead .headBox .leaf5{
+    width: 55px;
+    position: absolute;
+    bottom:14px;
+    left:50px;
+    z-index: 50;
+}
+.main .flower .flowerHead .headBox .leaf6{
+    width: 98px;
+    position: absolute;
+    top:88px;
+    left:0px;
+    z-index: 50;
+}
+.main .flower .flowerHead .headBox .leafOn6{
+    width: 46px;
+    position: absolute;
+    top:0;
+    left:85px;
+    z-index: 55;
+}
+.main .flower .flowerHead .headBox .leafOn1{
+     width: 95px;
+     position: absolute;
+     top:48px;
+     left:115px;
+     z-index: 55;
+ }
+.main .flower .flowerHead .headBox .leafOn2{
+    width: 95px;
+    position: absolute;
+    top:110px;
+    right:10px;
+    z-index: 55;
+}
+.main .flower .flowerHead .headBox .leafOn3{
+    width: 46px;
+    position: absolute;
+    bottom:0;
+    left:85px;
+    z-index: 55;
+}
+.main .flower .flowerHead .headBox .leafOn4{
+    width: 95px;
+    position: absolute;
+    bottom:50px;
+    right:115px;
+    z-index: 55;
+}
+.main .flower .flowerHead .headBox .leafOn5{
+     width: 95px;
+     position: absolute;
+     bottom:110px;
+     left:10px;
+     z-index: 55;
+ }
+.main .flower .flowerHead .headBox .faceBack{
+    position: absolute;
+    z-index: 60;
+    width: 85px;
+    height: 85px;
+    left:0;
+    right:0;
+    margin:0 auto;
+    top:67px;
+    border-radius: 50%;
+    background: #f0c800;
+}
+.main .flower .flowerHead .headBox .face{
+    width: 85px;
+    height: 85px;
+    background-image: url("../images/face1_03.png");
+    background-size: 100% 100%;
+    border-radius: 50%;
+}
+.main .flower .box .left{
+    width: 95px;
+    position: absolute;
+    left:10px;
+    z-index: 25;
+    bottom:20px;
+}
+.main .flower .box .right{
+    width: 95px;
+    position: absolute;
+    right:10px;
+    z-index: 25;
+    bottom:39px;
+}
+@media screen and (max-width: 350px) {
+    .main .topText{
+        top:5.5%;
+    }
+    .main .flower{
+        bottom:12%;
+    }
+    .main .topText{
+        font-size: 24px;
+    }
+    /*.main .btn img{*/
+        /*width: 70%;*/
+    /*}*/
+}

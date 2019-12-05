@@ -1,0 +1,37 @@
+.mainBody .mid {
+    width: 30%;
+    height: 100%;
+    float: left;
+    /*background: #3296f5;
+    border-left: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;*/
+}
+
+.mainBody .mid p {
+    font-size: 16px;
+    /*color:#555555;*/
+    /*margin-top: 15px;*/
+    margin-left: 20px;
+    line-height: 30px;
+}
+
+.mainBody .mid .iphone {
+    width: 405px;
+    height: 682px;
+    /*background: #555565;*/
+    background-image: url('../images/iphone.png');
+    border-radius: 7px;
+    margin: 0 auto;
+    padding-top: 15px;
+}
+
+.mainBody .mid .iphone .screen {
+    width: 277px;
+    height: 490px;
+    overflow-y: auto;
+    margin-left: 58px;
+    margin-top: 82px;
+    /*margin-top: 15px;*/
+    background: #ffffff;
+    position: relative;
+}

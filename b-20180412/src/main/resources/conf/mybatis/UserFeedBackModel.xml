@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserFeedBackModel">
+
+	<resultMap id="BaseResultMap" type="UserFeedBackModel">
+		<id column="id" property="id" />
+		<result column="content" property="content" />
+		<result column="create_time" property="createTime" />
+		<result column="category_descs" property="categoryDescs" />
+		<result column="number" property="number" />
+		<result column="image_urls" property="imageUrls" />
+		<result column="device_type" property="deviceType" />
+		<result column="user_id" property="userId" />
+		<result column="app_version" property="appVersion" />
+		<result column="os_version" property="osVersion" />
+		<result column="handle_status" property="handleStatus" />
+		<result column="handle_note" property="handleNote" />
+
+	</resultMap>
+
+	<!--字段 -->
+	<sql id="base_column">content,create_time,category_descs,number,image_urls,device_type,user_id,app_version
+							,os_version,handle_status,handle_note</sql>
+	<sql id="all_column">
+		id,
+		<include refid="base_column" />
+	</sql>
+
+	
+	<!-- 3.查询 -->
+	<select id="findEntityListByCond" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="dynamic_output" />
+		from xd_user_feedback
+		<include refid="dynamic_where" />
+		order by create_time desc;
+	</select>
+
+	<!-- 4.查询单个记录 -->
+	<select id="findEntityById" parameterType="UserFeedBackModel"
+		resultMap="BaseResultMap">
+		select * from xd_user_feedback where id = #{id};
+	</select>
+
+	<!-- 5.根据条件删除 -->
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_user_feedback
+		<include refid="dynamic_where" />
+	</delete>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id =#{input.id}</if>
+			<if test="input != null and input.content != null">and content =#{input.content}</if>
+			<if test="input != null and input.createTime != null">and create_time =#{input.createTime}</if>
+			<if test="input != null and input.categoryDescs != null">and category_descs =#{input.categoryDescs}</if>
+			<if test="input != null and input.number != null">and number =#{input.number}</if>
+			<if test="input != null and input.imageUrls != null">and image_urls =#{input.imageUrls}</if>
+			<if test="input != null and input.deviceType != null">and device_type =#{input.deviceType}</if>
+			<if test="input != null and input.userId != null">and user_id =#{input.userId}</if>
+			
+			<if test="input != null and input.appVersion != null">and app_version =#{input.appVersion}</if>
+			<if test="input != null and input.osVersion != null">and os_version =#{input.osVersion}</if>
+			
+			<if test="input != null and input.handleStatus != null">and handle_status=#{input.handleStatus}</if>
+			<if test="input != null and input.handleNote != null">and handle_note =#{input.handleNote}</if>
+		</where>
+	</sql>
+	<!--动态语句:输出 -->
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.content != null">content,</if>
+			<if test="output != null and output.createTime != null">create_time,</if>
+			<if test="output != null and output.categoryDescs != null">category_descs,</if>
+			<if test="output != null and output.number != null">number,</if>
+			<if test="output != null and output.imageUrls != null">image_urls,</if>
+			<if test="output != null and output.deviceType != null">device_type,</if>
+			<if test="output != null and output.userId != null">user_id,</if>
+			<if test="output != null and output.appVersion != null">app_version,</if>
+			<if test="output != null and output.osVersion != null">os_version,</if>
+			<if test="output != null and output.handleStatus != null">handle_status,</if>
+			<if test="output != null and output.handleNote != null">handle_note,</if>
+		</trim>
+	</sql>
+	
+		<update id="updateEntityById" parameterType="com.xiaodou.ms.model.user.UserBaseModel">
+		update xd_user_feedback
+		<set>
+			<if test="value != null and value.handleStatus != null">handle_status = #{value.handleStatus,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.handleNote != null">handle_note = #{value.handleNote,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<!-- 幕享门户 -->
+		<typeAlias type="com.xiaodou.moofficial.entity.AuthorModel"
+			alias="AuthorModel" />
+		<typeAlias type="com.xiaodou.moofficial.entity.ForumModel"
+			alias="ForumModel" />
+		<typeAlias type="com.xiaodou.moofficial.entity.MajorCourseModel"
+			alias="MajorCourseModel" />
+	</typeAliases>
+
+	<mappers>
+		<!-- 幕享门户-->
+		<mapper resource="conf/mybatis/AuthorModel.xml" />
+		<mapper resource="conf/mybatis/ForumModel.xml" />
+		<mapper resource="conf/mybatis/MajorCourseModel.xml" />
+	</mappers>
+</configuration>

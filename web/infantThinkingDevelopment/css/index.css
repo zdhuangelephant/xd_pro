@@ -1,0 +1,179 @@
+@charset "utf-8";
+/* CSS Document */
+/*全局控制*/
+html {
+    font-size: 62.5%;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 1.2rem;
+    font-family: "微软雅黑";
+    width:100%;
+    height: 100%;
+    /*overflow: hidden;*/
+}
+html, body {
+    width:100%;
+    height: 100%;
+}
+.main{
+    width:100%;
+    height: 100%;
+    background:#2c4191;
+    position: relative;
+    overflow: hidden;
+}
+.main header{
+    position: relative;
+    top:0;
+    height: 44px;
+    line-height: 44px;
+    width: 100%;
+    background: #29b3f2;
+    color: #ffffff;
+    font-size: 16px;
+    text-align: center;
+}
+.main header img:first-child{
+    position: absolute;
+    left: 16px;
+    width: 10px;
+    height: 17px;
+    bottom: 12px;
+}
+.main header img:last-child{
+    position: absolute;
+    right: 16px;
+    width: 16px;
+    height: 18px;
+    bottom: 12px;
+}
+#title{
+    position: absolute;
+    height: 49px;
+    width: 86%;
+    left: 0;
+    right:0;
+    margin:0 auto;
+    /*margin-bottom: 8px;*/
+    top: 67px;
+    background: url("../images/title.png") 0 0 #2c4191;
+    background-size: 100% 100%;
+    text-align: center;
+    font-size: 18px;
+    color:#2c4191;
+    line-height: 35px;
+    box-shadow: 0px 8px 10px #2c4191;
+    z-index: 2000;
+}
+#mainContent{
+    position: absolute;
+    top:110px;
+    bottom: 0;
+    left: 0;
+    right:0;
+    width: 100%;
+    background: url("../images/star.png") no-repeat 50% 30%;
+    background-size: 80% 80%;
+    overflow-y:auto ;
+    overflow-x: hidden;
+    padding-top: 36px;
+}
+#mainContent .title1{
+    display: inline-block;
+    height: 28px;
+    min-width: 56px;
+    line-height: 28px;
+    padding-left: 7px;
+    padding-right:7px;
+    border:1.5px solid #ffe424;
+    border-radius: 5px;
+    color: #ffe424;
+    font-size: 18px;
+    text-align: center;
+    margin-left: 8%;
+}
+#mainContent .content1{
+    display: inline-block;
+    width: 80%;
+    line-height: 18px;
+    padding:5px 7px;
+    background: #ffe424;
+    border-radius: 5px;
+    color: #2c4191;
+    font-size: 12px;
+    margin-left: 8%;
+    margin-top: 12px;
+}
+#mainContent .group1{
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+#mainContent .group1 .back1{
+     position: absolute;
+     left: 11%;
+     width: 9px;
+     height: 13px;
+     background:url("../images/back1_03.gif") no-repeat #2c4191;
+     background-size: 100% 100%;
+     top:29px;
+ }
+#mainContent .group2{
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+#mainContent .title2{
+    display: inline-block;
+    height: 28px;
+    min-width: 56px;
+    line-height: 28px;
+    padding-left: 7px;
+    padding-right:7px;
+    border:1.5px solid #5ae0ff;
+    border-radius: 5px;
+    color: #5ae0ff;
+    font-size: 18px;
+    text-align: center;
+    margin-left: 8%;
+}
+#mainContent .content2{
+    display: inline-block;
+    width: 80%;
+    line-height: 18px;
+    padding:5px 7px;
+    background: #5ae0ff;
+    border-radius: 5px;
+    color: #2c4191;
+    font-size: 12px;
+    margin-left: 8%;
+    margin-top: 12px;
+}
+#mainContent .group2 .back2{
+    position: absolute;
+    left: 13%;
+    width: 9px;
+    height: 13px;
+    background:url("../images/back2_06.gif")no-repeat #2c4191;
+    background-size: 100% 100%;
+    top:29px;
+}
+/*-------------------------------------------------------page1*/
+
+
+
+
+
+
+
+
+
+
+
+

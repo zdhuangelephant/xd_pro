@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<!-- 任务 -->
+		<typeAlias type="com.xiaodou.ms.model.mission.MissionModel"
+			alias="MissionModel" />
+		<typeAlias type="com.xiaodou.ms.model.mission.UserMissionRecordModel"
+			alias="UserMissionRecordModel" />
+		<typeAlias type="com.xiaodou.ms.model.mission.MissionProductCategoryRelationModel"
+			alias="ProductCourseRelation" />
+	</typeAliases>
+
+	<mappers>
+		<!-- 任务 -->
+		<mapper resource="conf/mybatis/MissionModel.xml" />
+		<mapper resource="conf/mybatis/MissionProductCategoryRelationModel.xml" />
+		<mapper resource="conf/mybatis/UserMissionRecordModel.xml" />
+	</mappers>
+</configuration>

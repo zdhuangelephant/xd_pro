@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CourseCategoryModel">
+
+    <resultMap id="BaseResultMap" type="CourseCategoryModel">
+        <id column="id" property="id"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="name" property="name"/>
+        <result column="detail" property="detail"/>
+        <result column="create_time" property="createTime"/>
+        <result column="level" property="level" />
+        <result column="is_leaf" property="isLeaf" />
+        <result column="child_id" property="childId" />
+        <result column="all_child_id" property="allChildId" />
+        <result column="all_parent_id" property="allParentId" />
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">parent_id,name,detail,create_time,child_id,all_child_id,all_parent_id,level,is_leaf,major_code,exam_school,major_level,degree</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="parentId != null">parent_id,</if>
+            <if test="name != null">name,</if>
+            <if test="detail != null">detail,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="childId != null">child_id,</if>
+            <if test="allChildId != null">all_child_id,</if>
+            <if test="allParentId != null">all_parent_id,</if>
+            <if test="level != null">level,</if>
+            <if test="isLeaf != null">is_leaf,</if>
+
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="parentId != null">#{parentId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="detail != null">#{detail},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="childId != null">#{childId},</if>
+            <if test="allChildId != null">#{allChildId},</if>
+            <if test="allParentId != null">#{allParentId},</if>
+            <if test="level != null">#{level},</if>
+            <if test="isLeaf != null">#{isLeaf},</if>
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="CourseCategoryModel">
+        insert into xd_course_category
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update xd_course_category
+        <set>
+            <if test="value != null and value.parentId != null">parent_id = #{value.parentId},</if>
+            <if test="value != null and value.name != null">name = #{value.name},</if>
+            <if test="value != null and value.detail != null">detail = #{value.detail},</if>
+            <if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+            <if test="value != null and value.childId != null">child_id = #{value.childId},</if>
+            <if test="value != null and value.allChildId != null">all_child_id = #{value.allChildId},</if>
+            <if test="value != null and value.allParentId != null">all_parent_id = #{value.allParentId},</if>
+            <if test="value != null and value.level != null">level = #{value.level},</if>
+            <if test="value != null and value.isLeaf != null">is_leaf = #{value.isLeaf},</if>
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_course_category
+        <include refid="dynamic_where"/>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="CourseCategoryModel" resultMap="BaseResultMap">
+        select * from xd_course_category where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from xd_course_category
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and id =#{input.id}</if>
+            <if test="input != null and input.ids != null">and id in
+                <foreach collection="input.ids" item="item" separator="," open="(" close=")" index="index">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="input != null and input.parentId != null">and parent_id =#{input.parentId}
+            </if>
+            <if test="input != null and input.name != null">and name =#{input.name}</if>
+            <if test="input != null and input.detail != null">and detail =#{input.detail}</if>
+            <if test="input != null and input.createTime != null">and create_time
+                =#{input.createTime}
+            </if>
+            <if test="input != null and input.childId != null">and child_id
+                =#{input.childId}
+            </if>
+            <if test="input != null and input.allChildId != null">and all_child_id
+                =#{input.allChildId}
+            </if>
+            <if test="input != null and input.allParentId != null">and all_parent_id
+                =#{input.allParentId}
+            </if>
+            <if test="input != null and input.level != null">and level
+                =#{input.level}
+            </if>
+            <if test="input != null and input.isLeaf != null">and is_leaf
+                =#{input.isLeaf}
+            </if>
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">id,</if>
+            <if test="output != null and output.parentId != null">parent_id,</if>
+            <if test="output != null and output.name != null">name,</if>
+            <if test="output != null and output.detail != null">detail,</if>
+            <if test="output != null and output.createTime != null">create_time,</if>
+            <if test="output != null and output.childId != null">child_id,</if>
+            <if test="output != null and output.allChildId != null">all_child_id,</if>
+            <if test="output != null and output.allParentId != null">all_parent_id,</if>
+            <if test="output != null and output.level != null">level,</if>
+            <if test="output != null and output.isLeaf != null">is_leaf,</if>
+        </trim>
+    </sql>
+
+
+</mapper>

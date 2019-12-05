@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AdminPushMessage">
+
+	<resultMap id="BaseResultMap" type="AdminPushMessage">
+		<id column="id" property="id" />
+		<result column="message_content" property="messageContent" />
+		<result column="notice_content" property="noticeContent" />
+		<result column="message_status" property="messageStatus" />
+		<result column="message_type" property="messageType" />
+		<result column="spread_range" property="spreadRange" />
+		<result column="target_type" property="targetType" />
+		<result column="message_extras" property="messageExtras" />
+		<result column="notice_extras" property="noticeExtras" />
+		<result column="create_time" property="createTime" />
+		<result column="create_user" property="createUser" />
+		<result column="update_time" property="updateTime" />
+		<result column="update_user" property="updateUser" />
+		<result column="alias" property="alias" />
+		<result column="tags" property="tags"/>
+		<result column="registrationIds" property="registrationIds"/>
+	</resultMap>
+
+	<!--字段 -->
+	<sql id="base_column">message_content,notice_content,message_status,message_type,spread_range,target_type,message_extras,notice_extras
+	,create_time,create_user,update_time,update_user,alias,tags,registrationIds</sql>
+	<sql id="all_column">
+		id,
+		<include refid="base_column" />
+	</sql>
+
+	<!-- 1.插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="messageContent != null">message_content,</if>
+			<if test="noticeContent != null">notice_content,</if>
+			<if test="messageStatus != null">message_status,</if>
+			<if test="messageType != null">message_type,</if>
+			<if test="spreadRange != null">spread_range,</if>
+			<if test="targetType != null">target_type,</if>
+			<if test="messageExtras != null">message_extras,</if>
+			<if test="noticeExtras != null">notice_extras,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="createUser != null">create_user,</if>
+			<if test="updateTime != null">update_time,</if>
+			<if test="updateUser != null">update_user,</if>
+			<if test="alias != null">alias,</if>
+			<if test="tags != null">tags,</if>
+			<if test="registrationIds != null">registrationIds,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="messageContent != null">#{messageContent},</if>
+			<if test="noticeContent != null">#{noticeContent},</if>
+			<if test="messageStatus != null">#{messageStatus},</if>
+			<if test="messageType != null">#{messageType},</if>
+			<if test="spreadRange != null">#{spreadRange},</if>
+			<if test="targetType != null">#{targetType},</if>
+			<if test="messageExtras != null">#{messageExtras},</if>
+			<if test="noticeExtras != null">#{noticeExtras},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="createUser != null">#{createUser},</if>
+			<if test="updateTime != null">#{updateTime},</if>
+			<if test="updateUser != null">#{updateUser},</if>
+			<if test="alias != null">#{alias},</if>
+			<if test="tags != null">#{tags},</if>
+			<if test="registrationIds != null">#{registrationIds},</if>
+
+		</trim>
+	</sql>
+
+	<insert id="addEntity" parameterType="AdminPushMessage">
+		insert into admin_push_message
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- 2.更新 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update admin_push_message
+		<set>
+			<if test="value != null and value.messageContent != null">message_content = #{value.messageContent},</if>
+			<if test="value != null and value.noticeContent != null">notice_content = #{value.noticeContent},</if>
+			<if test="value != null and value.messageStatus != null">message_status = #{value.messageStatus},</if>
+			<if test="value != null and value.messageType != null">message_type = #{value.messageType},</if>
+			<if test="value != null and value.spreadRange != null">spread_range = #{value.spreadRange},</if>
+			<if test="value != null and value.targetType != null">target_type = #{value.targetType},</if>
+			<if test="value != null and value.messageExtras != null">message_extras = #{value.messageExtras},</if>
+			<if test="value != null and value.noticeExtras != null">notice_extras = #{value.noticeExtras},</if>
+			<if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+			<if test="value != null and value.createUser != null">create_user = #{value.createUser},</if>
+			<if test="value != null and value.updateTime != null">update_time = #{value.updateTime},</if>
+			<if test="value != null and value.updateUser != null">update_user = #{value.updateUser},</if>
+			<if test="value != null and value.alias != null">alias = #{value.alias},</if>
+			<if test="value != null and value.tags != null">tags = #{value.tags},</if>
+			<if test="value != null and value.registrationIds != null">registrationIds = #{value.registrationIds},</if>
+			
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 3.查询 -->
+	<select id="findEntityListByCond" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="all_column" />
+		from admin_push_message
+		<include refid="dynamic_where" />
+		 order by create_time desc
+	</select>
+
+	<!-- 4.查询单个记录 -->
+	<select id="findEntityById" parameterType="AdminPushMessage" resultMap="BaseResultMap">
+		select * from admin_push_message where id = #{id};
+	</select>
+
+	<!-- 5.根据条件删除 -->
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from admin_push_message
+		<include refid="dynamic_where" />
+	</delete>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id = #{input.id}</if>
+			<if test="input != null and input.messageContent != null">and message_content = #{input.messageContent}</if>
+			<if test="input != null and input.noticeContent != null">and notice_content = #{input.noticeContent}</if>
+			<if test="input != null and input.messageStatus != null">and message_status = #{input.messageStatus}</if>
+			<if test="input != null and input.messageType != null">and message_type = #{input.messageType}</if>
+			<if test="input != null and input.spreadRange != null">and spread_range = #{input.spreadRange}</if>
+			<if test="input != null and input.targetType != null">and target_type = #{input.targetType}</if>
+			<if test="input != null and input.messageExtras != null">and message_extras = #{input.messageExtras}</if>
+			<if test="input != null and input.noticeExtras != null">and notice_extras = #{input.noticeExtras}</if>
+			<if test="input != null and input.createTime != null">and create_time = #{input.createTime}</if>
+			<if test="input != null and input.createUser != null">and create_user = #{input.createUser}</if>
+			<if test="input != null and input.updateTime != null">and update_time = #{input.updateTime}</if>
+			<if test="input != null and input.updateUser != null">and update_user = #{input.updateUser}</if>
+			<if test="input != null and input.alias != null">and alias = #{input.alias}</if>
+			<if test="input != null and input.tags != null">and tags = #{input.tags}</if>
+			<if test="input != null and input.registrationIds != null">and registrationIds = #{input.registrationIds}</if>
+		</where>
+	</sql>
+	<!--动态语句:输出 -->
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.messageContent != null">message_content,</if>
+			<if test="output != null and output.noticeContent != null">notice_content,</if>
+			<if test="output != null and output.messageStatus != null">message_status,</if>
+			<if test="output != null and output.messageType != null">message_type ,</if>
+			<if test="output != null and output.spreadRange != null">spread_range,</if>
+			<if test="output != null and output.targetType != null">target_type ,</if>
+			<if test="output != null and output.messageExtras != null">message_extras ,</if>
+			<if test="output != null and output.noticeExtras != null">notice_extras,</if>
+			<if test="output != null and output.createTime != null">create_time ,</if>
+			<if test="output != null and output.createUser != null">create_user,</if>
+			<if test="output != null and output.updateTime != null">update_time,</if>
+			<if test="output != null and output.updateUser != null">update_user,</if>
+			<if test="output != null and output.alias != null">alias,</if>
+			<if test="output != null and output.tags != null">tags,</if>
+			<if test="output != null and output.registrationIds != null">registrationIds,</if>
+		</trim>
+	</sql>
+
+
+</mapper>

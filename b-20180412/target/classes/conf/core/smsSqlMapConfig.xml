@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<!--短信 -->
+		<typeAlias type="com.xiaodou.ms.model.sms.SmsMerchantModel"
+			alias="SmsMerchantModel" />
+		<typeAlias type="com.xiaodou.ms.model.sms.SmsTemplateModel"
+			alias="SmsTemplateModel" />
+		<typeAlias type="com.xiaodou.ms.model.sms.SmsTemplateTypeModel"
+			alias="SmsTemplateTypeModel" />
+		<typeAlias type="com.xiaodou.ms.model.sms.SmsChannelModel"
+			alias="SmsChannelModel" />
+		<typeAlias type="com.xiaodou.ms.model.sms.SmsLogModel"
+			alias="SmsLogModel" />
+		<!--消息 -->
+		<typeAlias type="com.xiaodou.ms.model.message.AdminPushMessage"
+			alias="AdminPushMessage" />
+		<typeAlias type="com.xiaodou.ms.model.message.AdminShortMessage"
+			alias="AdminShortMessage" />
+
+	</typeAliases>
+
+	<mappers>
+		<!--短信 -->
+		<mapper resource="conf/mybatis/SmsTemplateModel.xml" />
+		<mapper resource="conf/mybatis/SmsTemplateTypeModel.xml" />
+		<mapper resource="conf/mybatis/SmsMerchantModel.xml" />
+		<mapper resource="conf/mybatis/SmsChannelModel.xml" />
+		<mapper resource="conf/mybatis/SmsLogModel.xml" />
+		<!--消息 -->
+		<mapper resource="conf/mybatis/admin/pushMessage.xml" />
+		<mapper resource="conf/mybatis/admin/shortMessage.xml" />
+
+	</mappers>
+</configuration>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MajorDataModel">
+	<resultMap id="BaseResultMap" type="com.xiaodou.ms.model.major.MajorDataModel">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="region" property="region" jdbcType="VARCHAR" />
+<!-- 		<result column="detail" property="detail" jdbcType="VARCHAR" /> -->
+<!-- 		<result column="exam_school" property="examSchool" jdbcType="VARCHAR" /> -->
+<!-- 		<result column="major_level" property="majorLevel" jdbcType="VARCHAR" /> -->
+<!-- 		<result column="degree" property="degree" jdbcType="VARCHAR" /> -->
+<!-- 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" /> -->
+		<result column="major_info" property="majorInfo" jdbcType="VARCHAR" />
+	</resultMap>
+	
+
+	 <!-- 1.插入 -->
+	<insert id="addEntity" parameterType="com.xiaodou.ms.model.major.MajorDataModel">
+		insert into xd_major_data
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="name != null">name,</if>
+<!-- 			<if test="detail != null">detail,</if> -->
+<!-- 			<if test="examSchool != null">exam_school,</if> -->
+<!-- 			<if test="majorLevel != null">major_level,</if> -->
+<!-- 			<if test="degree != null">degree,</if> -->
+<!-- 			<if test="createTime != null">create_time,</if> -->
+			<if test="majorInfo != null">major_info,</if>
+			<if test="region != null">region,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+<!-- 			<if test="detail != null">#{detail,jdbcType=VARCHAR},</if> -->
+<!-- 			<if test="examSchool != null">#{examSchool,jdbcType=VARCHAR},</if> -->
+<!-- 			<if test="majorLevel != null">#{majorLevel,jdbcType=VARCHAR},</if> -->
+<!-- 			<if test="degree != null">#{degree,jdbcType=VARCHAR},</if> -->
+<!-- 			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if> -->
+			<if test="majorInfo != null">#{majorInfo,jdbcType=VARCHAR},</if>
+			<if test="region != null">#{region,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+		 <!-- 2.查询单个记录 -->
+    <select id="findEntityById" parameterType="MajorDataModel" resultMap="BaseResultMap">
+        select * from xd_major_data where id = #{id} and region=#{region};
+    </select>
+	<select id="findEntityByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_major_data
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_major_data
+        <include refid="dynamic_where"/>
+        <include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+    </select>
+	
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.name != null">name,</if>
+<!-- 			<if test="output != null and output.detail != null">detail,</if> -->
+<!-- 			<if test="output != null and output.examSchool != null">exam_school,</if> -->
+<!-- 			<if test="output != null and output.majorLevel != null">major_level,</if> -->
+<!-- 			<if test="output != null and output.degree != null">degree,</if> -->
+<!-- 			<if test="output != null and output.createTime != null">create_time,</if> -->
+			<if test="output != null and output.majorInfo != null">major_info,</if>
+			<if test="output != null and output.region != null">region,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.name != null">and name=#{input.name}</if>
+			<if test="input != null and input.region != null">and region=#{input.region}</if>
+<!-- 			<if test="input != null and input.detail != null">and detail=#{input.detail}</if> -->
+<!-- 			<if test="input != null and input.examSchool != null">and exam_school=#{input.examSchool}</if> -->
+<!-- 			<if test="input != null and input.majorLevel != null">and major_level=#{input.majorLevel}</if> -->
+<!-- 			<if test="input != null and input.degree != null">and degree=#{input.degree}</if> -->
+<!-- 			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if> -->
+			<if test="input != null and input.majorInfo != null">and major_info=#{input.majorInfo}</if>
+			<if test="input != null and input.nameLike != null">and name like concat('%',#{input.nameLike},'%')</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limitStart != null and limitCount != null">
+			limit ${limitStart}, ${limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if test="sort != null and sort.name != null and ( sort.name == 'ASC' or sort.name == 'DESC' )">name ${sort.name},</if>
+<!-- 			<if test="sort != null and sort.detail != null and ( sort.detail == 'ASC' or sort.detail == 'DESC' )">detail ${sort.detail},</if> -->
+<!-- 			<if test="sort != null and sort.examSchool != null and ( sort.examSchool == 'ASC' or sort.examSchool == 'DESC' )">exam_school ${sort.examSchool},</if> -->
+<!-- 			<if test="sort != null and sort.majorLevel != null and ( sort.majorLevel == 'ASC' or sort.majorLevel == 'DESC' )">major_level ${sort.majorLevel},</if> -->
+<!-- 			<if test="sort != null and sort.degree != null and ( sort.degree == 'ASC' or sort.degree == 'DESC' )">degree ${sort.degree},</if> -->
+<!-- 			<if test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if> -->
+			<if test="sort != null and sort.majorInfo != null and ( sort.majorInfo == 'ASC' or sort.majorInfo == 'DESC' )">major_info ${sort.majorInfo},</if>
+			<if test="sort != null and sort.region != null and ( sort.region == 'ASC' or sort.region == 'DESC' )">region ${sort.region},</if>
+		</trim>
+	</sql>
+</mapper>

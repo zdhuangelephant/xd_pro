@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserMissionRecordModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.ms.model.mission.UserMissionRecordModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="module" property="module" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="mission_id" property="missionId" jdbcType="VARCHAR" />
+		<result column="course_id" property="courseId" jdbcType="VARCHAR" />
+		<result column="chapter_id" property="chapterId" jdbcType="VARCHAR" />
+		<result column="mission_name" property="missionName" jdbcType="VARCHAR" />
+		<result column="mission_desc" property="missionDesc" jdbcType="VARCHAR" />
+		<result column="mission_picurl" property="missionPicurl"
+			jdbcType="VARCHAR" />
+		<result column="threshold_num" property="thresholdNum"
+			jdbcType="VARCHAR" />
+		<result column="current_num" property="currentNum" jdbcType="VARCHAR" />
+		<result column="is_reached" property="isReached" jdbcType="INTEGER" />
+		<result column="record_status" property="recordStatus"
+			jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="finish_time" property="finishTime" jdbcType="TIMESTAMP" />
+		<result column="dead_line" property="deadLine" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_user_mission_record
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.module != null">and module=#{input.module}</if>
+			<if test="input != null and input.userId != null">and user_id=#{input.userId}</if>
+			<if test="input != null and input.missionId != null">and mission_id=#{input.missionId}</if>
+			<if test="input != null and input.missionIdList != null">
+				and mission_id in
+				<foreach collection="input.missionIdList" open="(" close=")"
+					separator="," item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.courseId != null">and course_id=#{input.courseId}</if>
+			<if test="input != null and input.chapterId != null">and chapter_id=#{input.chapterId}</if>
+			<if test="input != null and input.missionName != null">and mission_name=#{input.missionName}</if>
+			<if test="input != null and input.missionDesc != null">and mission_desc=#{input.missionDesc}</if>
+			<if test="input != null and input.missionPicurl != null">and mission_picurl=#{input.missionPicurl}</if>
+			<if test="input != null and input.thresholdNum != null">and threshold_num=#{input.thresholdNum}</if>
+			<if test="input != null and input.currentNum != null">and current_num=#{input.currentNum}</if>
+			<if test="input != null and input.isReached != null">and is_reached=#{input.isReached}</if>
+			<if test="input != null and input.recordStatus != null">and record_status=#{input.recordStatus}</if>
+			<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+			<if test="input != null and input.finishTime != null">and finish_time=#{input.finishTime}</if>
+			<if test="input != null and input.deadLine != null">and dead_line=#{input.deadLine}</if>
+		</where>
+	</sql>
+</mapper>

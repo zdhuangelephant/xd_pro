@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!--数据源配置 -->
+	<context:property-placeholder
+		location="classpath:conf/custom/env/jdbc_ms.properties"
+		ignore-unresolvable="true" />
+	<context:property-placeholder
+		location="classpath:conf/custom/env/jdbc_admin.properties"
+		ignore-unresolvable="true" />
+	<context:property-placeholder
+		location="classpath:conf/custom/env/jdbc_rd.properties"
+		ignore-unresolvable="true" />
+	<context:property-placeholder
+		location="classpath:conf/custom/env/jdbc_sms.properties"
+		ignore-unresolvable="true" />
+	<context:property-placeholder
+		location="classpath:conf/custom/env/jdbc_mission.properties"
+		ignore-unresolvable="true" />
+	<context:property-placeholder
+		location="classpath:conf/custom/env/jdbc_baseuser.properties"
+		ignore-unresolvable="true" />
+	<!-- <context:property-placeholder
+		location="classpath:conf/custom/env/jdbc_user_base.properties"
+		ignore-unresolvable="true" /> -->
+
+	<!--数据源 -->
+	<bean id="summerDataSource"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerDataSourceManager">
+		<property name="alias" value="ms_data"></property>
+		<property name="user" value="${ms_jdbc.username}" />
+		<property name="password" value="${ms_jdbc.password}" />
+		<property name="driver" value="${ms_jdbc.driverClassName}" />
+		<property name="driverUrl" value="${ms_jdbc.url}" />
+		<property name="maximumConnectionCount" value="${ms_jdbc.maximumConnectionCount}"></property>
+		<property name="maximumActiveTime" value="${ms_jdbc.maximumActiveTime}"></property>
+		<property name="prototypeCount" value="${ms_jdbc.prototypeCount}"></property>
+		<property name="simultaneousBuildThrottle" value="${ms_jdbc.simultaneousBuildThrottle}"></property>
+		<property name="houseKeepingTestSql" value="${ms_jdbc.houseKeepingTestSql}"></property>
+		<property name="verbose" value="${ms_jdbc.verbose}"></property>
+		<property name="statistics" value="${ms_jdbc.statistics}"></property>
+		<property name="statisticsLogLevel" value="${ms_jdbc.statisticsLogLevel}"></property>
+	</bean>
+
+	<bean id="adminDataSource"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerDataSourceManager">
+		<property name="alias" value="admin_data"></property>
+		<property name="user" value="${admin_jdbc.username}" />
+		<property name="password" value="${admin_jdbc.password}" />
+		<property name="driver" value="${admin_jdbc.driverClassName}" />
+		<property name="driverUrl" value="${admin_jdbc.url}" />
+		<property name="maximumConnectionCount" value="${admin_jdbc.maximumConnectionCount}"></property>
+		<property name="maximumActiveTime" value="${admin_jdbc.maximumActiveTime}"></property>
+		<property name="prototypeCount" value="${admin_jdbc.prototypeCount}"></property>
+		<property name="simultaneousBuildThrottle" value="${admin_jdbc.simultaneousBuildThrottle}"></property>
+		<property name="houseKeepingTestSql" value="${admin_jdbc.houseKeepingTestSql}"></property>
+		<property name="verbose" value="${admin_jdbc.verbose}"></property>
+		<property name="statistics" value="${admin_jdbc.statistics}"></property>
+		<property name="statisticsLogLevel" value="${admin_jdbc.statisticsLogLevel}"></property>
+	</bean>
+
+	<bean id="rdDataSource"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerDataSourceManager">
+		<property name="alias" value="rd_data"></property>
+		<property name="user" value="${rd_jdbc.username}" />
+		<property name="password" value="${rd_jdbc.password}" />
+		<property name="driver" value="${rd_jdbc.driverClassName}" />
+		<property name="driverUrl" value="${rd_jdbc.url}" />
+		<property name="maximumConnectionCount" value="${rd_jdbc.maximumConnectionCount}"></property>
+		<property name="maximumActiveTime" value="${rd_jdbc.maximumActiveTime}"></property>
+		<property name="prototypeCount" value="${rd_jdbc.prototypeCount}"></property>
+		<property name="simultaneousBuildThrottle" value="${rd_jdbc.simultaneousBuildThrottle}"></property>
+		<property name="houseKeepingTestSql" value="${rd_jdbc.houseKeepingTestSql}"></property>
+		<property name="verbose" value="${rd_jdbc.verbose}"></property>
+		<property name="statistics" value="${rd_jdbc.statistics}"></property>
+		<property name="statisticsLogLevel" value="${rd_jdbc.statisticsLogLevel}"></property>
+	</bean>
+
+	<bean id="smsDataSource"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerDataSourceManager">
+		<property name="alias" value="sms_data"></property>
+		<property name="user" value="${sms_jdbc.username}" />
+		<property name="password" value="${sms_jdbc.password}" />
+		<property name="driver" value="${sms_jdbc.driverClassName}" />
+		<property name="driverUrl" value="${sms_jdbc.url}" />
+		<property name="maximumConnectionCount" value="${sms_jdbc.maximumConnectionCount}"></property>
+		<property name="maximumActiveTime" value="${sms_jdbc.maximumActiveTime}"></property>
+		<property name="prototypeCount" value="${sms_jdbc.prototypeCount}"></property>
+		<property name="simultaneousBuildThrottle" value="${sms_jdbc.simultaneousBuildThrottle}"></property>
+		<property name="houseKeepingTestSql" value="${sms_jdbc.houseKeepingTestSql}"></property>
+		<property name="verbose" value="${sms_jdbc.verbose}"></property>
+		<property name="statistics" value="${sms_jdbc.statistics}"></property>
+		<property name="statisticsLogLevel" value="${sms_jdbc.statisticsLogLevel}"></property>
+	</bean>
+	
+	
+	
+	<bean id="missionDataSource"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerDataSourceManager">
+		<property name="alias" value="mission_data"></property>
+		<property name="user" value="${mission_jdbc.username}" />
+		<property name="password" value="${mission_jdbc.password}" />
+		<property name="driver" value="${mission_jdbc.driverClassName}" />
+		<property name="driverUrl" value="${mission_jdbc.url}" />
+		<property name="maximumConnectionCount" value="${mission_jdbc.maximumConnectionCount}"></property>
+		<property name="maximumActiveTime" value="${mission_jdbc.maximumActiveTime}"></property>
+		<property name="prototypeCount" value="${mission_jdbc.prototypeCount}"></property>
+		<property name="simultaneousBuildThrottle" value="${mission_jdbc.simultaneousBuildThrottle}"></property>
+		<property name="houseKeepingTestSql" value="${mission_jdbc.houseKeepingTestSql}"></property>
+		<property name="verbose" value="${mission_jdbc.verbose}"></property>
+		<property name="statistics" value="${mission_jdbc.statistics}"></property>
+		<property name="statisticsLogLevel" value="${mission_jdbc.statisticsLogLevel}"></property>
+	</bean>
+	
+<!-- 	<bean id="seqDataSource" -->
+<!-- 		class="com.xiaodou.summer.source.jdbc.datasource.SummerDataSourceManager"> -->
+<!-- 		<property name="alias" value="xd_user_sequence"></property> -->
+<!-- 		<property name="user" value="${baseuser_jdbc.username}" /> -->
+<!-- 		<property name="password" value="${baseuser_jdbc.password}" /> -->
+<!-- 		<property name="driver" value="${baseuser_jdbc.driverClassName}" /> -->
+<!-- 		<property name="driverUrl" value="${baseuser_jdbc.url}" /> -->
+<!-- 		<property name="maximumConnectionCount" value="${baseuser_jdbc.maximumConnectionCount}"></property> -->
+<!-- 		<property name="maximumActiveTime" value="${baseuser_jdbc.maximumActiveTime}"></property> -->
+<!-- 		<property name="maximumConnectionLifetime" value="${baseuser_jdbc.maximumConnectionLifetime}"></property> -->
+<!-- 		<property name="prototypeCount" value="${baseuser_jdbc.prototypeCount}"></property> -->
+<!-- 		<property name="houseKeepingSleepTime" value="${baseuser_jdbc.houseKeepingSleepTime}"></property> -->
+<!-- 		<property name="simultaneousBuildThrottle" value="${baseuser_jdbc.simultaneousBuildThrottle}"></property> -->
+<!-- 		<property name="houseKeepingTestSql" value="${baseuser_jdbc.houseKeepingTestSql}"></property> -->
+<!-- 		<property name="verbose" value="${baseuser_jdbc.verbose}"></property> -->
+<!-- 		<property name="statistics" value="${baseuser_jdbc.statistics}"></property> -->
+<!-- 		<property name="statisticsLogLevel" value="${baseuser_jdbc.statisticsLogLevel}"></property> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="seqDao" class="com.xiaodou.summer.dao.jdbc.seq.SeqDao"> -->
+<!-- 		<property name="seqDataSource" ref ="summerDataSource"></property> -->
+<!-- 	</bean> -->
+	
+	<bean id="userBaseDataSourceManager"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerDataSourceManager">
+		<property name="alias" value="sms_data"></property>
+		<property name="user" value="${baseuser_jdbc.username}" />
+		<property name="password" value="${baseuser_jdbc.password}" />
+		<property name="driver" value="${baseuser_jdbc.driverClassName}" />
+		<property name="driverUrl" value="${baseuser_jdbc.url}" />
+		<property name="maximumConnectionCount" value="${baseuser_jdbc.maximumConnectionCount}"></property>
+		<property name="maximumActiveTime" value="${baseuser_jdbc.maximumActiveTime}"></property>
+		<property name="prototypeCount" value="${baseuser_jdbc.prototypeCount}"></property>
+		<property name="simultaneousBuildThrottle" value="${baseuser_jdbc.simultaneousBuildThrottle}"></property>
+		<property name="houseKeepingTestSql" value="${baseuser_jdbc.houseKeepingTestSql}"></property>
+		<property name="verbose" value="${baseuser_jdbc.verbose}"></property>
+		<property name="statistics" value="${baseuser_jdbc.statistics}"></property>
+		<property name="statisticsLogLevel" value="${baseuser_jdbc.statisticsLogLevel}"></property>
+	</bean>
+	
+	
+
+	<!--mybatis与Spring整合 开始 -->
+	<bean id="summerSqlSessionFactory" name="summerSqlSessionFactory"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerSqlSessionFactory">
+		<property name="configLocation" value="classpath:conf/core/SqlMapConfig.xml" />
+		<property name="dataSourceManager" ref="summerDataSource" />
+		<property name="plugins">
+			<array>
+				<ref bean="paginationInterceptor" />
+			</array>
+		</property>
+	</bean>
+
+	<bean id="adminSqlSessionFactory" name="adminSqlSessionFactory"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerSqlSessionFactory">
+		<property name="configLocation" value="classpath:conf/core/adminSqlMapConfig.xml" />
+		<property name="dataSourceManager" ref="adminDataSource" />
+		<property name="plugins">
+			<array>
+				<ref bean="paginationInterceptor" />
+			</array>
+		</property>
+	</bean>
+
+	<bean id="rdSqlSessionFactory" name="rdSqlSessionFactory"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerSqlSessionFactory">
+		<property name="configLocation" value="classpath:conf/core/rdSqlMapConfig.xml" />
+		<property name="dataSourceManager" ref="rdDataSource" />
+		<property name="plugins">
+			<array>
+				<ref bean="paginationInterceptor" />
+			</array>
+		</property>
+	</bean>
+
+	<bean id="smsSqlSessionFactory" name="smsSqlSessionFactory"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerSqlSessionFactory">
+		<property name="configLocation" value="classpath:conf/core/smsSqlMapConfig.xml" />
+		<property name="dataSourceManager" ref="smsDataSource" />
+		<property name="plugins">
+			<array>
+				<ref bean="paginationInterceptor" />
+			</array>
+		</property>
+	</bean>
+	
+	<bean id="missionSqlSessionFactory" name="missionSqlSessionFactory"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerSqlSessionFactory">
+		<property name="configLocation" value="classpath:conf/core/missionSqlMapConfig.xml" />
+		<property name="dataSourceManager" ref="missionDataSource" />
+		<property name="plugins">
+			<array>
+				<ref bean="paginationInterceptor" />
+			</array>
+		</property>
+	</bean>
+	
+	<bean id="userBaseSqlSessionFactory" name="userBaseSqlSessionFactory"
+		class="com.xiaodou.summer.source.jdbc.datasource.SummerSqlSessionFactory">
+		<property name="configLocation" value="classpath:conf/core/userBaseSqlMapConfig.xml" />
+		<property name="dataSourceManager" ref="userBaseDataSourceManager" />
+		<property name="plugins">
+			<array>
+				<ref bean="paginationInterceptor" />
+			</array>
+		</property>
+	</bean>
+	
+	
+	<!--mybatis与Spring整合 结束 -->
+	<!--数据库配置 -->
+	<bean id="paginationInterceptor" class="com.xiaodou.summer.dao.pagination.PaginationInterceptor">
+		<property name="dialect">
+			<bean class="com.xiaodou.summer.dao.pagination.dialect.MySQLDialect" />
+		</property>
+		<property name="paginationSqlRegEx" value=".*ByCond"></property>
+	</bean>
+	
+	
+	
+	<bean id="seqDao" class="com.xiaodou.summer.dao.jdbc.seq.SeqDao">
+		<property name="seqDataSource" ref="userBaseDataSourceManager"></property>
+	</bean>
+</beans>

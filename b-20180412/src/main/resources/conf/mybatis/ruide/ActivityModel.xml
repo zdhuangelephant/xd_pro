@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ActivityModel">
+	<resultMap id="BaseResultMap" type="com.xiaodou.ms.model.ruide.ActivityModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+<result column="title" property="title" jdbcType="VARCHAR" />
+<result column="subtitle" property="subtitle" jdbcType="VARCHAR" />
+<result column="activity_time" property="activityTime" jdbcType="TIMESTAMP" />
+<result column="deadline_time" property="deadlineTime" jdbcType="TIMESTAMP" />
+<result column="activity_place" property="activityPlace" jdbcType="VARCHAR" />
+<result column="tutor_id" property="tutorId" jdbcType="BIGINT" />
+<result column="content" property="content" jdbcType="VARCHAR" />
+<result column="content_image" property="contentImage" jdbcType="VARCHAR" />
+<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+	</resultMap>
+	<sql id="base_column">id, title, subtitle, activity_time, deadline_time, activity_place, tutor_id, content, content_image, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.ms.model.ruide.ActivityModel">
+		select
+		<include refid="base_column" />
+		from xd_rd_activity
+		where id = #{id,jdbcType=BIGINT}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_rd_activity
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.ms.model.ruide.ActivityModel"  >
+		insert into xd_rd_activity
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+<if test="title != null">title,</if>
+<if test="subtitle != null">subtitle,</if>
+<if test="activityTime != null">activity_time,</if>
+<if test="deadlineTime != null">deadline_time,</if>
+<if test="activityPlace != null">activity_place,</if>
+<if test="tutorId != null">tutor_id,</if>
+<if test="content != null">content,</if>
+<if test="contentImage != null">content_image,</if>
+<if test="createTime != null">create_time,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+<if test="title != null">#{title,jdbcType=VARCHAR},</if>
+<if test="subtitle != null">#{subtitle,jdbcType=VARCHAR},</if>
+<if test="activityTime != null">#{activityTime,jdbcType=TIMESTAMP},</if>
+<if test="deadlineTime != null">#{deadlineTime,jdbcType=TIMESTAMP},</if>
+<if test="activityPlace != null">#{activityPlace,jdbcType=VARCHAR},</if>
+<if test="tutorId != null">#{tutorId,jdbcType=BIGINT},</if>
+<if test="content != null">#{content,jdbcType=VARCHAR},</if>
+<if test="contentImage != null">#{contentImage,jdbcType=VARCHAR},</if>
+<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.ms.model.ruide.ActivityModel">
+		update xd_rd_activity
+		<set>
+			<if test="value != null and value.title != null">title = #{value.title,jdbcType=VARCHAR},</if>
+<if test="value != null and value.subtitle != null">subtitle = #{value.subtitle,jdbcType=VARCHAR},</if>
+<if test="value != null and value.activityTime != null">activity_time = #{value.activityTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.deadlineTime != null">deadline_time = #{value.deadlineTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.activityPlace != null">activity_place = #{value.activityPlace,jdbcType=VARCHAR},</if>
+<if test="value != null and value.tutorId != null">tutor_id = #{value.tutorId,jdbcType=BIGINT},</if>
+<if test="value != null and value.content != null">content = #{value.content,jdbcType=VARCHAR},</if>
+<if test="value != null and value.contentImage != null">content_image = #{value.contentImage,jdbcType=VARCHAR},</if>
+
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.ms.model.ruide.ActivityModel">
+		update xd_rd_activity
+		<set>
+			<if test="value != null and value.title != null">title = #{value.title,jdbcType=VARCHAR},</if>
+<if test="value != null and value.subtitle != null">subtitle = #{value.subtitle,jdbcType=VARCHAR},</if>
+<if test="value != null and value.activityTime != null">activity_time = #{value.activityTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.deadlineTime != null">deadline_time = #{value.deadlineTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.activityPlace != null">activity_place = #{value.activityPlace,jdbcType=VARCHAR},</if>
+<if test="value != null and value.tutorId != null">tutor_id = #{value.tutorId,jdbcType=BIGINT},</if>
+<if test="value != null and value.content != null">content = #{value.content,jdbcType=VARCHAR},</if>
+<if test="value != null and value.contentImage != null">content_image = #{value.contentImage,jdbcType=VARCHAR},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.ms.model.ruide.ActivityModel">
+		delete from xd_rd_activity
+		where id = #{id,jdbcType=BIGINT}
+
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_rd_activity
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+<if test="output != null and output.title != null">title,</if>
+<if test="output != null and output.subtitle != null">subtitle,</if>
+<if test="output != null and output.activityTime != null">activity_time,</if>
+<if test="output != null and output.deadlineTime != null">deadline_time,</if>
+<if test="output != null and output.activityPlace != null">activity_place,</if>
+<if test="output != null and output.tutorId != null">tutor_id,</if>
+<if test="output != null and output.content != null">content,</if>
+<if test="output != null and output.contentImage != null">content_image,</if>
+<if test="output != null and output.createTime != null">create_time,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.idLower != null">and id &gt; #{input.idLower}</if>
+<if test="input != null and input.idUpper != null">and id &lt; #{input.idUpper}</if>
+<if test="input != null and input.id != null">and id=#{input.id}</if>
+<if test="input != null and input.titleLike != null">and title like concat('%',#{input.titleLike},'%')</if>
+<if test="input != null and input.title != null">and title=#{input.title}</if>
+<if test="input != null and input.subtitle != null">and subtitle=#{input.subtitle}</if>
+<if test="input != null and input.activityTime != null">and activity_time=#{input.activityTime}</if>
+<if test="input != null and input.deadlineTime != null">and deadline_time=#{input.deadlineTime}</if>
+<if test="input != null and input.activityPlace != null">and activity_place=#{input.activityPlace}</if>
+<if test="input != null and input.tutorId != null">and tutor_id=#{input.tutorId}</if>
+<if test="input != null and input.content != null">and content=#{input.content}</if>
+<if test="input != null and input.contentImage != null">and content_image=#{input.contentImage}</if>
+<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+<if test="sort != null and sort.title != null and ( sort.title == 'ASC' or sort.title == 'DESC' )">title ${sort.title},</if>
+<if test="sort != null and sort.subtitle != null and ( sort.subtitle == 'ASC' or sort.subtitle == 'DESC' )">subtitle ${sort.subtitle},</if>
+<if test="sort != null and sort.activityTime != null and ( sort.activityTime == 'ASC' or sort.activityTime == 'DESC' )">activity_time ${sort.activityTime},</if>
+<if test="sort != null and sort.deadlineTime != null and ( sort.deadlineTime == 'ASC' or sort.deadlineTime == 'DESC' )">deadline_time ${sort.deadlineTime},</if>
+<if test="sort != null and sort.activityPlace != null and ( sort.activityPlace == 'ASC' or sort.activityPlace == 'DESC' )">activity_place ${sort.activityPlace},</if>
+<if test="sort != null and sort.tutorId != null and ( sort.tutorId == 'ASC' or sort.tutorId == 'DESC' )">tutor_id ${sort.tutorId},</if>
+<if test="sort != null and sort.content != null and ( sort.content == 'ASC' or sort.content == 'DESC' )">content ${sort.content},</if>
+<if test="sort != null and sort.contentImage != null and ( sort.contentImage == 'ASC' or sort.contentImage == 'DESC' )">content_image ${sort.contentImage},</if>
+<if test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+
+		</trim>
+	</sql>
+</mapper>

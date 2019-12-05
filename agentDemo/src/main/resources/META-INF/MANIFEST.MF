@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Premain-Class: com.xiaodou.agent.MyAgent
+Can-Redefine-Classes: true
+Boot-Class-Path: javassist-3.12.1-GA.jar
+

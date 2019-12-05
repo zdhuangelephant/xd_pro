@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CourseResourceMicroVideoModel">
+	<resultMap id="BaseResultMap"
+		type="com.xiaodou.ms.model.course.CourseResourceMicroVideoModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="course_id" property="courseId" jdbcType="BIGINT" />
+		<result column="chapter_id" property="chapterId" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="time_length_minute" property="timeLengthMinute"
+			jdbcType="INTEGER" />
+		<result column="time_length_second" property="timeLengthSecond"
+			jdbcType="INTEGER" />
+		<result column="size" property="size" jdbcType="DOUBLE" />
+		<result column="detail" property="detail" jdbcType="VARCHAR" />
+		<result column="key_point" property="keyPoint" jdbcType="VARCHAR" />
+		<result column="chapter_name" property="chapterName" jdbcType="VARCHAR" 
+			/>
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="video_cover" property="videoCover" jdbcType="VARCHAR" />
+		<result column="list_order" property="listOrder" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="base_column">id, course_id, chapter_id, name, url, time_length_minute,
+		time_length_second, size, detail, key_point, status,
+		video_cover,
+		list_order
+	</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.ms.model.course.CourseResourceMicroVideoModel">
+		select
+		<include refid="base_column" />
+		from xd_course_resource_micro_video
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_course_resource_micro_video
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	
+	<select id="findEntityListQueryMicroVideoByCond" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		xd_course_resource_micro_video.id,
+		xd_course_resource_micro_video.chapter_id,
+		xd_course_resource_micro_video.course_id,
+		xd_course_resource_micro_video.name,
+		xd_course_resource_micro_video.detail,
+		xd_course_resource_micro_video.url,
+		xd_course_resource_micro_video.time_length_minute,
+		xd_course_resource_micro_video.time_length_second,
+		xd_course_resource_micro_video.size,
+		xd_course_resource_micro_video.key_point,
+		xd_course_resource_micro_video.status,
+		xd_course_resource_micro_video.video_cover,
+		xd_course_resource_micro_video.list_order,
+		xd_course_chapter.name chapter_name
+		from xd_course_resource_micro_video
+		left join xd_course_chapter on
+		xd_course_resource_micro_video.chapter_id =
+		xd_course_chapter.id
+		<where>
+			<if test="input != null and input.id != null">and xd_course_resource_micro_video.id =#{input.id}</if>
+			<if test="input != null and input.chapterId != null">and xd_course_resource_micro_video.chapter_id
+				=#{input.chapterId}
+			</if>
+			<if test="input != null and input.chapterIds != null">
+				and xd_course_resource_micro_video.chapter_id in
+				<foreach collection="input.chapterIds" open="(" close=")"
+					separator="," index="index" item="item">
+					${item}
+				</foreach>
+			</if>
+			<if test="input != null and input.name != null">and xd_course_resource_micro_video.name =#{input.name}</if>
+			<if test="input != null and input.detail != null">and xd_course_resource_micro_video.detail =#{input.detail}</if>
+			<if test="input != null and input.videoCover != null">and xd_course_resource_micro_video.video_cover =#{input.videoCover}</if>
+			<if test="input != null and input.listOrder != null">and xd_course_resource_micro_video.list_order =#{input.listOrder}</if>
+			<if test="input != null and input.url != null">and xd_course_resource_micro_video.url
+				=#{input.url}
+			</if>
+			<if test="input != null and input.keyPoint != null">and xd_course_resource_micro_video.key_point
+				=#{input.keyPoint}
+			</if>
+			<if test="input != null and input.status != null">and xd_course_resource_micro_video.status
+				=#{input.status}
+			</if>
+		</where>
+		<include refid="dynamic_limit" />
+	</select>
+	
+	
+	<insert id="addEntity"
+		parameterType="com.xiaodou.ms.model.course.CourseResourceMicroVideoModel">
+		insert into xd_course_resource_micro_video
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="courseId != null">course_id,</if>
+			<if test="chapterId != null">chapter_id,</if>
+			<if test="name != null">name,</if>
+			<if test="url != null">url,</if>
+			<if test="timeLengthMinute != null">time_length_minute,</if>
+			<if test="timeLengthSecond != null">time_length_second,</if>
+			<if test="size != null">size,</if>
+			<if test="detail != null">detail,</if>
+			<if test="keyPoint != null">key_point,</if>
+			<!-- <if test="chapterName != null">chapter_name,</if> -->
+			<if test="status != null">status,</if>
+			<if test="videoCover != null">video_cover,</if>
+			<if test="listOrder != null">list_order,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+			<if test="courseId != null">#{courseId,jdbcType=BIGINT},</if>
+			<if test="chapterId != null">#{chapterId,jdbcType=BIGINT},</if>
+			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+			<if test="url != null">#{url,jdbcType=VARCHAR},</if>
+			<if test="timeLengthMinute != null">#{timeLengthMinute,jdbcType=INTEGER},</if>
+			<if test="timeLengthSecond != null">#{timeLengthSecond,jdbcType=INTEGER},</if>
+			<if test="size != null">#{size,jdbcType=DOUBLE},</if>
+			<if test="detail != null">#{detail,jdbcType=VARCHAR},</if>
+			<if test="keyPoint != null">#{keyPoint,jdbcType=VARCHAR},</if>
+			<!-- <if test="chapterName != null">#{chapterName,jdbcType=VARCHAR},</if> -->
+			<if test="status != null">#{status,jdbcType=INTEGER},</if>
+			<if test="videoCover != null">#{videoCover,jdbcType=VARCHAR},</if>
+			<if test="listOrder != null">#{listOrder,jdbcType=INTEGER},</if>
+		</trim>
+	</insert>
+	<update id="updateEntityById"
+		parameterType="com.xiaodou.ms.model.course.CourseResourceMicroVideoModel">
+		update xd_course_resource_micro_video
+		<set>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.url != null">url = #{value.url,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.timeLengthMinute != null">time_length_minute =
+				#{value.timeLengthMinute,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.timeLengthSecond != null">time_length_second =
+				#{value.timeLengthSecond,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.size != null">size = #{value.size,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.detail != null">detail = #{value.detail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.keyPoint != null">key_point = #{value.keyPoint,jdbcType=VARCHAR},</if>
+			<!-- <if test="value != null and value.chapterName != null">chapter_name 
+				= #{value.chapterName,jdbcType=VARCHAR},</if> -->
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=INTEGER},</if>
+			<if test="value != null and value.videoCover != null">video_cover = #{value.videoCover,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.listOrder != null">list_order = #{value.listOrder,jdbcType=INTEGER},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateEntity"
+		parameterType="com.xiaodou.ms.model.course.CourseResourceMicroVideoModel">
+		update xd_course_resource_micro_video
+		<set>
+			<if test="value != null and value.courseId != null">course_id = #{value.courseId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId,jdbcType=BIGINT},</if>
+			<if test="value != null and value.name != null">name = #{value.name,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.url != null">url = #{value.url,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.timeLengthMinute != null">time_length_minute =
+				#{value.timeLengthMinute,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.timeLengthSecond != null">time_length_second =
+				#{value.timeLengthSecond,jdbcType=INTEGER},
+			</if>
+			<if test="value != null and value.size != null">size = #{value.size,jdbcType=DOUBLE},</if>
+			<if test="value != null and value.detail != null">detail = #{value.detail,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.keyPoint != null">key_point = #{value.keyPoint,jdbcType=VARCHAR},</if>
+			<!-- <if test="value != null and value.chapterName != null">chapter_name 
+				= #{value.chapterName,jdbcType=VARCHAR},</if> -->
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=INTEGER},</if>
+			<if test="value != null and value.videoCover != null">video_cover = #{value.videoCover,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.listOrder != null">list_order = #{value.listOrder,jdbcType=INTEGER},</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById"
+		parameterType="com.xiaodou.ms.model.course.CourseResourceMicroVideoModel">
+		delete from xd_course_resource_micro_video
+		where id =
+		#{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_course_resource_micro_video
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.courseId != null">course_id,</if>
+			<if test="output != null and output.chapterId != null">chapter_id,</if>
+			<if test="output != null and output.name != null">name,</if>
+			<if test="output != null and output.url != null">url,</if>
+			<if test="output != null and output.timeLengthMinute != null">time_length_minute,</if>
+			<if test="output != null and output.timeLengthSecond != null">time_length_second,</if>
+			<if test="output != null and output.size != null">size,</if>
+			<if test="output != null and output.detail != null">detail,</if>
+			<if test="output != null and output.keyPoint != null">key_point,</if>
+			<!-- <if test="output != null and output.chapterName != null">chapter_name,</if> -->
+			<if test="output != null and output.status != null">status,</if>
+			<if test="output != null and output.videoCover != null">video_cover,</if>
+			<if test="output != null and output.listOrder != null">list_order,</if>
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id=#{input.id}</if>
+			<if test="input != null and input.courseId != null">and course_id=#{input.courseId}</if>
+			<if test="input != null and input.chapterId != null">and chapter_id=#{input.chapterId}</if>
+			<if test="input != null and input.name != null">and name=#{input.name}</if>
+			<if test="input != null and input.url != null">and url=#{input.url}</if>
+			<if test="input != null and input.timeLengthMinute != null">and time_length_minute=#{input.timeLengthMinute}</if>
+			<if test="input != null and input.timeLengthSecond != null">and time_length_second=#{input.timeLengthSecond}</if>
+			<if test="input != null and input.size != null">and size=#{input.size}</if>
+			<if test="input != null and input.detail != null">and detail=#{input.detail}</if>
+			<if test="input != null and input.keyPoint != null">and key_point=#{input.keyPoint}</if>
+			<!-- <if test="input != null and input.chapterName != null">and chapter_name=#{input.chapterName}</if> -->
+			<if test="input != null and input.status != null">and status=#{input.status}</if>
+			<if test="input != null and input.videoCover != null">and video_cover=#{input.videoCover}</if>
+			<if test="input != null and input.listOrder != null">and list_order=#{input.listOrder}</if>
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+			<if
+				test="sort != null and sort.courseId != null and ( sort.courseId == 'ASC' or sort.courseId == 'DESC' )">course_id ${sort.courseId},</if>
+			<if
+				test="sort != null and sort.chapterId != null and ( sort.chapterId == 'ASC' or sort.chapterId == 'DESC' )">chapter_id ${sort.chapterId},</if>
+			<if
+				test="sort != null and sort.name != null and ( sort.name == 'ASC' or sort.name == 'DESC' )">name ${sort.name},</if>
+			<if
+				test="sort != null and sort.url != null and ( sort.url == 'ASC' or sort.url == 'DESC' )">url ${sort.url},</if>
+			<if
+				test="sort != null and sort.timeLengthMinute != null and ( sort.timeLengthMinute == 'ASC' or sort.timeLengthMinute == 'DESC' )">time_length_minute ${sort.timeLengthMinute},</if>
+			<if
+				test="sort != null and sort.timeLengthSecond != null and ( sort.timeLengthSecond == 'ASC' or sort.timeLengthSecond == 'DESC' )">time_length_second ${sort.timeLengthSecond},</if>
+			<if
+				test="sort != null and sort.size != null and ( sort.size == 'ASC' or sort.size == 'DESC' )">size ${sort.size},</if>
+			<if
+				test="sort != null and sort.detail != null and ( sort.detail == 'ASC' or sort.detail == 'DESC' )">detail ${sort.detail},</if>
+			<if
+				test="sort != null and sort.keyPoint != null and ( sort.keyPoint == 'ASC' or sort.keyPoint == 'DESC' )">key_point ${sort.keyPoint},</if>
+			<!-- <if -->
+			<!-- test="sort != null and sort.chapterName != null and ( sort.chapterName 
+				== 'ASC' or sort.chapterName == 'DESC' )">chapter_name ${sort.chapterName},</if> -->
+			<if
+				test="sort != null and sort.status != null and ( sort.status == 'ASC' or sort.status == 'DESC' )">status ${sort.status},</if>
+			<if
+				test="sort != null and sort.videoCover != null and ( sort.videoCover == 'ASC' or sort.videoCover == 'DESC' )">video_cover ${sort.videoCover},</if>
+			<if
+				test="sort != null and sort.listOrder != null and ( sort.listOrder == 'ASC' or sort.listOrder == 'DESC' )">list_order ${sort.listOrder},</if>
+		</trim>
+	</sql>
+</mapper>

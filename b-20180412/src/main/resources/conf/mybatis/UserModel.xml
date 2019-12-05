@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserModel">
+
+    <resultMap id="BaseResultMap" type="UserModel">
+        <id column="id" property="id"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="portrait" property="portrait"/>
+        <result column="gender" property="gender"/>
+        <result column="age" property="age"/>
+        <result column="address" property="address"/>
+        <result column="token_time" property="tokenTime"/>
+        <result column="token" property="token"/>
+        <result column="create_time" property="createTime"/>
+        <result column="used_device_id" property="usedDeviceId"/>
+        <result column="latest_device_ip" property="latestDeviceIp"/>
+        <result column="module_info" property="moduleInfo"/>
+        <result column="forum_title" property="forumTitle"/>
+        <result column="forum_id" property="forumId"/>
+        <result column="forum_type" property="forumType"/>
+        <result column="forum_classify" property="forumClassify"/>
+        <result column="xd_unique_id" property="xdUniqueId"/>
+        <result column="user_type" property="userType"/>
+        
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">nick_name,portrait,gender,age,address,token_time,
+        token,create_time,used_device_id,latest_device_ip,module_info,user_type</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="nickName != null">nick_name,</if>
+            <if test="portrait != null">portrait,</if>
+            <if test="gender != null">gender,</if>
+            <if test="age != null">age,</if>
+            <if test="address != null">address,</if>
+            <if test="tokenTime != null">token_time,</if>
+            <if test="token != null">token,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="usedDeviceId != null">used_device_id,</if>
+            <if test="latestDeviceIp != null">latest_device_ip,</if>
+            <if test="moduleInfo != null">module_info,</if>
+            <if test="xdUniqueId != null">xd_unique_id,</if>
+            <if test="userType != null">user_type,</if>
+           
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="nickName != null">#{nickName},</if>
+            <if test="portrait != null">#{portrait},</if>
+            <if test="gender != null">#{gender},</if>
+            <if test="age != null">#{age},</if>
+            <if test="address != null">#{address},</if>
+            <if test="tokenTime != null">#{tokenTime},</if>
+            <if test="token != null">#{token},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="usedDeviceId != null">#{usedDeviceId},</if>
+            <if test="latestDeviceIp != null">#{latestDeviceIp},</if>
+            <if test="moduleInfo != null">#{moduleInfo},</if>
+            <if test="xdUniqueId != null">#{xdUniqueId},</if>
+            <if test="userType != null">#{userType},</if>
+            
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="UserModel">
+        insert into xd_user
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update xd_user
+        <set>
+            <if test="value != null and value.nickName != null">nick_name = #{value.nickName},</if>
+            <if test="value != null and value.portrait != null">portrait = #{value.portrait},</if>
+            <if test="value != null and value.gender != null">gender = #{value.gender},</if>
+            <if test="value != null and value.age != null">age = #{value.age},</if>
+            <if test="value != null and value.address != null">address = #{value.address},</if>
+            <if test="value != null and value.tokenTime != null">token_time = #{value.tokenTime},</if>
+            <if test="value != null and value.token != null">token = #{value.token},</if>
+            <if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+            <if test="value != null and value.usedDeviceId != null">used_device_id = #{value.usedDeviceId},</if>
+            <if test="value != null and value.latestDeviceIp != null">latest_device_ip = #{value.latestDeviceIp},</if>
+            <if test="value != null and value.moduleInfo != null">module_info = #{value.moduleInfo},</if>
+            <if test="value != null and value.xdUniqueId != null">xd_unique_id = #{value.xdUniqueId},</if>
+            <if test="value != null and value.userType != null">user_type = #{value.userType},</if>
+            
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+    
+    
+    <update id="updateEntityById" parameterType="UserModel">
+		update xd_user
+		<set>
+			<if test="value != null and value.nickName != null">nick_name = #{value.nickName},</if>
+            <if test="value != null and value.portrait != null">portrait = #{value.portrait},</if>
+            <if test="value != null and value.gender != null">gender = #{value.gender},</if>
+            <if test="value != null and value.age != null">age = #{value.age},</if>
+            <if test="value != null and value.address != null">address = #{value.address},</if>
+            <if test="value != null and value.tokenTime != null">token_time = #{value.tokenTime},</if>
+            <if test="value != null and value.token != null">token = #{value.token},</if>
+            <if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+            <if test="value != null and value.usedDeviceId != null">used_device_id = #{value.usedDeviceId},</if>
+            <if test="value != null and value.latestDeviceIp != null">latest_device_ip = #{value.latestDeviceIp},</if>
+            <if test="value != null and value.moduleInfo != null">module_info = #{value.moduleInfo},</if>
+            <if test="value != null and value.xdUniqueId != null">xd_unique_id = #{value.xdUniqueId},</if>
+            <if test="value != null and value.userType != null">user_type = #{value.userType},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_user
+<!--         left join xd_course_product_module on xd_user.module = xd_course_product_module.module -->
+        <include refid="dynamic_where"/>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="UserModel" resultMap="BaseResultMap">
+        select * from xd_user where id = #{id};
+    </select>
+    <!-- 根据栏目级联查询 -->
+     <select id="cascadeQueryProduct" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_user
+<!--         left join xd_course_product_module on xd_user.module = xd_course_product_module.module -->
+        <include refid="dynamic_where"/>
+    </select>
+    
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from xd_user
+        <include refid="dynamic_where" />
+    </delete>
+    
+    <delete id="deleteEntityById" parameterType="UserModel">
+		delete from xd_user
+		where id = #{id,jdbcType=BIGINT}
+
+	</delete>
+	
+	<!-- 定时任务查询接口 -->
+	<select id="findAvailableListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select 
+			DISTINCT(xd_user.xd_unique_id)
+		from xd_resource_list 
+			LEFT JOIN xd_course_product 
+				on xd_resource_list.forum_tag = xd_course_product.course_code
+					LEFT JOIN xd_course_product_order_record 
+						on xd_course_product_order_record.product_id = xd_course_product.id
+							RIGHT JOIN xd_user 
+								on xd_user.id = xd_course_product_order_record.uid
+		where to_days(xd_resource_list.create_time) = to_days(now());
+	</select>
+	
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and xd_user.id =#{input.id}</if>
+            <if test="input != null and input.nickName != null">and xd_user.nick_name =#{input.nickName}</if>
+            <if test="input != null and input.portrait != null">and xd_user.portrait =#{input.portrait}</if>
+            <if test="input != null and input.gender != null">and xd_user.gender =#{input.gender}</if>
+            <if test="input != null and input.age != null">and xd_user.age =#{input.age}</if>
+            <if test="input != null and input.address != null">and xd_user.address =#{input.address}</if>
+            <if test="input != null and input.tokenTime != null">and xd_user.token_time =#{input.tokenTime}</if>
+            <if test="input != null and input.token != null">and xd_user.token =#{input.token}</if>
+            <if test="input != null and input.createTime != null">and xd_user.create_time =#{input.createTime}</if>
+            <if test="input != null and input.usedDeviceId != null">and xd_user.used_device_id =#{input.usedDeviceId}</if>
+            <if test="input != null and input.latestDeviceIp != null">and xd_user.latest_device_ip =#{input.latestDeviceIp}</if>
+            <if test="input != null and input.moduleInfo != null">and xd_user.module_info =#{input.moduleInfo}</if>
+            <if test="input != null and input.xdUniqueId != null">and xd_unique_id =#{input.xdUniqueId}</if>
+            <if test="input != null and input.userType != null">and user_type =#{input.userType}</if>
+            
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">xd_user.id,</if>
+            <if test="output != null and output.nickName != null">xd_user.nick_name,</if>
+            <if test="output != null and output.portrait != null">xd_user.portrait,</if>
+            <if test="output != null and output.gender != null">xd_user.gender,</if>
+            <if test="output != null and output.age != null">xd_user.age,</if>
+            <if test="output != null and output.address != null">xd_user.address,</if>
+            <if test="output != null and output.tokenTime != null">xd_user.token_time,</if>
+            <if test="output != null and output.token != null">xd_user.token,</if>
+            <if test="output != null and output.createTime != null">xd_user.create_time,</if>
+            <if test="output != null and output.usedDeviceId != null">xd_user.used_device_id,</if>
+            <if test="output != null and output.latestDeviceIp != null">xd_user.latest_device_ip,</if>
+            <if test="output != null and output.moduleInfo != null">xd_user.module_info,</if>
+            <if test="output != null and output.xdUniqueId != null">xd_unique_id,</if>
+            <if test="output != null and output.userType != null">user_type,</if>
+            
+        </trim>
+    </sql>
+
+
+</mapper>

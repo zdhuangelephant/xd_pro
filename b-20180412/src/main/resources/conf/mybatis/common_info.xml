@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon Aug 20 17:02:07 
+	CST 2012 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CommonInfo">
+
+	<resultMap id="BaseResultMap" type="CommonInfo">
+		<id column="id" jdbcType="SMALLINT" property="id" />
+		<result column="info_type" jdbcType="VARCHAR" property="infoType" />
+		<result column="info_code" jdbcType="VARCHAR" property="infoCode" />
+		<result column="info_version" jdbcType="VARCHAR" property="infoVersion" />
+	</resultMap>
+
+	<select id="findEntityListByCond" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select * from xd_common_info
+		<where>
+			<if test="ids != null">
+				and id in
+				<foreach collection="ids" open="(" close=")" item="item"
+					separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="id != null">
+				and id = #{id,jdbcType=SMALLINT}
+			</if>
+			<if test="infoType != null">
+				and info_type = #{infoType,jdbcType=VARCHAR}
+			</if>
+			<if test="infoCode != null">
+				and info_code = #{infoCode,jdbcType=VARCHAR}
+			</if>
+			<if test="infoVersion != null">
+				and info_version = #{infoVersion,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<select id="findEntityByInfoCode" parameterType="CommonInfo"
+		resultMap="BaseResultMap">
+		select * from xd_common_info where info_code =
+		#{infoCode,jdbcType=VARCHAR} <!-- and module = #{module,jdbcType=VARCHAR} -->
+	</select>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="CommonInfo">
+		select
+		*
+		from xd_common_info
+		where id =
+		#{id,jdbcType=INTEGER}
+	</select>
+
+	<update id="updateEntityById" parameterType="CommonInfo">
+		update xd_common_info
+		<set>
+			<if test="value != null and value.infoType != null">info_type = #{value.infoType,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.infoCode != null">info_code = #{value.infoCode,jdbcType=VARCHAR},</if>
+			<if test="value != null and value.infoVersion != null">info_version = #{value.infoVersion,jdbcType=VARCHAR},
+			</if>
+
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+
+	<update id="updateEntityByInfoCode" parameterType="CommonInfo">
+		update xd_common_info
+		<set>
+			<if test="infoType != null">info_type = #{infoType,jdbcType=VARCHAR},</if>
+			<if test="infoVersion != null">info_version = #{infoVersion,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where info_code =
+		#{infoCode,jdbcType=VARCHAR} 
+<!-- 		and module = #{module,jdbcType=VARCHAR} -->
+	</update>
+
+</mapper>

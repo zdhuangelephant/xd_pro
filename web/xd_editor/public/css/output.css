@@ -1,0 +1,466 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    width: 100%;
+    /*height: 100%;*/
+    font-size: 62.5%;
+    position: relative;
+    /*overflow-x: hidden;*/
+}
+
+body {
+    font-family: "微软雅黑";
+    width: 100%;
+    /*height: 100%;*/
+    margin: 0 auto;
+    /*background: #f5f5f5;*/
+    /*overflow-x: hidden;*/
+    position: relative;
+}
+
+strong {
+    font-weight: bold;
+}
+
+.reading {
+    color: orange;
+}
+
+.main {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    background: #f5f5f5;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    font-size: 9px;
+}
+
+.back {
+    background: #f5f5f5;
+    position: absolute;
+    clear: both;
+    width: 100%;
+    z-index: 10;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    top: 0;
+}
+
+.top {
+    position: relative;
+    clear: both;
+    height: 42px;
+    width: 90%;
+    margin: 0 auto;
+    color: #ffffff;
+    text-align: center;
+    font-size: 1.7em;
+    margin-top: 18px;
+}
+
+.top .topLeft {
+    position: absolute;
+    left: 0;
+    width: 17px;
+    height: 36px;
+    background: url("../images/left.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.top .topRight {
+    position: absolute;
+    right: 0;
+    width: 17px;
+    height: 36px;
+    background: url("../images/right_03.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.top .topMain {
+    background: #4397ed;
+    position: absolute;
+    /*left: 24px;*/
+    /*right:24px;*/
+    left: 8%;
+    right: 8%;
+    margin: 0 auto;
+    /*width: 30px;*/
+    top: 0px;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 8px;
+    padding-bottom: 3px;
+    min-height: 26px;
+    border-radius: 5px;
+}
+
+.top .topMain span {
+    /*display:none;*/
+    /*opacity:0;*/
+}
+
+.round {
+    /*rotation: 90deg;*/
+}
+
+.exam {
+    position: relative;
+    width: 90%;
+    left: 5%;
+    height: 30px;
+    color: #ffffff;
+    font-size: 1.5em;
+    background: rgba(250, 250, 250, 0.1);
+    border-radius: 4px;
+    margin-top: 5%;
+}
+
+.exam .type {
+    position: absolute;
+    left: 50px;
+    line-height: 30px;
+}
+
+.exam .examMove {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    height: 30px;
+    width: 100%;
+    top: 0;
+    opacity: 1;
+    background: #4397ed;
+
+}
+
+.exam .cartoon {
+    position: absolute;
+    width: 48px;
+    height: 24px;
+    top: 3px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.exam .move2 {
+    /*width: 30px ;*/
+}
+
+.exam .move2 .type {
+    /*display: none;*/
+}
+
+.exam .move2 .cartoon {
+    /*display: none;*/
+}
+
+.exam .examTitle {
+    width: 42px;
+    height: 24px;
+    border-radius: 3px;
+    text-align: center;
+    letter-spacing: 1px;
+    background: #ffffff;
+    color: #4397ed;
+    line-height: 24px;
+    margin: 0 auto;
+}
+
+.exam .examMain {
+    float: left;
+    height: 30px;
+    width: 78%;
+    padding-left: 5px;
+    line-height: 30px;
+    color: #ffffff;
+    margin-left: 8px;
+    font-size: 1.5em;
+    border-radius: 4px;
+}
+
+.chapter {
+    position: absolute;
+    top: 130%;
+    width: 90%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    height: 30px;
+    background: rgba(250, 250, 250, 0.1);
+    border-radius: 16px;
+}
+
+.chapter .chapterTitle {
+    width: 42px;
+    height: 24px;
+    background: #ed9514;
+    color: #ffffff;
+    line-height: 24px;
+    border-radius: 16px;
+    text-align: center;
+    margin-left: 3px;
+    margin-top: 3px;
+    font-size: 1.3em;
+    letter-spacing: 1px;
+    float: left;
+}
+
+.chapter p {
+    float: left;
+    line-height: 30px;
+    color: #efd82b;
+    margin-left: 10px;
+}
+
+.picture {
+    width: 80%;
+    /*padding-top: 22%;*/
+    margin: 0 auto;
+    margin-top: 5%;
+    /*position: relative;*/
+}
+
+.picture img {
+    /*position: absolute;*/
+    width: 100%;
+    top: 0;
+    opacity: 1;
+}
+
+.detail {
+    width: 100%;
+    margin-top: 5%;
+    margin-left: 0;
+    opacity: 1;
+}
+
+.point {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 15px;
+    padding: 10px 4%;
+    color: #4b4b4b;
+    clear: both;
+}
+
+.point ol li {
+    list-style-type: decimal;
+    font-size: 1.5em;
+}
+
+.point div {
+    width: 100%;
+}
+
+.point .sense {
+    font-size: 1.6em;
+    font-weight: bold;
+    color: #f7e823;
+    line-height: 25px;
+}
+
+.point .ken {
+    font-size: 1.6em;
+    font-weight: bold;
+    color: #64ed85;
+    line-height: 25px;
+}
+
+/*----------------------以上为模板*/
+.go1 img {
+    width: 100%;
+    height: 100%;
+}
+
+.dynasty {
+    position: relative;
+    width: 72%;
+    min-height: 30px;
+    line-height: 30px;
+    padding-left: 45px;
+    padding-right: 20px;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #49bd6a;
+    border-radius: 4px;
+    font-size: 1.5em;
+}
+
+.dynasty .topIco {
+    position: absolute;
+    width: 18px;
+    height: 10px;
+    top: 10px;
+    right: 5px;
+    background: url("../images2/b.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.dynasty .one {
+    position: absolute;
+    left: 2px;
+    top: 0px;
+    width: 40px;
+    height: 30px;
+    color: #49bd6a;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 4px;
+    float: left;
+}
+
+.dynasty .deploy {
+    position: absolute;
+    width: 18px;
+    height: 10px;
+    top: 10px;
+    right: 5px;
+    background: url("../images2/t.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.dynasty .dian {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #49bd6a;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    margin: 0 auto;
+    margin-top: 5px;
+    font-size: 1.3em;
+}
+
+.item .text {
+    float: left;
+    width: 72%;
+}
+
+.pointDetail {
+    display: none;
+}
+
+.point h1 {
+    clear: both;
+    font-size: 1.7em;
+    margin-bottom: 7px;
+    margin-top: 7px;
+
+}
+
+.point {
+    overflow: hidden;
+}
+
+.point h2 {
+    font-size: 1.5em;
+    margin-bottom: 7px;
+    margin-top: 7px;
+}
+
+.point hr {
+    height: 0;
+    width: 100%;
+    border-top: 1px solid #cdcdcd;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    z-index: 100;
+}
+
+.point ol {
+    width: 100%;
+}
+
+.pointDetail p {
+    line-height: 25px;
+    font-size: 1.5em;
+}
+
+.point p {
+    line-height: 25px;
+    font-size: 1.5em;
+}
+
+.point ol li {
+    line-height: 25px;
+    list-style: inside;
+}
+
+.point em {
+    font-style: normal;
+    color: #49bd6a;
+}
+
+#notice {
+    position: absolute;
+    top: 45%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 18px;
+    z-index: 100;
+    display: none;
+}
+
+#rock {
+    position: absolute;
+    width: 100%;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    left: 100%;
+    display: none;
+}
+
+#rock .phone {
+    width: 45px;
+    position: absolute;
+    right: 0px;
+    bottom: 15px;
+}
+
+#rock .hand {
+    display: block;
+    width: 83%;
+    margin: 0 auto;
+    margin-top: 7%;
+}
+
+#rock .shut {
+    width: 30px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+#rock .shut img {
+    width: 29px;
+    height: 29px;
+}
+
+.rockBottom {
+    width: 90%;
+    display: block;
+    margin: 5px 5%;
+    /*display: none;*/
+}
+
+@media screen and (max-width: 400px) {
+    html {
+        font-size: 60%;
+    }
+}
+
+@media screen and (max-width: 330px) {
+    html {
+        font-size: 57%;
+    }
+}

@@ -1,0 +1,463 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html,body {
+    width: 100%;
+    font-family: "微软雅黑";
+    font-size: 14px;
+    margin:0;
+    padding:0;
+    position: relative;
+}
+a{
+    text-decoration: none;
+}
+ul li{
+    list-style: none;
+}
+header{
+    width: 100%;
+    height: 620px;
+    background: #3784f9;
+}
+.headCenter{
+    position: relative;
+    width: 1000px;
+    height: 620px;
+    margin:0 auto;
+    background: #3784f9;
+}
+.headCenter .douBack{
+    position: absolute;
+    margin-top: 15px;
+    height: 540px;
+    width: 1000px;
+    /*background: url("../images/joinDou_03.png");*/
+    background-size: 100% 100%;
+}
+.headCenter .douBack img{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+.headCenter .douBack .joinXd{
+    position: absolute;
+    right: 0px;
+    top:200px;
+    color:#ffffff;
+    font-size: 74px;
+    letter-spacing: 1px;
+}
+.headCenter .joinXd-m{
+    display: none;
+    position: absolute;
+    right: 20px;
+    top:115px;
+    color: #ffffff;
+    text-align: right;
+}
+.headCenter .joinXd-m .p1{
+     font-size: 52px;
+ }
+.headCenter .joinXd-m .p2{
+    font-size:36px;
+    margin-top: 5px;
+}
+.headCenter .mobileBack{
+    position: relative;
+    display: none;
+}
+.main{
+    background: #f5f5f5;
+}
+.main .mainCenter{
+    width: 1000px;
+    margin:0 auto;
+    padding-top: 65px;
+    background: #f5f5f5;
+}
+.main .mainCenter .introduce p{
+    font-size: 16px;
+    color:#787878;
+    line-height: 30px;
+}
+.main .mainCenter .job{
+   overflow: auto;
+    margin-top: 90px;
+}
+.main .mainCenter .job li{
+  display: block;
+    width: 330px;
+    height: 80px;
+  float: left;
+}
+.main .mainCenter .job li .dian:hover{
+    background: #3784f9;
+    cursor: pointer;
+}
+.main .mainCenter .job li .jobName{
+    display: block;
+    float: left;
+}
+.main .mainCenter .job .on .jobName .dian{
+    background: #3784f9;
+}
+.main .mainCenter .job li .jobName .dian{
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #cdcdcd;
+    float: left;
+}
+.main .mainCenter .job .jobName .dian:hover{
+    cursor: pointer;
+    background: #3784f9;
+}
+.main .mainCenter .job li .jobName p{
+    display: block;
+    float: left;
+    margin-left: 10px;
+    color:#4b4b4b;
+    font-size: 16px;
+}
+.main .mainCenter .job .detail{
+    clear: both;
+    margin-left: 28px;
+    color:#b4b4b4;
+    line-height: 25px;
+}
+.main .mainCenter .test{
+    width: 256px;
+    margin:0 auto;
+    margin-top: 90px;
+    padding-bottom: 40px;
+}
+.main .mainCenter .test img{
+    width: 100%;
+}
+.main .mainCenter .introduce .pm{
+    display: none;
+}
+/***************************职位详情*/
+.jobDetail{
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+}
+.jobDetail .box{
+   width: 680px;
+    height: 500px;
+    border-radius: 8px;
+    background: #ffffff;
+    margin:0 auto;
+    margin-top: 680px;
+    position: relative;
+}
+.jobDetail .box .shut{
+    width: 24px;
+    position: absolute;
+    right: 12px;
+    top:12px;
+}
+.jobDetail .box .boxTop{
+    width: 615px;
+    margin:0 auto;
+    overflow: hidden;
+}
+.jobDetail .box .boxTop .name{
+    font-size: 32px;
+    color:#3784f9;
+    float: left;
+    margin-top: 35px;
+}
+.jobDetail .box .boxTop .require{
+    font-size: 14px;
+    color:#b4b4b4;
+    float: right;
+    margin-top: 55px;
+}
+.jobDetail .box .boxTop .mRequire{
+    display: none;
+}
+.jobDetail .box .duty{
+    width: 615px;
+    height: 350px;
+    overflow: auto;
+    margin:0 auto;
+    margin-top: 20px;
+    border-top:1px solid #dcdcdc;
+    border-bottom:1px solid #dcdcdc;
+}
+.jobDetail .box .duty .jobDuty{
+    font-size: 18px;
+    color: #787878;
+    margin-top: 17px;
+}
+.jobDetail .box .duty .jobRequire{
+    font-size: 18px;
+    color: #787878;
+    margin-top: 20px;
+}
+.jobDetail .box .duty .list{
+    font-size: 16px;
+    color:#4b4b4b;
+    margin-bottom: 25px;
+    line-height: 25px;
+    margin-top: 10px;
+}
+.jobDetail .box .email{
+    width: 615px;
+    margin:0 auto;
+    margin-top: 10px;
+    line-height: 30px;
+    font-size: 16px;
+    color:#4b4b4b;
+}
+.jobDetail .box .mEmail{
+    width: 92%;
+    margin:0 auto;
+    margin-top: 10px;
+    line-height: 25px;
+    font-size: 16px;
+    color:#4b4b4b;
+    text-align: center;
+    display: none;
+}
+@media screen and (max-width: 600px) {
+    /*.jobDetail{*/
+        /*position: absolute;*/
+        /*z-index: 10;*/
+        /*width: 100%;*/
+        /*height: 100%;*/
+        /*background: rgba(0,0,0,0.5);*/
+        /*display: none;*/
+    /*}*/
+    /*.jobDetail .boxBack{*/
+        /*width: 100%;*/
+        /*height: 100%;*/
+        /*position: relative;*/
+        /*background: red;*/
+    /*}*/
+    /*.jobDetail .box{*/
+        /*width: 680px;*/
+        /*height: 500px;*/
+        /*border-radius: 8px;*/
+        /*background: #ffffff;*/
+        /*margin:0 auto;*/
+        /*margin-top: 680px;*/
+        /*position: absolute;*/
+        /*top:50px;*/
+    /*}*/
+
+
+
+    header{
+        height: auto;
+        min-height: 560px;
+    }
+    .headCenter{
+        width: 100%;
+        height: auto;
+        min-height:560px;
+        overflow: hidden;
+    }
+    .headCenter .top .click{
+        display: block;
+    }
+    .headCenter .top .nav{
+        display: none;
+    }
+    .mobileText{
+        display: block;
+    }
+    .headCenter .logo{
+        margin-left: 10px;
+    }
+    .headCenter .douBack{
+        display: none;
+    }
+    .headCenter .douBack .joinXd{
+        display: none;
+    }
+    .headCenter .mobileBack{
+        width: 100%;
+        margin-top: 137px;
+        display: block;
+    }
+    .headCenter .mobileBack img{
+        width: 100%;
+    }
+    .headCenter .mobileBack .button{
+        position: absolute;
+        bottom: 40px;
+        width: 40%;
+        height: 30px;
+        background: #ffffff;
+        color:#3784f9;
+        font-size: 16px;
+        line-height: 30px;
+        text-align: center;
+        border-radius: 30px;
+        left: 0;
+        right: 0;
+        margin:0 auto;
+    }
+    .headCenter .logo{
+        width: 150px;
+        height:39px;
+    }
+    .headCenter .joinXd-m{
+        display: block;
+    }
+    /*以上为手机头部header部分*/
+    .main .mainCenter{
+        width: 100%;
+        padding-top: 15px;
+    }
+    .main .mainCenter .test{
+        width: 40%;
+        margin:0 auto;
+        margin-top: 30px;
+        padding-bottom: 30px;
+    }
+    .main .mainCenter .job{
+        width: 90%;
+        margin:0 auto;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top:1px solid #cdcdcd;
+        border-bottom:1px solid #cdcdcd;
+    }
+    .main .mainCenter .job .detail{
+        display: none;
+    }
+    .main .mainCenter .job li{
+        display: block;
+        width: 70%;
+        height: 50px;
+        clear: both;
+        margin-left: 25%;
+    }
+    .main .mainCenter .introduce{
+        width: 90%;
+        margin:0 auto;
+        text-align: center;
+        font-size: 14px;
+    }
+    .main .mainCenter .introduce p{
+        font-size: 14px;
+    }
+    .main .mainCenter .introduce .pm{
+        display: block;
+        font-size: 18px;
+        color: #3784f9;
+    }
+    .main .mainCenter .introduce .p2{
+        display: none;
+    }
+    /***********************************************************以下为手机底部，footer部分*/
+    footer{
+        width: 100%;
+        height:98px;
+        background: #4b4b4b;
+    }
+    footer .footCenter{
+        width: 95%;
+        height:98px;
+        font-size: 12px;
+    }
+    footer .footCenter .p1{
+        padding-top: 20px;
+        /*padding-top: 0px;*/
+        letter-spacing: -1px;
+        line-height: 20px;
+    }
+    footer .footCenter .p2{
+        margin-top: 0px;
+        line-height: 20px;
+    }
+    /***********************************************************，职位详情部分*/
+    .jobDetail .box{
+        width: 92%;
+        height: auto;
+        min-height: 480px;
+        left:0;
+        right:0;
+        margin:0 auto;
+        position: absolute;
+        bottom:150px;
+    }
+    .jobDetail .box .boxTop{
+        width: 92%;
+        margin:0 auto;
+    }
+    .jobDetail .box .duty{
+        width: 92%;
+        margin:0 auto;
+        margin-top: 10px;
+    }
+    .jobDetail .box .email{
+        display: none;
+    }
+    .jobDetail .box .boxTop .name{
+        font-size: 24px;
+        margin-top: 10px;
+    }
+    .jobDetail .box .shut{
+        top:15px;
+    }
+    .jobDetail .box .boxTop .require{
+        display: none;
+    }
+    .jobDetail .box .duty .jobDuty{
+        font-size: 16px;
+        margin-top: 8px;
+    }
+    .jobDetail .box .duty .jobRequire{
+        font-size: 16px;
+        margin-top: 8px;
+    }
+    .jobDetail .box .duty .list{
+        font-size: 14px;
+        margin-bottom: 10px;
+        line-height: 24px;
+        margin-top: 8px;
+    }
+    .jobDetail .box .mEmail{
+       display: block;
+    }
+    .jobDetail .box .boxTop .mRequire{
+        display: block;
+    }
+}
+@media screen and (max-width: 320px) {
+    .headCenter .mobileBack{
+        margin-top:97px;
+    }
+    .download{
+        margin-bottom: 10px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

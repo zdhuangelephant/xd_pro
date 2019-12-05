@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="StudentModel">
+	<resultMap id="BaseResultMap" type="com.xiaodou.ms.model.ruide.StudentModel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+<result column="major_id" property="majorId" jdbcType="BIGINT" />
+<result column="think_desc" property="thinkDesc" jdbcType="VARCHAR" />
+<result column="author" property="author" jdbcType="VARCHAR" />
+<result column="content" property="content" jdbcType="VARCHAR" />
+<result column="portrait" property="portrait" jdbcType="VARCHAR" />
+<result column="content_image" property="contentImage" jdbcType="VARCHAR" />
+<result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
+<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+	</resultMap>
+	<sql id="base_column">id, major_id, think_desc, author, content, portrait, content_image, publish_time, create_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.ms.model.ruide.StudentModel">
+		select
+		<include refid="base_column" />
+		from xd_rd_student
+		where id = #{id,jdbcType=BIGINT}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_rd_student
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.ms.model.ruide.StudentModel"  >
+		insert into xd_rd_student
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+<if test="majorId != null">major_id,</if>
+<if test="thinkDesc != null">think_desc,</if>
+<if test="author != null">author,</if>
+<if test="content != null">content,</if>
+<if test="portrait != null">portrait,</if>
+<if test="contentImage != null">content_image,</if>
+<if test="publishTime != null">publish_time,</if>
+<if test="createTime != null">create_time,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=BIGINT},</if>
+<if test="majorId != null">#{majorId,jdbcType=BIGINT},</if>
+<if test="thinkDesc != null">#{thinkDesc,jdbcType=VARCHAR},</if>
+<if test="author != null">#{author,jdbcType=VARCHAR},</if>
+<if test="content != null">#{content,jdbcType=VARCHAR},</if>
+<if test="portrait != null">#{portrait,jdbcType=VARCHAR},</if>
+<if test="contentImage != null">#{contentImage,jdbcType=VARCHAR},</if>
+<if test="publishTime != null">#{publishTime,jdbcType=TIMESTAMP},</if>
+<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="com.xiaodou.ms.model.ruide.StudentModel">
+		update xd_rd_student
+		<set>
+			<if test="value != null and value.majorId != null">major_id = #{value.majorId,jdbcType=BIGINT},</if>
+<if test="value != null and value.thinkDesc != null">think_desc = #{value.thinkDesc,jdbcType=VARCHAR},</if>
+<if test="value != null and value.author != null">author = #{value.author,jdbcType=VARCHAR},</if>
+<if test="value != null and value.content != null">content = #{value.content,jdbcType=VARCHAR},</if>
+<if test="value != null and value.portrait != null">portrait = #{value.portrait,jdbcType=VARCHAR},</if>
+<if test="value != null and value.contentImage != null">content_image = #{value.contentImage,jdbcType=VARCHAR},</if>
+<if test="value != null and value.publishTime != null">publish_time = #{value.publishTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+
+	</update>
+	<update id="updateEntity" parameterType="com.xiaodou.ms.model.ruide.StudentModel">
+		update xd_rd_student
+		<set>
+			<if test="value != null and value.majorId != null">major_id = #{value.majorId,jdbcType=BIGINT},</if>
+<if test="value != null and value.thinkDesc != null">think_desc = #{value.thinkDesc,jdbcType=VARCHAR},</if>
+<if test="value != null and value.author != null">author = #{value.author,jdbcType=VARCHAR},</if>
+<if test="value != null and value.content != null">content = #{value.content,jdbcType=VARCHAR},</if>
+<if test="value != null and value.portrait != null">portrait = #{value.portrait,jdbcType=VARCHAR},</if>
+<if test="value != null and value.contentImage != null">content_image = #{value.contentImage,jdbcType=VARCHAR},</if>
+<if test="value != null and value.publishTime != null">publish_time = #{value.publishTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.ms.model.ruide.StudentModel">
+		delete from xd_rd_student
+		where id = #{id,jdbcType=BIGINT}
+
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_rd_student
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+<if test="output != null and output.majorId != null">major_id,</if>
+<if test="output != null and output.thinkDesc != null">think_desc,</if>
+<if test="output != null and output.author != null">author,</if>
+<if test="output != null and output.content != null">content,</if>
+<if test="output != null and output.portrait != null">portrait,</if>
+<if test="output != null and output.contentImage != null">content_image,</if>
+<if test="output != null and output.publishTime != null">publish_time,</if>
+<if test="output != null and output.createTime != null">create_time,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.idLower != null">and id &gt; #{input.idLower}</if>
+<if test="input != null and input.idUpper != null">and id &lt; #{input.idUpper}</if>
+<if test="input != null and input.id != null">and id=#{input.id}</if>
+<if test="input != null and input.authorLike != null">and author like concat('%',#{input.authorLike},'%')</if>
+<if test="input != null and input.majorId != null">and major_id=#{input.majorId}</if>
+<if test="input != null and input.thinkDesc != null">and think_desc=#{input.thinkDesc}</if>
+<if test="input != null and input.author != null">and author=#{input.author}</if>
+<if test="input != null and input.content != null">and content=#{input.content}</if>
+<if test="input != null and input.portrait != null">and portrait=#{input.portrait}</if>
+<if test="input != null and input.contentImage != null">and content_image=#{input.contentImage}</if>
+<if test="input != null and input.publishTime != null">and publish_time=#{input.publishTime}</if>
+<if test="input != null and input.createTime != null">and create_time=#{input.createTime}</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.id != null and ( sort.id == 'ASC' or sort.id == 'DESC' )">id ${sort.id},</if>
+<if test="sort != null and sort.majorId != null and ( sort.majorId == 'ASC' or sort.majorId == 'DESC' )">major_id ${sort.majorId},</if>
+<if test="sort != null and sort.thinkDesc != null and ( sort.thinkDesc == 'ASC' or sort.thinkDesc == 'DESC' )">think_desc ${sort.thinkDesc},</if>
+<if test="sort != null and sort.author != null and ( sort.author == 'ASC' or sort.author == 'DESC' )">author ${sort.author},</if>
+<if test="sort != null and sort.content != null and ( sort.content == 'ASC' or sort.content == 'DESC' )">content ${sort.content},</if>
+<if test="sort != null and sort.portrait != null and ( sort.portrait == 'ASC' or sort.portrait == 'DESC' )">portrait ${sort.portrait},</if>
+<if test="sort != null and sort.contentImage != null and ( sort.contentImage == 'ASC' or sort.contentImage == 'DESC' )">content_image ${sort.contentImage},</if>
+<if test="sort != null and sort.publishTime != null and ( sort.publishTime == 'ASC' or sort.publishTime == 'DESC' )">publish_time ${sort.publishTime},</if>
+<if test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+
+		</trim>
+	</sql>
+</mapper>

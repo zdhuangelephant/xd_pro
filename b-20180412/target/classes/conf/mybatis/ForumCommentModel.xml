@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ForumCommentModel">
+
+    <resultMap id="BaseResultMap" type="ForumCommentModel">
+        <id column="id" property="id"/>
+        <result column="status" property="status"/>
+        <result column="forum_id" property="forumId"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="content" property="content"/>
+        <result column="images" property="images"/>
+        <result column="reply_id" property="replyId"/>
+        <result column="targe_id" property="targeId"/>
+        <result column="targe_content" property="targeContent"/>
+        <result column="targe_comment_id" property="targeCommentId"/>
+        <result column="praise_number" property="praiseNumber"/>
+        <result column="create_time" property="createTime"/>
+        <result column="tag" property="tag"/>
+        <result column="operator" property="operator"/>
+        <result column="operatorip" property="operatorip"/>
+        <result column="type" property="type"/>
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">status,forum_id,nick_name,content,images,reply_id,targe_content,targe_comment_id,praise_number,
+    create_time,tag,operator,operatorip,type</sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="status !=null">status,</if>
+            <if test="forumId != null">forum_id,</if>
+            <if test="nickName != null">nick_name,</if>
+            <if test="content != null">content,</if>
+            <if test="images != null">images,</if>
+            <if test="replyId != null">reply_id,</if>
+            <if test="targeContent != null">targe_content,</if>
+            <if test="targeCommentId != null">targe_comment_id,</if>
+            <if test="praiseNumber != null">praise_number,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="tag != null">tag,</if>
+            <if test="operator != null">operator,</if>
+            <if test="operatorip != null">operatorip,</if>
+            <if test="type != null">type,</if>
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="status !=null">#{status},</if>
+            <if test="forumId != null">#{forumId},</if>
+            <if test="nickName != null">#{nickName},</if>
+            <if test="content != null">#{content},</if>
+            <if test="images != null">#{images},</if>
+            <if test="replyId != null">#{replyId},</if>
+            <if test="targeContent != null">#{targeContent},</if>
+            <if test="targeCommentId != null">#{targeCommentId},</if>
+            <if test="praiseNumber != null">#{praiseNumber},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="tag != null">#{tag},</if>
+            <if test="operator != null">#{operator},</if>
+            <if test="operatorip != null">#{operatorip},</if>
+            <if test="type != null">#{type}</if>
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="ForumListModel">
+        insert into xd_forum_comment
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update xd_forum_comment
+        <set>
+        	<if test="value != null and value.status != null">status=#{value.status},</if>
+            <if test="value != null and value.forumId != null">forum_id = #{value.forumId},</if>
+            <if test="value != null and value.nickName != null">nick_name = #{value.nickName},</if>
+            <if test="value != null and value.content != null">content = #{value.content},</if>
+            <if test="value != null and value.images != null">images = #{value.images},</if>
+            <if test="value != null and value.replyId != null">reply_id = #{value.replyId},</if>
+            <if test="value != null and value.targeContent != null">targe_content = #{value.targeContent},</if>
+            <if test="value != null and value.targeCommentId != null">targe_comment_id = #{value.targeCommentId},</if>
+            <if test="value != null and value.praiseNumber != null">praise_number = #{value.praiseNumber},</if>
+            <if test="value != null and value.createTime != null">create_time = #{value.createTime},</if>
+            <if test="value != null and value.tag != null">tag = #{value.tag},</if>
+            <if test="value != null and value.operator != null">operator = #{value.operator},</if>
+            <if test="value != null and value.operatorip != null">operatorip = #{value.operatorip},</if>
+            <if test="value != null and value.type != null">type=#{value.type}</if>
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_forum_comment
+        <include refid="dynamic_where"/>
+    </select>
+
+    <select id="cascadeQueryProduct" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_forum_comment
+        left join xd_forum_list on xd_forum_list.id = xd_forum_comment.forum_id
+        <include refid="dynamic_where"/>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="ForumCommentModel" resultMap="BaseResultMap">
+        select * from xd_forum_comment where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from xd_forum_comment
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and xd_forum_comment.id =#{input.id}</if>
+            <if test="input != null and input.status != null">and xd_forum_comment.status =#{input.status}</if>
+            <if test="input != null and input.targeCommentId != null">and xd_forum_comment.targe_comment_id =#{input.targeCommentId}</if>
+            <if test="input != null and input.nickName != null">and xd_forum_comment.nick_name =#{input.nickName}</if>
+            <if test="input != null and input.images != null">and xd_forum_comment.images =#{input.images}</if>
+            <if test="input != null and input.content != null">and xd_forum_comment.content =#{input.content}</if>
+            <if test="input != null and input.replyId != null">and xd_forum_comment.reply_id =#{input.replyId}</if>
+            <if test="input != null and input.targeId != null">and xd_forum_comment.targe_id =#{input.targeId}</if>
+            <if test="input != null and input.forumId != null">and xd_forum_comment.forum_id =#{input.forumId}</if>
+            <if test="input != null and input.praiseNumber != null">and xd_forum_comment.praise_number =#{input.praiseNumber}</if>
+            <if test="input != null and input.targeContent != null">and xd_forum_comment.targe_content =#{input.targeContent}</if>
+            <if test="input != null and input.createTime != null">and xd_forum_comment.create_time =#{input.createTime}</if>
+            <if test="input != null and input.tag != null">and xd_forum_comment.tag =#{input.tag}</if>
+            <if test="input != null and input.operator != null">and xd_forum_comment.operator =#{input.operator}</if>
+            <if test="input != null and input.operatorip != null">and xd_forum_comment.operatorip =#{input.operatorip}</if>
+            <if test="input != null and input.type != null">and xd_forum_comment.type =#{input.type}</if>
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">xd_forum_comment.id,</if>
+            <if test="output != null and output.status != null">xd_forum_comment.status,</if>
+            <if test="output != null and output.forumId != null">xd_forum_comment.forum_id,</if>
+            <if test="output != null and output.nickName != null">xd_forum_comment.nick_name,</if>
+            <if test="output != null and output.content != null">xd_forum_comment.content,</if>
+            <if test="output != null and output.images != null">xd_forum_comment.images,</if>
+            <if test="output != null and output.replyId != null">xd_forum_comment.reply_id,</if>
+            <if test="output != null and output.targeId != null">xd_forum_comment.targe_id,</if>
+            <if test="output != null and output.targeCommentId != null">xd_forum_comment.targe_comment_id,</if>
+            <if test="output != null and output.praiseNumber != null">xd_forum_comment.praise_number,</if>
+            <if test="output != null and output.targeContent != null">xd_forum_comment.targe_content,</if>
+            <if test="output != null and output.createTime != null">xd_forum_comment.create_time,</if>
+            <if test="output != null and output.tag != null">xd_forum_comment.tag,</if>
+            <if test="output != null and output.operator != null">xd_forum_comment.operator,</if>
+            <if test="output != null and output.operatorip != null">xd_forum_comment.operatorip,</if>
+            <if test="output != null and output.type != null">xd_forum_comment.type</if>
+        </trim>
+    </sql>
+
+
+</mapper>

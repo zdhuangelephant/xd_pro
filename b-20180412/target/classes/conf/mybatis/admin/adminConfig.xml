@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminConfig">
+
+    <resultMap id="BaseResultMap" type="AdminConfig">
+        <result column="config_key" jdbcType="VARCHAR" javaType="String" property="configKey"/>
+        <result column="config_value" jdbcType="VARCHAR" javaType="String" property="configValue"/>
+        <result column="system_module" jdbcType="VARCHAR" javaType="String"
+                property="systemModule"/>
+    </resultMap>
+
+    <!--栏目字段-->
+    <sql id="allColumns">config_key,config_value,system_module</sql>
+
+    <!--动态查询-->
+    <sql id="dynamicWhere">
+        <where>
+            <if test="configKey != null">
+                and config_key =#{configKey}
+            </if>
+            <if test="configvalue != null">
+                and config_value = #{configvalue}
+            </if>
+            <if test="systemModule != null">
+                and system_module = #{systemModule}
+            </if>
+        </where>
+    </sql>
+
+    <!--根据条件查询-->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="allColumns"/>
+        from admin_config <include refid="dynamicWhere"/>;
+    </select>
+
+    <!--新增栏目-->
+    <insert id="addEntity" parameterType="AdminConfig" useGeneratedKeys="false">
+        insert into admin_config(<include refid="allColumns"/>) values
+        (#{configKey},#{configValue},#{systemModule});
+    </insert>
+
+    <!--删除栏目-->
+    <delete id="deleteEntity" parameterType="AdminConfig">
+        delete from admin_config where system_module = #{systemModule} and config_key =
+        #{configKey};
+    </delete>
+
+    <!--更新栏目-->
+    <update id="updateEntity" parameterType="AdminConfig">
+        update admin_config
+        <set>
+            <if test="configValue != null">
+                config_value = #{configValue},
+            </if>
+        </set>
+        where system_module = #{systemModule} and config_key = #{configKey};
+    </update>
+
+</mapper>

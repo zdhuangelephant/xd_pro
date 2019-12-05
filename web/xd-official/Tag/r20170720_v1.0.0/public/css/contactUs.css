@@ -1,0 +1,244 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html,body {
+    width: 100%;
+    font-family: "微软雅黑";
+    font-size: 14px;
+    margin:0;
+    padding:0;
+    position: relative;
+}
+a{
+    text-decoration: none;
+}
+ul li{
+    list-style: none;
+}
+header{
+    width: 100%;
+    height: 620px;
+    background: #3784f9;
+}
+.headCenter{
+    position: relative;
+    width: 1000px;
+    height: 620px;
+    margin:0 auto;
+    background: #3784f9;
+}
+.headCenter .douBack{
+    position: absolute;
+    margin-top: 15px;
+    min-height: 540px;
+    width: 1000px;
+    /*background: url("../images/contactBack_03.png");*/
+    background-size: 100% 100%;
+}
+.headCenter .douBack img{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+.headCenter .phone{
+    display: none;
+}
+.headCenter .phone .map{
+    width: 90%;
+    margin:0 auto;
+    margin-top: 40px;
+}
+.headCenter .phone .map img{
+    width: 100%;
+}
+.headCenter .phone .text{
+    width: 90%;
+    margin:0 auto;
+    text-align: center;
+    margin-top: 25px;
+    color: #ffffff;
+}
+.headCenter .phone .text .p1{
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+.headCenter .phone .text .p2{
+    margin-bottom: 12px;
+}
+.main{
+    background: #f5f5f5;
+}
+.main .mainCenter{
+    overflow: auto;
+    width: 1000px;
+    margin:0 auto;
+    padding-top: 65px;
+    padding-bottom: 65px;
+    background: #f5f5f5;
+}
+.main .mainCenter .left{
+    margin-left: 94px;
+    float:left;
+}
+.main .mainCenter .left .p1{
+    font-size: 32px;
+    color: #4b4b4b;
+    margin-bottom: 5px;
+}
+.main .mainCenter .left .p2{
+    font-size: 18px;
+    color: #787878;
+    line-height: 30px;
+}
+.main .mainCenter .test{
+    width: 245px;
+    float: right;
+    margin-right: 150px;
+}
+.main .mainCenter .test img{
+    width: 100%;
+}
+
+footer .footCenter .Mlogo{
+    display: none;
+}
+@media screen and (max-width: 600px) {
+    header{
+        height: auto;
+        min-height:600px;
+    }
+    .headCenter{
+        width: 100%;
+        height: auto;
+        min-height:560px;
+        overflow: hidden;
+    }
+    .headCenter .top .click{
+        display: block;
+    }
+    .headCenter .top .nav{
+        display: none;
+    }
+    .mobileText{
+        display: block;
+    }
+    .headCenter .logo{
+        margin-left: 10px;
+    }
+    .headCenter .douBack{
+        display: none;
+    }
+
+    .headCenter .mobileBack{
+        width: 100%;
+        margin-top: 137px;
+        display: block;
+    }
+    .headCenter .mobileBack img{
+        width: 100%;
+    }
+    .headCenter .mobileBack .button{
+        position: absolute;
+        bottom: 40px;
+        width: 40%;
+        height: 30px;
+        background: #ffffff;
+        color:#3784f9;
+        font-size: 16px;
+        line-height: 30px;
+        text-align: center;
+        border-radius: 30px;
+        left: 0;
+        right: 0;
+        margin:0 auto;
+    }
+    .headCenter .logo{
+        width: 150px;
+        height:39px;
+    }
+    /*以上为手机头部header部分*/
+    .main{
+       display: none;
+    }
+    .headCenter .phone{
+        display: block;
+    }
+    /***********************************************************以下为手机底部，footer部分*/
+    footer{
+        width: 100%;
+        min-height:158px;
+        background: #4b4b4b;
+    }
+    footer .footCenter{
+        width: 95%;
+        min-height:158px;
+        font-size: 12px;
+    }
+    footer .footCenter .Mlogo{
+        display: block;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        width: 100%;
+        border-bottom: 1px solid #818181;
+    }
+    footer .footCenter .Mlogo img{
+        width: 40%;
+    }
+    footer .footCenter .zi{
+        background: #4b4b4b;
+    }
+    footer .footCenter .p1{
+        padding-top: 15px;
+        letter-spacing: -1px;
+        line-height: 20px;
+    }
+    footer .footCenter .p2{
+        margin-top: 0px;
+        line-height: 20px;
+    }
+
+}
+@media screen and (max-width: 320px) {
+    .headCenter .mobileBack{
+        margin-top:97px;
+    }
+    .download{
+        margin-bottom: 10px;
+    }
+    .headCenter .phone .mCome .p1{
+        top:70px;
+    }
+    .headCenter .phone .mCome .p2{
+        top:120px;
+    }
+    header{
+        height: auto;
+        min-height: 460px;
+    }
+    .headCenter{
+        width: 100%;
+        height: auto;
+        min-height:460px;
+        overflow: hidden;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

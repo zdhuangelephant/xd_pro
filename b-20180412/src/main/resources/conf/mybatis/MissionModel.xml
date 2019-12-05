@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MissionModel">
+
+	<resultMap id="BaseResultMap" type="MissionModel">
+		<id column="id" property="id" />
+		<result column="module" property="module" />
+		<result column="course_id" property="courseId" />
+		<result column="chapter_id" property="chapterId" />
+		<result column="mission_type" property="missionType" />
+		<result column="precond_list" property="preCondList" />
+		<result column="cond_type" property="condType" />
+		<result column="mission_cond" property="condition" />
+		<result column="scope" property="scope" />
+		<result column="threshold" property="threshold" />
+		<result column="mission_name" property="missionName" />
+		<result column="mission_desc" property="missionDesc" />
+		<result column="mission_picurl" property="missionPicUrl" />
+		<result column="jump_type" property="jumpType" />
+		<result column="task_type" property="taskType" />
+		<result column="mission_state" property="missionState" />
+		<result column="mission_order" property="missionOrder" />
+		<result column="credit_upper" property="creditUpper" />
+		<result column="red_bonus_type" property="redBonusType" />
+		<result column="expiry_date" property="expiryDate" />
+	</resultMap>
+
+	<!--字段 -->
+	<sql id="base_column">module,course_id,chapter_id,mission_type,precond_list,cond_type,mission_cond,scope,
+		threshold,mission_name,mission_desc,mission_picurl,jump_type,task_type,mission_state,mission_order,credit_upper,red_bonus_type,expiry_date
+	</sql>
+	<sql id="all_column">
+		id,
+		<include refid="base_column" />
+	</sql>
+
+	<!-- 1.查询 -->
+	<select id="findEntityListByCond" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="dynamic_output" />
+		from xd_mission_model
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+
+	<resultMap type="MissionModel" id="brp">
+		<id column="id" property="id" />
+		<result column="mission_name" property="missionName" />
+		<result column="mission_desc" property="missionDesc" />
+		<result column="mission_order" property="missionOrder" />
+		<result column="course_id" property="courseId" />
+		<result column="course_name" property="courseName" />
+	</resultMap>
+	<!-- <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="brp"> 
+		select xd_mission_model.id, xd_mission_model.mission_name, xd_mission_model.mission_desc, 
+		xd_mission_model.mission_order, xd_course_product.name course_name from xd_mission_model 
+		left join xd_course_product on xd_mission_model.course_id = xd_course_product.id 
+		<include refid="dynamic_where" /> </select> -->
+	<!-- 2.插入 -->
+	<sql id="insertColumns">
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="module != null">module,</if>
+			<if test="courseId != null">course_Id,</if>
+			<if test="chapterId != null">chapter_Id,</if>
+			<if test="missionType != null">mission_type,</if>
+			<if test="preCondList != null">precond_list,</if>
+			<if test="condType != null">cond_type,</if>
+			<if test="condition != null">mission_cond,</if>
+			<if test="scope != null">scope,</if>
+			<if test="threshold != null">threshold,</if>
+			<if test="missionName != null">mission_name,</if>
+			<if test="missionDesc != null">mission_desc,</if>
+			<if test="missionPicUrl != null">mission_picurl,</if>
+			<if test="jumpType != null">jump_type,</if>
+			<if test="taskType != null">task_type,</if>
+			<if test="missionState!= null">mission_state,</if>
+			<if test="missionOrder!= null">mission_order,</if>
+			<if test="creditUpper!= null">credit_upper,</if>
+			<if test="redBonusType!= null">red_bonus_type,</if>
+			<if test="expiryDate!= null">expiry_date,</if>
+		</trim>
+	</sql>
+	<sql id="insertValues">
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="module != null">#{module},</if>
+			<if test="courseId != null">#{courseId},</if>
+			<if test="chapterId != null">#{chapterId},</if>
+			<if test="missionType != null">#{missionType},</if>
+			<if test="preCondList != null">#{preCondList},</if>
+			<if test="condType != null">#{condType},</if>
+			<if test="condition != null">#{condition},</if>
+			<if test="scope != null">#{scope},</if>
+			<if test="threshold != null">#{threshold},</if>
+			<if test="missionName != null">#{missionName},</if>
+			<if test="missionDesc != null">#{missionDesc},</if>
+			<if test="missionPicUrl != null">#{missionPicUrl},</if>
+			<if test="jumpType != null">#{jumpType},</if>
+			<if test="taskType != null">#{taskType},</if>
+			<if test="missionState != null">#{missionState},</if>
+			<if test="missionOrder != null">#{missionOrder},</if>
+			<if test="creditUpper != null">#{creditUpper},</if>
+			<if test="redBonusType != null">#{redBonusType},</if>
+			<if test="expiryDate != null">#{expiryDate},</if>
+		</trim>
+	</sql>
+
+	<insert id="addEntity" parameterType="MissionModel">
+		insert into xd_mission_model
+		(
+		<include refid="insertColumns" />
+		)
+		values
+		(
+		<include refid="insertValues" />
+		)
+	</insert>
+
+	<!-- 3.更新 -->
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_mission_model
+		<set>
+			<if test="value != null and value.module != null">module=#{value.module},</if>
+			<if test="value != null and value.courseId != null">course_Id=#{value.courseId},</if>
+			<if test="value != null and value.chapterId != null">chapter_Id=#{value.chapterId},</if>
+			<if test="value != null and value.missionType != null">mission_Type=#{value.missionType},</if>
+			<if test="value != null and value.preCondList != null">precond_list=#{value.preCondList},</if>
+			<if test="value != null and value.condType != null">cond_type=#{value.condType},</if>
+			<if test="value != null and value.condition != null">mission_cond=#{value.condition},</if>
+			<if test="value != null and value.scope != null">scope=#{value.scope},</if>
+			<if test="value != null and value.threshold != null">threshold=#{value.threshold},</if>
+			<if test="value != null and value.missionName != null">mission_name=#{value.missionName},</if>
+			<if test="value != null and value.missionDesc != null">mission_desc=#{value.missionDesc},</if>
+			<if test="value != null and value.missionPicUrl != null">mission_picurl=#{value.missionPicUrl},</if>
+			<if test="value != null and value.jumpType != null">jump_type=#{value.jumpType},</if>
+			<if test="value != null and value.taskType != null">task_type=#{value.taskType},</if>
+			<if test="value != null and value.missionState != null">mission_State=#{value.missionState},</if>
+			<if test="value != null and value.missionOrder != null">mission_order=#{value.missionOrder},</if>
+			<if test="value != null and value.creditUpper != null">credit_upper=#{value.creditUpper},</if>
+			<if test="value != null and value.redBonusType != null">red_bonus_type=#{value.redBonusType},</if>
+			<if test="value != null and value.expiryDate != null">expiry_Date=#{value.expiryDate},</if>
+			<if test="value != null">update_time=now()</if>
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+
+	<!-- 4.查询单个记录 -->
+	<select id="findEntityById" parameterType="MissionModel"
+		resultMap="BaseResultMap">
+		select * from xd_mission_model where id = #{id};
+	</select>
+
+	<!-- 5.根据条件删除 -->
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_mission_model
+		<include refid="dynamic_where" />
+	</delete>
+
+	<!-- 动态语句:查询 -->
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.id != null">and id =#{input.id}</if>
+			<if test="input != null and input.courseIds != null">
+				and course_id in
+				<foreach collection="input.courseIds" item="item" separator=","
+					open="(" close=")" index="index">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.taskType != null">and task_type =#{input.taskType} </if>
+			<if test="input != null and input.courseId != null">and course_id =#{input.courseId} </if>
+			<if test="input != null and input.chapterId != null">and chapter_id =#{input.chapterId} </if>
+			<if test="input != null and input.threshold != null">and threshold =#{input.threshold} </if>
+			<if test="input != null and input.thresholdList != null">
+				and threshold in
+				<foreach collection="input.thresholdList" open="(" close=")"
+					separator="," item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="input != null and input.condType != null">and cond_type =#{input.condType} </if>
+			<if test="input != null and input.condition != null">and mission_cond =#{input.condition} </if>
+			
+		</where>
+	</sql>
+	<!--动态语句:输出 -->
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.id != null">id,</if>
+			<if test="output != null and output.missionName != null">mission_name,</if>
+			<if test="output != null and output.missionDesc != null">mission_desc,</if>
+			<if test="output != null and output.missionOrder != null">mission_order,</if>
+			<if test="output != null and output.courseId != null">course_id,</if>
+			<if test="output != null and output.missionState != null">mission_state,</if>
+			<if test="output != null and output.module != null">module,</if>
+			<if test="output != null and output.chapterId != null">chapter_id,</if>
+			<if test="output != null and output.missionType != null">mission_type,</if>
+			<if test="output != null and output.preCondList != null">precond_list,</if>
+			<if test="output != null and output.condType != null">cond_type,</if>
+			<if test="output != null and output.condition != null">mission_cond,</if>
+			<if test="output != null and output.scope != null">scope,</if>
+			<if test="output != null and output.threshold != null">threshold,</if>
+			<if test="output != null and output.missionPicUrl != null">mission_picurl,</if>
+			<if test="output != null and output.jumpType != null">jump_type,</if>
+			<if test="output != null and output.taskType != null">task_type,</if>
+			<if test="output != null and output.creditUpper != null">credit_upper,</if>
+			<if test="output != null and output.redBonusType != null">red_bonus_type,</if>
+			<if test="output != null and output.expiryDate != null">expiry_date,</if>
+
+		</trim>
+	</sql>
+
+	<sql id="dynamic_limit">
+		<if
+			test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if
+				test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">xd_mission_model.update_time ${sort.updateTime},</if>
+			<if
+				test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">xd_mission_model.create_time ${sort.createTime},</if>
+		</trim>
+	</sql>
+</mapper>

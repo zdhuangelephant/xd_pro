@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>SVG,VML 网页矢量图插件</title>
+  <link rel="stylesheet" href="demo.css" media="screen">
+  <link rel="stylesheet" href="demo-print.css" media="print">
+  <meta name="viewport" content="width=device-width"/>
+  <!--<meta name="keywords" content="Raphaël,Raphael 中文帮助文档 api,SVG,VML 网页矢量图插件,前端攻城师,WEB前端开发,Raphael api"/>-->
+  <meta name="description" content="Raphaël,Raphael 中文帮助文档 api,SVG,VML 网页矢量图插件,前端攻城师,WEB前端开发,Raphael api"/>
+  <meta name="Language" content="zh-CN"/>
+  <meta name="Copyright" content="wangyuanwai.com"/>
+  <meta name="Publisher" content="王子墨,前端攻城师"/>
+  <meta name="Distribution" content="Global"/>
+  <meta name="author" content="王子墨,前端攻城师"/>
+  <meta name="robots" content="index,follow"/>
+  <meta name="googlebot" content="index,follow,archive"/>
+  <script src="js/raphael.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/rotate.js"></script>
+  <script src="js/interact.js"></script>
+  <link rel="stylesheet" href="css/animate.min.css">
+  <style>
+      body{
+          background: #f5f5f5;
+          position: relative;
+      }
+    .box {
+        position: absolute;
+      width: 200px;
+      height: 120px;
+      /*background: #ffb5ba;*/
+      border: 1px solid #000000;
+      text-align: center;
+      line-height: 50px;
+
+    }
+      .box span{
+          z-index: 100;
+      }
+      .box img{
+          width: 100%;
+          height: 100%;
+          display: block;
+          position: absolute;
+          top:0;
+          left: 0;;
+      }
+    #box1{
+         left: 100px;
+         top: 100px;
+        z-index: 100;
+     }
+      #box2{
+          left: 300px;
+          top: 300px;
+      }
+    .pitchOn{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+        top:0;
+        left: 0;
+        /*z-index: 1000;*/
+    }
+    .top {
+      position: absolute;
+      width: 100%;
+      border-bottom: 1px solid #00B7FF;
+      top: 0;
+      left: 0;
+        z-index: 1000;
+    }
+    .topPoint {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 10px;
+      border: 1px solid #00B7FF;
+      background: #333333;
+      top: -4px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+        z-index: 1000;
+        cursor: n-resize;
+    }
+    .rotatePoint {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 10px;
+      border: 1px solid #00B7FF;
+      background: #333333;
+      top: -25px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+        z-index: 1000;
+    }
+    .line {
+      position: absolute;
+      width: 1px;
+      height: 13px;
+      border-right: 1px solid #00B7FF;
+      top: -16px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+        z-index: 1000;
+
+    }
+    .right {
+      position: absolute;
+      height: 100%;
+      border-right: 1px solid #00B7FF;
+      top: 0;
+      right: 0;
+        z-index: 1000;
+    }
+    .rightPoint {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 10px;
+      border: 1px solid #00B7FF;
+      background: #333333;
+      top: 42%;
+      right: -6px;
+        z-index: 1000;
+        cursor: e-resize;
+    }
+    .bottom {
+      position: absolute;
+      width: 100%;
+      border-bottom: 1px solid #00B7FF;
+      bottom: 0;
+      left: 0;
+        z-index: 1000;
+
+    }
+    .bottomPoint {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 10px;
+      border: 1px solid #00B7FF;
+      background: #333333;
+      bottom: -5px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+        z-index: 1000;
+        cursor: n-resize;
+    }
+    .left {
+      position: absolute;
+      height: 100%;
+      border-right: 1px solid #00B7FF;
+      top: 0;
+      left: 0;
+        z-index: 1000;
+    }
+    .leftPoint {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 10px;
+      border: 1px solid #00B7FF;
+      background: #333333;
+      top: 42%;
+      left: -6px;
+        z-index: 1000;
+        cursor: e-resize;
+    }
+    .leftTop {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 10px;
+      border: 1px solid #00B7FF;
+      background: #333333;
+      top: -5px;
+      left: -5px;
+        z-index: 1000;
+        cursor: nw-resize;
+    }
+    .rightTop {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 10px;
+      border: 1px solid #00B7FF;
+      background: #333333;
+      top: -5px;
+      right: -5px;
+        z-index: 1000;
+        cursor: ne-resize;
+    }
+    .rightBottom {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 10px;
+      border: 1px solid #00B7FF;
+      background: #333333;
+      bottom: -5px;
+      right: -5px;
+        z-index: 1000;
+        cursor: nw-resize;
+    }
+    .leftBottom {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 10px;
+      border: 1px solid #00B7FF;
+      background: #333333;
+      bottom: -5px;
+      left: -5px;
+        z-index: 1000;
+        cursor: ne-resize;
+    }
+      .ceshi{
+          width: 100px;
+      height: 100px;
+      border: 1px solid #333333;
+          /*transform: rotate(100deg) translate(-100px, -100px);*/
+      }
+      .main{
+          background: #d5e2ff;
+          height: 500px;
+          margin-top:20px;
+          margin-left: 30px;
+      }
+      .selectArea{
+          width: 0;
+          height: 0;
+          background: rgba(139,191,249,0.5);
+          opacity: 5;
+          z-index: 99999;
+          position: absolute;
+          top:0;
+          left:0;
+          /*border: 1px solid #1362b4;*/
+      }
+  </style>
+</head>
+<body>
+<!--<div id="holder">-->
+  <!--<p>随便移动鼠标，看看效果</p>-->
+<!--</div>-->
+<div class="main" id="main">
+    <div class="selectArea" id="selectArea"></div>
+    <div class="box drag" id="box1">
+         <!--<span>试一下吧</span>-->
+        <img src="images/a.png" class="animated bounceInDown" id="animate">
+        <!--<div class="pitchOn">-->
+            <!--<div class="top"><div class="topPoint"></div> </div>-->
+            <!--<div class="right"><div class="rightPoint"></div> </div>-->
+            <!--<div class="bottom"><div class="bottomPoint"></div> </div>-->
+            <!--<div class="left"><div class="leftPoint"></div> </div>-->
+            <!--<div class="leftTop"></div>-->
+            <!--<div class="rightTop"></div>-->
+            <!--<div class="rightBottom"></div>-->
+            <!--<div class="leftBottom"></div>-->
+            <!--<div class="rotatePoint"></div>-->
+            <!--<div class="line"></div>-->
+         <!--</div>-->
+    </div>
+    <div class="box drag" id="box2">试一下吧
+    </div>
+</div>
+</body>
+<script>
+    var isCtrlDown=false;
+    $(".box").click(function (e) {
+        if(!isCtrlDown){
+            $(".box").css('z-index','10');
+            $(".pitchOn").remove();
+        }
+      var width = $(".box").width();
+      var height = $(".box").height();
+      var left =  parseInt($(".box").css('margin-left'));
+      var top =  parseInt($(".box").css('margin-top'));
+      $(this).css('z-index',200);
+      if($(this).find(".pitchOn").length==0){
+       $(this).append('<div class="pitchOn"><div class="top"><div class="topPoint drag" id="topPoint"></div></div> <div class="right"><div class="rightPoint drag" id="rightPoint"></div> </div> <div class="bottom"><div class="bottomPoint drag" id="bottomPoint"></div> </div> <div class="left"><div class="leftPoint drag" id="leftPoint"></div> </div> <div class="leftTop drag" id="leftTop"></div> <div class="rightTop drag" id="rightTop"></div> <div class="rightBottom drag" id="rightBottom"></div> <div class="leftBottom drag" id="leftBottom"></div> <div class="rotatePoint drag" id="rotatePoint"></div> <div class="line"></div></div>');
+      }
+       $(".drag").each(function(){
+           var dragItem = this;
+           var id = $(this).attr("id");
+           interact("#"+id)
+                   .draggable({
+                       // enable inertial throwing
+                       inertia: false,
+                       // keep the element within the area of it's parent
+                       restrict: {
+                           restriction: "parent",
+                           endOnly: true,
+                           elementRect: {top: 0, left: 0, bottom: 1, right: 1}
+                       },
+                       // enable autoScroll
+                       autoScroll: false,
+                       // call this function on every dragmove event
+                       onmove: function(event){
+                           event.stopPropagation();
+                           var target = event.target,
+                                   x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+                                   y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+                           target.setAttribute('data-x', x);
+                           target.setAttribute('data-y', y);
+                           if($(dragItem).hasClass("rightPoint")){
+                               $(dragItem).parent().parent().parent().css("width",width+x);
+                           }
+                           else if($(dragItem).hasClass('bottomPoint')){
+                               $(dragItem).parent().parent().parent().css("height",height+y);
+                           }
+                           else if($(dragItem).hasClass('leftPoint')){
+                               $(dragItem).parent().parent().parent().css('width',width-x);
+                               $(dragItem).parent().parent().parent().css("margin-left",left+x);
+                           }
+                           else if($(dragItem).hasClass('topPoint')){
+                               $(dragItem).parent().parent().parent().css("height",height-y);
+                               $(dragItem).parent().parent().parent().css("margin-top",top+y);
+                           }
+                           else if($(dragItem).hasClass('rightBottom')){
+                               $(dragItem).parent().parent().css("height",height+y);
+                               $(dragItem).parent().parent().css("width",width+x);
+                           }
+                           else if($(dragItem).hasClass('leftBottom')){
+                               $(dragItem).parent().parent().css("height",height+y);
+                               $(dragItem).parent().parent().css("width",width-x);
+                               $(dragItem).parent().parent().css("margin-left",left+x);
+                           }
+                           else if($(dragItem).hasClass('leftTop')){
+                               $(dragItem).parent().parent().css("height",height-y);
+                               $(dragItem).parent().parent().css("margin-top",top+y);
+                               $(dragItem).parent().parent().css("width",width-x);
+                               $(dragItem).parent().parent().css("margin-left",left+x);
+                           }
+                           else if($(dragItem).hasClass('rightTop')){
+                               $(dragItem).parent().parent().css("height",height-y);
+                               $(dragItem).parent().parent().css("margin-top",top+y);
+                               $(dragItem).parent().parent().css("width",width+x);
+                           }
+                           else if($(dragItem).hasClass("box")){//整个BOX移动
+                               var r= $(dragItem).data("move-rotate");//获取box沿X移动的距离
+                               if(r==null){
+                                   r = 0;
+                               }
+                               $(dragItem).css('-webkit-transform' , ' translate(' + x+ 'px, ' + y + 'px)'+' rotate('+r+'deg)');
+                               $(dragItem).data("move-x",x);
+                               $(dragItem).data("move-y",y);
+                           }
+                           else if($(dragItem).hasClass('rotatePoint')){//旋转
+                              var a= $(dragItem).parent().parent().data("move-x");//获取box沿X移动的距离
+                               var b=$(dragItem).parent().parent().data("move-y");//获取box沿y移动的距离
+                               if(a==null){
+                                   a=0;
+                               }
+                               if(b==null){
+                                   b=0;
+                               }
+                               $(dragItem).parent().parent().css('-webkit-transform' , 'translate('+a+'px, '+b+ 'px)' +' rotate('+(x+50)+'deg)');
+                               $(dragItem).parent().parent().data("move-rotate",x+50);
+                           }
+                       },
+                       // call this function on every dragend event
+                       onend: function (event) {
+                           var textEl = event.target.querySelector('p');
+                       }
+                   });
+       })
+  });
+//  $(".main").click(function(){//点击空白处移除选中状态
+//      $(".pitchOn").remove();
+////      alert("xixi");
+//  });
+    var x= 0,y=0;//鼠标按下时的坐标
+    $(".main").mouseup(function(e){
+        if(Math.abs(e.pageX-x)<5 && Math.abs(e.pageY-y)<5){
+            if(!isCtrlDown){
+                $(".box").css('z-index','10');
+                $(".pitchOn").remove();
+            }
+        }
+    });
+    $(".main").mousedown(function(e){
+        x=e.pageX;
+        y= e.pageY;
+    });
+    $(document).keydown(function(event){//监听键盘按下去的时候
+        if(event.keyCode==17){//ctrl键17
+            isCtrlDown=true;
+        }
+        console.log(isCtrlDown)
+    });
+    $(document).keyup(function(event){//监听键盘松开的时候
+        if(event.keyCode==17){//ctrl键17
+            isCtrlDown=false;
+        }
+        console.log(isCtrlDown)
+    });
+    var animation = document.querySelector('#animate');//监听动画
+    animation.addEventListener("webkitAnimationEnd", function(){ //动画结束时事件
+        this.className = this.className.replace('animated bounceInDown', 'animated flip ');
+    }, false);
+    var isSelected=false;
+    var startX=0;
+    var startY=0;
+    var centerX=0;
+    var centerY=0;
+    interact("#main")
+            .draggable({
+                // enable inertial throwing
+                inertia: false,
+                // keep the element within the area of it's parent
+                restrict: {
+                    restriction: "parent",
+                    endOnly: true,
+                    elementRect: {top: 0, left: 0, bottom: 1, right: 1}
+                },
+                // enable autoScroll
+                autoScroll: false,
+                // call this function on every dragmove event
+                onmove: function(event){
+                    event.stopPropagation();
+                    var target = event.target,
+                            x = event.pageX;
+                            y = event.pageY;
+                    target.setAttribute('data-x', x);
+                    target.setAttribute('data-y', y);
+                    if(!isSelected){
+                        startX=event.pageX;
+                        startY=event.pageY;
+                        isSelected=true;
+                    }
+                        $("#selectArea").css("width",Math.abs(startX-x));
+                        $("#selectArea").css("height",Math.abs(startY-y));
+                        $("#selectArea").css("left",Math.min(x,startX));
+                        $("#selectArea").css("top",Math.min(y,startY));
+                    $(".box").each(function(index){//遍历页面内可编辑元素box
+                        var mainY= $('#main').offset().top;
+                        var mainX= $('#main').offset().left;
+                        var boxX = $(this).offset().left;//获取元素的坐标
+                        var boxY= $(this).offset().top;
+                        var boxWidth=$(this).width();
+                        var boxHeight = $(this).height();
+                        centerX = boxX-mainX+boxWidth/2;
+                        centerY = boxY-mainY+boxHeight/2;
+                        if(centerX>Math.min(x,startX) && centerY>Math.min(y,startY) && centerX<Math.max(x,startX) && centerY<Math.max(y,startY) ){//判断如果box的中心点位置在划过区域内，则成为可编辑状态
+                           if($(this).find(".pitchOn").length==0){
+                            $(this).append('<div class="pitchOn"><div class="top"><div class="topPoint drag" id="topPoint"></div></div> <div class="right"><div class="rightPoint drag" id="rightPoint"></div> </div> <div class="bottom"><div class="bottomPoint drag" id="bottomPoint"></div> </div> <div class="left"><div class="leftPoint drag" id="leftPoint"></div> </div> <div class="leftTop drag" id="leftTop"></div> <div class="rightTop drag" id="rightTop"></div> <div class="rightBottom drag" id="rightBottom"></div> <div class="leftBottom drag" id="leftBottom"></div> <div class="rotatePoint drag" id="rotatePoint"></div> <div class="line"></div></div>');
+                           }
+                        }
+                    });
+                },
+                // call this function on every dragend event
+                onend: function (event) {
+                    var textEl = event.target.querySelector('p');
+                    isSelected=false;
+                }
+            });
+</script>
+</html>
+

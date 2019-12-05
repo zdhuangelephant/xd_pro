@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="yes"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <title>章节列表</title>
+    <link rel="stylesheet" href="css/simditor.css"/>
+    <link rel="stylesheet" href="css/simditor-mention.css"/>
+    <link rel="stylesheet" href="css/zTreeStyle.css"/>
+
+    <link href="css/chapter.css" rel="stylesheet">
+    <link href="css/output.css" rel="stylesheet">
+    <script type="text/javascript">
+        var id = undefined, name = '', prefix = undefined, level = undefined;
+    </script>
+    <script src="js/jquery.js"></script>
+    <script src="js/TweenMax.min.js"></script>
+    <!--<script src="js/jquery.ztree.core-3.5.min.js"></script>-->
+    <!--<script src="js/jquery.ztree.excheck-3.5.min.js"></script>-->
+    <script type="text/javascript" src="js/jquery.ztree.core-3.5.js"></script>
+    <script type="text/javascript" src="js/jquery.ztree.excheck-3.5.js"></script>
+    <script type="text/javascript" src="simditor/module.js"></script>
+    <script type="text/javascript" src="simditor/hotkeys.js"></script>
+    <script type="text/javascript" src="simditor/uploader.js"></script>
+    <script type="text/javascript" src="simditor/simditor.js"></script>
+    <script type="text/javascript" src="simditor/simditor-mention.js"></script>
+    <script type="text/javascript" src="simditor/upload.js"></script>
+    <script type="text/javascript" src="simditor/myatbutton.js"></script>
+    <script src="js/chapter.js"></script>
+
+</head>
+<body>
+<div class="mainBody">
+    <div class="left">
+        <div class="courseware" id="courseware">
+            <p>章节列表</p>
+
+            <div class="zTreeDemoBackground left">
+                <ul id="treeDemo" class="ztree"></ul>
+            </div>
+        </div>
+        <div class="controller">
+        </div>
+    </div>
+    <div id="rMenu4">
+        <ul>
+            <li id="m_add" onclick="addTreeNode();">增加节点</li>
+            <li id="m_mod" onclick="editTreeNode();">修改节点</li>
+            <li id="m_del" onclick="deleteTreeNode();">删除节点</li>
+        </ul>
+    </div>
+    <div class="right">
+        <div id="chapter">
+            章节名 <input type="text" id="chapterName" onkeyup="changeId(this.value)">
+        </div>
+        <div id="saveBtn">保存</div>
+    </div>
+</div>
+
+
+</body>
+</html>

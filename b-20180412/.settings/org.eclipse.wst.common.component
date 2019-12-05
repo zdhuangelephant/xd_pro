@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="b-20180412">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="xiaodou-jredis-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xiaodou-jredis/xiaodou-jredis">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-dataclean-core-0.1.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-dataclean-core/xd-dataclean-core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-push-agent-0.2.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-push-agent/xd-push-agent">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xiaodou-util-2.0.10-snapshot.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-util/xd-util">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xd-queue-aliyun-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xd-queue-aliyun/xd-queue-aliyun">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="xd-ms-b-20180412"/>
+        <property name="java-output-path" value="/b-20180412/target/classes"/>
+        <property name="component.exclusion.patterns" value="WEB-INF/classes/conf/custom/env/rabbit.properties"/>
+    </wb-module>
+</project-modules>

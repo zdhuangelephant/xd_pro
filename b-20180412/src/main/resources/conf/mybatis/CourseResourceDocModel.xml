@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CourseResourceDocModel">
+
+    <resultMap id="BaseResultMap" type="CourseResourceDocModel">
+        <id column="id" property="id"/>
+        <result column="chapter_id" property="chapterId"/>
+        <result column="course_id" property="courseId" />
+        <result column="name" property="name"/>
+        <result column="detail" property="detail"/>
+        <result column="url" property="url"/>
+        <result column="file_url" property="fileUrl"/>
+        <result column="key_point" property="keyPoint" />
+        <result column="chapter_name" property="chapterName" />
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <!--字段-->
+    <sql id="base_column">chapter_id,course_id,name,detail,url,file_url,key_point,status </sql>
+    <sql id="all_column">id,
+        <include refid="base_column"/>
+    </sql>
+
+    <!-- 1.插入 -->
+    <sql id="insertColumns">
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="chapterId != null">chapter_id,</if>
+            <if test="courseId != null">course_id,</if>
+            <if test="name != null">name,</if>
+            <if test="detail != null">detail,</if>
+            <if test="url != null">url,</if>
+            <if test="fileUrl != null">file_url,</if>
+            <if test="keyPoint != null">key_point,</if>
+            <if test="status != null">status,</if>
+        </trim>
+    </sql>
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="chapterId != null">#{chapterId},</if>
+            <if test="courseId != null">#{courseId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="detail != null">#{detail},</if>
+            <if test="url != null">#{url},</if>
+            <if test="fileUrl != null">#{fileUrl},</if>
+            <if test="keyPoint != null">#{keyPoint},</if>
+            <if test="status != null">#{status},</if>
+        </trim>
+    </sql>
+
+    <insert id="addEntity" parameterType="CourseResourceDocModel" useGeneratedKeys="true" keyProperty="id">
+        insert into xd_course_resource_doc
+        (<include refid="insertColumns"/>)
+        values
+        (<include refid="insertValues"/>)
+    </insert>
+
+    <!-- 2.更新 -->
+    <update id="updateEntity" parameterType="java.util.Map">
+        update xd_course_resource_doc
+        <set>
+            <if test="value != null and value.chapterId != null">chapter_id = #{value.chapterId},</if>
+            <if test="value != null and value.courseId != null">course_id = #{value.courseId},</if>
+            <if test="value != null and value.name != null">name = #{value.name},</if>
+            <if test="value != null and value.detail != null">detail = #{value.detail},</if>
+            <if test="value != null and value.url != null">url = #{value.url},</if>
+            <if test="value != null and value.fileUrl != null">file_url = #{value.fileUrl},</if>
+            <if test="value != null and value.keyPoint != null">key_point = #{value.keyPoint},</if>
+            <if test="value != null and value.status != null">status = #{value.status},</if>
+        </set>
+        <include refid="dynamic_where"/>
+    </update>
+
+    <!-- 3.查询 -->
+    <select id="findEntityListByCond" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="dynamic_output"/>
+        from xd_course_resource_doc
+        <include refid="dynamic_where"/>
+    </select>
+
+    <select id="cascadeQueryDoc" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select xd_course_resource_doc.id,
+        xd_course_resource_doc.chapter_id,
+        xd_course_resource_doc.course_id,
+        xd_course_resource_doc.name,
+        xd_course_resource_doc.detail,
+        xd_course_resource_doc.url,
+        xd_course_resource_doc.key_point,
+        xd_course_resource_doc.status,
+        xd_course_chapter.name as chapter_name
+        from xd_course_resource_doc
+        left join xd_course_chapter on xd_course_resource_doc.chapter_id = xd_course_chapter.id
+        <where>
+            <if test="input != null and input.id != null">and xd_course_resource_doc.id =#{input.id}</if>
+            <if test="input != null and input.chapterId != null">and xd_course_resource_doc.chapter_id =#{input.chapterId}
+            </if>
+            <if test="input != null and input.chapterIds != null">and xd_course_resource_doc.chapter_id in
+                <foreach collection="input.chapterIds" open="(" close=")" separator="," index="index" item="item">
+                    ${item}
+                </foreach>
+            </if>
+            <if test="input != null and input.courseId != null">and xd_course_resource_doc.course_id =#{input.courseId}
+            </if>
+            <if test="input != null and input.name != null">and xd_course_resource_doc.name =#{input.name}</if>
+            <if test="input != null and input.detail != null">and xd_course_resource_doc.detail =#{input.detail}</if>
+            <if test="input != null and input.url != null">and xd_course_resource_doc.url
+                =#{input.url}
+            </if>
+            <if test="input != null and input.keyPoint != null">and xd_course_resource_doc.key_point
+                =#{input.keyPoint}
+            </if>
+            <if test="input != null and input.status != null">and xd_course_resource_doc.status
+                =#{input.status}
+            </if>
+        </where>
+    </select>
+
+    <!-- 4.查询单个记录 -->
+    <select id="findEntityById" parameterType="CourseResourceDocModel" resultMap="BaseResultMap">
+        select * from xd_course_resource_doc where id = #{id};
+    </select>
+
+    <!-- 5.根据条件删除 -->
+    <delete id="deleteEntity" parameterType="java.util.Map">
+        delete from xd_course_resource_doc
+        <include refid="dynamic_where" />
+    </delete>
+
+    <!-- 动态语句:查询 -->
+    <sql id="dynamic_where">
+        <where>
+            <if test="input != null and input.id != null">and id =#{input.id}</if>
+            <if test="input != null and input.ids != null">and id in
+                <foreach collection="input.ids" index="index" open="(" close=")" separator="," item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="input != null and input.chapterId != null">and chapter_id =#{input.chapterId}
+            </if>
+            <if test="input != null and input.courseId != null">and course_id =#{input.courseId}
+            </if>
+            <if test="input != null and input.chapterIds != null">and chapter_id in
+                <foreach collection="input.chapterIds" open="(" close=")" separator="," index="index" item="item">
+                ${item}
+                </foreach>
+            </if>
+            <if test="input != null and input.name != null">and name =#{input.name}</if>
+            <if test="input != null and input.detail != null">and detail =#{input.detail}</if>
+            <if test="input != null and input.url != null">and url
+                =#{input.url}
+            </if>
+            <if test="input != null and input.fileUrl != null">and file_url
+                =#{input.fileUrl}
+            </if>
+            <if test="input != null and input.keyPoint != null">and key_point
+                =#{input.keyPoint}
+            </if>
+            <if test="input != null and input.status != null">and status
+                =#{input.status}
+            </if>
+        </where>
+    </sql>
+    <!--动态语句:输出-->
+    <sql id="dynamic_output">
+        <trim suffixOverrides=",">
+            <if test="output != null and output.id != null">id,</if>
+            <if test="output != null and output.chapterId != null">chapter_id,</if>
+            <if test="output != null and output.courseId != null">course_id,</if>
+            <if test="output != null and output.name != null">name,</if>
+            <if test="output != null and output.detail != null">detail,</if>
+            <if test="output != null and output.url != null">url,</if>
+            <if test="output != null and output.fileUrl != null">file_url,</if>
+            <if test="output != null and output.keyPoint != null">key_point,</if>
+            <if test="output != null and output.status != null">status,</if>
+        </trim>
+    </sql>
+
+
+</mapper>

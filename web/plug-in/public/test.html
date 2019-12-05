@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Raphaël · Polar Clock</title>
+
+  <script src="js/raphael.js"></script>
+    <script src="js/interact.js"></script>
+    <script src="js/jquery.js"></script>
+   <style type="text/css">
+       #chart{
+           position: relative;
+           overflow: hidden;
+           width: 1000px;
+           height: 500px;
+       }
+       #grid-snap {
+            position: absolute;
+            top:40px;
+            left: 0;
+            width:100%;
+            height: 2px;
+            background-color: #29e;
+            color: #fff;
+            font-size: 1.2em;
+            /*padding: 2%;*/
+            /*margin: 5%;*/
+        }
+       .lineX{
+           position: absolute;
+           top:40px;
+           left:40px;
+           width:100%;
+           height: 1px;
+           background-color: #29e;
+           cursor:row-resize;
+       }
+       .areaX{
+           position: absolute;
+           top:25px;
+           left: 40px;
+           width:100%;
+           height: 15px;
+           color: #fff;
+           z-index: 100;
+       /*cursor: inherit*/
+       /*cursor:col-resize;*/
+       /*cursor: default*/
+       /*cursor: help*/
+       /*cursor: move*/
+       /*cursor: pointer*/
+       /*cursor: progress*/
+       /*cursor: text*/
+       /*cursor: wait*/
+       /*cursor: e-resize*/
+       /*cursor: ne-resize*/
+       /*cursor: nw-resize*/
+       /*cursor: n-resize*/
+       /*cursor: se-resize*/
+       /*cursor: sw-resize*/
+       /*cursor: s-resize*/
+       /*cursor: w-resize*/
+       }
+       #grid-snap1 {
+           position: absolute;
+           top:40px;
+           left: 40px;
+           width:2px;
+           height: 500px;
+           background-color: #29e;
+       }
+       .areaY {
+           position: absolute;
+           top:40px;
+           left: 25px;
+           width:15px;
+           height: 500px;
+       }
+       .lineY{
+           position: absolute;
+           top:40px;
+           left: 40px;
+           width:1px;
+           height: 100%;
+           background-color: #29e;
+           cursor:col-resize;
+       }
+   </style>
+</head>
+<body>
+<div id="chart">
+    <div class="areaX" id="areaX"></div>
+    <div class="areaY" id="areaY"></div>
+</div>
+<script>
+    var width=1000;
+    var height=500;
+var paper = Raphael("chart", width, height);
+// Creates circle at x = 50, y = 40, with radius 10
+paper.path("M40 40L1000 40");//横线
+for(var i=1;i<width-10;i++){//横坐标
+    if(i%5==0){
+        paper.path("M"+(10*i+30)+ " 28L"+(10*i+30) +" 40");
+        paper.text(10*i+30, 20, 10*i);
+    }
+    else{
+        paper.path("M"+(10*i+30)+ " 32L"+(10*i+30) +" 40");
+    }
+}
+    paper.path("M40 40L40 500");//竖线
+    for(var i=1;i<height-10;i++){//横坐标
+        if(i%5==0){
+            paper.path("M28 "+ (10*i+30)+"L40 " +(10*i+30));
+            paper.text(15, 10*i+30, 10*i);
+        }
+        else{
+            paper.path("M32 "+ (10*i+30)+"L40 " +(10*i+30));
+        }
+    }
+  </script>
+<script>
+    var isDrag=true;
+    var currentId='';
+    interact("#areaX")
+            .draggable({
+                // enable inertial throwing
+                inertia: false,
+                // keep the element within the area of it's parent
+                restrict: {
+                    restriction: "parent",
+                    endOnly: true,
+                    elementRect: {top: 0, left: 0, bottom: 1, right: 1}
+                },
+                // enable autoScroll
+                autoScroll: false,
+                // call this function on every dragmove event
+                onmove: function(event){
+                    var target = event.target,
+                            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+                            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+                    target.setAttribute('data-x', x);
+                    target.setAttribute('data-y', y);
+                    if(isDrag){
+                        currentId="lineX"+Math.floor(Math.random()*1000000);
+                        $("#chart").append("<div class='lineX'"+" id="+currentId+"></div>");
+                        lineDrag(currentId);
+                        isDrag=false;
+                    }
+//                    var top = parseInt($("#areaX").attr('data-y'));
+                    $("#"+currentId).css('top',40+y);
+                },
+                // call this function on every dragend event
+                onend: function (event) {
+                    var textEl = event.target.querySelector('p');
+                    isDrag=true;
+                    $("#areaX").attr('data-y',0);
+                    if(parseInt($("#"+currentId).css('top'))<40){
+                        $("#"+currentId).remove();
+                    }
+                }
+            });
+    interact("#areaY")
+            .draggable({
+                // enable inertial throwing
+                inertia: false,
+                // keep the element within the area of it's parent
+                restrict: {
+                    restriction: "parent",
+                    endOnly: true,
+                    elementRect: {top: 0, left: 0, bottom: 1, right: 1}
+                },
+                // enable autoScroll
+                autoScroll: false,
+                // call this function on every dragmove event
+                onmove: function(event){
+                    var target = event.target,
+                            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+                            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+                    target.setAttribute('data-x', x);
+                    target.setAttribute('data-y', y);
+                    if(isDrag){
+                        currentId="lineY"+Math.floor(Math.random()*1000000);//随机生成拖出线条的ID
+                        $("#chart").append("<div class='lineY'"+" id="+currentId+"></div>");
+                        lineDrag(currentId);
+                        isDrag=false;//设置开关，每次拖动只产生一条线
+                    }
+                    var top = parseInt($("#areaY").attr('data-y'));
+                    $("#"+currentId).css('left',40+x);
+                },
+                // call this function on every dragend event
+                onend: function (event) {
+                    var textEl = event.target.querySelector('p');
+                    isDrag=true;
+                    $("#areaY").attr('data-x',0);
+                    if(parseInt($("#"+currentId).css('left'))<40){
+                        $("#"+currentId).remove();
+                    }
+                }
+            });
+    function lineDrag(thisId){//线条拖动函数
+         interact("#"+thisId)
+            .draggable({
+                // enable inertial throwing
+                inertia: false,
+                // keep the element within the area of it's parent
+                restrict: {
+                    restriction: "parent",
+                    endOnly: true,
+                    elementRect: {top: 0, left: 0, bottom: 1, right: 1}
+                },
+                // enable autoScroll
+                autoScroll: false,
+                // call this function on every dragmove event
+                onmove: function(event){
+                    var target = event.target,
+                            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+                            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+                    target.setAttribute('data-x', x);
+                    target.setAttribute('data-y', y);
+                    var a= thisId.substring(0,5);
+                    if(a=="lineX"){//判断是横线
+                        $("#"+thisId).css('transform','translate('+ 0 + 'px, '  + y + 'px)');
+                        var x = parseInt($("#"+thisId).css('top'));
+                        var y =  parseInt($("#"+thisId).attr('data-y'));
+                    }
+                    else if(a=="lineY"){//判断是竖线
+                        $("#"+thisId).css('transform','translate('+ x + 'px, '  + 0 + 'px)');
+                        var x = parseInt($("#"+thisId).css('left'));
+                        var y =  parseInt($("#"+thisId).attr('data-x'));
+                    }
+                    if(x+y<=41){//判断线条的位置在标尺线之内，则移除横线
+                        $("#"+thisId).remove();
+                    }
+                },
+                onend: function (event) {
+                    var textEl = event.target.querySelector('p');
+                }
+            });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ForumModel">
+	<resultMap id="BaseResultMap" type="com.xiaodou.moofficial.entity.ForumModel">
+		<id column="forum_id" property="forumId" jdbcType="VARCHAR" />
+<result column="status" property="status" jdbcType="TINYINT" />
+<result column="forum_type" property="forumType" jdbcType="VARCHAR" />
+<result column="forum_classify" property="forumClassify" jdbcType="VARCHAR" />
+<result column="forum_cover" property="forumCover" jdbcType="VARCHAR" />
+<result column="forum_title" property="forumTitle" jdbcType="VARCHAR" />
+<result column="forum_content" property="forumContent" jdbcType="VARCHAR" />
+<result column="forum_media" property="forumMedia" jdbcType="VARCHAR" />
+<result column="forum_praiser_num" property="forumPraiserNum" jdbcType="INTEGER" />
+<result column="forum_reader_num" property="forumReaderNum" jdbcType="INTEGER" />
+<result column="author_id" property="authorId" jdbcType="VARCHAR" />
+<result column="forum_tag" property="forumTag" jdbcType="VARCHAR" />
+<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+
+	</resultMap>
+	<sql id="base_column">forum_id, status, forum_type, forum_classify, forum_cover, forum_title, forum_content, forum_media, forum_praiser_num, forum_reader_num, author_id, forum_tag, create_time, update_time</sql>
+	<select id="findEntityById" resultMap="BaseResultMap"
+		parameterType="com.xiaodou.moofficial.entity.ForumModel">
+		select
+		<include refid="base_column" />
+		from xd_resource_list
+		where forum_id = #{forumId,jdbcType=VARCHAR}
+
+	</select>
+	<select id="findEntityListByCond" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="dynamic_output" />
+		from xd_resource_list
+		<include refid="dynamic_where" />
+		<include refid="dynamic_sort" />
+		<include refid="dynamic_limit" />
+	</select>
+	<insert id="addEntity" parameterType="com.xiaodou.moofficial.entity.ForumModel"  >
+		insert into xd_resource_list
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="forumId != null">forum_id,</if>
+<if test="status != null">status,</if>
+<if test="forumType != null">forum_type,</if>
+<if test="forumClassify != null">forum_classify,</if>
+<if test="forumCover != null">forum_cover,</if>
+<if test="forumTitle != null">forum_title,</if>
+<if test="forumContent != null">forum_content,</if>
+<if test="forumMedia != null">forum_media,</if>
+<if test="forumPraiserNum != null">forum_praiser_num,</if>
+<if test="forumReaderNum != null">forum_reader_num,</if>
+<if test="authorId != null">author_id,</if>
+<if test="forumTag != null">forum_tag,</if>
+<if test="createTime != null">create_time,</if>
+<if test="updateTime != null">update_time,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="forumId != null">#{forumId,jdbcType=VARCHAR},</if>
+<if test="status != null">#{status,jdbcType=TINYINT},</if>
+<if test="forumType != null">#{forumType,jdbcType=VARCHAR},</if>
+<if test="forumClassify != null">#{forumClassify,jdbcType=VARCHAR},</if>
+<if test="forumCover != null">#{forumCover,jdbcType=VARCHAR},</if>
+<if test="forumTitle != null">#{forumTitle,jdbcType=VARCHAR},</if>
+<if test="forumContent != null">#{forumContent,jdbcType=VARCHAR},</if>
+<if test="forumMedia != null">#{forumMedia,jdbcType=VARCHAR},</if>
+<if test="forumPraiserNum != null">#{forumPraiserNum,jdbcType=INTEGER},</if>
+<if test="forumReaderNum != null">#{forumReaderNum,jdbcType=INTEGER},</if>
+<if test="authorId != null">#{authorId,jdbcType=VARCHAR},</if>
+<if test="forumTag != null">#{forumTag,jdbcType=VARCHAR},</if>
+<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+
+		</trim>
+	</insert>
+	<update id="updateEntityById" parameterType="java.util.Map">
+		update xd_resource_list
+		<set>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=TINYINT},</if>
+<if test="value != null and value.forumType != null">forum_type = #{value.forumType,jdbcType=VARCHAR},</if>
+<if test="value != null and value.forumClassify != null">forum_classify = #{value.forumClassify,jdbcType=VARCHAR},</if>
+<if test="value != null and value.forumCover != null">forum_cover = #{value.forumCover,jdbcType=VARCHAR},</if>
+<if test="value != null and value.forumTitle != null">forum_title = #{value.forumTitle,jdbcType=VARCHAR},</if>
+<if test="value != null and value.forumContent != null">forum_content = #{value.forumContent,jdbcType=VARCHAR},</if>
+<if test="value != null and value.forumMedia != null">forum_media = #{value.forumMedia,jdbcType=VARCHAR},</if>
+<if test="value != null and value.forumPraiserNum != null">forum_praiser_num = #{value.forumPraiserNum,jdbcType=INTEGER},</if>
+<if test="value != null and value.forumReaderNum != null">forum_reader_num = #{value.forumReaderNum,jdbcType=INTEGER},</if>
+<if test="value != null and value.authorId != null">author_id = #{value.authorId,jdbcType=VARCHAR},</if>
+<if test="value != null and value.forumTag != null">forum_tag = #{value.forumTag,jdbcType=VARCHAR},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		where forum_id = #{forumId,jdbcType=VARCHAR}
+
+	</update>
+	<update id="updateEntity" parameterType="java.util.Map">
+		update xd_resource_list
+		<set>
+			<if test="value != null and value.status != null">status = #{value.status,jdbcType=TINYINT},</if>
+<if test="value != null and value.forumType != null">forum_type = #{value.forumType,jdbcType=VARCHAR},</if>
+<if test="value != null and value.forumClassify != null">forum_classify = #{value.forumClassify,jdbcType=VARCHAR},</if>
+<if test="value != null and value.forumCover != null">forum_cover = #{value.forumCover,jdbcType=VARCHAR},</if>
+<if test="value != null and value.forumTitle != null">forum_title = #{value.forumTitle,jdbcType=VARCHAR},</if>
+<if test="value != null and value.forumContent != null">forum_content = #{value.forumContent,jdbcType=VARCHAR},</if>
+<if test="value != null and value.forumMedia != null">forum_media = #{value.forumMedia,jdbcType=VARCHAR},</if>
+<if test="value != null and value.forumPraiserNum != null">forum_praiser_num = #{value.forumPraiserNum,jdbcType=INTEGER},</if>
+<if test="value != null and value.forumReaderNum != null">forum_reader_num = #{value.forumReaderNum,jdbcType=INTEGER},</if>
+<if test="value != null and value.authorId != null">author_id = #{value.authorId,jdbcType=VARCHAR},</if>
+<if test="value != null and value.forumTag != null">forum_tag = #{value.forumTag,jdbcType=VARCHAR},</if>
+<if test="value != null and value.createTime != null">create_time = #{value.createTime,jdbcType=TIMESTAMP},</if>
+<if test="value != null and value.updateTime != null">update_time = #{value.updateTime,jdbcType=TIMESTAMP},</if>
+
+		</set>
+		<include refid="dynamic_where" />
+	</update>
+	<delete id="deleteEntityById" parameterType="com.xiaodou.moofficial.entity.ForumModel">
+		delete from xd_resource_list
+		where forum_id = #{forumId,jdbcType=VARCHAR}
+
+	</delete>
+	<delete id="deleteEntity" parameterType="java.util.Map">
+		delete from xd_resource_list
+		<include refid="dynamic_where" />
+	</delete>
+	<sql id="dynamic_output">
+		<trim suffixOverrides=",">
+			<if test="output != null and output.forumId != null">forum_id,</if>
+<if test="output != null and output.status != null">status,</if>
+<if test="output != null and output.forumType != null">forum_type,</if>
+<if test="output != null and output.forumClassify != null">forum_classify,</if>
+<if test="output != null and output.forumCover != null">forum_cover,</if>
+<if test="output != null and output.forumTitle != null">forum_title,</if>
+<if test="output != null and output.forumContent != null">forum_content,</if>
+<if test="output != null and output.forumMedia != null">forum_media,</if>
+<if test="output != null and output.forumPraiserNum != null">forum_praiser_num,</if>
+<if test="output != null and output.forumReaderNum != null">forum_reader_num,</if>
+<if test="output != null and output.authorId != null">author_id,</if>
+<if test="output != null and output.forumTag != null">forum_tag,</if>
+<if test="output != null and output.createTime != null">create_time,</if>
+<if test="output != null and output.updateTime != null">update_time,</if>
+
+		</trim>
+	</sql>
+	<sql id="dynamic_where">
+		<where>
+			<if test="input != null and input.forumId != null">and forum_id=#{input.forumId}</if>
+<if test="input != null and input.status != null">and status=#{input.status}</if>
+<if test="input != null and input.forumType != null">and forum_type=#{input.forumType}</if>
+<if test="input != null and input.forumTypeList != null">and forum_type in 
+<foreach collection="input.forumTypeList" open="(" close=")" separator="," item="item">#{item}</foreach>
+</if>
+<if test="input != null and input.forumClassify != null">and forum_classify=#{input.forumClassify}</if>
+<if test="input != null and input.forumCover != null">and forum_cover=#{input.forumCover}</if>
+<if test="input != null and input.forumTitle != null">and forum_title=#{input.forumTitle}</if>
+<if test="input != null and input.forumContent != null">and forum_content=#{input.forumContent}</if>
+<if test="input != null and input.forumMedia != null">and forum_media=#{input.forumMedia}</if>
+<if test="input != null and input.forumPraiserNum != null">and forum_praiser_num=#{input.forumPraiserNum}</if>
+<if test="input != null and input.forumReaderNum != null">and forum_reader_num=#{input.forumReaderNum}</if>
+<if test="input != null and input.authorId != null">and author_id=#{input.authorId}</if>
+<if test="input != null and input.forumTag != null">and forum_tag=#{input.forumTag}</if>
+<if test="input != null and input.createTimeLower != null">and create_time &gt; #{input.createTimeLower}</if>
+<if test="input != null and input.createTimeUpper != null">and create_time &lt; #{input.createTimeUpper}</if>
+<if test="input != null and input.updateTimeLower != null">and update_time &gt; #{input.updateTimeLower}</if>
+<if test="input != null and input.updateTimeUpper != null">and update_time &lt; #{input.updateTimeUpper}</if>
+
+		</where>
+	</sql>
+	<sql id="dynamic_limit">
+		<if test="limit != null and limit.limitStart != null and limit.limitCount != null">
+			limit ${limit.limitStart}, ${limit.limitCount}
+		</if>
+	</sql>
+	<sql id="dynamic_sort">
+		<trim suffixOverrides=",">
+			<if test="sort !=null">
+				order by
+			</if>
+			<if test="sort != null and sort.forumId != null and ( sort.forumId == 'ASC' or sort.forumId == 'DESC' )">forum_id ${sort.forumId},</if>
+<if test="sort != null and sort.status != null and ( sort.status == 'ASC' or sort.status == 'DESC' )">status ${sort.status},</if>
+<if test="sort != null and sort.forumPraiserNum != null and ( sort.forumPraiserNum == 'ASC' or sort.forumPraiserNum == 'DESC' )">forum_praiser_num ${sort.forumPraiserNum},</if>
+<if test="sort != null and sort.forumReaderNum != null and ( sort.forumReaderNum == 'ASC' or sort.forumReaderNum == 'DESC' )">forum_reader_num ${sort.forumReaderNum},</if>
+<if test="sort != null and sort.createTime != null and ( sort.createTime == 'ASC' or sort.createTime == 'DESC' )">create_time ${sort.createTime},</if>
+<if test="sort != null and sort.updateTime != null and ( sort.updateTime == 'ASC' or sort.updateTime == 'DESC' )">update_time ${sort.updateTime},</if>
+
+		</trim>
+	</sql>
+</mapper>

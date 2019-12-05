@@ -1,0 +1,37 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>图片管理</title>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.form.js" type="text/javascript"/>
+    <script>
+        var options = {
+            success: callBackFunc
+        };
+        function ajaxSub() {
+            var name = $('#name').val();
+            $('#picform').action += "?name="+name;
+            console.log($('#picform').action);
+            $('#picform').ajaxForm(options);
+            return false;
+        }
+
+        function callBackFunc(responseText, statusText) {
+            if (statusText == 'success') {
+                alert(responseText);
+            } else {
+                alert("error!");
+            }
+        }
+    </script>
+</head>
+<body>
+<center>
+    <form action="chapter/addImg" method="post" enctype="multipart/form-data" id="picform">
+        <input name="imgfile" type="file" id="imgfile" size="40" onsubmit="return ajaxSub();"/>
+        <br/>
+        <button type="submit">上传</button>
+    </form>
+</center>
+</body>
+</html>
